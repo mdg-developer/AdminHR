@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	    <template id='framed_page'>
+		     <iframe t-att-src="url"
+		     marginheight="0" marginwidth="0" frameborder="0"
+		     width="100%" height="1000"></iframe>
+		</template>
+
+		<record id="route_plan_form" model="ir.ui.view">
+			<field name="name">route.plan.form</field>
+			<field name="model">route.plan</field>
+			<field name="arch" type="xml">
+				<form string="Route Plan">
+					<header>
+					    <!--<button name="get_route" string="Get Route" type="object" class="oe_highlight" />
+					    <button name="get_view_google_map" string="View in Google Maps" type="object" class="oe_highlight" />-->
+						<button name="action_submit" states="draft" type="object" string="Submit" class="oe_highlight"/>
+                        <button name="action_approve" states="submit" type="object" string="Approve" class="oe_highlight" groups="hr_ext.group_branch_manager"/>
+						<button name="action_decline" states="submit" type="object" string="Reject" class="oe_highlight" groups="hr_ext.group_branch_manager"/>
+						<button name="action_set_to_draft" states="decline" type="object" string="Set to Draft" class="oe_highlight"/>
+						<button name="action_expired" states="approve" type="object" string="Expire" class="oe_highlight"/>
+                        <!-- <button name="action_decline" states="submit" type="object" string="Decline" class="oe_highlight"/>
+                        <button name="action_verify" states="approve,decline" type="object" string="Verify" class="oe_highlight"/> -->
+						<field name="state" widget="statusbar" statusbar_visible="draft,submit,approve,expired"/>
+					</header>
+					<sheet>
+						<div class="oe_title">
+                            <h1>
+                                <field name="code" readonly="1"/>
+                            </h1>
+						    <h1>
+						        <field name="name" required="1" nolabel="1"/>
+						    </h1>
+						</div>
+						<group>
+							<group>
+								<field name="from_street" string="From" required="1"/>
+								<field name="distance" required="1"/>
+								<field name="fuel_liter" required="1"/>
+								<field name="duration_days" required="1"/>
+								<field name="approved_advance" required="1"/>
+								<field name="start_date" />
+								<!--<field name="from_street"  placeholder="Search Departure..."  widget="gplaces_address_autocomplete" options="{'fillfields': {'from_complete_address': ['route', 'street_number','locality','country.name']}}"/>
+								<field name="from_complete_address"/>
+ 								<field name="departure_id" />
+ 								<button name="%(action_map)d"  string="From location"  type="action" />
+								<field name="distance_loaded" />-->
+							</group>
+							<group>
+								<field name="to_street" string="To" required="1"/>
+								<field name="company_id" required="1"/>	
+								<field name="branch_id" required="1"/>
+								<field name="commission_driver" />
+								<field name="commission_spare" />
+								<field name="end_date" />
+								<!--<field name="to_street"  placeholder="Search Arrival..." widget="gplaces_address_autocomplete" options="{'fillfields': {'to_complete_address': ['route', 'street_number','locality','country.name']}}"/>
+								<field name="to_complete_address"/>
+ 								<field name="arrival_id"  />
+ 								<button name="%(action_to_map)d"  string="To Location"  type="action" />
+								<field name="travel_time" />
+								<field name="distance_empty" />-->
+							</group>
+						</group>
+
+						<notebook>
+							<page string="Expense">
+								<field name="expense_ids" context="{'default_company_id': company_id}" attrs="{'readonly': [('state', '!=', 'draft')]}">
+									<tree string="Expense" editable="bottom">
+										<field name="company_id" invisible="1" />
+										<field name="product_id" />
+										<field name="name" required="1"/>
+										<field name="amount" required="1"/>
+										<field name="remark" />
+									</tree>
+								</field>
+							</page>
+							<!--<page string="Allowance">
+								<field name="allowance_ids">
+									<tree string="Allowance" editable="bottom">
+										<field name="name" />
+										<field name="amount" />
+										<field name="remark" />
+									</tree>
+								</field>
+							</page>-->
+							
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="route_plan_tree" model="ir.ui.view">
+			<field name="name">route.plan.tree</field>
+			<field name="model">route.plan</field>
+			<field name="arch" type="xml">
+				<tree string="Route Plan">
+					<field name="code" />
+					<field name="name" />
+					<field name="start_date" />
+					<field name="end_date" />
+					<field name="state" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_route_plan" model="ir.actions.act_window">
+			<field name="name">Route Plan</field>
+			<field name="res_model">route.plan</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_smiling_face">
+					Define a new Route Plan
+				</p>
+			</field>
+		</record>
+
+		<menuitem id="route_menu_root" name="Route"/>
+		<menuitem id="menu_route_plan" name="Route Plan" parent="route_plan.route_menu_root" sequence="1" action="action_route_plan" />
+<!-- 		<menuitem id="menu_plan_trip" name="Plan Trip" parent="route_plan.route_menu_root" sequence="2" /> -->
+	</data>
+</odoo>
+		

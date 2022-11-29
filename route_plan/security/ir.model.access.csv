@@ -1,0 +1,20 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+route_plan,access_route_plan,model_route_plan,base.group_user,1,1,1,1
+route_expense,access_route_expense,model_route_expense,base.group_user,1,1,1,1
+route_allowance,access_route_allowance,model_route_allowance,base.group_user,1,1,1,1
+trip_trailer,access_trip_trailer,model_trip_trailer,base.group_user,1,1,1,1
+gps_map,access_gps_map,model_gps_map,base.group_user,1,1,1,1
+access_trailer_assignation_log_fleet_group_user,trailer_assignation_log fleet_group_user,model_trailer_assignation_log,fleet.fleet_group_user,1,1,1,1
+access_plan_trip_waybill_user,plan_trip_waybill user,model_plan_trip_waybill,fleet.fleet_group_user,1,1,1,1
+access_plan_trip_product_user,plan_trip_product user,model_plan_trip_product,fleet.fleet_group_user,1,1,1,1
+access_day_plan_trip_user,day_plan_trip user,model_day_plan_trip,fleet.fleet_group_user,1,1,1,1
+access_trip_waybill_line_user,trip_waybill_line user,model_trip_waybill_line,fleet.fleet_group_user,1,1,1,1
+access_trip_route_line_user,trip_route_line user,model_trip_route_line,fleet.fleet_group_user,1,1,1,1
+access_trip_expense_user,trip_expense user,model_trip_expense,fleet.fleet_group_user,1,1,1,1
+access_trip_fuel_consumption_user,trip_fuel_consumption user,model_trip_fuel_consumption,fleet.fleet_group_user,1,1,1,1
+access_trip_commission_user,trip_commission user,model_trip_commission,fleet.fleet_group_user,1,1,1,1
+access_trip_fuel_in_user,trip_fuel_in user,model_trip_fuel_in,fleet.fleet_group_user,1,1,1,1
+access_trip_advance_user,trip_advance user,model_trip_advance,fleet.fleet_group_user,1,1,1,1
+access_trip_product_line_user,trip_product_line user,model_trip_product_line,fleet.fleet_group_user,1,1,1,1
+access_day_trip_expense_user,day_trip_expense user,model_day_trip_expense,fleet.fleet_group_user,1,1,1,1
+commission_config,access_commission_config,model_commission_config,base.group_user,1,1,1,1

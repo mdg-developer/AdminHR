@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data> 
+    
+        <record id="product_requisition_form_view" model="ir.ui.view">
+            <field name="name">product.requisition.form.view</field>
+            <field name="model">product.requisition</field>
+            <field name="arch" type="xml">
+                <form string="Product Requisition">
+                <!-- <header>
+                    <button name="action_confirm" string="Confirm" type="object" class="btn-primary" />
+                    <button name="action_cancel" type="object" string="Cancel" />
+                    <field name="state" widget="statusbar" />
+                </header> -->
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="from_location"/>
+                            <field name="to_location" />
+                            <field name="active"/>
+                            <field name="operation_type_id"/>
+                            <field name="branch_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Lines">
+                            <field name="requisition_product_line_ids" widget="one2many_list">
+                                <tree string="Lines" editable="bottom">
+                                    <field name="product_id" />
+                                    <field name="description" />
+                                    <field name="qty" />
+                                    <field name="uom_id" />
+                                </tree>
+                            </field>
+                        </page>
+                        
+                        <!-- <page string="Optionals">
+                            <group>
+                                
+                            </group>
+                        </page> -->
+                    </notebook>
+                </sheet>
+                </form>    
+            </field>
+        </record>
+    
+        <record id="product_requisition_tree_view" model="ir.ui.view">
+            <field name="name">product.requisition.tree.view</field>
+            <field name="model">product.requisition</field>
+            <field name="arch" type="xml">
+                <tree string="Product Requisition">
+                    <field name="name"/>
+                    <field name="from_location"/>
+                    <field name="to_location" />
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+    
+        <record id="action_product_purchase_requisition" model="ir.actions.act_window">
+            <field name="name">Product  Requisition</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.requisition</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" eval="product_requisition_tree_view"/>
+        </record>
+        
+        
+        <menuitem id="menu_product_requisition"
+          name="Product Requisition"
+          parent="menu_purchase_requisition"
+          action="action_product_purchase_requisition"
+          sequence="1"/>
+               
+    </data>
+</odoo>

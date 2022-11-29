@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record model="ir.ui.view" id="view_hr_benefit_config_form">
+			<field name="name">hr.job.benefit.config.form</field>
+			<field name="model">hr.job.benefit.config</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Employee Benefit Configuration">
+					<sheet>
+						<group>
+							<group>
+								<field name="name" />
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+        
+		<record model="ir.ui.view" id="view_hr_benefit_config_tree">
+			<field name="name">hr.job.benefit.config.tree</field>
+			<field name="model">hr.job.benefit.config</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Employee Benefit Configuration">
+					<field name="name"/>
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_hr_benefit_config">
+			<field name="name">Employee Benefit Configuration</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">hr.job.benefit.config</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create Employee Benefit.
+                </p>
+            </field>
+		</record>
+
+		<!-- <menuitem id="menu_hr_job_benefit_config" name="Employee Benefit Configuration" parent="hr_recruitment.menu_hr_recruitment_configuration"
+					action="action_hr_benefit_config" sequence="99" /> -->
+	</data>
+</odoo>

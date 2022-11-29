@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	    <record id="view_attendance_tree_inherit" model="ir.ui.view">
+			<field name="name">hr.attendance.tree</field>
+			<field name="model">hr.attendance</field>
+			<field name="inherit_id" ref="hr_attendance.view_attendance_tree" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='worked_hours']" position="before">
+					<field name="resource_calendar_id" />
+				</xpath>
+				<xpath expr="//field[@name='worked_hours']" position="after">
+					<field name="late_minutes" widget="float_time"/>
+					<field name="early_out_minutes" widget="float_time"/>
+					<field name="ot_hour" widget="float_time" />
+					<field name="state" readonly="1"/>
+					<field name="is_absent" />
+					<field name="leave" />
+					<field name="no_worked_day" />					
+					<field name="travel" />
+					<field name="plan_trip" />
+					<field name="day_trip" />
+					<field name="remark" />
+					
+					<!--<button name="approve" attrs="{'invisible': [('state', '!=', 'draft')]}"
+							string="Approve" type="object" icon="fa-check-square"/>
+					<button name="verify" attrs="{'invisible': [('state', '!=', 'approve')]}"
+							string="Verify" type="object" icon="fa-check-circle" groups="hr_attendance.group_hr_attendance_manager"/>-->
+				</xpath>
+				<xpath expr="//field[@name='check_in']" position="attributes">
+					<attribute name="readonly">1</attribute>
+				</xpath>
+				<xpath expr="//field[@name='check_out']" position="attributes">
+					<attribute name="readonly">1</attribute>
+				</xpath>
+            </field>
+		</record>
+
+		<record id="hr_attendance_view_filter_inherit" model="ir.ui.view">
+			<field name="name">hr.attendance.view.filter</field>
+			<field name="model">hr.attendance</field>
+			<field name="inherit_id" ref="hr_attendance.hr_attendance_view_filter" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='employee_id']" position="before">
+					<field name="company_id" />
+				</xpath>
+				<xpath expr="//filter[@name='myattendances']" position="after">
+					<separator/>
+					<filter string="Selected Company" name="selected_company" domain="[('company_id', '=', allowed_company_ids[0])]" />
+				</xpath>
+			</field>
+		</record>
+		
+		<record id="hr_attendance.hr_attendance_action" model="ir.actions.act_window">
+			<field name="name">Attendances</field>
+			<field name="res_model">hr.attendance</field>
+			<field name="view_mode">tree,kanban,form</field>
+			<field name="context">{"search_default_today":1, "search_default_selected_company":1}</field>
+			<field name="search_view_id" ref="hr_attendance_view_filter_inherit" />
+			<field name="help" type="html">
+				<p class="o_view_nocontent_empty_folder">
+					No attendance records found
+				</p><p>
+					The attendance records of your employees will be displayed here.
+				</p>
+			</field>
+		</record>
+
+		<record id="action_approve_attendance" model="ir.actions.server">
+            <field name="name">Approved</field>
+            <field name="model_id" ref="model_hr_attendance"/>
+            <field name="binding_model_id" ref="model_hr_attendance"/>
+            <field name="state">code</field>
+            <field name="code">action = model.approve_attendances(force_approve=True)</field>
+        </record>
+
+		<record id="action_decline_attendance" model="ir.actions.server">
+            <field name="name">Decline</field>
+            <field name="model_id" ref="model_hr_attendance"/>
+            <field name="binding_model_id" ref="model_hr_attendance"/>
+            <field name="state">code</field>
+            <field name="code">action = model.decline_attendances()</field>
+        </record>
+
+		<record id="action_verify_attendance" model="ir.actions.server">
+            <field name="name">Verified</field>
+            <field name="model_id" ref="model_hr_attendance"/>
+            <field name="binding_model_id" ref="model_hr_attendance"/>
+            <field name="state">code</field>
+            <field name="code">action = model.verify_attendances()</field>
+			<field name="groups_id" eval="[(4, ref('hr_attendance.group_hr_attendance_manager'))]"/>
+        </record>
+
+		<record id="change_late_minutes_wizard_view" model="ir.ui.view">
+			<field name="name">change.late.minutes.wizard.form</field>
+			<field name="model">change.late.minutes.wizard</field>
+			<field name="arch" type="xml">
+				<form string="Change Late Minutes">
+					<group>
+						<field name="late_minutes" widget="float_time"/>
+					</group>
+					<footer>
+						<button name="change" string="Save" type="object" class="btn-primary" />
+						<button string="Close" special="cancel"/>
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<act_window name="Change Late Minutes"
+					res_model="change.late.minutes.wizard"
+					binding_model="hr.attendance"
+					binding_views="list"
+					view_mode="form"
+					target="new"
+					view_id="change_late_minutes_wizard_view"
+					id="action_change_late_minutes"
+					groups="hr_attendance.group_hr_attendance_manager"
+		/>
+		
+		<record id="change_early_out_minutes_wizard_view" model="ir.ui.view">
+			<field name="name">change.early.out.minutes.wizard.form</field>
+			<field name="model">change.early.out.minutes.wizard</field>
+			<field name="arch" type="xml">
+				<form string="Change Early Out Minutes">
+					<group>
+						<field name="early_out_minutes" widget="float_time"/>
+					</group>
+					<footer>
+						<button name="change" string="Save" type="object" class="btn-primary" />
+						<button string="Close" special="cancel"/>
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<act_window name="Change Early Out Minutes"
+					res_model="change.early.out.minutes.wizard"
+					binding_model="hr.attendance"
+					binding_views="list"
+					view_mode="form"
+					target="new"
+					view_id="change_early_out_minutes_wizard_view"
+					id="action_change_early_out_minutes"
+					groups="hr_attendance.group_hr_attendance_manager"
+		/>
+		
+		<record id="change_ot_hour_wizard_view" model="ir.ui.view">
+			<field name="name">change.ot.hour.wizard.form</field>
+			<field name="model">change.ot.hour.wizard</field>
+			<field name="arch" type="xml">
+				<form string="Change OT Hour">
+					<group>
+						<field name="ot_hour" widget="float_time"/>
+					</group>
+					<footer>
+						<button name="change" string="Save" type="object" class="btn-primary"/>
+						<button string="Close" special="cancel"/>
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<act_window name="Change OT Hour"
+					res_model="change.ot.hour.wizard"
+					binding_model="hr.attendance"
+					binding_views="list"
+					view_mode="form"
+					target="new"
+					view_id="change_ot_hour_wizard_view"
+					id="action_change_ot_hour"
+					groups="hr_attendance.group_hr_attendance_manager"
+		/>
+		
+		<record id="change_worked_hours_wizard_view" model="ir.ui.view">
+			<field name="name">change.worked.hours.wizard.form</field>
+			<field name="model">change.worked.hours.wizard</field>
+			<field name="arch" type="xml">
+				<form string="Change Worked Hours">
+					<group>
+						<field name="worked_hours" widget="float_time"/>
+					</group>
+					<footer>
+						<button name="change" string="Save" type="object" class="btn-primary"/>
+						<button string="Close" special="cancel"/>
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<act_window name="Change Worked Hours"
+					res_model="change.worked.hours.wizard"
+					binding_model="hr.attendance"
+					binding_views="list"
+					view_mode="form"
+					target="new"
+					view_id="change_worked_hours_wizard_view"
+					id="action_change_worked_hours"
+					groups="hr_attendance.group_hr_attendance_manager"
+		/>
+		
+		<record id="hr_attendance.menu_hr_attendance_my_attendances" model="ir.ui.menu">
+			<field name="groups_id" eval="[(6,0,[ref('base.group_system')])]"/>
+		</record>
+
+		<record id="hr_attendance.menu_hr_attendance_kiosk_mode" model="ir.ui.menu">
+			<field name="groups_id" eval="[(6,0,[ref('base.group_system')])]"/>
+		</record>
+
+	</data>
+</odoo>

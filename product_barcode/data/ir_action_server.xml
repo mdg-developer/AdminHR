@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+    
+        <record id="action_make_prod_temp_barcode_ref" model="ir.actions.server">
+            <field name="name">Generate Barcodes</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_product_template" />
+            <field name="binding_model_id" ref="model_product_template" />
+            <field name="state">code</field>
+            <field name="code">
+                records.generate_barcode_refs()
+            </field>
+        </record>
+
+        <record id="action_make_prod_barcode_ref" model="ir.actions.server">
+            <field name="name">Generate Barcode</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_product_product" />
+            <field name="binding_model_id" ref="model_product_product" />
+            <field name="state">code</field>
+            <field name="code">
+                records.generate_barcode()
+            </field>
+        </record>        
+        
+    </data>
+</odoo>

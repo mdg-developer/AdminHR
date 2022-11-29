@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="employee_custom_delete_view_form" model="ir.ui.view">
+        <field name="name">employee.custom.delete.view.form</field>
+        <field name="model">employee.custom.delete</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <p>
+                            Are you sure! You want to delete your selected employee.
+                        </p>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_delete" string="Delete" type="object" class="oe_highlight"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_employee_custom_delete" model="ir.actions.act_window">
+        <field name="name">Employee Delete</field>
+        <field name="res_model">employee.custom.delete</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="groups_id" eval="[(6, 0, [ref('hr_ext.group_allowed_hr_super')])]"/>
+        <field name="binding_model_id" ref="hr.model_hr_employee" />
+    </record>
+</odoo>

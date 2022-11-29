@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_manager_replacement_user,access.manager.replacement user,model_manager_replacement,hr.group_hr_user,1,1,1,0
+access_manager_replacement_manager,access.manager.replacement manager,model_manager_replacement,hr.group_hr_manager,1,1,1,1
+access_changing_shift_user,access.changing.shift user,model_changing_shift,hr.group_hr_user,1,1,1,0
+access_changing_shift_manager,access.changing.shift manager,model_changing_shift,hr.group_hr_manager,1,1,1,1
+access_changing_shift_line_user,access.changing.shift.line user,model_changing_shift_line,hr.group_hr_user,1,1,1,1

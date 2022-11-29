@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	    <record id="hr_contract_form_view_inherit" model="ir.ui.view">
+			<field name="name">hr.contract.form</field>
+			<field name="model">hr.contract</field>
+			<field name="inherit_id" ref="hr_contract.hr_contract_view_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='company_id']" position="after">
+					<field name="branch_id" domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]"/>
+				</xpath>
+				<xpath expr="//field[@name='department_id']" position="after">
+					<field name="job_grade_id" required="1"/>
+					<field name="salary_level_id" required="1"/>
+					<field name="struct_id" required="1" />
+					<field name="cooker"></field>
+				</xpath>
+				    
+				<xpath expr="//label[@for='wage']" position="before">
+					<field name="grade_salary" invisible="1"/>
+					<field name="salary_changed" invisible="1"/>
+					<field name="is_daily_wage"/>
+				</xpath>
+				
+				<xpath expr="//field[@name='wage']" position="attributes">
+					<attribute name="decoration-danger">salary_changed</attribute>
+				</xpath>
+				<xpath expr="//div[@name='wage']" position="after">
+					<label for="ot_duty_per_hour"/>
+					<div class="o_row" name="ot_duty_per_hour">
+						<field name="ot_duty_per_hour" nolabel="1"/>
+						<span>/ hour</span>
+					</div>
+					<label for="ot_allowance_per_day"/>
+					<div class="o_row" name="ot_allowance_per_day">
+						<field name="ot_allowance_per_day" nolabel="1"/>
+						<span>/ day</span>
+					</div>
+					<label for="hotel_allowance"/>
+					<div class="o_row" name="hotel_allowance">
+						<field name="hotel_allowance" nolabel="1"/>
+						<span>/ day</span>
+					</div>
+				</xpath>
+			</field>
+		</record>
+    </data>
+</odoo>

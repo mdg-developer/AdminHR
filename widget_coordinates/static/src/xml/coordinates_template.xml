@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+     <div t-name="MapView.MapView" >
+             <t t-name="WidgetCoordinates">
+                  <button>
+                    <i class="fa fa-map-marker" style="font-size:20px;color:red"/>
+                        Save Current Location
+                    </button>
+                 <div id="map" class="o_map_view"></div>
+            </t>
+    </div>
+</templates>

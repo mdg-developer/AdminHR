@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="view_calendar_event_form_inherit" model="ir.ui.view">
+			<field name="name">calendar.event.form</field>
+			<field name="model">calendar.event</field>
+			<field name="inherit_id" ref="calendar.view_calendar_event_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='categ_ids']" position="replace">
+					<field name="categ_ids" widget="many2many_tags"/>
+				</xpath>
+				<xpath expr="//page[@name='page_misc']" position="after">
+					<page string="Employee" name='employee'>
+						<field name="employee_ids" mode="tree">
+							<tree string="Employee">
+								<field name="name" />
+								<field name="job_id" />
+								<field name="job_grade_id" />
+								<field name="company_id" />
+								<field name="branch_id" />
+								<field name="department_id" />
+							</tree>
+						</field>
+					</page>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</odoo>

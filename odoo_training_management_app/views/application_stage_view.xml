@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_application_stages_form" model="ir.ui.view">
+                <field name="name">Application Stages Form View</field>
+                <field name="model">emp.training.application.stage</field>
+                <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name='name'/>
+                                <field name='default_stage'/>
+                                <field name='is_draft'/>
+                            </group>
+                            <group>
+                                <field name='is_approve'/>
+                                <field name='is_cancel'/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+                </field>
+        </record>
+
+        <record id="view_application_stages_tree" model="ir.ui.view">
+                <field name="name">Application Stages Tree View</field>
+                <field name="model">emp.training.application.stage</field>
+                <field name="arch" type="xml">
+                    <tree>
+                        <field name='name'/>
+                        <field name='default_stage'/>
+                        <field name='is_draft'/>
+                        <field name='is_approve'/>
+                        <field name='is_cancel'/>
+                    </tree>
+                </field>
+        </record>
+
+        <record id="view_application_stages_search" model="ir.ui.view">
+                <field name="name">Application Stages Search View</field>
+                <field name="model">emp.training.application.stage</field>
+                <field name="arch" type="xml">
+                    <search>
+                        <field name='name'/>
+                        <field name='default_stage'/>
+                        <field name='is_draft'/>
+                        <field name='is_approve'/>
+                        <field name='is_cancel'/>
+                    </search>
+                </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_application_stage">
+            <field name="name">Application Stages</field>
+            <field name="res_model">emp.training.application.stage</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+
+    <data>
+        <record id="view_application_line_stages_form" model="ir.ui.view">
+                <field name="name">Application Line Stages Form View</field>
+                <field name="model">emp.training.application.line.stage</field>
+                <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name='name'/>
+                                <field name='default_stage'/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+                </field>
+        </record>
+
+        <record id="view_application_line_stages_tree" model="ir.ui.view">
+                <field name="name">Application Line Stages Tree View</field>
+                <field name="model">emp.training.application.line.stage</field>
+                <field name="arch" type="xml">
+                    <tree>
+                        <field name='name'/>
+                        <field name='default_stage'/>
+                    </tree>
+                </field>
+        </record>
+
+         <record id="view_application_line_stages_search" model="ir.ui.view">
+                <field name="name">Application Line Stages Search View</field>
+                <field name="model">emp.training.application.line.stage</field>
+                <field name="arch" type="xml">
+                    <search>
+                        <field name='name'/>
+                        <field name='default_stage'/>
+                    </search>
+                </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="action_application_stage_line">
+            <field name="name">Employee Training Stages</field>
+            <field name="res_model">emp.training.application.line.stage</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

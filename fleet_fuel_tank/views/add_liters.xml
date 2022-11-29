@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>        
+        <record id="view_add_liters_wizard_bi_form" model="ir.ui.view">
+            <field name="name">add.liters.view.form.bi.form</field>
+            <field name="model">liters.liters</field>
+            <field name="arch" type="xml">
+		        <form string="Add Liters">
+					<group>
+						<group>
+							<label for="liters"/>
+							<div name="liters">
+								<field name="liters" class="oe_inline"/> Liters
+							</div>
+						</group>
+						<group>
+							<field name="liter_price"/>
+						</group>
+					</group>	
+					<footer>
+				    	<button  string="Save" type="object" name="add_liters" class="btn btn-primary"/>
+				    	or
+				        <button string="Cancel" class="oe_link" special="cancel" />
+				    </footer>				
+		        </form>
+           </field>
+        </record>
+        
+		<act_window id="action_add_liters"            
+            name="Add Liters"
+            res_model="liters.liters"            
+            view_mode="form" 
+            target="new" />
+
+    </data>
+</openerp>

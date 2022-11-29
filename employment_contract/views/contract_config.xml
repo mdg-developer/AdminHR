@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	    <record id="contract_config_form" model="ir.ui.view">
+			<field name="name">contract.config.form</field>
+			<field name="model">contract.config</field>
+			<field name="arch" type="xml">
+				<form>
+					<header>
+						<!-- <button name="print_pdf" type="object" class="oe_highlight"  string="Print Contract"/> -->
+					</header>
+					<sheet>
+                        <group>
+                            <field name="name"/>
+						    <field name="contract_file"/>
+                        </group>
+						
+					</sheet>
+				</form>
+						
+			</field>
+		</record>
+
+		<record id="contract_config_tree" model="ir.ui.view">
+			<field name="name">contract.config.tree</field>
+			<field name="model">contract.config</field>
+			<field name="arch" type="xml">
+				<tree string="Contract Config">
+						<field name="name"/>
+						<field name="contract_file"/>
+					
+				</tree>
+						
+			</field>
+		</record>
+
+		<record id="view_contract_config_filter" model="ir.ui.view">
+            <field name="name">contract.config.search</field>
+            <field name="model">contract.config</field>
+            <field name="arch" type="xml">
+                <search string="Search Contract Configuration">
+                    <field name="name"/>
+					<field name="contract_file"/>
+                </search>
+            </field>
+        </record>
+
+		<record model="ir.actions.act_window" id="action_contract_data">
+		<field name="name">Contract Configuration</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">contract.config</field>
+		<field name="view_mode">tree,form</field>
+		<field name="view_id" ref="contract_config_tree" />
+	</record>
+
+		 <record id="document_template_config_form" model="ir.ui.view">
+			<field name="name">document.template.config.form</field>
+			<field name="model">document.template.config</field>
+			<field name="arch" type="xml">
+				<form>
+					<header>
+						<!-- <button name="print_pdf" type="object" class="oe_highlight"  string="Print Contract"/> -->
+					</header>
+					<sheet>
+                        <group>
+                            <field name="name"/>
+						    <field name="template_file"/>
+                        </group>
+						<notebook>
+							<page string="Template Lines" name="template_lines">
+                            <field
+                                name="template_lines"
+                                widget="section_and_note_one2many">
+								<tree string="Template Lines" editable="bottom">
+									<field name="model_name"/>
+									<field name="model_field"/>
+									<field name="column_name"/>
+								</tree>
+							</field>
+			               </page>
+						</notebook>
+
+					</sheet>
+				</form>
+
+			</field>
+		</record>
+
+		<record id="document_template_config_tree" model="ir.ui.view">
+			<field name="name">document.template.config.tree</field>
+			<field name="model">document.template.config</field>
+			<field name="arch" type="xml">
+				<tree string="Template Config">
+						<field name="name"/>
+						<field name="template_file"/>
+
+				</tree>
+
+			</field>
+		</record>
+
+		<record id="view_document_template_config_filter" model="ir.ui.view">
+            <field name="name">document.template.config.search</field>
+            <field name="model">document.template.config</field>
+            <field name="arch" type="xml">
+                <search string="Search Template Configuration">
+                    <field name="name"/>
+					<field name="template_file"/>
+                </search>
+            </field>
+        </record>
+
+		<record model="ir.actions.act_window" id="action_template_data">
+		<field name="name">Template Configuration</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">document.template.config</field>
+		<field name="view_mode">tree,form</field>
+		<field name="view_id" ref="document_template_config_tree" />
+	</record>
+
+        <menuitem id="menu_contract_configuration"
+            name="Contract Configuration"
+            action="action_contract_data"
+            parent="hr.menu_human_resources_configuration"
+            sequence="65"/>
+
+        <menuitem id="menu_template_configuration"
+            name="Template Configuration"
+            action="action_template_data"
+            parent="hr.menu_human_resources_configuration"
+            sequence="66"/>
+	</data>
+</odoo>

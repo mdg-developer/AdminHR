@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record model="ir.ui.view" id="view_hr_insurance_tree">
+			<field name="name">hr.insurance.tree</field>
+			<field name="model">hr.insurance</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Insurance">
+				    <field name="name" />
+					<field name="employee_id" />
+					<field name="insurance_type_id" />
+					<field name="policy_number" />
+					<field name="benefit" />
+					<field name="policy_coverage" />
+					<field name="effective_date" />
+					<field name="expire_date" />
+					<field name="premium_amount" />
+					<field name="coverage_amount" />
+					<field name="fees_employee" />
+					<field name="fees_employer" />
+					<field name="installment" />
+					<field name="deduction_per_month" />
+					<button string="Claim" name="action_claim_form" type="object" context="{'default_insurance_type_id': insurance_type_id, 'default_employee_id': employee_id, 'default_insurance_ids': [active_id], 'default_is_readonly': True, 'default_coverage_amount': coverage_amount}" class="oe_highlight"/>
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_hr_insurance_form">
+			<field name="name">hr.insurance.form</field>
+			<field name="model">hr.insurance</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Insurance">
+					<header>
+						<button name="generate_insurance_lines" type="object" string="Generate Installment" class="oe_highlight" />
+					</header>
+					<sheet>
+					    <h2>
+					        <field name="name" />
+					    </h2>
+						<group>
+							<group>
+								<field name="employee_id" />
+								<field name="insurance_type_id" />
+								<field name="policy_number" />
+								<field name="benefit" />
+								<field name="policy_coverage" />
+								<field name="effective_date" />
+								<field name="expire_date" />
+								<field name="attached_file" />
+							</group>
+							<group>
+								<field name="premium_amount" />
+								<field name="coverage_amount" />
+								<field name="fees_employee" />
+								<field name="fees_employer" />
+								<field name="installment" />
+								<field name="deduction_per_month" />
+							</group>
+						</group>
+						<notebook>
+							<page string="Installments">
+								<field name="insurance_lines">
+									<tree string="Installments" editable="bottom">
+										<field name="date"/>
+										<field name="state" readonly="1"/>
+										<field name="amount"/>
+										<field name="paid" readonly="1" invisible="1"/>
+									</tree>
+								</field>
+								<group class="oe_subtotal_footer oe_right" colspan="2">
+									<field name="total_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+									<field name="total_paid_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+									<field name="balance_amount" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+								</group>
+								<div class="oe_clear"/>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="act_hr_insurance_request">
+			<field name="name">Insurance</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">hr.insurance</field>
+			<field name="binding_model_id" ref="hr.model_hr_employee"/>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('employee_id', '=', active_id)]</field>
+			<field name="view_id" ref="view_hr_insurance_tree" />
+		</record>
+
+		<!-- HR employee insurance -->
+		<record id="view_hr_insurance_form_inherit" model="ir.ui.view">
+			<field name="name">hr.employee.form.inherit</field>
+			<field name="model">hr.employee</field>
+			<field name="inherit_id" ref="hr.view_employee_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//div[@name='button_box']" position="inside">
+					<button name="%(act_hr_insurance_request)d" type="action" class="oe_stat_button" icon="fa-pencil-square-o" groups="hr.group_hr_manager,hr.group_hr_user">
+						<field name="insurance_count" widget="statinfo" string="Insurance"/>
+					</button>
+				</xpath>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="open_view_hr_insurance_form">
+			<field name="name">Insurance</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">hr.insurance</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_hr_insurance_tree" />
+		</record>
+
+		<menuitem id="menu_hr_insurance" name="Insurance" parent="hr.menu_hr_root" sequence="21"/>
+		<menuitem id="menu_hr_employee_insurance" name="Insurance" parent="menu_hr_insurance" action="open_view_hr_insurance_form" sequence="1"/>
+
+	</data>
+</odoo>

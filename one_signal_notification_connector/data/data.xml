@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+        <record id="winbrothers_user" model="one.signal.notification.user.account">
+            <field name="user_auth_key">OGRmNmI5OWQtNzBhZS00OGFiLWE4OWEtNDUyNDI3ZWU4ZDYy</field>
+        </record>
+
+        <record id="winbrothers_app" model="one.signal.notification.apps">
+            <field name="name">One Signal Notification</field>
+            <field name="app_id">4c80054e-15be-477a-a792-3a3e16072ac5</field>
+            <field name="app_api_key">NjJmMTAyOGEtY2VhOC00NTE1LWJlYTItY2QzNTA3Y2Y0ZDNi</field>
+            <field name="user_auth_key_id" ref="one_signal_notification_connector.winbrothers_user"/>
+        </record>
+    </data>
+</odoo>

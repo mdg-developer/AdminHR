@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="fleet_tyre_history_view_form" model="ir.ui.view">
+        <field name="name">fleet.tyre.history.view.form</field>
+        <field name="model">fleet.tyre.history</field>
+        <field name="arch" type="xml">
+            <form string="Tyre History">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="date" />
+                            <field name="used_points" />
+                            <field name="source_doc" />
+                            <field name="note" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="fleet_tyre_history_view_tree" model="ir.ui.view">
+        <field name="name">fleet.tyre.history.view.tree</field>
+        <field name="model">fleet.tyre.history</field>
+        <field name="arch" type="xml">
+            <tree string="Tyre History" editable="top">
+                <field name="date" />
+                <field name="used_points" string="Used Points/1000 KM" sum="Total Points" />
+                <field name="source_doc" />
+                <field name="note" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_fleet_tyre_history" model="ir.actions.act_window">
+        <field name="name">Tyre History</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">fleet.tyre.history</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="fleet_tyre_history_view_tree" />
+    </record>
+
+</odoo>

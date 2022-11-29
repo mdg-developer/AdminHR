@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="hr_employee_view_form_hr_ext" model="ir.ui.view">
+        <field name="name">XXXXX</field>
+        <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr_skills.hr_employee_view_form"/>
+            <field name="arch" type="xml">
+
+           <!--
+
+           TODO: inherit template to set conditionnal display
+
+           <?xml version="1.0" encoding="UTF-8"?>
+            <templates id="template" xml:space="preserve">
+
+                <t t-name="hr_skill_data_row">
+                    <tr class="o_data_row" t-att-data-id="id">
+                        <td class="o_data_cell o_skill_cell w-100">
+                            <t t-esc="data.skill_id.data.display_name" />
+                        </td>
+                        <td class="o_data_cell o_skill_cell pr-3">
+                            <t t-esc="data.skill_level_id.data.display_name"/>
+                        </td>
+                    </tr>
+                </t>
+           -->
+
+            <xpath expr="//field[@name='employee_skill_ids']" position="replace">
+                <field mode="tree" nolabel="1" name="employee_skill_ids"
+                       widget="hr_skills"  context="{'employee_id':id}">
+                                <tree decoration-success="state=='on_progress'" >
+                                    <field name="state" invisible ="1"/>
+                                    <field name="skill_type_id" invisible="1"/>
+                                    <field name="skill_id"/>
+                                    <field name="skill_level_id"/>
+                                    <field name="level_progress" widget="progressbar"/>
+                                </tree>
+                            </field>
+
+            </xpath>
+
+        </field>
+    </record>
+
+
+</odoo>
+

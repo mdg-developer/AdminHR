@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record model="ir.ui.view" id="view_hr_trip_tree">
+			<field name="name">fleet.trip.tree</field>
+			<field name="model">fleet.trip</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Trip Type">
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_hr_trip_form">
+			<field name="name">fleet.trip.form</field>
+			<field name="model">fleet.trip</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Trip Type">
+					<sheet>
+						<group>
+							<field name="name" />
+						</group>
+						<notebook>
+	                        <page string="Expense">
+	                                <field name="expense_id">
+	                                    <tree editable="bottom">
+	                                        <field name="name" />
+	                                        <field name="amount" />
+	                                        <field name="remark"/>
+	                                    </tree>
+	                                </field>
+	                        </page>
+	                        <page string="Allowance">
+	                                <field name="allowance_id">
+	                                    <tree editable="bottom">
+	                                        <field name="name" />
+	                                        <field name="amount" />
+	                                        <field name="remark"/>
+	                                    </tree>
+	                                </field>
+	                        </page>
+	                    </notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="open_view_hr_trip_form">
+			<field name="name">Trip Type</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">fleet.trip</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_hr_trip_tree" />
+		</record>
+
+		<menuitem id="menu_hr_trip" name="Trip Type" parent="fleet.fleet_configuration"
+			action="open_view_hr_trip_form" sequence="89" />
+
+	</data>
+</odoo>

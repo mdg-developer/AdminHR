@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record model="ir.ui.view" id="view_hr_logistics_commission_tree">
+			<field name="name">hr.logistics.commission.tree</field>
+			<field name="model">hr.logistics.commission</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Logistics Commission">
+					<field name="employee_id" />
+					<field name="from_datetime" />
+					<field name="to_datetime" />
+					<field name="commission" />
+					<field name="trip_code" />
+					<field name="state" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_hr_logistics_commission_form">
+			<field name="name">hr.logistics.commission.form</field>
+			<field name="model">hr.logistics.commission</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Logistics Commission">
+					<header>
+						<field name="state" widget="statusbar" />
+					</header>
+					<sheet>
+					    <group>
+					        <group>
+						        <field name="from_datetime" />
+								<field name="employee_id" />
+								<field name="commission" />
+						    </group>
+							<group>							
+								<field name="to_datetime" />
+								<field name="trip_code" />
+							</group>
+					    </group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="open_view_hr_logistics_commission_form">
+			<field name="name">Logistics Commission</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">hr.logistics.commission</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_hr_logistics_commission_tree" />
+		</record>
+
+		<menuitem id="menu_hr_logistics_commission" name="Logistics Commission" parent="hr_payroll.menu_hr_payroll_configuration"
+			action="open_view_hr_logistics_commission_form" sequence="61" />
+
+	</data>
+</odoo>

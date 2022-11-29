@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<record model="ir.ui.view" id="hr_position_wizard_update_form_view">
+            <field name="name">hr_position_wizard_update</field>
+            <field name="model">hr.position.wizard.update</field>
+            <field name="arch" type="xml">
+
+            <form string="Update positions">
+
+                <group>
+                        <field name="department_id"/>
+                        <field name="analytic_account_id"/>
+                        <field name="quotity"/>
+                        <field name="contract_type_id"/>
+                        
+                    </group>
+
+                <footer>
+                        <button name="update_records" type="object"
+                                string="Update" class="oe_highlight"/>
+                        or
+                        <button special="Annuler" string="Cancel"/>
+                </footer>
+
+                </form>
+            </field>
+</record>
+
+
+<record model="ir.ui.view" id="hr_position_wizard_copy_form_view">
+            <field name="name">hr_position_wizard_copy</field>
+            <field name="model">hr.position.wizard.copy</field>
+            <field name="arch" type="xml">
+
+            <form string="Copy positions with new dates">
+
+                <group>
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+
+
+                    </group>
+
+                <footer>
+                        <button name="copy_records" type="object"
+                                string="Copy" class="oe_highlight"/>
+                        <button special="Cancel" string="Cancel"/>
+                </footer>
+
+                </form>
+            </field>
+</record>
+
+
+
+<act_window id="launch_hr_position_wizard_update"
+                    name="Update..."
+                    src_model="hr.position"
+                    res_model="hr.position.wizard.update"
+                    view_mode="form"
+                    multi="True"
+                    target="new"/>
+
+
+
+
+<act_window id="launch_hr_position_wizard_copy"
+                    name="Copy..."
+                    src_model="hr.position"
+                    res_model="hr.position.wizard.copy"
+                    view_mode="form"
+                    multi="True"
+                    target="new"/>
+
+
+
+</odoo>
+
+
+
+
+
+
+
+
+
+
+
+
+

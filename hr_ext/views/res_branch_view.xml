@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_res_branch_form">
+			<field name="name">res.branch.form</field>
+			<field name="model">res.branch</field>
+			<field name="inherit_id" ref="res_branch.view_res_branch_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//group" position="inside">
+                    <field name="manager_id" options="{'no_create': True}" required="0"/>
+                    <field name="direct_manager_id" options="{'no_create': True}"/>
+                </xpath>
+			</field>
+		</record>
+		<record model="ir.ui.view" id="view_res_branch_tree">
+			<field name="name">res.branch.tree</field>
+			<field name="model">res.branch</field>
+			<field name="inherit_id" ref="res_branch.view_res_branch_tree"/>
+			<field name="arch" type="xml">
+			    <xpath expr="//field[@name='analytic_account_id']" position="before">
+			        <field name="manager_id"/>
+                    <field name="direct_manager_id"/>
+                </xpath>
+			</field>
+		</record>
+		<record model="ir.ui.view" id="account_analytic_tag_tree_view_inherit">
+			<field name="name">account.analytic.tag.tree</field>
+			<field name="model">account.analytic.tag</field>
+			<field name="inherit_id" ref="analytic.account_analytic_tag_tree_view"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id"/>
+                </xpath>
+			</field>
+		</record>
+		<record model="ir.ui.view" id="account_analytic_tag_form_view_inherit">
+			<field name="name">account.analytic.tag.form</field>
+			<field name="model">account.analytic.tag</field>
+			<field name="inherit_id" ref="analytic.account_analytic_tag_form_view"/>
+			<field name="arch" type="xml">
+				<xpath expr="//group/field[@name='company_id']" position="after">
+                    <field name="branch_id"/>
+                </xpath>
+			</field>
+		</record>
+    </data>
+</odoo>

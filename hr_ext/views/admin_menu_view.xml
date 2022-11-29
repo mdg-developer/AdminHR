@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	    
+		<menuitem id="hramdin_menu_root" name="Admin"/>
+
+		<menuitem id="menu_view_admin_hr_job" action="hr_ext.open_view_hr_employee_benefit_form" parent="hramdin_menu_root" sequence="1"/>
+		<menuitem id="menu_view_admin_hr_reward" action="hr_reward.open_view_hr_reward_form" parent="hramdin_menu_root" sequence="2"/>
+		<menuitem id="menu_view_admin_hr_warning" action="hr_warning.open_view_hr_warning_form" parent="hramdin_menu_root" sequence="3"/>
+        <menuitem id="menu_view_admin_configuration" name="Configuration" parent="hramdin_menu_root" sequence="4"/>
+                
+        <menuitem id="menu_admin_config_reward" name="Reward" parent="menu_view_admin_configuration" sequence="1"/>
+        <menuitem id="menu_admin_config_reward_type" name="Reward Type" parent="menu_admin_config_reward" action="hr_reward.open_view_reward_type_form" sequence="1"/>
+        <menuitem id="menu_admin_config_reward_title" name="Reward Title" parent="menu_admin_config_reward" action="hr_reward.open_view_reward_title_form" sequence="2"/>
+
+		<menuitem id="menu_admin_config_warning" name="Warning" parent="menu_view_admin_configuration" sequence="2"/>
+		<menuitem id="menu_admin_config_warning_type" name="Warning Type" parent="menu_admin_config_warning" action="hr_warning.open_view_warning_type_form" sequence="1"/>
+		<menuitem id="menu_admin_config_warning_title" name="Warning Title" parent="menu_admin_config_warning" action="hr_warning.open_view_warning_title_form" sequence="2"/>
+
+        <menuitem id="menu_view_emp_benefit_config" name="Employee Benefit Configuration" parent="menu_view_admin_configuration" action="hr_ext.action_hr_benefit_config" sequence="3"/>
+
+	</data>
+</odoo>
+		

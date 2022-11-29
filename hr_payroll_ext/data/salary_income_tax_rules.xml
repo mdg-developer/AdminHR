@@ -1,0 +1,909 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <!-- ST01 -->
+        <record id="office_staff_ICT" model="hr.salary.rule">
+            <field name="name">Income Tax</field>
+            <field name="code">ICT</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="101"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_office_staff"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = payable_tax = 0
+remaining_months = payslip.remaining_months
+previous_months = payslip.total_months - (remaining_months + 1)
+if contract.wage &gt; 400000:
+    ssb_amount = contract.wage * 0.02
+    if employee.ssb_not_calculate:
+        ssb_amount = 0
+    elif abs(ssb_amount) > 6000:
+        ssb_amount = 6000
+
+    income_amt = categories.BASIC
+    unpaid_leaves_amt = categories.LDED
+    this_month_income = income_amt - unpaid_leaves_amt
+    remaining_month_income = (remaining_months * contract.wage) - remaining_months
+    actual_annual_income = payslip.previous_income + this_month_income + remaining_month_income
+
+    twenty_percent_exemption = actual_annual_income * 0.2
+    if twenty_percent_exemption &lt;= 10000000:
+        twenty_percent_exemption = twenty_percent_exemption
+    else:
+        twenty_percent_exemption = 10000000
+
+    if actual_annual_income > 4800000:
+        family_exemption = 0
+        if employee.spouse_exemption:
+            family_exemption += 1000000
+        if employee.father_exemption:
+            family_exemption += 1000000
+        if employee.mother_exemption:
+            family_exemption += 1000000
+        if employee.children > 0:
+            family_exemption += employee.children * 500000
+        #taxable_income = actual_annual_income - family_exemption - twenty_percent_exemption - ((remaining_months + 1) * ssb_amount)
+        taxable_income = actual_annual_income - family_exemption - twenty_percent_exemption - ((remaining_months + 1 + previous_months) * ssb_amount)
+
+    # For 0 to 2,000,000 Kyats == 0%
+        if taxable_income > 2000000:
+
+    # For 2,000,001 to 5,000,000 Kyats == 5%
+            if taxable_income &lt;= 5000000:
+                payable_tax += (taxable_income - 2000000) * 0.05;
+            if taxable_income > 5000000:
+                payable_tax += (5000000 - 2000000) * 0.05;
+
+    # For 5,000,001 to 10,000,000 Kyats == 10%
+                if taxable_income &lt;= 10000000:
+                    payable_tax += (taxable_income - 5000000 ) * 0.10;
+                if taxable_income > 10000000:
+                    payable_tax += (10000000 - 5000000 ) * 0.10;
+
+    # For 10,000,001 to 20,000,000 Kyats == 15%
+                    if taxable_income &lt;= 20000000:
+                        payable_tax += (taxable_income - 10000000) * 0.15;
+                    if taxable_income > 20000000:
+                        payable_tax += (20000000 - 10000000) * 0.15;
+
+    # For 20,000,001 to 30,000,000 Kyats == 20%
+                        if taxable_income &lt;= 30000000:
+                            payable_tax += (taxable_income - 20000000 ) * 0.20;
+                        if taxable_income > 30000000:
+                            payable_tax += (30000000 - 20000000 ) * 0.20;
+
+    # For 30,000,001 Kyats and Up == 25%
+                            payable_tax += (taxable_income - 30000000 ) * 0.25;
+
+    payable_tax = payable_tax - payslip.previous_tax_paid
+    result = payable_tax / (remaining_months + 1)
+if result &lt; 0:
+    result = 0
+result = round(result)
+            </field>
+        </record>
+
+        <!-- ST02 -->
+        <record id="management_staff_ICT" model="hr.salary.rule">
+            <field name="name">Income Tax</field>
+            <field name="code">ICT</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="101"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_management_staff"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = payable_tax = 0
+remaining_months = payslip.remaining_months
+previous_months = payslip.total_months - (remaining_months + 1)
+if contract.wage &gt; 400000:
+    ssb_amount = contract.wage * 0.02
+    if employee.ssb_not_calculate:
+        ssb_amount = 0
+    elif abs(ssb_amount) > 6000:
+        ssb_amount = 6000
+
+    income_amt = categories.BASIC
+    unpaid_leaves_amt = categories.LDED
+    this_month_income = income_amt - unpaid_leaves_amt
+    remaining_month_income = (remaining_months * contract.wage) - remaining_months
+    actual_annual_income = payslip.previous_income + this_month_income + remaining_month_income
+
+    twenty_percent_exemption = actual_annual_income * 0.2
+    if twenty_percent_exemption &lt;= 10000000:
+        twenty_percent_exemption = twenty_percent_exemption
+    else:
+        twenty_percent_exemption = 10000000
+
+    if actual_annual_income > 4800000:
+        family_exemption = 0
+        if employee.spouse_exemption:
+            family_exemption += 1000000
+        if employee.father_exemption:
+            family_exemption += 1000000
+        if employee.mother_exemption:
+            family_exemption += 1000000
+        if employee.children > 0:
+            family_exemption += employee.children * 500000
+        #taxable_income = actual_annual_income - family_exemption - twenty_percent_exemption - ((remaining_months + 1) * ssb_amount)
+		taxable_income = actual_annual_income - family_exemption - twenty_percent_exemption - ((remaining_months + 1 + previous_month) * ssb_amount)
+    # For 0 to 2,000,000 Kyats == 0%
+        if taxable_income > 2000000:
+
+    # For 2,000,001 to 5,000,000 Kyats == 5%
+            if taxable_income &lt;= 5000000:
+                payable_tax += (taxable_income - 2000000) * 0.05;
+            if taxable_income > 5000000:
+                payable_tax += (5000000 - 2000000) * 0.05;
+
+    # For 5,000,001 to 10,000,000 Kyats == 10%
+                if taxable_income &lt;= 10000000:
+                    payable_tax += (taxable_income - 5000000 ) * 0.10;
+                if taxable_income > 10000000:
+                    payable_tax += (10000000 - 5000000 ) * 0.10;
+
+    # For 10,000,001 to 20,000,000 Kyats == 15%
+                    if taxable_income &lt;= 20000000:
+                        payable_tax += (taxable_income - 10000000) * 0.15;
+                    if taxable_income > 20000000:
+                        payable_tax += (20000000 - 10000000) * 0.15;
+
+    # For 20,000,001 to 30,000,000 Kyats == 20%
+                        if taxable_income &lt;= 30000000:
+                            payable_tax += (taxable_income - 20000000 ) * 0.20;
+                        if taxable_income > 30000000:
+                            payable_tax += (30000000 - 20000000 ) * 0.20;
+
+    # For 30,000,001 Kyats and Up == 25%
+                            payable_tax += (taxable_income - 30000000 ) * 0.25;
+
+    payable_tax = payable_tax - payslip.previous_tax_paid
+    result = payable_tax / (remaining_months + 1)
+if result &lt; 0:
+    result = 0
+result = round(result)
+            </field>
+        </record>
+
+        <!-- ST03 -->
+        <record id="purchase_staff_ICT" model="hr.salary.rule">
+            <field name="name">Income Tax</field>
+            <field name="code">ICT</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="101"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_purchase_staff"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = payable_tax = 0
+remaining_months = payslip.remaining_months
+previous_months = payslip.total_months - (remaining_months + 1)
+if contract.wage &gt; 400000:
+    ssb_amount = contract.wage * 0.02
+    if employee.ssb_not_calculate:
+        ssb_amount = 0
+    elif abs(ssb_amount) > 6000:
+        ssb_amount = 6000
+
+    income_amt = categories.BASIC
+    unpaid_leaves_amt = categories.LDED
+    this_month_income = income_amt - unpaid_leaves_amt
+    remaining_month_income = (remaining_months * contract.wage) - remaining_months
+    actual_annual_income = payslip.previous_income + this_month_income + remaining_month_income
+
+    twenty_percent_exemption = actual_annual_income * 0.2
+    if twenty_percent_exemption &lt;= 10000000:
+        twenty_percent_exemption = twenty_percent_exemption
+    else:
+        twenty_percent_exemption = 10000000
+
+    if actual_annual_income > 4800000:
+        family_exemption = 0
+        if employee.spouse_exemption:
+            family_exemption += 1000000
+        if employee.father_exemption:
+            family_exemption += 1000000
+        if employee.mother_exemption:
+            family_exemption += 1000000
+        if employee.children > 0:
+            family_exemption += employee.children * 500000
+        #taxable_income = actual_annual_income - family_exemption - twenty_percent_exemption - ((remaining_months + 1) * ssb_amount)
+		taxable_income = actual_annual_income - family_exemption - twenty_percent_exemption - ((remaining_months + 1 + previous_month) * ssb_amount)
+    # For 0 to 2,000,000 Kyats == 0%
+        if taxable_income > 2000000:
+
+    # For 2,000,001 to 5,000,000 Kyats == 5%
+            if taxable_income &lt;= 5000000:
+                payable_tax += (taxable_income - 2000000) * 0.05;
+            if taxable_income > 5000000:
+                payable_tax += (5000000 - 2000000) * 0.05;
+
+    # For 5,000,001 to 10,000,000 Kyats == 10%
+                if taxable_income &lt;= 10000000:
+                    payable_tax += (taxable_income - 5000000 ) * 0.10;
+                if taxable_income > 10000000:
+                    payable_tax += (10000000 - 5000000 ) * 0.10;
+
+    # For 10,000,001 to 20,000,000 Kyats == 15%
+                    if taxable_income &lt;= 20000000:
+                        payable_tax += (taxable_income - 10000000) * 0.15;
+                    if taxable_income > 20000000:
+                        payable_tax += (20000000 - 10000000) * 0.15;
+
+    # For 20,000,001 to 30,000,000 Kyats == 20%
+                        if taxable_income &lt;= 30000000:
+                            payable_tax += (taxable_income - 20000000 ) * 0.20;
+                        if taxable_income > 30000000:
+                            payable_tax += (30000000 - 20000000 ) * 0.20;
+
+    # For 30,000,001 Kyats and Up == 25%
+                            payable_tax += (taxable_income - 30000000 ) * 0.25;
+
+    payable_tax = payable_tax - payslip.previous_tax_paid
+    result = payable_tax / (remaining_months + 1)
+if result &lt; 0:
+    result = 0
+result = round(result)
+            </field>
+        </record>
+
+        <!-- ST04 -->
+        <record id="sale_ICT" model="hr.salary.rule">
+            <field name="name">Income Tax</field>
+            <field name="code">ICT</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="101"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_sale"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = payable_tax = 0
+remaining_months = payslip.remaining_months
+previous_months = payslip.total_months - (remaining_months + 1)
+if contract.wage &gt; 400000:
+    ssb_amount = contract.wage * 0.02
+    if employee.ssb_not_calculate:
+        ssb_amount = 0
+    elif abs(ssb_amount) > 6000:
+        ssb_amount = 6000
+
+    income_amt = categories.BASIC
+    unpaid_leaves_amt = categories.LDED
+    this_month_income = income_amt - unpaid_leaves_amt
+    remaining_month_income = (remaining_months * contract.wage) - remaining_months
+    actual_annual_income = payslip.previous_income + this_month_income + remaining_month_income
+
+    twenty_percent_exemption = actual_annual_income * 0.2
+    if twenty_percent_exemption &lt;= 10000000:
+        twenty_percent_exemption = twenty_percent_exemption
+    else:
+        twenty_percent_exemption = 10000000
+
+    if actual_annual_income > 4800000:
+        family_exemption = 0
+        if employee.spouse_exemption:
+            family_exemption += 1000000
+        if employee.father_exemption:
+            family_exemption += 1000000
+        if employee.mother_exemption:
+            family_exemption += 1000000
+        if employee.children > 0:
+            family_exemption += employee.children * 500000
+        #taxable_income = actual_annual_income - family_exemption - twenty_percent_exemption - ((remaining_months + 1) * ssb_amount)
+		taxable_income = actual_annual_income - family_exemption - twenty_percent_exemption - ((remaining_months + 1 + previous_month) * ssb_amount)
+    # For 0 to 2,000,000 Kyats == 0%
+        if taxable_income > 2000000:
+
+    # For 2,000,001 to 5,000,000 Kyats == 5%
+            if taxable_income &lt;= 5000000:
+                payable_tax += (taxable_income - 2000000) * 0.05;
+            if taxable_income > 5000000:
+                payable_tax += (5000000 - 2000000) * 0.05;
+
+    # For 5,000,001 to 10,000,000 Kyats == 10%
+                if taxable_income &lt;= 10000000:
+                    payable_tax += (taxable_income - 5000000 ) * 0.10;
+                if taxable_income > 10000000:
+                    payable_tax += (10000000 - 5000000 ) * 0.10;
+
+    # For 10,000,001 to 20,000,000 Kyats == 15%
+                    if taxable_income &lt;= 20000000:
+                        payable_tax += (taxable_income - 10000000) * 0.15;
+                    if taxable_income > 20000000:
+                        payable_tax += (20000000 - 10000000) * 0.15;
+
+    # For 20,000,001 to 30,000,000 Kyats == 20%
+                        if taxable_income &lt;= 30000000:
+                            payable_tax += (taxable_income - 20000000 ) * 0.20;
+                        if taxable_income > 30000000:
+                            payable_tax += (30000000 - 20000000 ) * 0.20;
+
+    # For 30,000,001 Kyats and Up == 25%
+                            payable_tax += (taxable_income - 30000000 ) * 0.25;
+
+    payable_tax = payable_tax - payslip.previous_tax_paid
+    result = payable_tax / (remaining_months + 1)
+if result &lt; 0:
+    result = 0
+result = round(result)
+            </field>
+        </record>
+
+        <!-- ST05 -->
+        <record id="duty_dn_ICT" model="hr.salary.rule">
+            <field name="name">Income Tax</field>
+            <field name="code">ICT</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="101"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_duty_dn"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = payable_tax = 0
+remaining_months = payslip.remaining_months
+previous_months = payslip.total_months - (remaining_months + 1)
+if contract.wage &gt; 400000:
+    ssb_amount = contract.wage * 0.02
+    if employee.ssb_not_calculate:
+        ssb_amount = 0
+    elif abs(ssb_amount) > 6000:
+        ssb_amount = 6000
+
+    income_amt = categories.BASIC
+    unpaid_leaves_amt = categories.LDED
+    this_month_income = income_amt - unpaid_leaves_amt
+    remaining_month_income = (remaining_months * contract.wage) - remaining_months
+    actual_annual_income = payslip.previous_income + this_month_income + remaining_month_income
+
+    twenty_percent_exemption = actual_annual_income * 0.2
+    if twenty_percent_exemption &lt;= 10000000:
+        twenty_percent_exemption = twenty_percent_exemption
+    else:
+        twenty_percent_exemption = 10000000
+
+    if actual_annual_income > 4800000:
+        family_exemption = 0
+        if employee.spouse_exemption:
+            family_exemption += 1000000
+        if employee.father_exemption:
+            family_exemption += 1000000
+        if employee.mother_exemption:
+            family_exemption += 1000000
+        if employee.children > 0:
+            family_exemption += employee.children * 500000
+        #taxable_income = actual_annual_income - family_exemption - twenty_percent_exemption - ((remaining_months + 1) * ssb_amount)
+		taxable_income = actual_annual_income - family_exemption - twenty_percent_exemption - ((remaining_months + 1 + previous_month) * ssb_amount)
+    # For 0 to 2,000,000 Kyats == 0%
+        if taxable_income > 2000000:
+
+    # For 2,000,001 to 5,000,000 Kyats == 5%
+            if taxable_income &lt;= 5000000:
+                payable_tax += (taxable_income - 2000000) * 0.05;
+            if taxable_income > 5000000:
+                payable_tax += (5000000 - 2000000) * 0.05;
+
+    # For 5,000,001 to 10,000,000 Kyats == 10%
+                if taxable_income &lt;= 10000000:
+                    payable_tax += (taxable_income - 5000000 ) * 0.10;
+                if taxable_income > 10000000:
+                    payable_tax += (10000000 - 5000000 ) * 0.10;
+
+    # For 10,000,001 to 20,000,000 Kyats == 15%
+                    if taxable_income &lt;= 20000000:
+                        payable_tax += (taxable_income - 10000000) * 0.15;
+                    if taxable_income > 20000000:
+                        payable_tax += (20000000 - 10000000) * 0.15;
+
+    # For 20,000,001 to 30,000,000 Kyats == 20%
+                        if taxable_income &lt;= 30000000:
+                            payable_tax += (taxable_income - 20000000 ) * 0.20;
+                        if taxable_income > 30000000:
+                            payable_tax += (30000000 - 20000000 ) * 0.20;
+
+    # For 30,000,001 Kyats and Up == 25%
+                            payable_tax += (taxable_income - 30000000 ) * 0.25;
+
+    payable_tax = payable_tax - payslip.previous_tax_paid
+    result = payable_tax / (remaining_months + 1)
+if result &lt; 0:
+    result = 0
+result = round(result)
+            </field>
+        </record>
+
+        <!-- ST06 -->
+        <record id="driver_duty_ICT" model="hr.salary.rule">
+            <field name="name">Income Tax</field>
+            <field name="code">ICT</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="101"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_duty"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = payable_tax = 0
+remaining_months = payslip.remaining_months
+previous_months = payslip.total_months - (remaining_months + 1)
+if contract.wage &gt; 400000:
+    ssb_amount = contract.wage * 0.02
+    if employee.ssb_not_calculate:
+        ssb_amount = 0
+    elif abs(ssb_amount) > 6000:
+        ssb_amount = 6000
+
+    income_amt = categories.BASIC
+    unpaid_leaves_amt = categories.LDED
+    this_month_income = income_amt - unpaid_leaves_amt
+    remaining_month_income = (remaining_months * contract.wage) - remaining_months
+    actual_annual_income = payslip.previous_income + this_month_income + remaining_month_income
+
+    twenty_percent_exemption = actual_annual_income * 0.2
+    if twenty_percent_exemption &lt;= 10000000:
+        twenty_percent_exemption = twenty_percent_exemption
+    else:
+        twenty_percent_exemption = 10000000
+
+    if actual_annual_income > 4800000:
+        family_exemption = 0
+        if employee.spouse_exemption:
+            family_exemption += 1000000
+        if employee.father_exemption:
+            family_exemption += 1000000
+        if employee.mother_exemption:
+            family_exemption += 1000000
+        if employee.children > 0:
+            family_exemption += employee.children * 500000
+        #taxable_income = actual_annual_income - family_exemption - twenty_percent_exemption - ((remaining_months + 1) * ssb_amount)
+		taxable_income = actual_annual_income - family_exemption - twenty_percent_exemption - ((remaining_months + 1 + previous_month) * ssb_amount)
+    # For 0 to 2,000,000 Kyats == 0%
+        if taxable_income > 2000000:
+
+    # For 2,000,001 to 5,000,000 Kyats == 5%
+            if taxable_income &lt;= 5000000:
+                payable_tax += (taxable_income - 2000000) * 0.05;
+            if taxable_income > 5000000:
+                payable_tax += (5000000 - 2000000) * 0.05;
+
+    # For 5,000,001 to 10,000,000 Kyats == 10%
+                if taxable_income &lt;= 10000000:
+                    payable_tax += (taxable_income - 5000000 ) * 0.10;
+                if taxable_income > 10000000:
+                    payable_tax += (10000000 - 5000000 ) * 0.10;
+
+    # For 10,000,001 to 20,000,000 Kyats == 15%
+                    if taxable_income &lt;= 20000000:
+                        payable_tax += (taxable_income - 10000000) * 0.15;
+                    if taxable_income > 20000000:
+                        payable_tax += (20000000 - 10000000) * 0.15;
+
+    # For 20,000,001 to 30,000,000 Kyats == 20%
+                        if taxable_income &lt;= 30000000:
+                            payable_tax += (taxable_income - 20000000 ) * 0.20;
+                        if taxable_income > 30000000:
+                            payable_tax += (30000000 - 20000000 ) * 0.20;
+
+    # For 30,000,001 Kyats and Up == 25%
+                            payable_tax += (taxable_income - 30000000 ) * 0.25;
+
+    payable_tax = payable_tax - payslip.previous_tax_paid
+    result = payable_tax / (remaining_months + 1)
+if result &lt; 0:
+    result = 0
+result = round(result)
+            </field>
+        </record>
+
+        <!-- ST07 -->
+        <record id="office_duty_withSunday_ICT" model="hr.salary.rule">
+            <field name="name">Income Tax</field>
+            <field name="code">ICT</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="101"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_office_duty_withSunday"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = payable_tax = 0
+remaining_months = payslip.remaining_months
+previous_months = payslip.total_months - (remaining_months + 1)
+if contract.wage &gt; 400000:
+    ssb_amount = contract.wage * 0.02
+    if employee.ssb_not_calculate:
+        ssb_amount = 0
+    elif abs(ssb_amount) > 6000:
+        ssb_amount = 6000
+
+    income_amt = categories.BASIC
+    unpaid_leaves_amt = categories.LDED
+    this_month_income = income_amt - unpaid_leaves_amt
+    remaining_month_income = (remaining_months * contract.wage) - remaining_months
+    actual_annual_income = payslip.previous_income + this_month_income + remaining_month_income
+
+    twenty_percent_exemption = actual_annual_income * 0.2
+    if twenty_percent_exemption &lt;= 10000000:
+        twenty_percent_exemption = twenty_percent_exemption
+    else:
+        twenty_percent_exemption = 10000000
+
+    if actual_annual_income > 4800000:
+        family_exemption = 0
+        if employee.spouse_exemption:
+            family_exemption += 1000000
+        if employee.father_exemption:
+            family_exemption += 1000000
+        if employee.mother_exemption:
+            family_exemption += 1000000
+        if employee.children > 0:
+            family_exemption += employee.children * 500000
+        #taxable_income = actual_annual_income - family_exemption - twenty_percent_exemption - ((remaining_months + 1) * ssb_amount)
+		taxable_income = actual_annual_income - family_exemption - twenty_percent_exemption - ((remaining_months + 1 + previous_month) * ssb_amount)
+    # For 0 to 2,000,000 Kyats == 0%
+        if taxable_income > 2000000:
+
+    # For 2,000,001 to 5,000,000 Kyats == 5%
+            if taxable_income &lt;= 5000000:
+                payable_tax += (taxable_income - 2000000) * 0.05;
+            if taxable_income > 5000000:
+                payable_tax += (5000000 - 2000000) * 0.05;
+
+    # For 5,000,001 to 10,000,000 Kyats == 10%
+                if taxable_income &lt;= 10000000:
+                    payable_tax += (taxable_income - 5000000 ) * 0.10;
+                if taxable_income > 10000000:
+                    payable_tax += (10000000 - 5000000 ) * 0.10;
+
+    # For 10,000,001 to 20,000,000 Kyats == 15%
+                    if taxable_income &lt;= 20000000:
+                        payable_tax += (taxable_income - 10000000) * 0.15;
+                    if taxable_income > 20000000:
+                        payable_tax += (20000000 - 10000000) * 0.15;
+
+    # For 20,000,001 to 30,000,000 Kyats == 20%
+                        if taxable_income &lt;= 30000000:
+                            payable_tax += (taxable_income - 20000000 ) * 0.20;
+                        if taxable_income > 30000000:
+                            payable_tax += (30000000 - 20000000 ) * 0.20;
+
+    # For 30,000,001 Kyats and Up == 25%
+                            payable_tax += (taxable_income - 30000000 ) * 0.25;
+
+    payable_tax = payable_tax - payslip.previous_tax_paid
+    result = payable_tax / (remaining_months + 1)
+if result &lt; 0:
+    result = 0
+result = round(result)
+            </field>
+        </record>
+
+        <!-- ST08 -->
+        <record id="office_duty_ICT" model="hr.salary.rule">
+            <field name="name">Income Tax</field>
+            <field name="code">ICT</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="101"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_office_duty"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = payable_tax = 0
+remaining_months = payslip.remaining_months
+previous_months = payslip.total_months - (remaining_months + 1)
+if contract.wage &gt; 400000:
+    ssb_amount = contract.wage * 0.02
+    if employee.ssb_not_calculate:
+        ssb_amount = 0
+    elif abs(ssb_amount) > 6000:
+        ssb_amount = 6000
+
+    income_amt = categories.BASIC
+    unpaid_leaves_amt = categories.LDED
+    this_month_income = income_amt - unpaid_leaves_amt
+    remaining_month_income = (remaining_months * contract.wage) - remaining_months
+    actual_annual_income = payslip.previous_income + this_month_income + remaining_month_income
+
+    twenty_percent_exemption = actual_annual_income * 0.2
+    if twenty_percent_exemption &lt;= 10000000:
+        twenty_percent_exemption = twenty_percent_exemption
+    else:
+        twenty_percent_exemption = 10000000
+
+    if actual_annual_income > 4800000:
+        family_exemption = 0
+        if employee.spouse_exemption:
+            family_exemption += 1000000
+        if employee.father_exemption:
+            family_exemption += 1000000
+        if employee.mother_exemption:
+            family_exemption += 1000000
+        if employee.children > 0:
+            family_exemption += employee.children * 500000
+        #taxable_income = actual_annual_income - family_exemption - twenty_percent_exemption - ((remaining_months + 1) * ssb_amount)
+		taxable_income = actual_annual_income - family_exemption - twenty_percent_exemption - ((remaining_months + 1 + previous_month) * ssb_amount)
+    # For 0 to 2,000,000 Kyats == 0%
+        if taxable_income > 2000000:
+
+    # For 2,000,001 to 5,000,000 Kyats == 5%
+            if taxable_income &lt;= 5000000:
+                payable_tax += (taxable_income - 2000000) * 0.05;
+            if taxable_income > 5000000:
+                payable_tax += (5000000 - 2000000) * 0.05;
+
+    # For 5,000,001 to 10,000,000 Kyats == 10%
+                if taxable_income &lt;= 10000000:
+                    payable_tax += (taxable_income - 5000000 ) * 0.10;
+                if taxable_income > 10000000:
+                    payable_tax += (10000000 - 5000000 ) * 0.10;
+
+    # For 10,000,001 to 20,000,000 Kyats == 15%
+                    if taxable_income &lt;= 20000000:
+                        payable_tax += (taxable_income - 10000000) * 0.15;
+                    if taxable_income > 20000000:
+                        payable_tax += (20000000 - 10000000) * 0.15;
+
+    # For 20,000,001 to 30,000,000 Kyats == 20%
+                        if taxable_income &lt;= 30000000:
+                            payable_tax += (taxable_income - 20000000 ) * 0.20;
+                        if taxable_income > 30000000:
+                            payable_tax += (30000000 - 20000000 ) * 0.20;
+
+    # For 30,000,001 Kyats and Up == 25%
+                            payable_tax += (taxable_income - 30000000 ) * 0.25;
+
+    payable_tax = payable_tax - payslip.previous_tax_paid
+    result = payable_tax / (remaining_months + 1)
+if result &lt; 0:
+    result = 0
+result = round(result)
+            </field>
+        </record>
+
+        <!-- ST09 -->
+        <record id="driver_delivery_ICT" model="hr.salary.rule">
+            <field name="name">Income Tax</field>
+            <field name="code">ICT</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="101"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_delivery"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = payable_tax = 0
+remaining_months = payslip.remaining_months
+previous_months = payslip.total_months - (remaining_months + 1)
+if contract.wage &gt; 400000:
+    ssb_amount = contract.wage * 0.02
+    if employee.ssb_not_calculate:
+        ssb_amount = 0
+    elif abs(ssb_amount) > 6000:
+        ssb_amount = 6000
+
+    income_amt = categories.BASIC
+    unpaid_leaves_amt = categories.LDED
+    this_month_income = income_amt - unpaid_leaves_amt
+    remaining_month_income = (remaining_months * contract.wage) - remaining_months
+    actual_annual_income = payslip.previous_income + this_month_income + remaining_month_income
+
+    twenty_percent_exemption = actual_annual_income * 0.2
+    if twenty_percent_exemption &lt;= 10000000:
+        twenty_percent_exemption = twenty_percent_exemption
+    else:
+        twenty_percent_exemption = 10000000
+
+    if actual_annual_income > 4800000:
+        family_exemption = 0
+        if employee.spouse_exemption:
+            family_exemption += 1000000
+        if employee.father_exemption:
+            family_exemption += 1000000
+        if employee.mother_exemption:
+            family_exemption += 1000000
+        if employee.children > 0:
+            family_exemption += employee.children * 500000
+        #taxable_income = actual_annual_income - family_exemption - twenty_percent_exemption - ((remaining_months + 1) * ssb_amount)
+		taxable_income = actual_annual_income - family_exemption - twenty_percent_exemption - ((remaining_months + 1 + previous_month) * ssb_amount)
+    # For 0 to 2,000,000 Kyats == 0%
+        if taxable_income > 2000000:
+
+    # For 2,000,001 to 5,000,000 Kyats == 5%
+            if taxable_income &lt;= 5000000:
+                payable_tax += (taxable_income - 2000000) * 0.05;
+            if taxable_income > 5000000:
+                payable_tax += (5000000 - 2000000) * 0.05;
+
+    # For 5,000,001 to 10,000,000 Kyats == 10%
+                if taxable_income &lt;= 10000000:
+                    payable_tax += (taxable_income - 5000000 ) * 0.10;
+                if taxable_income > 10000000:
+                    payable_tax += (10000000 - 5000000 ) * 0.10;
+
+    # For 10,000,001 to 20,000,000 Kyats == 15%
+                    if taxable_income &lt;= 20000000:
+                        payable_tax += (taxable_income - 10000000) * 0.15;
+                    if taxable_income > 20000000:
+                        payable_tax += (20000000 - 10000000) * 0.15;
+
+    # For 20,000,001 to 30,000,000 Kyats == 20%
+                        if taxable_income &lt;= 30000000:
+                            payable_tax += (taxable_income - 20000000 ) * 0.20;
+                        if taxable_income > 30000000:
+                            payable_tax += (30000000 - 20000000 ) * 0.20;
+
+    # For 30,000,001 Kyats and Up == 25%
+                            payable_tax += (taxable_income - 30000000 ) * 0.25;
+
+    payable_tax = payable_tax - payslip.previous_tax_paid
+    result = payable_tax / (remaining_months + 1)
+if result &lt; 0:
+    result = 0
+result = round(result)
+            </field>
+        </record>
+
+        <!-- ST10 -->
+        <record id="driver_logistic_ICT" model="hr.salary.rule">
+            <field name="name">Income Tax</field>
+            <field name="code">ICT</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="101"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_logistic"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = payable_tax = 0
+remaining_months = payslip.remaining_months
+previous_months = payslip.total_months - (remaining_months + 1)
+if contract.wage &gt; 400000:
+    ssb_amount = contract.wage * 0.02
+    if employee.ssb_not_calculate:
+        ssb_amount = 0
+    elif abs(ssb_amount) > 6000:
+        ssb_amount = 6000
+
+    income_amt = categories.BASIC
+    unpaid_leaves_amt = categories.LDED
+    this_month_income = income_amt - unpaid_leaves_amt
+    remaining_month_income = (remaining_months * contract.wage) - remaining_months
+    actual_annual_income = payslip.previous_income + this_month_income + remaining_month_income
+
+    twenty_percent_exemption = actual_annual_income * 0.2
+    if twenty_percent_exemption &lt;= 10000000:
+        twenty_percent_exemption = twenty_percent_exemption
+    else:
+        twenty_percent_exemption = 10000000
+
+    if actual_annual_income > 4800000:
+        family_exemption = 0
+        if employee.spouse_exemption:
+            family_exemption += 1000000
+        if employee.father_exemption:
+            family_exemption += 1000000
+        if employee.mother_exemption:
+            family_exemption += 1000000
+        if employee.children > 0:
+            family_exemption += employee.children * 500000
+        #taxable_income = actual_annual_income - family_exemption - twenty_percent_exemption - ((remaining_months + 1) * ssb_amount)
+		taxable_income = actual_annual_income - family_exemption - twenty_percent_exemption - ((remaining_months + 1 + previous_month) * ssb_amount)
+    # For 0 to 2,000,000 Kyats == 0%
+        if taxable_income > 2000000:
+
+    # For 2,000,001 to 5,000,000 Kyats == 5%
+            if taxable_income &lt;= 5000000:
+                payable_tax += (taxable_income - 2000000) * 0.05;
+            if taxable_income > 5000000:
+                payable_tax += (5000000 - 2000000) * 0.05;
+
+    # For 5,000,001 to 10,000,000 Kyats == 10%
+                if taxable_income &lt;= 10000000:
+                    payable_tax += (taxable_income - 5000000 ) * 0.10;
+                if taxable_income > 10000000:
+                    payable_tax += (10000000 - 5000000 ) * 0.10;
+
+    # For 10,000,001 to 20,000,000 Kyats == 15%
+                    if taxable_income &lt;= 20000000:
+                        payable_tax += (taxable_income - 10000000) * 0.15;
+                    if taxable_income > 20000000:
+                        payable_tax += (20000000 - 10000000) * 0.15;
+
+    # For 20,000,001 to 30,000,000 Kyats == 20%
+                        if taxable_income &lt;= 30000000:
+                            payable_tax += (taxable_income - 20000000 ) * 0.20;
+                        if taxable_income > 30000000:
+                            payable_tax += (30000000 - 20000000 ) * 0.20;
+
+    # For 30,000,001 Kyats and Up == 25%
+                            payable_tax += (taxable_income - 30000000 ) * 0.25;
+
+    payable_tax = payable_tax - payslip.previous_tax_paid
+    result = payable_tax / (remaining_months + 1)
+if result &lt; 0:
+    result = 0
+result = round(result)
+            </field>
+        </record>
+
+        <!-- ST11 -->
+        <record id="fixed_ICT" model="hr.salary.rule">
+            <field name="name">Income Tax</field>
+            <field name="code">ICT</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="101"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_fixed"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = payable_tax = 0
+remaining_months = payslip.remaining_months
+previous_months = payslip.total_months - (remaining_months + 1)
+if contract.wage &gt; 400000:
+    ssb_amount = contract.wage * 0.02
+    if employee.ssb_not_calculate:
+        ssb_amount = 0
+    elif abs(ssb_amount) > 6000:
+        ssb_amount = 6000
+
+    income_amt = categories.BASIC
+    unpaid_leaves_amt = categories.LDED
+    this_month_income = income_amt - unpaid_leaves_amt
+    remaining_month_income = (remaining_months * contract.wage) - remaining_months
+    actual_annual_income = payslip.previous_income + this_month_income + remaining_month_income
+
+    twenty_percent_exemption = actual_annual_income * 0.2
+    if twenty_percent_exemption &lt;= 10000000:
+        twenty_percent_exemption = twenty_percent_exemption
+    else:
+        twenty_percent_exemption = 10000000
+
+    if actual_annual_income > 4800000:
+        family_exemption = 0
+        if employee.spouse_exemption:
+            family_exemption += 1000000
+        if employee.father_exemption:
+            family_exemption += 1000000
+        if employee.mother_exemption:
+            family_exemption += 1000000
+        if employee.children > 0:
+            family_exemption += employee.children * 500000
+        #taxable_income = actual_annual_income - family_exemption - twenty_percent_exemption - ((remaining_months + 1) * ssb_amount)
+		taxable_income = actual_annual_income - family_exemption - twenty_percent_exemption - ((remaining_months + 1 + previous_month) * ssb_amount)
+    # For 0 to 2,000,000 Kyats == 0%
+        if taxable_income > 2000000:
+
+    # For 2,000,001 to 5,000,000 Kyats == 5%
+            if taxable_income &lt;= 5000000:
+                payable_tax += (taxable_income - 2000000) * 0.05;
+            if taxable_income > 5000000:
+                payable_tax += (5000000 - 2000000) * 0.05;
+
+    # For 5,000,001 to 10,000,000 Kyats == 10%
+                if taxable_income &lt;= 10000000:
+                    payable_tax += (taxable_income - 5000000 ) * 0.10;
+                if taxable_income > 10000000:
+                    payable_tax += (10000000 - 5000000 ) * 0.10;
+
+    # For 10,000,001 to 20,000,000 Kyats == 15%
+                    if taxable_income &lt;= 20000000:
+                        payable_tax += (taxable_income - 10000000) * 0.15;
+                    if taxable_income > 20000000:
+                        payable_tax += (20000000 - 10000000) * 0.15;
+
+    # For 20,000,001 to 30,000,000 Kyats == 20%
+                        if taxable_income &lt;= 30000000:
+                            payable_tax += (taxable_income - 20000000 ) * 0.20;
+                        if taxable_income > 30000000:
+                            payable_tax += (30000000 - 20000000 ) * 0.20;
+
+    # For 30,000,001 Kyats and Up == 25%
+                            payable_tax += (taxable_income - 30000000 ) * 0.25;
+
+    payable_tax = payable_tax - payslip.previous_tax_paid
+    result = payable_tax / (remaining_months + 1)
+if result &lt; 0:
+    result = 0
+result = round(result)
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

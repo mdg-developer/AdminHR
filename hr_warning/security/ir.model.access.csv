@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_warning_type_user,access_warning_type_user,model_warning_type,hr.group_hr_user,1,1,1,0
+access_warning_type_manager,access_warning_type_manager,model_warning_type,hr.group_hr_manager,1,1,1,1
+access_hr_warning_user,access_hr_warning_user,model_hr_warning,hr.group_hr_user,1,1,1,0
+access_hr_warning_manager,access_hr_warning_manager,model_hr_warning,hr.group_hr_manager,1,1,1,1
+access_warning_title_user,access_warning_title_user,model_warning_title,hr.group_hr_user,1,1,1,0
+access_warning_title_manager,access_warning_title_manager,model_warning_title,hr.group_hr_manager,1,1,1,1
+access_hr_warning_temp_user,access_hr_warning_temp_user,model_hr_warning_temp,hr.group_hr_user,1,1,1,1
+access_warning_attachment_user,access_warning_attachment_user,model_warning_attachment,hr.group_hr_user,1,1,1,1 

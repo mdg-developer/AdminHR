@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_report_yearly_tax_wizard_wizard" model="ir.ui.view">
+            <field name="name">Yearly Tax Report Wizard Form</field>
+            <field name="model">report.tax.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Income Tax Report (Yearly)">
+                    <sheet>
+                        <group string="Company">
+						<field name="company_id"  string="Company" options="{'no_open':True, 'no_quick_create':True,'no_create_edit':True}" placeholder="All Companies"/>
+					</group>
+					<group string="Fisical Year">
+						<field name="fiscal_year_id" />
+					</group>
+					<group string="Branch">
+						<field name="branch_id" />
+					</group>
+					<group string="Department"
+						attrs="{'invisible': [('branch_id', '=',  False)]}">
+						<field name="department_id" options="{'no_open':True, 'no_quick_create':True,'no_create_edit':True}"/>
+					</group>
+					<group>
+<!-- 						<field name="date_from" /> -->
+<!-- 						<field name="date_to" /> -->
+						
+					</group>
+					
+					<group >
+                        
+						<field name="employee_ids" nolabel="1" options="{'no_quick_create':True,'no_create_edit':True}">
+							<tree string="Employee">
+								<field name="name" />
+							</tree>
+						</field>
+					</group>
+                        <footer>
+                            <button name="print_xlsx" string="Generate" type="object" class="oe_highlight"/>
+                            or
+                            <button string="Cancel" class="oe_link" special="cancel"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_report_yearly_tax_wizard">
+            <field name="name">Income Tax Report (Yearly)</field>
+            <field name="res_model">report.tax.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="hr_menu_yearly_tax_report"
+                  action="action_report_yearly_tax_wizard"
+                  name="Income Tax Report (Yearly)"
+                  parent="hr_payroll.menu_hr_payroll_report"
+                  groups="hr_payroll.group_hr_payroll_manager"
+                  sequence="25"
+        />
+
+    </data>
+</odoo>

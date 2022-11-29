@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data noupdate="1">
+    
+        <record forcecreate="True" id="decimal_expense_qty" model="decimal.precision">
+            <field name="name">Expense Qty</field>
+            <field name="digits">3</field>
+        </record>
+    
+    </data>
+    
+
+</odoo>

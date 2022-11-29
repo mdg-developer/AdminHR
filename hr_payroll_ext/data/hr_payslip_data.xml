@@ -1,0 +1,2318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Structure Type -->
+        <record id="payroll_structure_type_employee" model="hr.payroll.structure.type">
+            <field name="name">Employee</field>
+            <field name="country_id" eval="False"/>
+        </record>
+
+        <!-- Salary Rule Category -->
+        <record id="LDED" model="hr.salary.rule.category">
+            <field name="name">Leave Deduction</field>
+            <field name="code">LDED</field>
+            <field name="parent_id" eval="False"/>
+        </record>
+
+        <!-- Other Input Types -->
+        <!-- Allowance -->
+        <record id="input_type_transportation_allowance" model="hr.payslip.input.type">
+            <field name="name">Transportation Allowance</field>
+            <field name="code">A01</field>
+            <field name="country_id" eval="False"/>
+        </record>
+
+        <record id="input_type_relocation_allowance" model="hr.payslip.input.type">
+            <field name="name">Relocation Allowance</field>
+            <field name="code">A02</field>
+            <field name="country_id" eval="False"/>
+        </record>
+
+        <record id="input_type_fixed_allowance" model="hr.payslip.input.type">
+            <field name="name">Fixed Allowance</field>
+            <field name="code">A03</field>
+            <field name="country_id" eval="False"/>
+        </record>
+
+        <record id="input_type_meal_allowance" model="hr.payslip.input.type">
+            <field name="name">Meal Allowance</field>
+            <field name="code">A04</field>
+            <field name="country_id" eval="False"/>
+        </record>
+
+        <record id="input_type_phone_allowance" model="hr.payslip.input.type">
+            <field name="name">Phone Allowance</field>
+            <field name="code">A05</field>
+            <field name="country_id" eval="False"/>
+        </record>
+
+        <record id="input_type_sales_commission" model="hr.payslip.input.type">
+            <field name="name">Commission</field>
+            <field name="code">A06</field>
+            <field name="country_id" eval="False"/>
+        </record>
+
+        <record id="input_type_other_allowance" model="hr.payslip.input.type">
+            <field name="name">Other Allowance</field>
+            <field name="code">A00</field>
+            <field name="country_id" eval="False"/>
+        </record>
+
+        <!-- Deduction -->
+        <record id="input_type_meal_deduction" model="hr.payslip.input.type">
+            <field name="name">Meal Deduction</field>
+            <field name="code">D01</field>
+            <field name="country_id" eval="False"/>
+        </record>
+
+        <record id="input_type_phone_deduction" model="hr.payslip.input.type">
+            <field name="name">Phone Allowance Deduction</field>
+            <field name="code">D02</field>
+            <field name="country_id" eval="False"/>
+        </record>
+
+        <record id="input_type_other_deduction" model="hr.payslip.input.type">
+            <field name="name">Other Deduction</field>
+            <field name="code">D00</field>
+            <field name="country_id" eval="False"/>
+        </record>
+
+        <record id="other_input_type_loan_entitlement" model="hr.payslip.input.type">
+            <field name="name">Loan Deduction</field>
+            <field name="code">ELOAN</field>
+            <field name="country_id" eval="False"/>
+        </record>
+
+        <record id="other_input_type_loan_training" model="hr.payslip.input.type">
+            <field name="name">Loan Deduction</field>
+            <field name="code">TLOAN</field>
+            <field name="country_id" eval="False"/>
+        </record>
+
+        <record id="other_input_type_insurance_deduction" model="hr.payslip.input.type">
+            <field name="name">Insurance Deduction</field>
+            <field name="code">INS</field>
+            <field name="country_id" eval="False"/>
+        </record>
+        
+        <!-- Duty / Driver (Duty) / Heavy Machinery Driver -->
+        <record id="structure_driver_duty" model="hr.payroll.structure">
+            <field name="name">ST06</field>
+            <field name="description">Driver (Heavy Machinery)</field>
+            <field name="remark">Shift Staff, 12 Hr per day, entitle 4 hr OT &amp; Sunday &amp; PH OT</field>
+            <field name="type_id" ref="hr_payroll_ext.payroll_structure_type_employee"/>
+            <field name="regular_pay" eval="True"/>
+            <field name="unpaid_work_entry_type_ids" eval="[(4, ref('hr_payroll.work_entry_type_unpaid_leave'))]"/>
+            <field name="country_id" eval="False"/>
+        </record>
+        <record id="other_input_type_ot_duty" model="hr.payslip.input.type">
+            <field name="name">OT Duty</field>
+            <field name="code">OTDT</field>
+            <field name="country_id" eval="False"/>
+            <field name="struct_ids" eval="[(4, ref('hr_payroll_ext.structure_driver_duty'))]"/>
+        </record>
+
+         <!-- Daily wages (monthly) -->
+        <record id="structure_daily_wages" model="hr.payroll.structure">
+            <field name="name">ST12</field>
+            <field name="description">Daily Wages</field>
+            <field name="remark">Daily wages (monthly)</field>
+            <field name="type_id" ref="hr_payroll_ext.payroll_structure_type_employee"/>
+            <field name="regular_pay" eval="True"/>
+            <field name="unpaid_work_entry_type_ids" eval="[(4, ref('hr_payroll.work_entry_type_unpaid_leave'))]"/>
+            <field name="country_id" eval="False"/>
+        </record>
+
+        <record id="other_input_type_late" model="hr.payslip.input.type">
+            <field name="name">Late Hour</field>
+            <field name="code">LATE</field>
+            <field name="country_id" eval="False"/>
+            <field name="struct_ids" eval="[(4, ref('hr_payroll_ext.structure_daily_wages'))]"/>
+        </record>
+
+        <!-- Office G10-G8 -->
+        <record id="structure_office_staff" model="hr.payroll.structure">
+            <field name="name">ST01</field>
+            <field name="description">Office G10-G8</field>
+            <field name="remark">Without FP</field>
+            <field name="type_id" ref="hr_payroll_ext.payroll_structure_type_employee"/>
+            <field name="regular_pay" eval="True"/>
+            <field name="unpaid_work_entry_type_ids" eval="[(4, ref('hr_payroll.work_entry_type_unpaid_leave'))]"/>
+            <field name="country_id" eval="False"/>
+        </record>
+
+        <record id="office_staff_INC" model="hr.salary.rule">
+            <field name="name">Increment</field>
+            <field name="code">INC</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+<!--             <field name="sequence" eval="2"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_office_staff"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = payslip.service_year * 800
+            </field>
+        </record>
+
+        <record id="office_staff_OT" model="hr.salary.rule">
+            <field name="name">OT allowance</field>
+            <field name="code">OTALW</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+<!--             <field name="sequence" eval="3"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_office_staff"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+ot_day = worked_days.OVERTIME100 and worked_days.OVERTIME100.number_of_days or 0
+result = contract.ot_allowance_per_day * ot_day
+            </field>
+        </record>
+
+        <record id="office_staff_INS" model="hr.salary.rule">
+            <field name="name">Insurance</field>
+            <field name="code">INS</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="40"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_office_staff"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.INS and inputs.INS.amount
+            </field>
+        </record>
+
+        <record id="office_staff_unpaid_leave" model="hr.salary.rule">
+            <field name="name">Leave Deduction</field>
+            <field name="code">D03</field>
+            <field name="category_id" ref="hr_payroll_ext.LDED"/>
+<!--             <field name="sequence" eval="50"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_office_staff"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+unpaid_leave = worked_days.LEAVE90 and worked_days.LEAVE90.number_of_days or 0
+calendar_days = payslip.days_of_month
+if unpaid_leave:
+    result = ((contract.wage / calendar_days) * unpaid_leave)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="office_staff_ELOAN" model="hr.salary.rule">
+            <field name="name">Loan Entitlement</field>
+            <field name="code">ELOAN</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="60"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_office_staff"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.TLOAN and inputs.TLOAN.amount
+            </field>
+        </record>
+
+        <record id="office_staff_TLOAN" model="hr.salary.rule">
+            <field name="name">Training Loan</field>
+            <field name="code">TLOAN</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="70"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_office_staff"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.ELOAN and inputs.ELOAN.amount
+            </field>
+        </record>
+
+        <record id="office_staff_SSB" model="hr.salary.rule">
+            <field name="name">SSB</field>
+            <field name="code">SSB</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="80"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_office_staff"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = contract.wage * 0.02
+if employee.ssb_not_calculate:
+    result = 0                
+elif abs(result) > 6000:
+    result = 6000
+            </field>
+        </record>
+
+        <!-- Office Staff (Management) -->
+        <record id="structure_management_staff" model="hr.payroll.structure">
+            <field name="name">ST02</field>
+            <field name="description">Office G7-G5</field>
+            <field name="remark">Without OT, Meal Allowance</field>
+            <field name="type_id" ref="hr_payroll_ext.payroll_structure_type_employee"/>
+            <field name="regular_pay" eval="True"/>
+            <field name="unpaid_work_entry_type_ids" eval="[(4, ref('hr_payroll.work_entry_type_unpaid_leave'))]"/>
+            <field name="country_id" eval="False"/>
+        </record>
+
+        <record id="management_staff_INC" model="hr.salary.rule">
+            <field name="name">Increment</field>
+            <field name="code">INC</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+<!--             <field name="sequence" eval="2"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_management_staff"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = payslip.service_year * 800
+            </field>
+        </record>
+
+        <record id="management_staff_OT" model="hr.salary.rule">
+            <field name="name">OT allowance</field>
+            <field name="code">OTALW</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+<!--             <field name="sequence" eval="3"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_management_staff"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+ot_day = worked_days.OVERTIME100 and worked_days.OVERTIME100.number_of_days or 0
+result = contract.ot_allowance_per_day * ot_day
+            </field>
+        </record>
+
+        <record id="management_staff_INS" model="hr.salary.rule">
+            <field name="name">Insurance</field>
+            <field name="code">INS</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="40"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_management_staff"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.INS and inputs.INS.amount
+            </field>
+        </record>
+
+        <record id="management_staff_absence" model="hr.salary.rule">
+            <field name="name">Absence</field>
+            <field name="code">ABSENCE</field>
+            <field name="category_id" ref="hr_payroll_ext.LDED"/>
+<!--             <field name="sequence" eval="45"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_management_staff"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+absence = worked_days.ABSENCE100 and worked_days.ABSENCE100.number_of_days or 0
+calendar_days = payslip.days_of_month
+if absence:
+    result = ((contract.wage / calendar_days) * absence)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="management_staff_unpaid_leave" model="hr.salary.rule">
+            <field name="name">Leave Deduction</field>
+            <field name="code">D03</field>
+            <field name="category_id" ref="hr_payroll_ext.LDED"/>
+<!--             <field name="sequence" eval="50"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_management_staff"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+unpaid_leave = worked_days.LEAVE90 and worked_days.LEAVE90.number_of_days or 0
+calendar_days = payslip.days_of_month
+if unpaid_leave:
+    result = ((contract.wage / calendar_days) * unpaid_leave)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="management_staff_ELOAN" model="hr.salary.rule">
+            <field name="name">Loan Entitlement</field>
+            <field name="code">ELOAN</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="60"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_management_staff"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.TLOAN and inputs.TLOAN.amount
+            </field>
+        </record>
+
+        <record id="management_staff_TLOAN" model="hr.salary.rule">
+            <field name="name">Training Loan</field>
+            <field name="code">TLOAN</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="70"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_management_staff"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.ELOAN and inputs.ELOAN.amount
+            </field>
+        </record>
+
+        <record id="management_staff_SSB" model="hr.salary.rule">
+            <field name="name">SSB</field>
+            <field name="code">SSB</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="80"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_management_staff"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = contract.wage * 0.02
+if employee.ssb_not_calculate:
+    result = 0                
+elif abs(result) > 6000:
+    result = 6000
+            </field>
+        </record>
+
+        <!-- Office Staff / Purchase -->
+        <record id="structure_purchase_staff" model="hr.payroll.structure">
+            <field name="name">ST03</field>
+            <field name="description">Office G-4-G1, Office Driver</field>
+            <field name="remark">Entitle OT</field>
+            <field name="type_id" ref="hr_payroll_ext.payroll_structure_type_employee"/>
+            <field name="regular_pay" eval="True"/>
+            <field name="unpaid_work_entry_type_ids" eval="[(4, ref('hr_payroll.work_entry_type_unpaid_leave'))]"/>
+            <field name="country_id" eval="False"/>
+        </record>
+
+        <record id="purchase_staff_INC" model="hr.salary.rule">
+            <field name="name">Increment</field>
+            <field name="code">INC</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+<!--             <field name="sequence" eval="2"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_purchase_staff"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = payslip.service_year * 800
+            </field>
+        </record>
+
+        <record id="purchase_staff_OT" model="hr.salary.rule">
+            <field name="name">OT</field>
+            <field name="code">OT</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+<!--             <field name="sequence" eval="3"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_purchase_staff"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+ot_hour = worked_days.OVERTIME100 and worked_days.OVERTIME100.number_of_hours or 0
+result = ((((contract.wage * 12) / 52) / 48) * 2) * ot_hour
+            </field>
+        </record>
+        
+        <record id="purchase_staff_INS" model="hr.salary.rule">
+            <field name="name">Insurance</field>
+            <field name="code">INS</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="40"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_purchase_staff"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.INS and inputs.INS.amount
+            </field>
+        </record>
+
+        <record id="purchase_staff_absence" model="hr.salary.rule">
+            <field name="name">Absence</field>
+            <field name="code">ABSENCE</field>
+            <field name="category_id" ref="hr_payroll_ext.LDED"/>
+<!--             <field name="sequence" eval="45"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_purchase_staff"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+absence = worked_days.ABSENCE100 and worked_days.ABSENCE100.number_of_days or 0
+calendar_days = payslip.days_of_month
+if absence:
+    result = ((contract.wage / calendar_days) * absence)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="purchase_staff_unpaid_leave" model="hr.salary.rule">
+            <field name="name">Leave Deduction</field>
+            <field name="code">D03</field>
+            <field name="category_id" ref="hr_payroll_ext.LDED"/>
+<!--             <field name="sequence" eval="50"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_purchase_staff"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+unpaid_leave = worked_days.LEAVE90 and worked_days.LEAVE90.number_of_days or 0
+calendar_days = payslip.days_of_month
+if unpaid_leave:
+    result = ((contract.wage / calendar_days) * unpaid_leave)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="purchase_staff_ELOAN" model="hr.salary.rule">
+            <field name="name">Loan Entitlement</field>
+            <field name="code">ELOAN</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="60"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_purchase_staff"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.TLOAN and inputs.TLOAN.amount
+            </field>
+        </record>
+
+        <record id="purchase_staff_TLOAN" model="hr.salary.rule">
+            <field name="name">Training Loan</field>
+            <field name="code">TLOAN</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="70"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_purchase_staff"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.ELOAN and inputs.ELOAN.amount
+            </field>
+        </record>
+
+        <record id="purchase_staff_SSB" model="hr.salary.rule">
+            <field name="name">SSB</field>
+            <field name="code">SSB</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="80"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_purchase_staff"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = contract.wage * 0.02
+if employee.ssb_not_calculate:
+    result = 0                
+elif abs(result) > 6000:
+    result = 6000
+            </field>
+        </record>
+
+        <!-- Sales-->
+        <record id="structure_sale" model="hr.payroll.structure">
+            <field name="name">ST04</field>
+            <field name="description">Sales &amp; Sales Driver</field>
+            <field name="remark">Entitle Commission, Relocation 6 Months for Sales Staff, No OT</field>
+            <field name="type_id" ref="hr_payroll_ext.payroll_structure_type_employee"/>
+            <field name="regular_pay" eval="True"/>
+            <field name="unpaid_work_entry_type_ids" eval="[(4, ref('hr_payroll.work_entry_type_unpaid_leave'))]"/>
+            <field name="country_id" eval="False"/>
+        </record>
+        
+        <record id="sale_INC" model="hr.salary.rule">
+            <field name="name">Increment</field>
+            <field name="code">INC</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+<!--             <field name="sequence" eval="2"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_sale"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = payslip.service_year * 800
+            </field>
+        </record>
+
+        <record id="sale_commission" model="hr.salary.rule">
+            <field name="name">Sales Commission</field>
+            <field name="code">SCOM</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+<!--             <field name="sequence" eval="3"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_sale"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.SCOM and inputs.SCOM.amount or 0
+            </field>
+        </record>
+        
+        <record id="sale_INS" model="hr.salary.rule">
+            <field name="name">Insurance</field>
+            <field name="code">INS</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="40"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_sale"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.INS and inputs.INS.amount
+            </field>
+        </record>
+
+        <record id="sale_absence" model="hr.salary.rule">
+            <field name="name">Absence</field>
+            <field name="code">ABSENCE</field>
+            <field name="category_id" ref="hr_payroll_ext.LDED"/>
+<!--             <field name="sequence" eval="45"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_sale"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+absence = worked_days.ABSENCE100 and worked_days.ABSENCE100.number_of_days or 0
+calendar_days = payslip.days_of_month
+if absence:
+    result = ((contract.wage / calendar_days) * absence)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="sale_unpaid_leave" model="hr.salary.rule">
+            <field name="name">Leave Deduction</field>
+            <field name="code">D03</field>
+            <field name="category_id" ref="hr_payroll_ext.LDED"/>
+<!--             <field name="sequence" eval="50"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_sale"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+unpaid_leave = worked_days.LEAVE90 and worked_days.LEAVE90.number_of_days or 0
+calendar_days = payslip.days_of_month
+if unpaid_leave:
+    result = ((contract.wage / calendar_days) * unpaid_leave)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="sale_ELOAN" model="hr.salary.rule">
+            <field name="name">Loan Entitlement</field>
+            <field name="code">ELOAN</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="60"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_sale"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.TLOAN and inputs.TLOAN.amount
+            </field>
+        </record>
+
+        <record id="sale_TLOAN" model="hr.salary.rule">
+            <field name="name">Training Loan</field>
+            <field name="code">TLOAN</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="70"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_sale"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.ELOAN and inputs.ELOAN.amount
+            </field>
+        </record>
+
+        <record id="sale_SSB" model="hr.salary.rule">
+            <field name="name">SSB</field>
+            <field name="code">SSB</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="80"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_sale"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = contract.wage * 0.02
+if employee.ssb_not_calculate:
+    result = 0                
+elif abs(result) > 6000:
+    result = 6000
+            </field>
+        </record>
+
+        <!-- Duty / Driver (Duty) / Heavy Machinery Driver -->
+        <record id="structure_duty_dn" model="hr.payroll.structure">
+            <field name="name">ST05</field>
+            <field name="description">Duty_DN</field>
+            <field name="remark">Shift Staff, 12 Hr per day, entitle 4 hr OT &amp; Sunday &amp; PH OT</field>
+            <field name="type_id" ref="hr_payroll_ext.payroll_structure_type_employee"/>
+            <field name="regular_pay" eval="True"/>
+            <field name="unpaid_work_entry_type_ids" eval="[(4, ref('hr_payroll.work_entry_type_unpaid_leave'))]"/>
+            <field name="country_id" eval="False"/>
+        </record>
+
+        <record id="duty_dn_INC" model="hr.salary.rule">
+            <field name="name">Increment</field>
+            <field name="code">INC</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+<!--             <field name="sequence" eval="2"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_duty_dn"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = payslip.service_year * 800
+            </field>
+        </record>
+
+        <record id="duty_dn_OT" model="hr.salary.rule">
+            <field name="name">OT</field>
+            <field name="code">OT</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+<!--             <field name="sequence" eval="3"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_duty_dn"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+ot_hour = worked_days.OVERTIME100 and worked_days.OVERTIME100.number_of_hours or 0
+result = ((((contract.wage * 12) / 52) / 48) * 2) * ot_hour
+            </field>
+        </record>
+
+        <record id="duty_dn_OTDT" model="hr.salary.rule">
+            <field name="name">OT Duty</field>
+            <field name="code">OTDT</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+<!--             <field name="sequence" eval="4"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_duty_dn"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+calendar_days = payslip.days_of_month
+ot_hour = inputs.OTDT and inputs.OTDT.amount or 0
+result = (((contract.wage / calendar_days) / 8)* 2) * ot_hour
+            </field>
+        </record>
+
+        <record id="duty_dn_INS" model="hr.salary.rule">
+            <field name="name">Insurance</field>
+            <field name="code">INS</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="40"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_duty_dn"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.INS and inputs.INS.amount
+            </field>
+        </record>
+
+        <record id="duty_dn_absence" model="hr.salary.rule">
+            <field name="name">Absence</field>
+            <field name="code">ABSENCE</field>
+            <field name="category_id" ref="hr_payroll_ext.LDED"/>
+<!--             <field name="sequence" eval="45"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_duty_dn"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+absence = worked_days.ABSENCE100 and worked_days.ABSENCE100.number_of_days or 0
+calendar_days = payslip.days_of_month
+if absence:
+    result = ((contract.wage / calendar_days) * absence)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="duty_dn_unpaid_leave" model="hr.salary.rule">
+            <field name="name">Leave Deduction</field>
+            <field name="code">D03</field>
+            <field name="category_id" ref="hr_payroll_ext.LDED"/>
+<!--             <field name="sequence" eval="50"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_duty_dn"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+unpaid_leave = worked_days.LEAVE90 and worked_days.LEAVE90.number_of_days or 0
+calendar_days = payslip.days_of_month
+if unpaid_leave:
+    result = ((contract.wage / calendar_days) * unpaid_leave)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="duty_dn_ELOAN" model="hr.salary.rule">
+            <field name="name">Loan Entitlement</field>
+            <field name="code">ELOAN</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="60"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_duty_dn"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.TLOAN and inputs.TLOAN.amount
+            </field>
+        </record>
+
+        <record id="duty_dn_TLOAN" model="hr.salary.rule">
+            <field name="name">Training Loan</field>
+            <field name="code">TLOAN</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="70"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_duty_dn"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.ELOAN and inputs.ELOAN.amount
+            </field>
+        </record>
+
+        <record id="duty_dn_SSB" model="hr.salary.rule">
+            <field name="name">SSB</field>
+            <field name="code">SSB</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="80"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_duty_dn"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = contract.wage * 0.02
+if employee.ssb_not_calculate:
+    result = 0                
+elif abs(result) > 6000:
+    result = 6000
+            </field>
+        </record>
+
+        <!-- Duty / Driver (Duty) / Heavy Machinery Driver -->
+        <record id="driver_duty_INC" model="hr.salary.rule">
+            <field name="name">Increment</field>
+            <field name="code">INC</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+<!--             <field name="sequence" eval="2"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_duty"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = payslip.service_year * 800
+            </field>
+        </record>
+
+        <record id="driver_duty_OT" model="hr.salary.rule">
+            <field name="name">OT</field>
+            <field name="code">OT</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+<!--             <field name="sequence" eval="3"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_duty"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+ot_hour = worked_days.OVERTIME100 and worked_days.OVERTIME100.number_of_hours or 0
+result = ((((contract.wage * 12) / 52) / 48) * 2) * ot_hour
+            </field>
+        </record>
+
+        <record id="driver_duty_OTDT" model="hr.salary.rule">
+            <field name="name">OT Duty</field>
+            <field name="code">OTDT</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+<!--             <field name="sequence" eval="4"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_duty"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+calendar_days = payslip.days_of_month
+ot_hour = inputs.OTDT and inputs.OTDT.amount or 0
+result = (((contract.wage / calendar_days) / 8)* 2) * ot_hour
+            </field>
+        </record>
+
+        <record id="driver_duty_INS" model="hr.salary.rule">
+            <field name="name">Insurance</field>
+            <field name="code">INS</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="40"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_duty"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.INS and inputs.INS.amount
+            </field>
+        </record>
+
+        <record id="driver_duty_absence" model="hr.salary.rule">
+            <field name="name">Absence</field>
+            <field name="code">ABSENCE</field>
+            <field name="category_id" ref="hr_payroll_ext.LDED"/>
+<!--             <field name="sequence" eval="45"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_duty"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+absence = worked_days.ABSENCE100 and worked_days.ABSENCE100.number_of_days or 0
+calendar_days = payslip.days_of_month
+if absence:
+    result = ((contract.wage / calendar_days) * absence)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="driver_duty_unpaid_leave" model="hr.salary.rule">
+            <field name="name">Leave Deduction</field>
+            <field name="code">D03</field>
+            <field name="category_id" ref="hr_payroll_ext.LDED"/>
+<!--             <field name="sequence" eval="50"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_duty"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+unpaid_leave = worked_days.LEAVE90 and worked_days.LEAVE90.number_of_days or 0
+calendar_days = payslip.days_of_month
+if unpaid_leave:
+    result = ((contract.wage / calendar_days) * unpaid_leave)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="driver_duty_ELOAN" model="hr.salary.rule">
+            <field name="name">Loan Entitlement</field>
+            <field name="code">ELOAN</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="60"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_duty"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.TLOAN and inputs.TLOAN.amount
+            </field>
+        </record>
+
+        <record id="driver_duty_TLOAN" model="hr.salary.rule">
+            <field name="name">Training Loan</field>
+            <field name="code">TLOAN</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="70"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_duty"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.ELOAN and inputs.ELOAN.amount
+            </field>
+        </record>
+
+        <record id="driver_duty_SSB" model="hr.salary.rule">
+            <field name="name">SSB</field>
+            <field name="code">SSB</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="80"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_duty"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = contract.wage * 0.02
+if employee.ssb_not_calculate:
+    result = 0                
+elif abs(result) > 6000:
+    result = 6000
+            </field>
+        </record>
+
+        <!-- Duty (Day) With Sunday -->
+        <record id="structure_office_duty_withSunday" model="hr.payroll.structure">
+            <field name="name">ST07</field>
+            <field name="description">Duty_D_WithSunday</field>
+            <field name="remark">Day Shift, 12 Hr per day, entitle 4 hr OT &amp; Sunday &amp; PH OT</field>
+            <field name="type_id" ref="hr_payroll_ext.payroll_structure_type_employee"/>
+            <field name="regular_pay" eval="True"/>
+            <field name="unpaid_work_entry_type_ids" eval="[(4, ref('hr_payroll.work_entry_type_unpaid_leave'))]"/>
+            <field name="country_id" eval="False"/>
+        </record>
+
+        <record id="office_duty_withSunday_INC" model="hr.salary.rule">
+            <field name="name">Increment</field>
+            <field name="code">INC</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+<!--             <field name="sequence" eval="2"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_office_duty_withSunday"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = payslip.service_year * 800
+            </field>
+        </record>
+
+        <record id="office_duty_withSunday_OT" model="hr.salary.rule">
+            <field name="name">OT</field>
+            <field name="code">OT</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+<!--             <field name="sequence" eval="3"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_office_duty_withSunday"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+ot_hour = worked_days.OVERTIME100 and worked_days.OVERTIME100.number_of_hours or 0
+result = ((((contract.wage * 12) / 52) / 48) * 2) * ot_hour
+            </field>
+        </record>
+
+        <record id="office_duty_withSunday_OTDT" model="hr.salary.rule">
+            <field name="name">OT Duty</field>
+            <field name="code">OTDT</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+<!--             <field name="sequence" eval="4"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_office_duty_withSunday"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+calendar_days = payslip.days_of_month
+ot_hour = inputs.OTDT and inputs.OTDT.amount or 0
+result = (((contract.wage / calendar_days) / 8)* 2) * ot_hour
+            </field>
+        </record>
+
+        <record id="office_duty_withSunday_INS" model="hr.salary.rule">
+            <field name="name">Insurance</field>
+            <field name="code">INS</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="40"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_office_duty_withSunday"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.INS and inputs.INS.amount
+            </field>
+        </record>
+
+        <record id="office_duty_withSunday_absence" model="hr.salary.rule">
+            <field name="name">Absence</field>
+            <field name="code">ABSENCE</field>
+            <field name="category_id" ref="hr_payroll_ext.LDED"/>
+<!--             <field name="sequence" eval="45"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_office_duty_withSunday"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+absence = worked_days.ABSENCE100 and worked_days.ABSENCE100.number_of_days or 0
+calendar_days = payslip.days_of_month
+if absence:
+    result = ((contract.wage / calendar_days) * absence)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="office_duty_withSunday_unpaid_leave" model="hr.salary.rule">
+            <field name="name">Leave Deduction</field>
+            <field name="code">D03</field>
+            <field name="category_id" ref="hr_payroll_ext.LDED"/>
+<!--             <field name="sequence" eval="50"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_office_duty_withSunday"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+unpaid_leave = worked_days.LEAVE90 and worked_days.LEAVE90.number_of_days or 0
+calendar_days = payslip.days_of_month
+if unpaid_leave:
+    result = ((contract.wage / calendar_days) * unpaid_leave)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="office_duty_withSunday_ELOAN" model="hr.salary.rule">
+            <field name="name">Loan Entitlement</field>
+            <field name="code">ELOAN</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="60"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_office_duty_withSunday"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.TLOAN and inputs.TLOAN.amount
+            </field>
+        </record>
+
+        <record id="office_duty_withSunday_TLOAN" model="hr.salary.rule">
+            <field name="name">Training Loan</field>
+            <field name="code">TLOAN</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="70"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_office_duty_withSunday"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.ELOAN and inputs.ELOAN.amount
+            </field>
+        </record>
+
+        <record id="office_duty_withSunday_SSB" model="hr.salary.rule">
+            <field name="name">SSB</field>
+            <field name="code">SSB</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="80"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_office_duty_withSunday"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = contract.wage * 0.02
+if employee.ssb_not_calculate:
+    result = 0                
+elif abs(result) > 6000:
+    result = 6000
+            </field>
+        </record>
+
+        <!-- Duty (Day) -->
+        <record id="structure_office_duty" model="hr.payroll.structure">
+            <field name="name">ST08</field>
+            <field name="description">Duty_D</field>
+            <field name="remark">Day Shift, 12 Hr per day, entitle 4 hr OT &amp; Sunday &amp; PH OT</field>
+            <field name="type_id" ref="hr_payroll_ext.payroll_structure_type_employee"/>
+            <field name="regular_pay" eval="True"/>
+            <field name="unpaid_work_entry_type_ids" eval="[(4, ref('hr_payroll.work_entry_type_unpaid_leave'))]"/>
+            <field name="country_id" eval="False"/>
+        </record>
+
+        <record id="office_duty_INC" model="hr.salary.rule">
+            <field name="name">Increment</field>
+            <field name="code">INC</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+<!--             <field name="sequence" eval="2"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_office_duty"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = payslip.service_year * 800
+            </field>
+        </record>
+
+        <record id="office_duty_OT" model="hr.salary.rule">
+            <field name="name">OT</field>
+            <field name="code">OT</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+<!--             <field name="sequence" eval="3"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_office_duty"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+ot_hour = worked_days.OVERTIME100 and worked_days.OVERTIME100.number_of_hours or 0
+result = ((((contract.wage * 12) / 52) / 48) * 2) * ot_hour
+            </field>
+        </record>
+
+        <record id="office_duty_OTDT" model="hr.salary.rule">
+            <field name="name">OT Duty</field>
+            <field name="code">OTDT</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+<!--             <field name="sequence" eval="4"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_office_duty"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+calendar_days = payslip.days_of_month
+ot_hour = inputs.OTDT and inputs.OTDT.amount or 0
+result = (((contract.wage / calendar_days) / 8)* 2) * ot_hour
+            </field>
+        </record>
+
+        <record id="office_duty_INS" model="hr.salary.rule">
+            <field name="name">Insurance</field>
+            <field name="code">INS</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="40"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_office_duty"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.INS and inputs.INS.amount
+            </field>
+        </record>
+
+        <record id="office_duty_absence" model="hr.salary.rule">
+            <field name="name">Absence</field>
+            <field name="code">ABSENCE</field>
+            <field name="category_id" ref="hr_payroll_ext.LDED"/>
+<!--             <field name="sequence" eval="45"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_office_duty"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+absence = worked_days.ABSENCE100 and worked_days.ABSENCE100.number_of_days or 0
+calendar_days = payslip.days_of_month
+if absence:
+    result = ((contract.wage / calendar_days) * absence)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="office_duty_unpaid_leave" model="hr.salary.rule">
+            <field name="name">Leave Deduction</field>
+            <field name="code">D03</field>
+            <field name="category_id" ref="hr_payroll_ext.LDED"/>
+<!--             <field name="sequence" eval="50"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_office_duty"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+unpaid_leave = worked_days.LEAVE90 and worked_days.LEAVE90.number_of_days or 0
+calendar_days = payslip.days_of_month
+if unpaid_leave:
+    result = ((contract.wage / calendar_days) * unpaid_leave)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="office_duty_ELOAN" model="hr.salary.rule">
+            <field name="name">Loan Entitlement</field>
+            <field name="code">ELOAN</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="60"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_office_duty"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.TLOAN and inputs.TLOAN.amount
+            </field>
+        </record>
+
+        <record id="office_duty_TLOAN" model="hr.salary.rule">
+            <field name="name">Training Loan</field>
+            <field name="code">TLOAN</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="70"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_office_duty"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.ELOAN and inputs.ELOAN.amount
+            </field>
+        </record>
+
+        <record id="office_duty_SSB" model="hr.salary.rule">
+            <field name="name">SSB</field>
+            <field name="code">SSB</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="80"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_office_duty"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = contract.wage * 0.02
+if employee.ssb_not_calculate:
+    result = 0                
+elif abs(result) > 6000:
+    result = 6000
+            </field>
+        </record>
+
+        <!-- Driver (Delivery) -->
+        <record id="structure_driver_delivery" model="hr.payroll.structure">
+            <field name="name">ST09</field>
+            <field name="description">Driver Delivery</field>
+            <field name="remark">Day Shift, 12 Hr per day, entitle 4 hr OT &amp; Sunday &amp; PH OT</field>
+            <field name="type_id" ref="hr_payroll_ext.payroll_structure_type_employee"/>
+            <field name="regular_pay" eval="True"/>
+            <field name="unpaid_work_entry_type_ids" eval="[(4, ref('hr_payroll.work_entry_type_unpaid_leave'))]"/>
+            <field name="country_id" eval="False"/>
+        </record>
+        
+        <record id="driver_delivery_INC" model="hr.salary.rule">
+            <field name="name">Increment</field>
+            <field name="code">INC</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+<!--             <field name="sequence" eval="2"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_delivery"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = payslip.service_year * 800
+            </field>
+        </record>
+
+        <record id="driver_delivery_OT" model="hr.salary.rule">
+            <field name="name">OT</field>
+            <field name="code">OT</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+<!--             <field name="sequence" eval="3"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_delivery"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+ot_hour = worked_days.OVERTIME100 and worked_days.OVERTIME100.number_of_hours or 0
+result = ((((contract.wage * 12) / 52) / 48) * 2) * ot_hour
+            </field>
+        </record>
+        
+        <record id="driver_delivery_INS" model="hr.salary.rule">
+            <field name="name">Insurance</field>
+            <field name="code">INS</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="40"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_delivery"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.INS and inputs.INS.amount
+            </field>
+        </record>
+
+        <record id="driver_delivery_absence" model="hr.salary.rule">
+            <field name="name">Absence</field>
+            <field name="code">ABSENCE</field>
+            <field name="category_id" ref="hr_payroll_ext.LDED"/>
+<!--             <field name="sequence" eval="45"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_delivery"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+absence = worked_days.ABSENCE100 and worked_days.ABSENCE100.number_of_days or 0
+calendar_days = payslip.days_of_month
+if absence:
+    result = ((contract.wage / calendar_days) * absence)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="driver_delivery_unpaid_leave" model="hr.salary.rule">
+            <field name="name">Leave Deduction</field>
+            <field name="code">D03</field>
+            <field name="category_id" ref="hr_payroll_ext.LDED"/>
+<!--             <field name="sequence" eval="50"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_delivery"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+unpaid_leave = worked_days.LEAVE90 and worked_days.LEAVE90.number_of_days or 0
+calendar_days = payslip.days_of_month
+if unpaid_leave:
+    result = ((contract.wage / calendar_days) * unpaid_leave)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="driver_delivery_ELOAN" model="hr.salary.rule">
+            <field name="name">Loan Entitlement</field>
+            <field name="code">ELOAN</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="60"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_delivery"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.TLOAN and inputs.TLOAN.amount
+            </field>
+        </record>
+
+        <record id="driver_delivery_TLOAN" model="hr.salary.rule">
+            <field name="name">Training Loan</field>
+            <field name="code">TLOAN</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="70"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_delivery"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.ELOAN and inputs.ELOAN.amount
+            </field>
+        </record>
+
+        <record id="driver_delivery_SSB" model="hr.salary.rule">
+            <field name="name">SSB</field>
+            <field name="code">SSB</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="80"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_delivery"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = contract.wage * 0.02
+if employee.ssb_not_calculate:
+    result = 0                
+elif abs(result) > 6000:
+    result = 6000
+            </field>
+        </record>
+
+        <!-- Driver (Logistic) -->
+        <record id="structure_driver_logistic" model="hr.payroll.structure">
+            <field name="name">ST10</field>
+            <field name="description">Driver &amp; Spare (Logistic)</field>
+            <field name="remark">Salary,  payment according to number of trips performed.</field>
+            <field name="type_id" ref="hr_payroll_ext.payroll_structure_type_employee"/>
+            <field name="regular_pay" eval="True"/>
+            <field name="unpaid_work_entry_type_ids" eval="[(4, ref('hr_payroll.work_entry_type_unpaid_leave'))]"/>
+            <field name="country_id" eval="False"/>
+        </record>
+        
+        <record id="driver_logistic_INC" model="hr.salary.rule">
+            <field name="name">Increment</field>
+            <field name="code">INC</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+<!--             <field name="sequence" eval="2"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_logistic"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = payslip.service_year * 800
+            </field>
+        </record>
+        
+        <record id="driver_logistic_INS" model="hr.salary.rule">
+            <field name="name">Insurance</field>
+            <field name="code">INS</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="40"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_logistic"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.INS and inputs.INS.amount
+            </field>
+        </record>
+
+        <record id="driver_logistic_absence" model="hr.salary.rule">
+            <field name="name">Absence</field>
+            <field name="code">ABSENCE</field>
+            <field name="category_id" ref="hr_payroll_ext.LDED"/>
+<!--             <field name="sequence" eval="45"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_logistic"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+absence = worked_days.ABSENCE100 and worked_days.ABSENCE100.number_of_days or 0
+calendar_days = payslip.days_of_month
+if absence:
+    result = ((contract.wage / calendar_days) * absence)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="driver_logistic_unpaid_leave" model="hr.salary.rule">
+            <field name="name">Leave Deduction</field>
+            <field name="code">D03</field>
+            <field name="category_id" ref="hr_payroll_ext.LDED"/>
+<!--             <field name="sequence" eval="50"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_logistic"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+unpaid_leave = worked_days.LEAVE90 and worked_days.LEAVE90.number_of_days or 0
+calendar_days = payslip.days_of_month
+if unpaid_leave:
+    result = ((contract.wage / calendar_days) * unpaid_leave)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="driver_logistic_ELOAN" model="hr.salary.rule">
+            <field name="name">Loan Entitlement</field>
+            <field name="code">ELOAN</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="60"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_logistic"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.TLOAN and inputs.TLOAN.amount
+            </field>
+        </record>
+
+        <record id="driver_logistic_TLOAN" model="hr.salary.rule">
+            <field name="name">Training Loan</field>
+            <field name="code">TLOAN</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="70"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_logistic"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.ELOAN and inputs.ELOAN.amount
+            </field>
+        </record>
+
+        <record id="driver_logistic_SSB" model="hr.salary.rule">
+            <field name="name">SSB</field>
+            <field name="code">SSB</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="80"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_logistic"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = contract.wage * 0.02
+if employee.ssb_not_calculate:
+    result = 0                
+elif abs(result) > 6000:
+    result = 6000
+            </field>
+        </record>
+
+        <!-- Fixed -->
+        <record id="structure_fixed" model="hr.payroll.structure">
+            <field name="name">ST11</field>
+            <field name="description">Fixed Staff &amp; Management Driver</field>
+            <field name="remark">Entitley only salary &amp; Fixed allowance (eg. Land Security/ HOD's Driver)</field>
+            <field name="type_id" ref="hr_payroll_ext.payroll_structure_type_employee"/>
+            <field name="regular_pay" eval="True"/>
+            <field name="unpaid_work_entry_type_ids" eval="[(4, ref('hr_payroll.work_entry_type_unpaid_leave'))]"/>
+            <field name="country_id" eval="False"/>
+        </record>
+
+        <record id="fixed_INC" model="hr.salary.rule">
+            <field name="name">Increment</field>
+            <field name="code">INC</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+<!--             <field name="sequence" eval="2"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_fixed"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = payslip.service_year * 800
+            </field>
+        </record>
+
+        <record id="fixed_INS" model="hr.salary.rule">
+            <field name="name">Insurance</field>
+            <field name="code">INS</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="40"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_fixed"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.INS and inputs.INS.amount
+            </field>
+        </record>
+
+        <record id="fixed_absence" model="hr.salary.rule">
+            <field name="name">Absence</field>
+            <field name="code">ABSENCE</field>
+            <field name="category_id" ref="hr_payroll_ext.LDED"/>
+<!--             <field name="sequence" eval="45"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_fixed"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+absence = worked_days.ABSENCE100 and worked_days.ABSENCE100.number_of_days or 0
+calendar_days = payslip.days_of_month
+if absence:
+    result = ((contract.wage / calendar_days) * absence)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="fixed_unpaid_leave" model="hr.salary.rule">
+            <field name="name">Leave Deduction</field>
+            <field name="code">D03</field>
+            <field name="category_id" ref="hr_payroll_ext.LDED"/>
+<!--             <field name="sequence" eval="50"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_fixed"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+unpaid_leave = worked_days.LEAVE90 and worked_days.LEAVE90.number_of_days or 0
+calendar_days = payslip.days_of_month
+if unpaid_leave:
+    result = ((contract.wage / calendar_days) * unpaid_leave)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="fixed_ELOAN" model="hr.salary.rule">
+            <field name="name">Loan Entitlement</field>
+            <field name="code">ELOAN</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="60"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_fixed"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.TLOAN and inputs.TLOAN.amount
+            </field>
+        </record>
+
+        <record id="fixed_TLOAN" model="hr.salary.rule">
+            <field name="name">Training Loan</field>
+            <field name="code">TLOAN</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="70"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_fixed"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.ELOAN and inputs.ELOAN.amount
+            </field>
+        </record>
+
+        <record id="fixed_SSB" model="hr.salary.rule">
+            <field name="name">SSB</field>
+            <field name="code">SSB</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="80"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_fixed"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = contract.wage * 0.02
+if employee.ssb_not_calculate:
+    result = 0                
+elif abs(result) > 6000:
+    result = 6000
+            </field>
+        </record>
+
+        
+        <record id="daily_wages_OT" model="hr.salary.rule">
+            <field name="name">OT</field>
+            <field name="code">OT</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+<!--             <field name="sequence" eval="3"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_daily_wages"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+ot_hour = worked_days.OVERTIME100 and worked_days.OVERTIME100.number_of_hours or 0
+result = ((((contract.wage * 12) / 52) / 48) * 2) * ot_hour
+            </field>
+        </record>
+
+        <record id="daily_wages_Late" model="hr.salary.rule">
+            <field name="name">Late Deduction</field>
+            <field name="code">LATE</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="4"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_daily_wages"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+late_hour = inputs.LATE.amount if inputs.LATE else 0
+result = (contract.wage / 8) * late_hour
+            </field>
+        </record>
+
+        <record id="other_input_type_late" model="hr.payslip.input.type">
+            <field name="struct_ids" eval="[(4, ref('hr_payroll_ext.structure_daily_wages'))]"/>
+        </record>
+
+        <!--- ***** To Delete ***** -->
+        <!-- Driver (Office) -->
+        <record id="structure_driver_office" model="hr.payroll.structure">
+            <field name="name">Driver (Office) {TO DELETE}</field>
+            <field name="description">Driver (Office) {TO DELETE}</field>
+            <field name="type_id" ref="hr_payroll_ext.payroll_structure_type_employee"/>
+            <field name="regular_pay" eval="True"/>
+            <field name="unpaid_work_entry_type_ids" eval="[(4, ref('hr_payroll.work_entry_type_unpaid_leave'))]"/>
+            <field name="country_id" eval="False"/>
+        </record>
+
+        <record id="driver_office_INC" model="hr.salary.rule">
+            <field name="name">Increment</field>
+            <field name="code">INC</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+<!--             <field name="sequence" eval="2"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_office"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = payslip.service_year * 800
+            </field>
+        </record>
+
+        <record id="driver_office_OT" model="hr.salary.rule">
+            <field name="name">OT</field>
+            <field name="code">OT</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+<!--             <field name="sequence" eval="3"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_office"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+ot_hour = worked_days.OVERTIME100 and worked_days.OVERTIME100.number_of_hours or 0
+result = ((((contract.wage * 12) / 52) / 48) * 2) * ot_hour
+            </field>
+        </record>
+
+        <record id="driver_office_other_allowance" model="hr.salary.rule">
+            <field name="name">Other Allowance</field>
+            <field name="code">OA</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="4"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_office"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.A00 and inputs.A00.amount or 0
+            </field>
+        </record>
+
+        <record id="driver_office_deduction" model="hr.salary.rule">
+            <field name="name">Other Deduction</field>
+            <field name="code">DED</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="4"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_office"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.D00 and inputs.D00.amount or 0
+            </field>
+        </record>
+
+        <record id="driver_office_INS" model="hr.salary.rule">
+            <field name="name">Insurance</field>
+            <field name="code">INS</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="5"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_office"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.INS and inputs.INS.amount
+            </field>
+        </record>
+
+        <record id="driver_office_absence" model="hr.salary.rule">
+            <field name="name">Absence</field>
+            <field name="code">ABSENCE</field>
+            <field name="category_id" ref="hr_payroll_ext.LDED"/>
+<!--             <field name="sequence" eval="6"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_office"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+absence = worked_days.ABSENCE100 and worked_days.ABSENCE100.number_of_days or 0
+calendar_days = payslip.days_of_month
+if absence:
+    result = ((contract.wage / calendar_days) * absence)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="driver_office_unpaid_leave" model="hr.salary.rule">
+            <field name="name">Leave Deduction</field>
+            <field name="code">D03</field>
+            <field name="category_id" ref="hr_payroll_ext.LDED"/>
+<!--             <field name="sequence" eval="6"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_office"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+unpaid_leave = worked_days.LEAVE90 and worked_days.LEAVE90.number_of_days or 0
+calendar_days = payslip.days_of_month
+if unpaid_leave:
+    result = ((contract.wage / calendar_days) * unpaid_leave)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="driver_office_ELOAN" model="hr.salary.rule">
+            <field name="name">Loan Entitlement</field>
+            <field name="code">ELOAN</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="7"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_office"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.TLOAN and inputs.TLOAN.amount
+            </field>
+        </record>
+
+        <record id="driver_office_TLOAN" model="hr.salary.rule">
+            <field name="name">Training Loan</field>
+            <field name="code">TLOAN</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="8"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_office"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.ELOAN and inputs.ELOAN.amount
+            </field>
+        </record>
+
+        <record id="driver_office_SSB" model="hr.salary.rule">
+            <field name="name">SSB</field>
+            <field name="code">SSB</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="9"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_office"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = contract.wage * 0.02
+if employee.ssb_not_calculate:
+    result = 0                
+elif abs(result) > 6000:
+    result = 6000
+            </field>
+        </record>
+
+        <record id="driver_office_ICT" model="hr.salary.rule">
+            <field name="name">Income Tax</field>
+            <field name="code">ICT</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="101"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_office"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = payable_tax = 0
+remaining_months = payslip.remaining_months
+if contract.wage &gt; 400000:
+    ssb_amount = contract.wage * 0.02
+    if employee.ssb_not_calculate:
+        ssb_amount = 0
+    elif abs(ssb_amount) > 6000:
+        ssb_amount = 6000
+
+    income_amt = categories.BASIC
+    unpaid_leaves_amt = categories.LDED
+    this_month_income = income_amt - unpaid_leaves_amt
+    remaining_month_income = (remaining_months * contract.wage) - remaining_months
+    actual_annual_income = payslip.previous_income + this_month_income + remaining_month_income
+
+    twenty_percent_exemption = actual_annual_income * 0.2
+    if twenty_percent_exemption &lt;= 10000000:
+        twenty_percent_exemption = twenty_percent_exemption
+    else:
+        twenty_percent_exemption = 10000000
+
+    if actual_annual_income > 4800000:
+        family_exemption = 0
+        if employee.spouse_exemption:
+            family_exemption += 1000000
+        if employee.father_exemption:
+            family_exemption += 1000000
+        if employee.mother_exemption:
+            family_exemption += 1000000
+        if employee.children > 0:
+            family_exemption += employee.children * 500000
+        taxable_income = actual_annual_income - family_exemption - twenty_percent_exemption - ((remaining_months + 1) * ssb_amount)
+
+    # For 0 to 2,000,000 Kyats == 0%
+        if taxable_income > 2000000:
+
+    # For 2,000,001 to 5,000,000 Kyats == 5%
+            if taxable_income &lt;= 5000000:
+                payable_tax += (taxable_income - 2000000) * 0.05;
+            if taxable_income > 5000000:
+                payable_tax += (5000000 - 2000000) * 0.05;
+
+    # For 5,000,001 to 10,000,000 Kyats == 10%
+                if taxable_income &lt;= 10000000:
+                    payable_tax += (taxable_income - 5000000 ) * 0.10;
+                if taxable_income > 10000000:
+                    payable_tax += (10000000 - 5000000 ) * 0.10;
+
+    # For 10,000,001 to 20,000,000 Kyats == 15%
+                    if taxable_income &lt;= 20000000:
+                        payable_tax += (taxable_income - 10000000) * 0.15;
+                    if taxable_income > 20000000:
+                        payable_tax += (20000000 - 10000000) * 0.15;
+
+    # For 20,000,001 to 30,000,000 Kyats == 20%
+                        if taxable_income &lt;= 30000000:
+                            payable_tax += (taxable_income - 20000000 ) * 0.20;
+                        if taxable_income > 30000000:
+                            payable_tax += (30000000 - 20000000 ) * 0.20;
+
+    # For 30,000,001 Kyats and Up == 25%
+                            payable_tax += (taxable_income - 30000000 ) * 0.25;
+
+    payable_tax = payable_tax - payslip.previous_tax_paid
+    result = payable_tax / (remaining_months + 1)
+if result &lt; 0:
+    result = 0
+result = round(result)
+            </field>
+        </record>
+
+        <!-- Driver (Admin) -->
+        <record id="structure_driver_admin" model="hr.payroll.structure">
+            <field name="name">Driver (Admin) {TO DELETE}</field>
+            <field name="description">Driver (Admin) {TO DELETE}</field>
+            <field name="type_id" ref="hr_payroll_ext.payroll_structure_type_employee"/>
+            <field name="regular_pay" eval="True"/>
+            <field name="unpaid_work_entry_type_ids" eval="[(4, ref('hr_payroll.work_entry_type_unpaid_leave'))]"/>
+            <field name="country_id" eval="False"/>
+        </record>
+
+        <record id="driver_admin_INC" model="hr.salary.rule">
+            <field name="name">Increment</field>
+            <field name="code">INC</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+<!--             <field name="sequence" eval="2"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_admin"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = payslip.service_year * 800
+            </field>
+        </record>
+
+        <record id="driver_admin_OT" model="hr.salary.rule">
+            <field name="name">OT</field>
+            <field name="code">OT</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+<!--             <field name="sequence" eval="3"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_admin"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+ot_hour = worked_days.OVERTIME100 and worked_days.OVERTIME100.number_of_hours or 0
+result = ((((contract.wage * 12) / 52) / 48) * 2) * ot_hour
+            </field>
+        </record>
+
+        <record id="driver_admin_allowance" model="hr.salary.rule">
+            <field name="name">Relocation Allowance / Fixed Allowance</field>
+            <field name="code">ALW</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+<!--             <field name="sequence" eval="4"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_admin"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.A02 and inputs.A02.amount or 0 + inputs.A03 and inputs.A03.amount or 0
+            </field>
+        </record>
+
+        <record id="driver_admin_other_allowance" model="hr.salary.rule">
+            <field name="name">Other Allowance</field>
+            <field name="code">OA</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+<!--             <field name="sequence" eval="5"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_admin"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.A00 and inputs.A00.amount or 0
+            </field>
+        </record>
+
+        <record id="driver_admin_deduction" model="hr.salary.rule">
+            <field name="name">Other Deduction</field>
+            <field name="code">DED</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="5"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_admin"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.D00 and inputs.D00.amount or 0
+            </field>
+        </record>
+
+        <record id="driver_admin_INS" model="hr.salary.rule">
+            <field name="name">Insurance</field>
+            <field name="code">INS</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="6"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_admin"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.INS and inputs.INS.amount
+            </field>
+        </record>
+
+        <record id="driver_admin_absence" model="hr.salary.rule">
+            <field name="name">Absence</field>
+            <field name="code">ABSENCE</field>
+            <field name="category_id" ref="hr_payroll_ext.LDED"/>
+<!--             <field name="sequence" eval="7"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_admin"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+absence = worked_days.ABSENCE100 and worked_days.ABSENCE100.number_of_days or 0
+calendar_days = payslip.days_of_month
+if absence:
+    result = ((contract.wage / calendar_days) * absence)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="driver_admin_unpaid_leave" model="hr.salary.rule">
+            <field name="name">Leave Deduction</field>
+            <field name="code">D03</field>
+            <field name="category_id" ref="hr_payroll_ext.LDED"/>
+<!--             <field name="sequence" eval="7"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_admin"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+unpaid_leave = worked_days.LEAVE90 and worked_days.LEAVE90.number_of_days or 0
+calendar_days = payslip.days_of_month
+if unpaid_leave:
+    result = ((contract.wage / calendar_days) * unpaid_leave)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="driver_admin_ELOAN" model="hr.salary.rule">
+            <field name="name">Loan Entitlement</field>
+            <field name="code">ELOAN</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="8"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_admin"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.TLOAN and inputs.TLOAN.amount
+            </field>
+        </record>
+
+        <record id="driver_admin_TLOAN" model="hr.salary.rule">
+            <field name="name">Training Loan</field>
+            <field name="code">TLOAN</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="9"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_admin"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.ELOAN and inputs.ELOAN.amount
+            </field>
+        </record>
+
+        <record id="driver_admin_SSB" model="hr.salary.rule">
+            <field name="name">SSB</field>
+            <field name="code">SSB</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="10"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_admin"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = contract.wage * 0.02
+if employee.ssb_not_calculate:
+    result = 0                
+elif abs(result) > 6000:
+    result = 6000
+            </field>
+        </record>
+
+        <record id="driver_admin_ICT" model="hr.salary.rule">
+            <field name="name">Income Tax</field>
+            <field name="code">ICT</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="101"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_admin"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = payable_tax = 0
+remaining_months = payslip.remaining_months
+if contract.wage &gt; 400000:
+    ssb_amount = contract.wage * 0.02
+    if employee.ssb_not_calculate:
+        ssb_amount = 0
+    elif abs(ssb_amount) > 6000:
+        ssb_amount = 6000
+
+    income_amt = categories.BASIC
+    unpaid_leaves_amt = categories.LDED
+    this_month_income = income_amt - unpaid_leaves_amt
+    remaining_month_income = (remaining_months * contract.wage) - remaining_months
+    actual_annual_income = payslip.previous_income + this_month_income + remaining_month_income
+
+    twenty_percent_exemption = actual_annual_income * 0.2
+    if twenty_percent_exemption &lt;= 10000000:
+        twenty_percent_exemption = twenty_percent_exemption
+    else:
+        twenty_percent_exemption = 10000000
+
+    if actual_annual_income > 4800000:
+        family_exemption = 0
+        if employee.spouse_exemption:
+            family_exemption += 1000000
+        if employee.father_exemption:
+            family_exemption += 1000000
+        if employee.mother_exemption:
+            family_exemption += 1000000
+        if employee.children > 0:
+            family_exemption += employee.children * 500000
+        taxable_income = actual_annual_income - family_exemption - twenty_percent_exemption
+
+    # For 0 to 2,000,000 Kyats == 0%
+        if taxable_income > 2000000:
+
+    # For 2,000,001 to 5,000,000 Kyats == 5%
+            if taxable_income &lt;= 5000000:
+                payable_tax += (taxable_income - 2000000) * 0.05;
+            if taxable_income > 5000000:
+                payable_tax += (5000000 - 2000000) * 0.05;
+
+    # For 5,000,001 to 10,000,000 Kyats == 10%
+                if taxable_income &lt;= 10000000:
+                    payable_tax += (taxable_income - 5000000 ) * 0.10;
+                if taxable_income > 10000000:
+                    payable_tax += (10000000 - 5000000 ) * 0.10;
+
+    # For 10,000,001 to 20,000,000 Kyats == 15%
+                    if taxable_income &lt;= 20000000:
+                        payable_tax += (taxable_income - 10000000) * 0.15;
+                    if taxable_income > 20000000:
+                        payable_tax += (20000000 - 10000000) * 0.15;
+
+    # For 20,000,001 to 30,000,000 Kyats == 20%
+                        if taxable_income &lt;= 30000000:
+                            payable_tax += (taxable_income - 20000000 ) * 0.20;
+                        if taxable_income > 30000000:
+                            payable_tax += (30000000 - 20000000 ) * 0.20;
+
+    # For 30,000,001 Kyats and Up == 25%
+                            payable_tax += (taxable_income - 30000000 ) * 0.25;
+
+    payable_tax = payable_tax - payslip.previous_tax_paid
+    result = payable_tax / (remaining_months + 1)
+if result &lt; 0:
+    result = 0
+result = round(result)
+            </field>
+        </record>
+
+        <!-- Driver (City Sale, Regional Sale) -->
+        <record id="structure_driver_sale" model="hr.payroll.structure">
+            <field name="name">Driver (City Sale, Regional Sale) {TO DELETE}</field>
+            <field name="description">Driver (City Sale, Regional Sale) {TO DELETE}</field>
+            <field name="type_id" ref="hr_payroll_ext.payroll_structure_type_employee"/>
+            <field name="regular_pay" eval="True"/>
+            <field name="unpaid_work_entry_type_ids" eval="[(4, ref('hr_payroll.work_entry_type_unpaid_leave'))]"/>
+            <field name="country_id" eval="False"/>
+        </record>
+
+        <record id="driver_sale_INC" model="hr.salary.rule">
+            <field name="name">Increment</field>
+            <field name="code">INC</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+<!--             <field name="sequence" eval="2"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_sale"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = payslip.service_year * 800
+            </field>
+        </record>
+
+        <record id="driver_sale_commission" model="hr.salary.rule">
+            <field name="name">Sales Commission</field>
+            <field name="code">SCOM</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+<!--             <field name="sequence" eval="3"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_sale"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.A06 and inputs.A06.amount or 0
+            </field>
+        </record>
+
+        <record id="driver_sale_other_allowance" model="hr.salary.rule">
+            <field name="name">Other Allowance</field>
+            <field name="code">OA</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+<!--             <field name="sequence" eval="4"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_sale"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.A00 and inputs.A00.amount or 0
+            </field>
+        </record>
+
+        <record id="driver_sale_deduction" model="hr.salary.rule">
+            <field name="name">Other Deduction</field>
+            <field name="code">DED</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="4"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_sale"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.D00 and inputs.D00.amount or 0
+            </field>
+        </record>
+
+        <record id="driver_sale_INS" model="hr.salary.rule">
+            <field name="name">Insurance</field>
+            <field name="code">INS</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="5"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_sale"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.INS and inputs.INS.amount
+            </field>
+        </record>
+
+        <record id="driver_sale_absence" model="hr.salary.rule">
+            <field name="name">Absence</field>
+            <field name="code">ABSENCE</field>
+            <field name="category_id" ref="hr_payroll_ext.LDED"/>
+<!--             <field name="sequence" eval="6"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_sale"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+absence = worked_days.ABSENCE100 and worked_days.ABSENCE100.number_of_days or 0
+calendar_days = payslip.days_of_month
+if absence:
+    result = ((contract.wage / calendar_days) * absence)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="driver_sale_unpaid_leave" model="hr.salary.rule">
+            <field name="name">Leave Deduction</field>
+            <field name="code">D03</field>
+            <field name="category_id" ref="hr_payroll_ext.LDED"/>
+<!--             <field name="sequence" eval="6"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_sale"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+unpaid_leave = worked_days.LEAVE90 and worked_days.LEAVE90.number_of_days or 0
+calendar_days = payslip.days_of_month
+if unpaid_leave:
+    result = ((contract.wage / calendar_days) * unpaid_leave)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="driver_sale_ELOAN" model="hr.salary.rule">
+            <field name="name">Loan Entitlement</field>
+            <field name="code">ELOAN</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="7"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_sale"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.TLOAN and inputs.TLOAN.amount
+            </field>
+        </record>
+
+        <record id="driver_sale_TLOAN" model="hr.salary.rule">
+            <field name="name">Training Loan</field>
+            <field name="code">TLOAN</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="8"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_sale"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.ELOAN and inputs.ELOAN.amount
+            </field>
+        </record>
+
+        <record id="driver_sale_SSB" model="hr.salary.rule">
+            <field name="name">SSB</field>
+            <field name="code">SSB</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="9"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_sale"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = contract.wage * 0.02
+if employee.ssb_not_calculate:
+    result = 0                
+elif abs(result) > 6000:
+    result = 6000
+            </field>
+        </record>
+
+        <record id="driver_sale_ICT" model="hr.salary.rule">
+            <field name="name">Income Tax</field>
+            <field name="code">ICT</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+<!--             <field name="sequence" eval="101"/> -->
+            <field name="struct_id" ref="hr_payroll_ext.structure_driver_sale"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = payable_tax = 0
+remaining_months = payslip.remaining_months
+if contract.wage &gt; 400000:
+    ssb_amount = contract.wage * 0.02
+    if employee.ssb_not_calculate:
+        ssb_amount = 0
+    elif abs(ssb_amount) > 6000:
+        ssb_amount = 6000
+
+    income_amt = categories.BASIC
+    unpaid_leaves_amt = categories.LDED
+    this_month_income = income_amt - unpaid_leaves_amt
+    remaining_month_income = (remaining_months * contract.wage) - remaining_months
+    actual_annual_income = payslip.previous_income + this_month_income + remaining_month_income
+
+    twenty_percent_exemption = actual_annual_income * 0.2
+    if twenty_percent_exemption &lt;= 10000000:
+        twenty_percent_exemption = twenty_percent_exemption
+    else:
+        twenty_percent_exemption = 10000000
+
+    if actual_annual_income > 4800000:
+        family_exemption = 0
+        if employee.spouse_exemption:
+            family_exemption += 1000000
+        if employee.father_exemption:
+            family_exemption += 1000000
+        if employee.mother_exemption:
+            family_exemption += 1000000
+        if employee.children > 0:
+            family_exemption += employee.children * 500000
+        taxable_income = actual_annual_income - family_exemption - twenty_percent_exemption
+
+    # For 0 to 2,000,000 Kyats == 0%
+        if taxable_income > 2000000:
+
+    # For 2,000,001 to 5,000,000 Kyats == 5%
+            if taxable_income &lt;= 5000000:
+                payable_tax += (taxable_income - 2000000) * 0.05;
+            if taxable_income > 5000000:
+                payable_tax += (5000000 - 2000000) * 0.05;
+
+    # For 5,000,001 to 10,000,000 Kyats == 10%
+                if taxable_income &lt;= 10000000:
+                    payable_tax += (taxable_income - 5000000 ) * 0.10;
+                if taxable_income > 10000000:
+                    payable_tax += (10000000 - 5000000 ) * 0.10;
+
+    # For 10,000,001 to 20,000,000 Kyats == 15%
+                    if taxable_income &lt;= 20000000:
+                        payable_tax += (taxable_income - 10000000) * 0.15;
+                    if taxable_income > 20000000:
+                        payable_tax += (20000000 - 10000000) * 0.15;
+
+    # For 20,000,001 to 30,000,000 Kyats == 20%
+                        if taxable_income &lt;= 30000000:
+                            payable_tax += (taxable_income - 20000000 ) * 0.20;
+                        if taxable_income > 30000000:
+                            payable_tax += (30000000 - 20000000 ) * 0.20;
+
+    # For 30,000,001 Kyats and Up == 25%
+                            payable_tax += (taxable_income - 30000000 ) * 0.25;
+
+    payable_tax = payable_tax - payslip.previous_tax_paid
+    result = payable_tax / (remaining_months + 1)
+if result &lt; 0:
+    result = 0
+result = round(result)
+            </field>
+        </record>
+
+    </data>
+</odoo>

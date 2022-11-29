@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<template id="print_extend_probation_letter">
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <t t-foreach="docs" t-as="employee">
+                    <t t-if="employee.state == 'extend_probation'">
+                        <div style="text-align:right; margin-top:0pt;">
+                            <img t-if="employee.company_id.logo" t-att-src="image_data_uri(employee.company_id.logo)" style="max-height:45pt;max-width:90%;margin-top:0;  margin-buttom:30px;" alt="Company Logo"/>
+                        </div>
+                        <h5>To,</h5>
+                        <div style="margin-top:10pt;">
+                        <div style="font-size:15pt; margin-bottom:0pt;margin-top:5pt;"><t t-esc="employee.name"/></div>
+                        <div style="font-size:15pt;margin-top:3pt;"><t t-esc="employee.job_id.name"/></div>
+                        <div style="font-size:15pt;margin-top:3pt;"><t t-esc="employee.department_id.name"/></div>
+                        </div>
+                        <div class="date" style="margin-top:25pt;">
+                            <span style="font-size:12pt;" t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y')"/>   
+                        </div>
+                        <div class="subject" style="margin-top:35pt;">
+                                <strong style="font-size:15pt;">Subject: &amp;nbsp; &amp;nbsp; &amp;nbsp; :Letter of probation extension</strong>  
+                        </div>
+                        <div style="margin-top:25pt;">
+                                <span style="font-size:13pt;">Dear <t t-esc="employee.name"/>,</span>
+                                <br></br>
+                                <br></br>
+                                <p>
+                                    This letter is to inform you that it has been decided to extend your probation period by an additional 
+                                    <t t-esc="employee.extend_month"/> months from <span t-field="employee.trial_end_date" t-options='{"format": "dd/MM/yyyy"}'/>.
+                                    <br></br><br></br>
+                                    The reason we have decided to extend your probation period is 
+                                    <t t-esc="employee.extend_reason"/>.
+                                    <br></br><br></br>
+                                    This action will extend your probation period until approximately 
+                                    <span t-field="employee.trial_date_after_extend" t-options='{"format": "dd/MM/yyyy"}'/>. Successful completion of this probation period will result in your being certified 
+                                    to permanent status in your current classification of <t t-esc="employee.job_id.name"/>.
+                                    <br></br><br></br>
+                                    Thank you for your attention to this matter.
+                                </p>  
+                        </div>
+                        <div style="margin-top:25pt;">
+                            <p>Yours sincerely,</p>
+                        </div>
+                        <table width="100%" style="page-break-inside: avoid; margin-top:80pt;" height="10%">
+                            <tr>
+                                <th>Employee’s acceptance signature</th>						
+                                <th>(Name in block letters)</th>
+                            </tr>
+                        </table> 
+                    </t>
+                </t>
+            </div>
+        </t>
+    </template>
+
+</odoo>

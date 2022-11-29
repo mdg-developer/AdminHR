@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="view_leave_update_wizard" model="ir.ui.view">
+			<field name="name">Attendance Leave Update</field>
+			<field name="model">leave.update.wizard</field>
+			<field name="arch" type="xml">
+				<form string="Attendance Leave Update" version="7.0">
+					<group string="Company">
+						<field name="company_id"  string="Company" options="{'no_open':True, 'no_quick_create':True,'no_create_edit':True}" placeholder="All Companies"/>
+					</group>
+					<group string="Branch">
+						<field name="branch_id" />
+					</group>
+					<group string="Department"
+						attrs="{'invisible': [('branch_id', '=',  False)]}">
+						<field name="department_id" options="{'no_open':True, 'no_quick_create':True,'no_create_edit':True}"/>
+					</group>
+					<group>
+						<field name="date_from" />
+						<field name="date_to" />
+						
+					</group>
+					
+					<group >
+                        
+						<field name="employee_ids" nolabel="1" options="{'no_quick_create':True,'no_create_edit':True}">
+							<tree string="Employee">
+								<field name="name" />
+							</tree>
+						</field>
+					</group>
+					<footer>
+						<button name="run_update" string="Update" type="object"
+								class="oe_highlight" />
+							
+
+						<button name="cancel" string="Cancel" class="oe_link" special="cancel" />
+					</footer>
+				</form>
+			</field>
+		</record>
+		
+		
+        
+         <record id="action_view_leave_update_wizard" model="ir.actions.act_window">
+            <field name="name">Run Attendance Leave Update</field>
+            <field name="view_mode">form</field>
+            <field name="res_model">leave.update.wizard</field>
+            <field name="target">new</field>
+        </record>  
+		
+			
+		<menuitem id="menu_hr_leave_update"
+				  name="Run Attendance Leave Update"
+				  parent="hr_attendance.menu_hr_attendance_manage_attendances"
+				  action="action_view_leave_update_wizard"
+				  sequence="60" />
+		
+
+	</data>
+</odoo>

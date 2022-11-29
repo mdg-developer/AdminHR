@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- QWeb Reports -->
+        <report
+            id="action_reward_report"
+            model="hr.reward"
+            string="Reward Letter"
+            report_type="qweb-pdf"
+            name="hr_reward.report_reward_letter"
+            file="hr_reward.report_reward_letter"
+        />
+    </data>
+</odoo>

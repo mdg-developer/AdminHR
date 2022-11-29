@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="view_fleet_insurance_type_tree">
+			<field name="name">Fleet Insurance Type Tree</field>
+			<field name="model">fleet.insurance.type</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Fleet Insurance Type">
+					<field name="name" />
+					<field name="insurance_company" />
+					<field name="contact_person" />
+					<field name="contact_phone" />
+					<field name="start_date" />
+					<field name="end_date" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_fleet_insurance_type_form">
+			<field name="name">Fleet Insurance Type Form</field>
+			<field name="model">fleet.insurance.type</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Fleet Insurance Type">
+					<sheet>
+						<group>
+							<group>
+								<field name="name" />
+								<field name="start_date" />
+								<field name="contact_person" />
+								<field name="contact_phone" />
+							</group>
+							<group>
+								<field name="insurance_company" />
+								<field name="end_date" />
+								<field name="by" />
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="open_view_fleet_insurance_type_form">
+			<field name="name">Fleet Insurance Type</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">fleet.insurance.type</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_fleet_insurance_type_tree" />
+		</record>
+
+		<menuitem id="menu_fleet_insurance_type" name="Fleet Insurance Type" parent="fleet.fleet_configuration" action="open_view_fleet_insurance_type_form" sequence="60" />
+
+		<record model="ir.ui.view" id="view_fleet_insurance_tree">
+			<field name="name">fleet.insurance.tree</field>
+			<field name="model">fleet.insurance</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Fleet Insurance">
+					<field name="name" />
+					<field name="vehicle_id" />
+					<field name="insurance_type_id" />
+					<field name="insurance_company" />
+					<field name="contact_person" />
+					<field name="contact_phone" />
+					<field name="start_date" />
+					<field name="end_date" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_fleet_insurance_form">
+			<field name="name">fleet.insurance.form</field>
+			<field name="model">fleet.insurance</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Fleet Insurance">
+					<sheet>
+						<div class="oe_title">
+							<h1>
+								<field name="name" nolabel="1" class="oe_inline" />
+							</h1>
+						</div>
+						<group>
+							<group>
+								<field name="vehicle_id" />
+								<field name="insurance_type_id" />
+								<field name="insurance_company" />
+								<field name="start_date" />
+								<field name="end_date" />
+							</group>
+							<group>
+								<field name="contact_person" />
+								<field name="contact_phone" />
+								<field name="by" />
+								<field name="attachment_id" widget="many2many_binary"/>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="open_view_fleet_insurance_form">
+			<field name="name">Fleet Insurance</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">fleet.insurance</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_fleet_insurance_tree" />
+		</record>
+
+		<menuitem id="menu_fleet_insurance" name="Fleet Insurance" parent="fleet.fleet_vehicles" action="open_view_fleet_insurance_form" sequence="18" />
+
+		<record id="view_fleet_vehicle_form_tracking_inherit" model="ir.ui.view">
+			<field name="name">Vehicle Tracking Form Insurance Inherit</field>
+			<field name="model">fleet.vehicle</field>
+			<field name="inherit_id" ref="traccar_fleet_tracking.view_fleet_vehicle_form_tracking"/>
+			<field name="arch" type="xml">
+				<xpath expr="//button[@name='show_current_localize']" position="before">
+					<button name="return_action_to_open_fleet_insurance" type="object" class="oe_stat_button" icon="fa-pencil-square-o" string="Fleet Insurance" context="{'xml_id':'open_view_fleet_insurance_form'}">
+					</button>
+				</xpath>
+			</field>
+		</record>
+
+	</data>
+</odoo>

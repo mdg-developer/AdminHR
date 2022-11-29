@@ -1,0 +1,11 @@
+
+
+1) 13.0.0.0 | Date : 16/01/2020
+
+--> add models and views folder.
+--> Correct caculation for fuel, add waring when user try to add fuel more than it's capacity.
+--> Test the module flow, correct xml strings for some fields.
+
+1) 13.0.0.0 | Date : 16/01/2020
+
+--> Index Improvedment

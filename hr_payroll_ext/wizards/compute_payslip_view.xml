@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+	<record id="view_compute_payslip" model="ir.ui.view">
+		<field name="name">Compute Payslip</field>
+		<field name="model">compute.payslip</field>
+		<field name="arch" type="xml">
+			<form string="Compute Payslip">
+				<p class="oe_grey">
+					Selected payslips will be computed.
+				</p>
+				<group>
+					<field name="confirm" readonly="True" />
+				</group>
+				<footer>
+					<button name="compute_payslip" id="compute_payslip"
+						string="Compute Sheet" type="object" class="btn-primary" />
+					<button string="Cancel" class="btn-secondary" special="cancel" />
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<record id="action_view_compute_payslip" model="ir.actions.act_window">
+		<field name="name">Compute Sheet</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">compute.payslip</field>
+		<field name="view_mode">form</field>
+		<field name="target">new</field>
+		<field name="binding_model_id" ref="hr_payroll.model_hr_payslip" />
+		<field name="binding_view_types">list</field>
+	</record>
+
+</odoo>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<record model="ir.ui.view" id="boom_sms_config_form">
+			<field name="name">BOOM SMS</field>
+			<field name="model">boom.sms.config</field>
+			<field name="arch" type="xml">
+				<form string="Boom SMS Configuration">
+					<sheet>
+						<group>
+							<field name="mobile" />
+							<field name="template" />
+							<field name="auth_code" />
+							<button name="send_sms_check" string="Test SMS" type="object"
+								class="oe_highlight" />
+
+						</group>
+
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<record model="ir.ui.view" id="boom_sms_config_tree">
+			<field name="name">BOOM SMS</field>
+			<field name="model">boom.sms.config</field>
+			<field name="arch" type="xml">
+				<tree string="BOOM SMS Tree">
+					<field name="mobile" />
+					<field name="template" />
+				</tree>
+			</field>
+		</record>
+
+
+		<record model="ir.actions.act_window" id="action_boom_sms_config">
+			<field name="name">BOOM SMS Configuration</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">boom.sms.config</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="boom_sms_config_tree" />
+		</record>
+
+
+		<!-- Technical Menu -->
+		<menuitem id="menu_boom_sms_config_parent" name="BOOM SMS"
+			parent="base.menu_custom" sequence="3" />
+
+		<menuitem id="menu_boom_sms_config" parent="menu_boom_sms_config_parent"
+			action="action_boom_sms_config" sequence="10" />
+
+	</data>
+
+</odoo>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<report 
+            id="action_report_hr_travel_expense" 
+            model="hr.travel.expense" 
+            string="Travel Expense"
+            report_type="qweb-pdf"
+            name="hr_ext.report_hr_travel_expense"
+            file="hr_ext.report_hr_travel_expense"
+            print_report_name="'Travel Expense - %s' % (object.number)"
+        />
+		
+<template id="report_hr_travel_expense">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2>
+					<span >Travel Expense</span>
+                    
+                    <span t-if="o.number != '/'" t-field="o.number"/>
+                    </h2>
+                    <table class="table table-sm table-bordered">
+                        <tr>
+                            <td><strong>Date</strong></td>
+                            <td><span t-field="o.date"/></td>
+                            <td><strong>Employee</strong></td>
+                            <td><span t-field="o.employee_id.name"/></td>
+                            <td><strong>Travel Request</strong></td>
+                            <td><span t-field="o.travel_id.name"/></td>
+                            	
+                        </tr>
+                       
+                    </table>
+
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Expense Date</th>
+                                <th>Expense Title</th>
+                                <th>Expense</th>
+                                <th>Description</th>
+                                <th>Quantity</th>
+                                <th>Unit Price</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            	<t t-set="sr_no" t-value="0"/>
+                                <tr t-foreach="o.travel_line.filtered(lambda line: line.date)" t-as="line">
+                                    
+                                <t t-set="sr_no" t-value="sr_no+1"/>
+                                <td ><t t-esc="sr_no"/></td>
+                                <td><span t-field="line.date"/></td>
+                                <td><span t-field="line.categ_id.name"/></td>
+                                <td><span t-field="line.product_id.name"/></td>
+                                <td><span t-esc="line.description"
+                                          /></td>
+                                <td><span t-esc="line.qty"
+                                         /></td>
+								<td><span t-esc="line.price_unit"
+                                         /></td>
+								<td><span t-esc="line.price_subtotal"
+                                         /></td>
+                            </tr>
+                        </tbody>
+                        
+                    </table>
+					<div class="clearfix">
+	                        <div id="total" class="row">
+	                            <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ml-auto">
+	                                <table class="table table-sm" style="page-break-inside: avoid;">
+	                                    
+	                                    
+	                                    <tr class="border-black o_total">
+	                                        <td><strong>Advanced Money</strong></td>
+	                                        <td class="text-right">
+	                                            <span class="text-nowrap" t-field="o.advanced_money"/>
+	                                        </td>
+	                                    </tr>
+	                                </table>
+	                            </div>
+	                        </div>
+                    </div>
+                    
+                </div>
+            </t>
+        </t>
+    </t>
+</template>
+</odoo>

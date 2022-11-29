@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_travel_request_tree">
+            <field name="name">travel.request.tree</field>
+            <field name="model">travel.request</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Travel Request">
+                    <field name="employee_id"/>
+                    <field name="name" string="Code"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                    <field name="duration"/>
+                    <field name="city_from"/>
+                    <field name="city_to"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_travel_request_form">
+            <field name="name">travel.request.form</field>
+            <field name="model">travel.request</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Travel Request">
+                    <header>
+                        <button name="action_submit" states="draft" string="Submit" type="object" class="oe_highlight"/>
+                        <button name="button_approve"
+                                attrs="{'invisible': [('state', '!=', 'submit')]}"
+                                string="Approve" type="object" class="oe_highlight" groups="hr_ext.group_branch_manager"/>
+                        <button name="button_draft" states="cancel" string="Set to Draft" type="object" class="oe_highlight"/>
+                        <button name="button_cancel"
+                                attrs="{'invisible': ['|', ('state', 'not in', ('submit', 'approve','advance_request','advance_withdraw','in_progress'))]}" string="Decline"
+                                type="object" class="oe_highlight" groups="hr.group_hr_manager"/>
+                        <button name="button_verify" states="approve,cancel" string="Verify" type="object"
+                                groups="hr_holidays.group_hr_holidays_manager" class="oe_highlight"/>
+                        <button name="button_request_balance" states="approve" string="Request Advance" type="object"
+                                groups="hr_holidays.group_hr_holidays_manager" class="oe_highlight"/>
+                        <button name="button_cancelled" states="advance_request,advance_withdraw" string="Cancel" type="object"
+                                 class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,submit,approve,advance_request,advance_withdraw,in_progress,verify,cancel,done,cancelled"
+                               readonly="1"/>
+                    </header>
+                    <sheet>
+                        <h1>
+                            <field name="name" readonly="1" attrs="{'invisible': [('name', '=', 'New')]}"/>
+                        </h1>
+                        <group>
+                            <field name="employee_id" required="1" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="enable_approval" invisible="1"/>
+                                <field name="is_required" invisible="1"/>
+                                <field name="start_date" attrs="{'readonly': [('state', 'not in', ('draft','submit'))]}" force_save="1"/>
+                                <field name="end_date" attrs="{'readonly': [('state', 'not in', ('draft','submit'))]}" force_save="1"/>
+                                <field name="duration"/>
+                                <field name="payment_amount"/>
+                            </group>
+                            <group>
+                                <field name="city_from" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="city_to" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="travel_type_id" invisible="1"/>
+                                <field name="remark" attrs="{'readonly': [('state', '!=', 'draft')], 'required': [('is_required', '=', True)]}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Travel">
+                                <field name="travel_line" attrs="{'readonly': [('state', 'not in', ('draft','submit'))]}">
+                                    <tree editable="bottom" create="0" delete="0">
+                                        <field name="distinct_shift" invisible="1"/>
+                                        <field name="allow_full_edit" invisible="1"/>
+                                        <field name="allow_first_edit" invisible="1"/>
+                                        <field name="allow_second_edit" invisible="1"/>
+                                        <field name="date" width='1' readonly="1" force_save="1"/>
+										<field name="dayofweek" readonly="1" force_save="1"/>
+                                        <field name="full" attrs="{'readonly': ['|', '|', ('allow_full_edit', '=', False), ('first', '=', True), ('second', '=', True)]}" force_save="1"/>
+                                        <field name="first" attrs="{'readonly': ['|', '|', ('allow_first_edit', '=', False), ('full', '=', True), ('second', '=', True)]}" force_save="1"/>
+                                        <field name="second" attrs="{'readonly': ['|', '|', ('allow_second_edit', '=', False), ('full', '=', True), ('first', '=', True)]}" force_save="1"/>
+										<field name="start_date" readonly="1" force_save="1"/>
+										<field name="end_date" readonly="1" force_save="1"/>
+                                        <field name="this_day_hour_id" invisible="1"/>
+                                        <field name="next_day_hour_id" invisible="1"/>
+                                        <field name="resource_calendar_id" invisible="1"/>
+                                        <field name="destination"/>
+                                        <field name="purpose"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Advance" name="advance">
+                                <field name="request_allowance_lines" attrs="{'readonly': [('state', 'not in', ('draft','submit'))]}">
+                                    <tree editable="bottom" delete="0">
+                                        <field name="expense_categ_id" domain="[('travel_expense', '=', True)]"/>
+                                        <field name="quantity"/>
+                                        <field name="amount"/>
+                                        <field name="total_amount"/>
+<!--                                         <field name="travel_allowance_id" -->
+<!--                                                context="{'default_type_id': parent.travel_type_id}"/> -->
+<!--                                         <field name="standard_amount"/> -->
+<!--                                         <field name="actual_amount"/> -->							
+                                        <field name="remark"/>
+                                    </tree>
+                                    <form string="Travel Request Allowance">
+                                        <field name="expense_categ_id" domain="[('travel_expense', '=', True)]"/>
+                                        <field name="quantity"/>
+                                        <field name="amount"/>
+                                        <field name="total_amount"/>
+<!--                                         <field name="travel_allowance_id"/> -->
+<!--                                         <field name="standard_amount"/> -->
+<!--                                         <field name="actual_amount"/> -->
+                                        <field name="remark"/>
+                                    </form>
+                                </field>
+                                <group class="oe_subtotal_footer">
+                                    <field name="total_advance"/>
+<!--                                     <field name="standard_allowance_total"/> -->
+<!--                                     <field name="actual_allowance_total"/> -->
+<!--                                     <field name="total_difference"/> -->
+                                </group>
+                            </page>
+                            <page string="Other Info" name="other_info"
+                                  attrs="{'invisible': [('payment_id', '=', False)]}">
+                                <group col="2">
+                                    <group>
+                                        <field name="payment_id" readonly="1"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="view_travel_request_line_form">
+            <field name="name">travel.request.line.form</field>
+            <field name="model">travel.request.line</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Leave Travel Request Line">
+                    <group col="4">
+                        <field name="date"/>
+                        <field name="dayofweek"/>
+                        <field name="full"/>
+                        <field name="first"/>
+                        <field name="second"/>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_travel_request_form_readonly" model="ir.ui.view">
+            <field name="name">travel.request.form</field>
+            <field name="model">travel.request</field>
+            <field name="inherit_id" ref="hr_travel_request.view_travel_request_form"/>
+            <field name="groups_id" eval="[(6, 0, [ref('hr_payroll.group_hr_payroll_manager')])]"/>
+            <field name="arch" type="xml">
+                <field name='end_date' position="attributes">
+                    <attribute name="attrs"></attribute>
+                </field>
+                <field name='start_date' position="attributes">
+                    <attribute name="attrs"></attribute>
+                </field>
+                <field name='remark' position="attributes">
+                    <attribute name="attrs">{'required': [('is_required', '=', True)]}</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="open_view_travel_request_form">
+            <field name="name">Travel Request</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">travel.request</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'from_web_view': True,'readonly_by_pass': ['start_date',]}</field>
+            <field name="view_id" ref="view_travel_request_tree"/>
+        </record>
+
+        <menuitem id="menu_travel_request" name="Travel Request" parent="hr_holidays.menu_hr_holidays_my_leaves"
+                  action="open_view_travel_request_form" sequence="59"/>
+    </data>
+</odoo>

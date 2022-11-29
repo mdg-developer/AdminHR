@@ -1,0 +1,622 @@
+<?xml version="1.0"?>
+<odoo>
+
+        <menuitem name="Management" id="menu_hr_management_action" parent="hr.menu_hr_root" />
+
+
+
+    <record id="view_hr_form_inherited" model="ir.ui.view">
+            <field name="name">hr.employee.form.inherited</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+
+
+
+
+
+
+
+
+
+
+
+
+
+             <xpath expr='//notebook' position='inside'>
+
+             <page string="Career">
+
+            <!--
+            <group>
+                <group >
+                    <field name="active"/>
+                </group>
+            </group>
+            -->
+            <group>
+                <button name="update_career" string="Update" type="object"/>
+                <button name="create_xxxx" string="Create" type="object"/>
+
+                <field name="work_registration_number"/>
+				<field name="code_pab"/>
+            </group>
+
+            <group string="Positions">
+            <field name="position_ids" nolabel="1"  >
+
+
+             <tree editable="top">
+             <field name="contract_type_id"/>
+             <field name="department_id"/>
+             <field name="analytic_account_id"/>
+             <field name="quotity"/>
+
+
+             <field name="date_start"/>
+             <field name="date_end"/>
+
+
+
+              </tree>
+              </field>
+              </group>
+
+            <group string="Promotions">
+            <field name="promotion_ids" nolabel="1" >
+
+
+             <tree editable="top" >
+
+
+             <field name="salary_scale_id"/>
+             <field name="grade_id"/>
+             <field name="level"/>
+             <field name="code_pab"/>
+             <field name="date_start"/>
+             <field name="date_end"/>
+             <field name="active"/>
+
+              </tree>
+              </field>
+
+            </group>
+
+
+
+
+            <group string="Career">
+             <field name="career_ids" nolabel="1"  >
+
+
+              <tree editable="top" >
+
+             <field name="department_id"/>
+             <field name="analytic_account_id"/>
+             <field name="quotity"/>
+             <!--
+             <field name="category_id"/>
+             -->
+
+             <field name="grade_id"/>
+             <field name="level"/>
+             <field name="code_pab"/>
+             <field name="date_start"/>
+             <field name="date_end"/>
+             <field name="start_end_year"/>
+             <field name="period_cost"/>
+             <field name="fulltime_rate"/>
+             <field name="information"/>
+
+              </tree>
+              </field>
+              </group>
+
+
+
+               </page>
+
+
+
+              <page string="Qualifications / Trainings">
+              <group string= "Qualifications" >
+              <field name="qualification_ids" nolabel="1">
+              <tree editable="top" >
+                    <field name="qualification_id"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+              </tree>
+
+              </field>
+              </group>
+              <group string ="Trainings" >
+               <field name="training_ids" nolabel="1">
+                   <tree editable="top" >
+                    <field name="training_id"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="assessor_partner_id"/>
+                    <field name="evaluation_result"/>
+               </tree>
+
+
+              </field>
+              </group>
+                     </page>
+
+
+              <page string="Education background">
+              <group >
+              <field name="education_background_ids" nolabel="1">
+              <tree editable="top" >
+
+
+                    <field name="diploma_id"/>
+                    <field name="education_level_id"/>
+                    <field name="speciality_id"/>
+                    <field name="obtaining_date"/>
+                    <field name="information"/>
+              </tree>
+
+              </field>
+              </group>
+
+                     </page>
+
+                    </xpath>
+
+        </field>
+
+        </record>
+
+
+
+
+
+
+  <record id="hr_contract_type_action" model="ir.actions.act_window">
+            <field name="name">Contract types</field>
+            <field name="res_model">hr.contract.type</field>
+        </record>
+ <menuitem name="Contract types" action="hr_contract_type_action" id="menu_hr_contract_type_action" parent="hr.menu_human_resources_configuration" />
+
+
+
+  <record id="hr_salary_scale_action" model="ir.actions.act_window">
+            <field name="name">Salary scales</field>
+            <field name="res_model">hr.salary.scale</field>
+        </record>
+ <menuitem name="Salary scales" action="hr_salary_scale_action" id="menu_hr_salary_scale_action" parent="hr.menu_human_resources_configuration" />
+
+
+<!-- salary scale -->
+     <record model="ir.ui.view" id="hr_salary_scale_form_tree">
+            <field name="name">Salary scale</field>
+            <field name="model">hr.salary.scale</field>
+            <field name="arch" type="xml">
+                <tree string="Salary scale">
+                    <field name="name"/>
+                   <field name="description"/>
+            </tree>
+            </field>
+        </record>
+
+
+
+         <record model="ir.ui.view" id="hr_salary_scale_form_form">
+            <field name="name">Salary scale</field>
+            <field name="model">hr.salary.scale</field>
+            <field name="arch" type="xml">
+                <form string="Salary scale">
+
+                    <field name="name"/>
+
+                    <field name="description"/>
+
+
+                    <field name="salary_scale_line_ids">
+
+                <tree>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="grade_id"/>
+                    <field name="level"/>
+
+
+                    <!--
+                    <field name="category_id"/>
+                    -->
+
+                    <field name="annual_cost"/>
+                    <field name="hourly_cost"/>
+                    <field name="active"/>
+
+            </tree>
+              </field>
+
+
+            </form>
+            </field>
+        </record>
+
+
+
+<!-- salary scale -->
+     <record model="ir.ui.view" id="hr_salary_scale_line_form_tree">
+            <field name="name">Salary scale lines</field>
+            <field name="model">hr.salary.scale.line</field>
+            <field name="arch" type="xml">
+                <tree string="Salary scale lines" editable = 'top'>
+                    <field name="salary_scale_id"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="grade_id"/>
+                    <field name="level"/>
+                    <field name="area_external_id"/>
+                    <field name="description"/>
+                    <field name="information"/>
+
+                    <field name="annual_cost"/>
+                    <field name="hourly_cost"/>
+
+            </tree>
+            </field>
+        </record>
+
+
+         <record model="ir.ui.view" id="hr_salary_scale_line_form_form">
+            <field name="name">Salary scale lines</field>
+            <field name="model">hr.salary.scale.line</field>
+            <field name="arch" type="xml">
+                <form string="Salary scale lines">
+                <group>
+                    <field name="salary_scale_id"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="grade_id"/>
+                    <field name="level"/>
+                    <field name="area_external_id"/>
+                    <field name="description"/>
+                    <field name="information"/>
+                    <!--
+                    <field name="category_id"/>
+                    -->
+                    <field name="annual_cost"/>
+                    <field name="hourly_cost"/>
+                    <field name="active"/>
+
+
+            </group>
+            </form>
+            </field>
+        </record>
+
+        <record id="hr_salary_scale_line_action" model="ir.actions.act_window">
+            <field name="name">Salary scale lines</field>
+            <field name="res_model">hr.salary.scale.line</field>
+        </record>
+
+        <menuitem name="Salary scale lines" action="hr_salary_scale_line_action" id="menu_hr_salary_scale_line_action" parent="menu_hr_salary_scale_action" />
+
+
+<!-- grade -->
+     <record model="ir.ui.view" id="hr_grade_form_tree">
+            <field name="name">Grades</field>
+            <field name="model">hr.grade</field>
+            <field name="arch" type="xml">
+                <tree string="Grades">
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="partner_id"/>
+
+
+            </tree>
+            </field>
+        </record>
+
+         <record model="ir.ui.view" id="hr_grade_form_form">
+            <field name="name">Grades</field>
+            <field name="model">hr.grade</field>
+            <field name="arch" type="xml">
+                <form string="Grades">
+                <group>
+                  <field name="name"/>
+                  <field name="description"/>
+                  <field name="partner_id"/>
+                  <field name="career_ids">
+                    <tree >
+                        <field name="employee_id"/>
+                        <field name="department_id"/>
+                        <field name="analytic_account_id"/>
+                        <field name="quotity"/>
+                        <field name="grade_id"/>
+                        <field name="level"/>
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+
+                    </tree>
+
+
+                  </field>
+
+            </group>
+            </form>
+            </field>
+        </record>
+
+        <record id="hr_grade_action" model="ir.actions.act_window">
+            <field name="name">Grades</field>
+            <field name="res_model">hr.grade</field>
+        </record>
+
+        <menuitem name="Grades" action="hr_grade_action" id="menu_hr_grade_action" parent="hr.menu_human_resources_configuration" />
+
+
+
+
+         <!-- education item  -->
+     <record model="ir.ui.view" id="hr_education_item_form_tree">
+            <field name="name">Education item</field>
+            <field name="model">hr.education.item</field>
+            <field name="arch" type="xml">
+                <tree string="Education item">
+                    <field name="nature"/>
+                    <field name="name"/>
+
+            </tree>
+            </field>
+        </record>
+
+         <record model="ir.ui.view" id="hr_education_item_form">
+            <field name="name">Education item</field>
+            <field name="model">hr.education.item</field>
+            <field name="arch" type="xml">
+                <form string="Education item">
+                <group>
+                  <field name="nature"/>
+                  <field name="name"/>
+
+            </group>
+            </form>
+            </field>
+        </record>
+
+        <record id="hr_education_item_action" model="ir.actions.act_window">
+            <field name="name">Education item</field>
+            <field name="res_model">hr.education.item</field>
+        </record>
+
+        <menuitem name="Education item" action="hr_education_item_action" id="menu_hr_education_item_action" parent="hr.menu_human_resources_configuration" />
+
+        <!-- education background  -->
+     <record model="ir.ui.view" id="hr_education_background_form_tree">
+            <field name="name">Education background</field>
+            <field name="model">hr.education.background</field>
+            <field name="arch" type="xml">
+                <tree string="Education background">
+                    <field name="employee_id"/>
+                    <field name="diploma_id"/>
+                    <field name="education_level_id"/>
+                    <field name="speciality_id"/>
+                    <field name="obtaining_date"/>
+                    <field name="information"/>
+
+
+            </tree>
+            </field>
+        </record>
+
+         <record model="ir.ui.view" id="hr_education_background_form">
+            <field name="name">Education background</field>
+            <field name="model">hr.education.background</field>
+            <field name="arch" type="xml">
+                <form string="Education background">
+                <group>
+                    <field name="employee_id"/>
+                    <field name="diploma_id"/>
+                    <field name="education_level_id"/>
+                    <field name="speciality_id"/>
+                    <field name="obtaining_date"/>
+                    <field name="information"/>
+
+            </group>
+            </form>
+            </field>
+        </record>
+
+        <record id="hr_education_background_action" model="ir.actions.act_window">
+            <field name="name">Education background</field>
+            <field name="res_model">hr.education.background</field>
+        </record>
+
+        <menuitem name="Education background" action="hr_education_background_action" id="menu_hr_education_background_action" parent="hr.menu_hr_root" />
+
+        <!-- Domain -->
+
+      <!--
+
+        <record id="hr_job_action" model="ir.actions.act_window">
+            <field name="name">Job positions</field>
+            <field name="res_model">hr.job</field>
+        </record>
+
+
+        <menuitem name="Job positions" action="hr_job_action" id="menu_hr_job_action" parent="hr.menu_human_resources_configuration" />
+
+        -->
+
+
+                 <!-- HR skill employee rel -->
+
+
+
+
+
+
+
+
+
+
+<record id="hr_position_filter" model="ir.ui.view">
+       <field name="name">hr.position</field>
+        <field name="model">hr.position</field>
+        <field name="arch" type="xml">
+
+            <search string="Search">
+                <!--
+                    <filter icon="" string="Mouse" name="species_mouse" domain="[('species','=','mou')]" help=""/>
+                 -->
+                    <separator/>
+
+
+                <field name="employee_id"/>
+                <field name="analytic_account_id"/>
+                <field name="contract_type_id"/>
+                <field name="quotity"/>
+                <field name="year_end"/>
+
+                <group expand="0" string="Group By...">
+                     <filter string="Account" name="account"  icon="terp-accessories-archiver" domain="[]" context="{'group_by':'analytic_account_id'}"/>
+                     <filter string="Contract type"  name="contract_type" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'contract_type_id'}"/>
+                     <filter string="Quotity" name="quotity"  icon="terp-accessories-archiver" domain="[]" context="{'group_by':'quotity'}"/>
+                     <filter string="End year" name="end_year"  icon="terp-accessories-archiver" domain="[]" context="{'group_by':'year_end'}"/>
+
+                </group>
+           </search>
+        </field>
+</record>
+
+
+
+
+
+
+<record model="ir.ui.view" id="hr_position_form_tree">
+            <field name="name">Positions</field>
+            <field name="model">hr.position</field>
+            <field name="arch" type="xml">
+
+        <tree>
+             <field name="employee_id"/>
+             <field name="department_id"/>
+             <field name="analytic_account_id"/>
+             <field name="quotity"/>
+
+             <field name="date_start"/>
+             <field name="date_end"/>
+             <field name="year_end" readonly="1"/>
+
+          </tree>
+
+         </field>
+        </record>
+
+
+
+
+
+
+<record model="ir.ui.view" id="hr_position_form_form">
+            <field name="name">Positions</field>
+            <field name="model">hr.position</field>
+            <field name="arch" type="xml">
+
+        <form>
+
+        <group>
+
+            <group>
+             <field name="employee_id"/>
+             <field name="department_id"/>
+             <field name="analytic_account_id"/>
+             <field name="quotity"/>
+        </group>
+        <group>
+
+             <field name="date_start"/>
+             <field name="date_end"/>
+             <field name="year_end" readonly="1"/>
+             <field name="mission_ids">
+             <tree>
+                 <field name="mission_id"/>
+                 <field name="quotity"/>
+                 <field name="date_start"/>
+                 <field name="date_end"/>
+             </tree>
+             </field>
+
+        </group>
+</group>
+          </form>
+
+         </field>
+        </record>
+
+
+
+
+
+<record id="hr_career_filter" model="ir.ui.view">
+       <field name="name">hr.career</field>
+        <field name="model">hr.career</field>
+        <field name="arch" type="xml">
+
+            <search string="Search">
+                <!--
+                    <filter icon="" string="Mouse" name="species_mouse" domain="[('species','=','mou')]" help=""/>
+                 -->
+                    <separator/>
+
+
+                <field name="employee_id"/>
+                <field name="analytic_account_id"/>
+                <field name="contract_type_id"/>
+                <field name="quotity"/>
+
+                <group expand="0" string="Group By...">
+                     <filter string="Account" name="account" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'analytic_account_id'}"/>
+                     <filter string="Contract type" name="contract_type" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'contract_type_id'}"/>
+                     <filter string="Quotity" name="quotity" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'quotity'}"/>
+                     <filter string="Year" name="year" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'year_start_end'}"/>
+
+                </group>
+           </search>
+        </field>
+</record>
+
+
+
+
+
+
+<record model="ir.ui.view" id="hr_career_form_tree">
+            <field name="name">Careers</field>
+            <field name="model">hr.career</field>
+            <field name="arch" type="xml">
+
+        <tree>
+             <field name="employee_id"/>
+
+             <field name="analytic_account_id"/>
+             <field name="quotity" sum ="Quotity"/>
+            <field name="fulltime_rate" sum ="Full.rate" />
+            <!--
+             <field name="category_id"/>
+             -->
+             <field name="grade_id"/>
+             <field name="level"/>
+             <field name="code_pab"/>
+             <field name="date_start"/>
+             <field name="date_end"/>
+             <field name="period_cost" sum ="Total amount"/>
+             <field name="contract_type_id"/>
+             <field name="department_id"/>
+             <field name="information"/>
+
+          </tree>
+
+         </field>
+        </record>
+
+
+</odoo>

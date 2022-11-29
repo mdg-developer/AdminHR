@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<odoo>
+
+
+    <!-- HR Skill need -->
+
+<record id="hr_employee_skill_followup_filter" model="ir.ui.view">
+       <field name="name">Skill followup</field>
+        <field name="model">hr.employee.skill.followup</field>
+        <field name="arch" type="xml">
+
+            <search string="Search">
+
+                    <field name="skill_id"/>
+                    <field name="skill_type_id"/>
+                    <field name="target_skill_level_id"/>
+                    <field name="assessment_deadline" />
+                    <field name="date_assessment" />
+                    <field name="assessment_user_id" />
+
+                <filter string="Assessments to come" name="assessment_to_come"
+                    domain="[('date_assessment','=',False)]" />
+                    <separator/>
+
+                   <filter string="Assessments done" name="assessment_done"
+                    domain="[('date_assessment','!=',False)]" />
+                    <separator/>
+
+                <filter string="Assessments passed" name="assessment_pass"
+                    domain="[('assessment_result','=','pass')]" />
+                    <separator/>
+
+                <filter string="Assessments failed" name="assessment_pass"
+                    domain="[('assessment_result','=','fail')]" />
+                    <separator/>
+
+
+                <group expand="0" string="Group By...">
+                    <filter string="Skill type" name="group_skill_type_id"  icon="terp-accessories-archiver" domain="[]" context="{'group_by':'skill_id'}"/>
+                    <filter string="Skill" name="group_skill_id"  icon="terp-accessories-archiver" domain="[]" context="{'group_by':'skill_id'}"/>
+                    <filter string="Target kill level" name="group_target_skill_id"  icon="terp-accessories-archiver" domain="[]" context="{'group_by':'target_skill_level_id'}"/>
+                    <separator/>
+                    <filter string="Assessment deadline" name="group_assessment_deadline"  icon="terp-accessories-archiver" domain="[]" context="{'group_by':'assessment_deadline'}"/>
+                    <filter string="Assessment date" name="group_date_assessment"  icon="terp-accessories-archiver" domain="[]" context="{'group_by':'date_assessment'}"/>
+                    <filter string="Assessor" name="group_assessor"  icon="terp-accessories-archiver" domain="[]" context="{'group_by':'assessment_user_id'}"/>
+
+                </group>
+
+            <searchpanel>
+                    <field name="skill_type_id" select="multi"  icon="fa-users"/>
+                    <field name="skill_id" icon="fa-users" select="multi"   />
+                    <field name="target_skill_level_id" select="multi"  icon="fa-users"/>
+                    <field name="assessment_user_id" icon="fa-users" select="multi"   />
+                 </searchpanel>
+
+            </search>
+        </field>
+</record>
+
+
+    <record model="ir.ui.view" id="hr_employee_skill_followup_form_tree">
+            <field name="name">skill followup</field>
+            <field name="model">hr.employee.skill.followup</field>
+            <field name="arch" type="xml">
+                <tree string="Skill followup"  default_order = "assessment_deadline desc,skill_type_id,skill_id"
+                create="false">
+                    <field name="employee_id"/>
+                    <field name="skill_id"/>
+                    <field name="skill_type_id"/>
+                    <field name="initial_skill_level_id"/>
+                    <field name="target_skill_level_id"/>
+                    <field name="assessment_deadline" string ="Asst.deadl."/>
+                   <field name ="assessment_user_id"/>
+                   <field name="date_assessment" string ="Asst.date"/>
+                   <field name="assessment_result" string ="Asst.result"/>
+                   <field name="comment"/>
+
+                </tree>
+            </field>
+        </record>
+
+         <record model="ir.ui.view" id="hr_employee_skill_followup_form_form">
+            <field name="name">Skill followup</field>
+            <field name="model">hr.employee.skill.followup</field>
+            <field name="arch" type="xml">
+                <form string="Skills followup" create="false">
+                <header>
+               </header>
+                <sheet>
+
+               <group>
+
+                <group string="General">
+                    <field name="employee_id" readonly="1"/>
+                    <field name="skill_type_id" readonly="1" />
+                    <field name="skill_id" readonly="1" />
+                    <field name="initial_skill_level_id" readonly="1"/>
+                </group>
+
+                 <group string="Progress plan">
+                    <field name="target_skill_level_id"/>
+                    <field name="assessment_deadline" />
+                    <field name ="assessment_user_id"/>
+                    <field name="date_assessment"/>
+                    <field name="assessment_result"/>
+                    <field name="comment"/>
+                </group>
+
+               </group>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+
+
+
+    <record model="ir.ui.view" id="hr_employee_skill_followup_form_calendar">
+            <field name="name">skill followup</field>
+            <field name="model">hr.employee.skill.followup</field>
+            <field name="arch" type="xml">
+
+                <calendar date_start="assessment_deadline" date_stop="assessment_deadline"
+                   color="skill_id">
+
+                    <field name="employee_id"/>
+                    <field name="skill_id"/>
+                    <field name="skill_type_id"/>
+                    <field name="initial_skill_level_id"/>
+                    <field name="target_skill_level_id"/>
+                    <field name="assessment_deadline" />
+                   <field name ="assessment_user_id"/>
+                   <field name="date_assessment"/>
+
+                </calendar>
+            </field>
+        </record>
+
+        <record id="hr_employee_skill_followup_action" model="ir.actions.act_window">
+            <field name="name">Skill followup</field>
+            <field name="res_model">hr.employee.skill.followup</field>
+             <field name="view_mode">tree,form,calendar</field>
+
+              <field name="context">{
+              'search_default_assessment_to_come':1,
+
+              'search_default_group_assessment_deadline':1,
+
+        }</field>
+
+        </record>
+
+        <menuitem name="Followup" action="hr_employee_skill_followup_action"
+                  id="menu_hr_employee_skill_followup_action" parent="menu_hr_skill" />
+
+</odoo>

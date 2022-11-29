@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hr_payroll_structure_view_form" model="ir.ui.view">
+            <field name="name">hr.payrolL.structure.form.inherit</field>
+            <field name="model">hr.payroll.structure</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_employee_grade_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//label[@for='name']" position="replace">
+                    <label for="name" string="Code" class="oe_edit_only"/>
+                </xpath>
+                <field name="type_id" position="before">
+                    <field name="description"/>
+                </field>
+                <field name="country_id" position="after">
+                    <field name="remark"/>
+                </field>
+                <field name="journal_id" position="replace" >
+                    <field name="shift" />
+                    <field name="meal_ot" />                    
+                    <field name="company_id" />
+                    <field name="journal_id" domain="[('company_id', '=', company_id)]" />
+                    <field name="is_management" />
+                    <field name="is_manager" />
+                    <field name="is_staff" />
+                    <field name="misc_journal_id" domain="[('type', '=', 'general'), ('company_id', '=', company_id)]" />
+                    <field name="logistics_commission_journal" domain="[('company_id', '=', company_id)]"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_hr_payslip_by_employees_inherit" model="ir.ui.view">
+            <field name="name">hr_payroll_payslip_employees</field>
+            <field name="model">hr.payslip.employees</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_by_employees"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/group[2]" position="replace">
+                    <group colspan="2">
+                        <field name="company_id" />
+                        <separator string="Salary Structure" colspan="2"/>
+                        <newline/>
+                        <span class="text-muted">Set a specific structure if you wish to make an extra payslip (eg: End of the year bonus). If you leave this field empty, a regular payslip will be generated for all the selected employees, based on their contracts configuration.</span>
+                        <field name="structure_id" nolabel="1" domain="[('company_id', '=', company_id)]"/>
+                    </group>
+                </xpath>
+                
+                <field name="employee_ids" position="replace">
+                    <field name="employee_ids" nolabel="1">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="company_id"/>
+                            <field name="branch_id" />
+                            <field name="department_id"/>
+                            <field name="job_id"/>
+                        </tree>
+                    </field>
+                </field>
+            </field>
+        </record>
+
+        <record id="hr_salary_rule_view_form" model="ir.ui.view">
+            <field name="name">hr.salary.rule.form.inherit</field>
+            <field name="model">hr.salary.rule</field>
+            <field name="inherit_id" ref="hr_payroll.hr_salary_rule_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='active']" position="after">
+                    <field name="company_id" />
+                </xpath>
+                <xpath expr="//page[3]" position="replace">
+                    <page string="Accounting">
+                        <group>
+                            <group>
+                                <field name="account_debit" domain="[('company_id', '=', company_id)]" />
+                                <field name="account_credit" domain="[('company_id', '=', company_id)]" />
+                                <field name="analytic_account_id" domain="[('company_id', '=', company_id)]" groups="analytic.group_analytic_accounting"/>
+                                <field name="not_computed_in_net"/>
+                            </group>
+                            <group string="Return Process with Finance">
+                                <field name="debit_account_misc" domain="[('company_id', '=', company_id)]" />
+                                <field name="credit_account_misc" domain="[('company_id', '=', company_id)]" />
+                                <field name="analytic_account_misc" domain="[('company_id', '=', company_id)]" groups="analytic.group_analytic_accounting"/>
+                            </group>
+                        </group>
+                        <group string="Commission">
+                            <group>
+                                <field name="commission_debit_account" domain="[('company_id', '=', company_id)]" />
+                                <field name="commission_credit_account" domain="[('company_id', '=', company_id)]" />
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

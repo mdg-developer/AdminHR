@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	
+	 <menuitem id="training_management_topmenu" name="Training"  web_icon="odoo_training_management_app,static/description/icon.png"/>
+	  <menuitem id="training_topmenu" name="Trainings" parent="training_management_topmenu" sequence='1'/>
+
+	  <menuitem id="application_submenu" name="Applications" 
+	  	parent="training_topmenu" action="odoo_training_management_app.action_training_application" sequence='1'/>
+
+	  <menuitem id="application_line_submenu" name="Employee Trainings" 
+	  	parent="training_topmenu" action="odoo_training_management_app.action_training_application_line" groups="odoo_training_management_app.group_training_user" sequence='2'/>
+
+	  <menuitem id="task_submenu" name="Tasks" 
+	  	parent="training_management_topmenu" action="odoo_training_management_app.action_view_application_task" groups="odoo_training_management_app.group_training_user" sequence='2'/>
+
+	  <menuitem id="faculty_submenu" name="Trainers" 
+	  	parent="training_management_topmenu" groups="odoo_training_management_app.group_training_user" action="odoo_training_management_app.action_faculty_form" sequence='3'/>
+
+	  <menuitem id="training_courses_and_subjects_submenu" name="Courses and Subjects" 
+	  	parent="training_management_topmenu" groups="odoo_training_management_app.group_training_user" sequence='4'/>
+
+	   <menuitem id="training_centre_menu" action="odoo_training_management_app.action_training_center" name="Training Centers" parent="training_courses_and_subjects_submenu" sequence='1'/>
+
+	   <menuitem id="training_classroom_submenu" name="Class Rooms" 
+	  	parent="training_courses_and_subjects_submenu" action="odoo_training_management_app.action_training_class_room" sequence='2'/>
+
+	   <menuitem id="training_type_submenu" name="Training Type"
+	  	parent="training_courses_and_subjects_submenu" action="odoo_training_management_app.action_training_type" sequence='3'/>
+
+	   <menuitem id="training_cost_submenu" name="Training Cost"
+	  	parent="training_courses_and_subjects_submenu" action="odoo_training_management_app.action_training_cost" sequence='4'/>
+
+	   <menuitem id="training_subject_menu" action="website_slides.slide_slide_action" name="Subjects" parent="training_courses_and_subjects_submenu" sequence='3'/>
+
+	   <menuitem id="training_courses_menu" action="website_slides.slide_channel_action_overview" name="Courses" parent="training_courses_and_subjects_submenu" sequence='4'/>
+
+	  <menuitem id="configuration_menu" name="Configuration" parent="training_management_topmenu"
+	  	sequence='5' groups="odoo_training_management_app.group_training_manager"/>
+	  
+	  <menuitem id="training_application_stages_submenu" name="Application Stages" 
+	  	parent="configuration_menu" action="odoo_training_management_app.action_application_stage" sequence='1' groups="odoo_training_management_app.group_training_manager"/>
+
+	  <menuitem id="training_application_line_stages_submenu" name="Employee Training Stages" 
+	  	parent="configuration_menu" action="odoo_training_management_app.action_application_stage_line" sequence='2' groups="odoo_training_management_app.group_training_manager"/>
+
+</odoo>

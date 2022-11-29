@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- QWeb Reports -->
+        <report
+            id="action_warning_report"
+            model="hr.warning"
+            string="Warning Letter"
+            report_type="qweb-pdf"
+            name="hr_warning.report_warning_letter"
+            file="hr_warning.report_warning_letter"
+        />
+    </data>
+</odoo>

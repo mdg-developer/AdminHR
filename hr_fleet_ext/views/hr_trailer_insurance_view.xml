@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	        
+	   <record id="act_fleet_vehicle_insurance" model="ir.actions.act_window">
+            <field name="name">Vehicle Insurance</field>
+            <field name="res_model">fleet.vehicle.insurance</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{
+                'search_default_trailer_id': active_id
+            }</field>           
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create Vehicle Insurance.
+                </p>
+            </field>
+        </record> 
+
+		<record model="ir.ui.view" id="view_fleet_trailer_insurance_tree">
+			<field name="name">fleet.trailer.insurance.tree</field>
+			<field name="model">fleet.trailer.insurance</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Trailer Insurance">
+					<field name="trailer_id" />
+					<field name="make_model" />
+					<field name="si" />
+					<field name="basic_premium" />
+					<field name="wind_screen" />
+					<field name="srcc" />
+					<field name="act_god" />
+					<field name="war_risk" />
+					<field name="thelf" />
+					<field name="third_party" />
+					<field name="nil_excess" />
+					<field name="total_premium" />
+					<field name="expired_date" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_fleet_trailer_insurance_form">
+			<field name="name">fleet.trailer.insurance.form</field>
+			<field name="model">fleet.trailer.insurance</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Trailer Insurance">
+					<sheet>
+					    <div class="oe_button_box" name="button_box">
+						<button class="oe_stat_button" icon="fa-history"
+								name="%(act_fleet_vehicle_insurance)d" type="action">
+								<field name="vehicle_count" widget="statinfo" string="Trailers History" />
+						</button>
+						</div>
+					    <group>
+					        <group>
+						        <field name="trailer_id" />
+								<field name="make_model" />
+								<field name="si" />
+								<field name="basic_premium" />
+								<field name="wind_screen" />
+								<field name="srcc" />
+						    </group>
+							<group>							
+								<field name="act_god" />
+								<field name="war_risk" />
+								<field name="thelf" />
+								<field name="third_party" />
+								<field name="nil_excess" />
+								<field name="total_premium" />
+								<field name="expired_date" />
+							</group>
+					    </group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="open_view_fleet_trailer_insurance_form">
+			<field name="name">Trailer Insurance</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">fleet.trailer.insurance</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_fleet_trailer_insurance_tree" />
+		</record>
+
+		<menuitem id="menu_fleet_trailer_insurance" name="Trailer Insurance" parent="fleet.fleet_configuration"
+			action="open_view_fleet_trailer_insurance_form" sequence="59" />
+
+	</data>
+</odoo>

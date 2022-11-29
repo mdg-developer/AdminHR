@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="report_reward_letter">
+	    <t t-call="web.html_container">
+	        <t t-foreach="docs" t-as="o">
+	            <t t-if="not o.linked_reward_id">
+	                <t t-set="manager_rewards" t-value="o.approved and o.manager_reward_ids or o.temp_lines"/>   
+	                <t t-set="branch_manager" t-value="o.employee_id.branch_id and o.employee_id.branch_id.manager_id"/>
+	                <t t-set="i" t-value="1" />
+	                <div class="article o_company_#{o.employee_id.company_id.id}_layout" style="font-family: Tahoma, Verdana, Pyidaungsu, Arial,sans-serif; font-size: 12pt; letter-spacing: 0.5px;">
+	                    <div class="page px-5">
+	                        <span>To,</span><br/><br/>
+	                        <span t-field="o.employee_id.name"/>
+	                        <t t-if="o.employee_id.job_id"><br/><span t-field="o.employee_id.job_id"/></t>
+	                        <t t-if="o.employee_id.department_id"><br/><span t-field="o.employee_id.department_id"/></t>
+	                        <t t-if="o.employee_id.branch_id"><br/><span t-field="o.employee_id.branch_id"/></t>
+	                        <t t-if="o.employee_id.company_id"><br/><span t-field="o.employee_id.company_id"/></t>
+	                        <br/><br/>
+	                        <t t-esc="o.date" t-options="{'widget': 'date', 'format': 'dd/MM/yyyy'}"/>
+	                        <br/><br/>
+	                        <p style="font-weight: bolder;">Subject :&#8195;&#8195;: Reward &amp; Recognition letter</p>
+	                        <br/>
+	                        <p>Dear <span t-field="o.employee_id.name"/>,</p>
+	                        <p>on behalf of the WB Management,we would like to extend our appreciation for the amazing work done by you on
+	                            <t t-esc="o.warn_date" t-options="{'widget': 'warn_date', 'format': 'dd/MM/yyyy'}"/>
+	                            <t t-esc="o.description"/>.</p>
+	                        <p>Your diligence,self-movitation as well as dedication to always go the extra mile in order to achieve the
+	                           best possible results is really admirable.</p>
+	                        <p>The management team at Win Brothers Group of Companies Limited know the amount of effort that you
+	                           put into your job and we want to assure you that your efforts are recognized.</p>
+	                        <p>Reward Type&#8195;:&#8195;<span t-field="o.reward_type_id" /><br/>
+	                           Reward Title&#8195;&#160;:&#8195;<span t-field="o.reward_title_id" />
+	                        </p>
+	                        <p style="text-decoration: underline;">Action Taken and Reward &amp; Recognition Marks</p>
+	                        <table style="width: 60%;">
+	                            <t t-set="no" t-value="1"/>
+	                            <tr>
+	                                <td style="width: 25px; text-align: right; padding-right: 10px;"><t t-esc="no"/>.</td>
+	                                <td style="width: 150px;"><t t-esc="o.employee_id.name"/></td>
+	                                <td style="width: 40px; text-align: right;"><t t-esc="o.reward_type_id.mark"/></td>
+	                                <td style="width: 40px; text-align: right;">mark</td>
+	                            </tr>
+	
+	                            <t t-foreach="manager_rewards" t-as="link">
+	                                <t t-set="no" t-value="no + 1"/>
+	                                <tr>
+	                                    <td style="text-align: right; padding-right: 10px;"><t t-esc="no"/>.</td>
+	                                    <td><t t-esc="link.employee_id.name"/></td>
+	                                    <td style="text-align: right;"><t t-esc="link.mark"/></td>
+	                                    <td style="width: 50px; text-align: right;">mark</td>
+	                                </tr>
+	                            </t>
+	                        </table>
+	                        <br/>
+	                        <p>Once again,thank you so much!We are lucky to have you on our team.</p>
+	                        <br/>
+	                        <p>
+	                            Sincerely,<br/><br/><br/>
+	                            <t t-if="branch_manager">
+	                                <span t-esc="branch_manager.name"/><br/>
+	                                <span t-field="branch_manager.job_id"/><br/>
+	                                <span t-field="branch_manager.company_id"/><br/>
+	                            </t>
+	                        </p>
+	                    </div>
+	                </div>
+				</t>
+				
+	            <t t-if="o.linked_reward_id">	    
+	               <t t-set="manager_rewards" t-value="o.linked_reward_id.approved and o.linked_reward_id.manager_reward_ids or o.linked_reward_id.temp_lines"/>
+	               <t t-set="branch_manager" t-value="o.employee_id.branch_id and o.employee_id.branch_id.manager_id"/>            
+	               <div class="article o_company_#{o.employee_id.company_id.id}_layout" style="font-family: Tahoma, Verdana, Pyidaungsu, Arial,sans-serif; font-size: 12pt; letter-spacing: 0.5px;">
+                       <div class="page px-5">
+                           <span>To,</span><br/><br/>
+                           <span t-field="o.employee_id.name"/>
+                           <t t-if="o.employee_id.job_id"><br/><span t-field="o.employee_id.job_id"/></t>
+                           <t t-if="o.employee_id.department_id"><br/><span t-field="o.employee_id.department_id"/></t>
+                           <t t-if="o.employee_id.branch_id"><br/><span t-field="o.employee_id.branch_id"/></t>
+                           <t t-if="o.employee_id.company_id"><br/><span t-field="o.employee_id.company_id"/></t>
+                           <br/><br/>
+                           <t t-esc="o.date" t-options="{'widget': 'date', 'format': 'dd/MM/yyyy'}"/>
+                           <br/><br/>
+                           <p style="font-weight: bolder;">Subject :&#8195;&#8195;: Reward &amp; Recognition letter</p>
+                           <br/>
+                           <p>Dear <span t-field="o.employee_id.name"/>,</p>
+                           <p>This letter serves you as Reward &amp; Recognition letter for you and your staff, the reason is on
+                               <t t-esc="o.date" t-options="{'widget': 'date', 'format': 'dd/MM/yyyy'}"/>
+                               <t t-esc="o.linked_reward_id.employee_id.name"/> is
+                               <t t-esc="o.description"/>.</p>
+                           <p>The management team at Win Brothers Group of Companies Limited know the amount of effort that you
+                              put into your job and we want to assure you that your efforts are recognized.</p>
+                           <p>Reward Type&#8195;:&#8195;<span t-field="o.reward_type_id" /><br/>
+                              Reward Title&#8195;&#160;:&#8195;<span t-field="o.reward_title_id" />
+                           </p>
+                           <p style="text-decoration: underline;">Action Taken and Reward &amp; Recognition Marks</p>
+                           <table style="width: 60%;">
+	                            <t t-set="no" t-value="1"/>
+	                            <tr>
+	                                <td style="width: 25px; text-align: right; padding-right: 10px;"><t t-esc="no"/>.</td>
+	                                <td style="width: 150px;"><t t-esc="o.linked_reward_id.employee_id.name"/></td>
+	                                <td style="width: 40px; text-align: right;"><t t-esc="o.linked_reward_id.reward_type_id.mark"/></td>
+	                                <td style="width: 40px; text-align: right;">mark</td>
+	                            </tr>
+	
+	                            <t t-foreach="manager_rewards" t-as="link">
+	                                <t t-set="no" t-value="no + 1"/>
+	                                <tr>
+	                                    <td style="text-align: right; padding-right: 10px;"><t t-esc="no"/>.</td>
+	                                    <td><t t-esc="link.employee_id.name"/></td>
+	                                    <td style="text-align: right;"><t t-esc="link.mark"/></td>
+	                                    <td style="width: 50px; text-align: right;">mark</td>
+	                                </tr>
+	                            </t>
+	                       </table>
+                           <br/>
+                           <p>Thank you again for your contribution and hard work please keep up the good work.</p>
+                           <br/>
+                           <p>
+                               Yours sincerely,<br/><br/><br/>
+                               <t t-if="branch_manager">
+                                   <span t-esc="branch_manager.name"/><br/>
+                                   <span t-field="branch_manager.job_id"/><br/>
+                                   <span t-field="branch_manager.company_id"/><br/>
+                               </t>
+                           </p>
+                       </div>
+                   </div>
+	        	</t>
+			</t>
+        </t>
+    </template>
+</odoo>

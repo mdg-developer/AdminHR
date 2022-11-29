@@ -1,0 +1,45 @@
+<odoo>
+    <data>
+        <record id='view_iclock_transaction_form' model='ir.ui.view'>
+	         <field name="name">iclock.transaction.tree</field>
+	        <field name="model">iclock.transaction</field>
+	        <field name="arch" type="xml">
+	            <form string="Icloud Transaction" create="false">
+	                	<field name="emp_code" />
+                        <field name="punch_time" />
+						<field name="terminal_alias" />
+						<field name="area_alias" />									
+						
+	            </form>
+	        </field>
+	    </record>
+	<record id='view_iclock_transaction_tree' model='ir.ui.view'>
+	        <field name="name">iclock.transaction.tree</field>
+	        <field name="model">iclock.transaction</field>
+	        <field name="arch" type="xml">
+	            <tree string="Icloud Transaction" create="false" edit="false">
+	                	<field name="emp_code" />
+                        <field name="punch_time" />
+						<field name="terminal_alias" />
+						<field name="area_alias" />									
+						
+	            </tree>
+	        </field>
+	    </record>
+	    
+	 <record id="action_iclock_transaction" model="ir.actions.act_window">
+            <field name="name">ICloud Transaction</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">iclock.transaction</field>			       
+            <field name="view_mode">tree</field>           
+            
+        </record>
+        
+	 <menuitem id="menu_hr_iclock_transaction"
+				  name="ICloud Transaction"
+				  parent="hr_attendance.menu_hr_attendance_manage_attendances"
+				  action="action_iclock_transaction"
+				  sequence="60" />
+	 
+</data>
+</odoo>

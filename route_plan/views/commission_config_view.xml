@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="view_commission_config_tree">
+        <field name="name">commission.config.tree</field>
+        <field name="model">commission.config</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Commission Config">
+                <field name="company_id" />
+                <field name="journal_id" />
+                <field name="debit_account_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_commission_config_form">
+        <field name="name">commission.config.form</field>
+        <field name="model">commission.config</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Commission Config">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="company_id" />
+                            <field name="journal_id" />
+                            <field name="debit_account_id" />
+                        </group>
+                        <group>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_commission_config">
+        <field name="name">Commission Config</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">commission.config</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_commission_config" name="Commission Config" parent="route_plan.route_menu_root" sequence="10" action="action_commission_config"/>
+</odoo>

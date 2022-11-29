@@ -1,0 +1,849 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_extension
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0-20191115\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-11-17 10:13+0000\n"
+"PO-Revision-Date: 2019-11-17 10:13+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_extension
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_skill_need_kanban_view
+msgid "<span> needed </span>"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_employee_skill_followup__active
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position__active
+#: model:ir.model.fields,field_description:hr_extension.field_hr_promotion__active
+#: model:ir.model.fields,field_description:hr_extension.field_hr_salary_scale_line__active
+#: model:ir.model.fields,field_description:hr_extension.field_hr_skill_need__active
+msgid "Active"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_career__analytic_account_id
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position__analytic_account_id
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position_wizard_update__analytic_account_id
+msgid "Analytic Account"
+msgstr "Compte analytique"
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_career__annual_cost
+#: model:ir.model.fields,field_description:hr_extension.field_hr_salary_scale_line__annual_cost
+msgid "Annual Cost"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_salary_scale_line__area_external_id
+msgid "Area"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_employee_skill__target_skill_date_assessment
+#: model:ir.model.fields,field_description:hr_extension.field_hr_employee_skill_followup__date_assessment
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_employee_skill_followup_filter
+msgid "Assessment date"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_employee_skill__target_skill_assessment_deadline
+#: model:ir.model.fields,field_description:hr_extension.field_hr_employee_skill_followup__assessment_deadline
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_employee_skill_followup_filter
+msgid "Assessment deadline"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_employee_skill__target_skill_assessment_result
+#: model:ir.model.fields,field_description:hr_extension.field_hr_employee_skill_followup__assessment_result
+msgid "Assessment result"
+msgstr ""
+
+#. module: hr_extension
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_employee_skill_followup_filter
+msgid "Assessments done"
+msgstr ""
+
+#. module: hr_extension
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_employee_skill_followup_filter
+msgid "Assessments failed"
+msgstr ""
+
+#. module: hr_extension
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_employee_skill_followup_filter
+msgid "Assessments passed"
+msgstr ""
+
+#. module: hr_extension
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_employee_skill_followup_filter
+msgid "Assessments to come"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_employee_skill__target_skill_assessment_user_id
+#: model:ir.model.fields,field_description:hr_extension.field_hr_employee_skill_followup__assessment_user_id
+#: model:ir.model.fields,field_description:hr_extension.field_hr_skill_type_assessor__skill_type_id
+#: model:ir.model.fields,field_description:hr_extension.field_hr_skill_type_assessor__user_id
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_employee_skill_followup_filter
+msgid "Assessor"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_skill_type__assessment_user_ids
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_employee_skill_type_view_form_hr_ext
+msgid "Assessors"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model,name:hr_extension.model_hr_career
+msgid "Career"
+msgstr "Carrière"
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_grade__career_ids
+msgid "Careers"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_employee_skill__color
+#: model:ir.model.fields,field_description:hr_extension.field_hr_skill_need__color
+msgid "Color"
+msgstr "Couleur"
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_employee_skill_followup__comment
+msgid "Comment"
+msgstr "Commentaires"
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_career__contract_type_id
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position__contract_type_id
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position_wizard_update__contract_type_id
+msgid "Contract type"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model,name:hr_extension.model_hr_contract_type
+msgid "Contract types"
+msgstr "Types de contrat"
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_career__create_uid
+#: model:ir.model.fields,field_description:hr_extension.field_hr_contract_type__create_uid
+#: model:ir.model.fields,field_description:hr_extension.field_hr_education_background__create_uid
+#: model:ir.model.fields,field_description:hr_extension.field_hr_education_item__create_uid
+#: model:ir.model.fields,field_description:hr_extension.field_hr_employee_skill_followup__create_uid
+#: model:ir.model.fields,field_description:hr_extension.field_hr_grade__create_uid
+#: model:ir.model.fields,field_description:hr_extension.field_hr_mission_position_rel__create_uid
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position__create_uid
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position_wizard_copy__create_uid
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position_wizard_update__create_uid
+#: model:ir.model.fields,field_description:hr_extension.field_hr_promotion__create_uid
+#: model:ir.model.fields,field_description:hr_extension.field_hr_salary_scale__create_uid
+#: model:ir.model.fields,field_description:hr_extension.field_hr_salary_scale_line__create_uid
+#: model:ir.model.fields,field_description:hr_extension.field_hr_skill_need__create_uid
+#: model:ir.model.fields,field_description:hr_extension.field_hr_skill_type_assessor__create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_career__create_date
+#: model:ir.model.fields,field_description:hr_extension.field_hr_contract_type__create_date
+#: model:ir.model.fields,field_description:hr_extension.field_hr_education_background__create_date
+#: model:ir.model.fields,field_description:hr_extension.field_hr_education_item__create_date
+#: model:ir.model.fields,field_description:hr_extension.field_hr_employee_skill_followup__create_date
+#: model:ir.model.fields,field_description:hr_extension.field_hr_grade__create_date
+#: model:ir.model.fields,field_description:hr_extension.field_hr_mission_position_rel__create_date
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position__create_date
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position_wizard_copy__create_date
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position_wizard_update__create_date
+#: model:ir.model.fields,field_description:hr_extension.field_hr_promotion__create_date
+#: model:ir.model.fields,field_description:hr_extension.field_hr_salary_scale__create_date
+#: model:ir.model.fields,field_description:hr_extension.field_hr_salary_scale_line__create_date
+#: model:ir.model.fields,field_description:hr_extension.field_hr_skill_need__create_date
+#: model:ir.model.fields,field_description:hr_extension.field_hr_skill_type_assessor__create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_career__date_end
+#: model:ir.model.fields,field_description:hr_extension.field_hr_mission_position_rel__date_end
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position__date_end
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position_wizard_copy__date_end
+#: model:ir.model.fields,field_description:hr_extension.field_hr_promotion__date_end
+#: model:ir.model.fields,field_description:hr_extension.field_hr_salary_scale_line__date_end
+#: model:ir.model.fields,field_description:hr_extension.field_hr_skill_need__date_end
+msgid "Date end"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_career__date_start
+#: model:ir.model.fields,field_description:hr_extension.field_hr_mission_position_rel__date_start
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position__date_start
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position_wizard_copy__date_start
+#: model:ir.model.fields,field_description:hr_extension.field_hr_promotion__date_start
+#: model:ir.model.fields,field_description:hr_extension.field_hr_salary_scale_line__date_start
+#: model:ir.model.fields,field_description:hr_extension.field_hr_skill_need__date_start
+msgid "Date start"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_contract_type__default_salary_scale_id
+msgid "Default salary scale"
+msgstr ""
+
+#. module: hr_extension
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_skill_need_kanban_view
+msgid "Delete"
+msgstr "Supprimer"
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_career__department_id
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position__department_id
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position_wizard_update__department_id
+msgid "Department"
+msgstr "Département"
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_grade__description
+#: model:ir.model.fields,field_description:hr_extension.field_hr_salary_scale__description
+#: model:ir.model.fields,field_description:hr_extension.field_hr_salary_scale_line__description
+msgid "Description"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_education_background__diploma_id
+msgid "Diploma"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_career__display_name
+#: model:ir.model.fields,field_description:hr_extension.field_hr_contract_type__display_name
+#: model:ir.model.fields,field_description:hr_extension.field_hr_education_background__display_name
+#: model:ir.model.fields,field_description:hr_extension.field_hr_education_item__display_name
+#: model:ir.model.fields,field_description:hr_extension.field_hr_employee_skill_followup__display_name
+#: model:ir.model.fields,field_description:hr_extension.field_hr_grade__display_name
+#: model:ir.model.fields,field_description:hr_extension.field_hr_mission_position_rel__display_name
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position__display_name
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position_wizard_copy__display_name
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position_wizard_update__display_name
+#: model:ir.model.fields,field_description:hr_extension.field_hr_promotion__display_name
+#: model:ir.model.fields,field_description:hr_extension.field_hr_salary_scale__display_name
+#: model:ir.model.fields,field_description:hr_extension.field_hr_salary_scale_line__display_name
+#: model:ir.model.fields,field_description:hr_extension.field_hr_skill_need__display_name
+#: model:ir.model.fields,field_description:hr_extension.field_hr_skill_type_assessor__display_name
+msgid "Display Name"
+msgstr "Afficher Nom"
+
+#. module: hr_extension
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_skill_need_kanban_view
+msgid "Dropdown menu"
+msgstr "Menu déroulant"
+
+#. module: hr_extension
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_skill_need_kanban_view
+msgid "Edit Task"
+msgstr "Modifier la tâche"
+
+#. module: hr_extension
+#: model:ir.model,name:hr_extension.model_hr_education_background
+msgid "Education background"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_education_background__education_level_id
+#: model:ir.model.fields.selection,name:hr_extension.selection__hr_education_item__nature__level
+msgid "Education level"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model,name:hr_extension.model_hr_education_item
+msgid "Education_item"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model,name:hr_extension.model_hr_employee
+#: model:ir.model.fields,field_description:hr_extension.field_hr_career__employee_id
+#: model:ir.model.fields,field_description:hr_extension.field_hr_education_background__employee_id
+#: model:ir.model.fields,field_description:hr_extension.field_hr_employee_skill__employee_skill_followup_ids
+#: model:ir.model.fields,field_description:hr_extension.field_hr_employee_skill_followup__employee_id
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position__employee_id
+#: model:ir.model.fields,field_description:hr_extension.field_hr_promotion__employee_id
+#: model:ir.model.fields,field_description:hr_extension.field_hr_skill__employee_ids
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_skill_employee_rel_filter
+msgid "Employee"
+msgstr "Employé"
+
+#. module: hr_extension
+#: model:ir.model,name:hr_extension.model_hr_employee_category
+msgid "Employee Category"
+msgstr "Catégorie de l'employé"
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_employee_skill_followup__employee_skill_id
+msgid "Employee skill"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.actions.act_window,name:hr_extension.hr_employee_skill_on_progress
+#: model:ir.actions.act_window,name:hr_extension.hr_skill_employee_rel_action
+msgid "Employee skills"
+msgstr "Compétences des agents"
+
+#. module: hr_extension
+#: model:ir.model,name:hr_extension.model_hr_qualification_employee_rel
+msgid "Employee(s) qualifications"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.ui.menu,name:hr_extension.menu_hr_skill_employee_rel_action
+msgid "Employees skills"
+msgstr "Compétences des agents"
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_employee_skill__date_end
+msgid "End date"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields.selection,name:hr_extension.selection__hr_employee_skill__target_skill_assessment_result__fail
+#: model:ir.model.fields.selection,name:hr_extension.selection__hr_employee_skill_followup__assessment_result__fail
+msgid "Fail"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields.selection,name:hr_extension.selection__hr_employee_skill__state__fail
+msgid "Failed"
+msgstr "Échec"
+
+#. module: hr_extension
+#: model:ir.ui.menu,name:hr_extension.menu_hr_employee_skill_followup_action
+#: model_terms:ir.ui.view,arch_db:hr_extension.employee_skill_view_form_hr_ext
+msgid "Followup"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_career__fulltime_rate
+msgid "Fulltime rate"
+msgstr ""
+
+#. module: hr_extension
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_employee_skill_followyp_form_form
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_skill_need_form_form
+msgid "General"
+msgstr "Général"
+
+#. module: hr_extension
+#: model:ir.model,name:hr_extension.model_hr_grade
+#: model:ir.model.fields,field_description:hr_extension.field_hr_career__grade_id
+#: model:ir.model.fields,field_description:hr_extension.field_hr_promotion__grade_id
+#: model:ir.model.fields,field_description:hr_extension.field_hr_salary_scale_line__grade_id
+msgid "Grade"
+msgstr ""
+
+#. module: hr_extension
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_employee_skill_followup_filter
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_skill_employee_rel_filter
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_skill_need_filter
+msgid "Group By..."
+msgstr "Regrouper par..."
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_salary_scale_line__hourly_cost
+msgid "Hourly Cost"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_career__id
+#: model:ir.model.fields,field_description:hr_extension.field_hr_contract_type__id
+#: model:ir.model.fields,field_description:hr_extension.field_hr_education_background__id
+#: model:ir.model.fields,field_description:hr_extension.field_hr_education_item__id
+#: model:ir.model.fields,field_description:hr_extension.field_hr_employee_skill_followup__id
+#: model:ir.model.fields,field_description:hr_extension.field_hr_grade__id
+#: model:ir.model.fields,field_description:hr_extension.field_hr_mission_position_rel__id
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position__id
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position_wizard_copy__id
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position_wizard_update__id
+#: model:ir.model.fields,field_description:hr_extension.field_hr_promotion__id
+#: model:ir.model.fields,field_description:hr_extension.field_hr_salary_scale__id
+#: model:ir.model.fields,field_description:hr_extension.field_hr_salary_scale_line__id
+#: model:ir.model.fields,field_description:hr_extension.field_hr_skill_need__id
+#: model:ir.model.fields,field_description:hr_extension.field_hr_skill_type_assessor__id
+msgid "ID"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,help:hr_extension.field_hr_salary_scale_line__active
+msgid ""
+"If the active field is set to False, it will allow you to hide the project "
+"without removing it."
+msgstr ""
+"Si le champ actif n'est pas coché, le projet sera caché mais ne sera pas "
+"supprimé."
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_career__information
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position__information
+#: model:ir.model.fields,field_description:hr_extension.field_hr_salary_scale_line__information
+msgid "Information"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_education_background__information
+msgid "Informations"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_employee_skill_followup__initial_skill_level_id
+msgid "Initial level"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields.selection,name:hr_extension.selection__hr_employee_category__nature__job
+msgid "Job family"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_career____last_update
+#: model:ir.model.fields,field_description:hr_extension.field_hr_contract_type____last_update
+#: model:ir.model.fields,field_description:hr_extension.field_hr_education_background____last_update
+#: model:ir.model.fields,field_description:hr_extension.field_hr_education_item____last_update
+#: model:ir.model.fields,field_description:hr_extension.field_hr_employee_skill_followup____last_update
+#: model:ir.model.fields,field_description:hr_extension.field_hr_grade____last_update
+#: model:ir.model.fields,field_description:hr_extension.field_hr_mission_position_rel____last_update
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position____last_update
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position_wizard_copy____last_update
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position_wizard_update____last_update
+#: model:ir.model.fields,field_description:hr_extension.field_hr_promotion____last_update
+#: model:ir.model.fields,field_description:hr_extension.field_hr_salary_scale____last_update
+#: model:ir.model.fields,field_description:hr_extension.field_hr_salary_scale_line____last_update
+#: model:ir.model.fields,field_description:hr_extension.field_hr_skill_need____last_update
+#: model:ir.model.fields,field_description:hr_extension.field_hr_skill_type_assessor____last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_career__write_uid
+#: model:ir.model.fields,field_description:hr_extension.field_hr_contract_type__write_uid
+#: model:ir.model.fields,field_description:hr_extension.field_hr_education_background__write_uid
+#: model:ir.model.fields,field_description:hr_extension.field_hr_education_item__write_uid
+#: model:ir.model.fields,field_description:hr_extension.field_hr_employee_skill_followup__write_uid
+#: model:ir.model.fields,field_description:hr_extension.field_hr_grade__write_uid
+#: model:ir.model.fields,field_description:hr_extension.field_hr_mission_position_rel__write_uid
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position__write_uid
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position_wizard_copy__write_uid
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position_wizard_update__write_uid
+#: model:ir.model.fields,field_description:hr_extension.field_hr_promotion__write_uid
+#: model:ir.model.fields,field_description:hr_extension.field_hr_salary_scale__write_uid
+#: model:ir.model.fields,field_description:hr_extension.field_hr_salary_scale_line__write_uid
+#: model:ir.model.fields,field_description:hr_extension.field_hr_skill_need__write_uid
+#: model:ir.model.fields,field_description:hr_extension.field_hr_skill_type_assessor__write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_career__write_date
+#: model:ir.model.fields,field_description:hr_extension.field_hr_contract_type__write_date
+#: model:ir.model.fields,field_description:hr_extension.field_hr_education_background__write_date
+#: model:ir.model.fields,field_description:hr_extension.field_hr_education_item__write_date
+#: model:ir.model.fields,field_description:hr_extension.field_hr_employee_skill_followup__write_date
+#: model:ir.model.fields,field_description:hr_extension.field_hr_grade__write_date
+#: model:ir.model.fields,field_description:hr_extension.field_hr_mission_position_rel__write_date
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position__write_date
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position_wizard_copy__write_date
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position_wizard_update__write_date
+#: model:ir.model.fields,field_description:hr_extension.field_hr_promotion__write_date
+#: model:ir.model.fields,field_description:hr_extension.field_hr_salary_scale__write_date
+#: model:ir.model.fields,field_description:hr_extension.field_hr_salary_scale_line__write_date
+#: model:ir.model.fields,field_description:hr_extension.field_hr_skill_need__write_date
+#: model:ir.model.fields,field_description:hr_extension.field_hr_skill_type_assessor__write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_career__level
+#: model:ir.model.fields,field_description:hr_extension.field_hr_promotion__level
+#: model:ir.model.fields,field_description:hr_extension.field_hr_salary_scale_line__level
+#: model_terms:ir.ui.view,arch_db:hr_extension.employee_skill_view_form_hr_ext
+msgid "Level"
+msgstr "Niveau"
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_salary_scale__salary_scale_line_ids
+msgid "Lines"
+msgstr "Lignes"
+
+#. module: hr_extension
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_skill_need_form_form
+msgid "Miscellaneous"
+msgstr "Divers"
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_mission_position_rel__mission_id
+msgid "Mission"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model,name:hr_extension.model_hr_mission_position_rel
+msgid "Mission position rel"
+msgstr ""
+
+#. module: hr_extension
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_skill_need_kanban_view
+msgid "N OK"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_skill_need__number_employee_all
+msgid "N all employees"
+msgstr ""
+
+#. module: hr_extension
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_skill_need_kanban_view
+msgid "N all levels"
+msgstr ""
+
+#. module: hr_extension
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_skill_need_form_form
+msgid "N employees OK"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_skill_need__number_employee_ok
+msgid "N employees ok"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_skill_need__number_employee_on_progress
+msgid "N employees on progress"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_skill_need__number_employee_required
+msgid "N employees required"
+msgstr ""
+
+#. module: hr_extension
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_skill_need_kanban_view
+msgid "N missing"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_skill_need__number_employee_missing
+msgid "N missing employees "
+msgstr ""
+
+#. module: hr_extension
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_skill_need_kanban_view
+msgid "N on progr."
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_contract_type__name
+#: model:ir.model.fields,field_description:hr_extension.field_hr_education_background__name
+#: model:ir.model.fields,field_description:hr_extension.field_hr_education_item__name
+#: model:ir.model.fields,field_description:hr_extension.field_hr_grade__name
+#: model:ir.model.fields,field_description:hr_extension.field_hr_salary_scale__name
+msgid "Name"
+msgstr "Nom"
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_education_item__nature
+#: model:ir.model.fields,field_description:hr_extension.field_hr_employee_category__nature
+msgid "Nature"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.ui.menu,name:hr_extension.menu_hr_skill_need_action
+msgid "Needs"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields.selection,name:hr_extension.selection__hr_employee_skill__state__no_action
+msgid "No action"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_education_background__obtaining_date
+msgid "Obtaining date"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields.selection,name:hr_extension.selection__hr_employee_skill__state__on_process
+#: model_terms:ir.ui.view,arch_db:hr_extension.employee_skill_view_form_hr_ext
+msgid "On process"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_skill__sequence
+msgid "Order"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_career__code_pab
+#: model:ir.model.fields,field_description:hr_extension.field_hr_promotion__code_pab
+msgid "PAB"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_grade__partner_id
+msgid "Partner"
+msgstr "Partenaire"
+
+#. module: hr_extension
+#: model:ir.model.fields.selection,name:hr_extension.selection__hr_employee_skill__target_skill_assessment_result__pass
+#: model:ir.model.fields.selection,name:hr_extension.selection__hr_employee_skill_followup__assessment_result__pass
+msgid "Pass"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields.selection,name:hr_extension.selection__hr_employee_skill__state__pass
+msgid "Passed"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_career__period_cost
+msgid "Period cost"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_mission_position_rel__position_id
+msgid "Position"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model,name:hr_extension.model_hr_position
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position__mission_ids
+msgid "Positions"
+msgstr "Affectations"
+
+#. module: hr_extension
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_employee_skill_followyp_form_form
+msgid "Progress plan"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model,name:hr_extension.model_hr_promotion
+msgid "Promotions"
+msgstr "Avancement"
+
+#. module: hr_extension
+#: model:ir.model.fields.selection,name:hr_extension.selection__hr_employee_category__nature__qual
+msgid "Qualification"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model,name:hr_extension.model_hr_qualification
+msgid "Qualifications"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_career__quotity
+#: model:ir.model.fields,field_description:hr_extension.field_hr_mission_position_rel__quotity
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position__quotity
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position_wizard_update__quotity
+msgid "Quotity"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_promotion__salary_scale_id
+#: model:ir.model.fields,field_description:hr_extension.field_hr_salary_scale_line__salary_scale_id
+msgid "Salary scale"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_career__salary_scale_id
+msgid "Salary scale category"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model,name:hr_extension.model_hr_salary_scale_line
+msgid "Salary scale line"
+msgstr "Ligne de grille salariale"
+
+#. module: hr_extension
+#: model:ir.model,name:hr_extension.model_hr_salary_scale
+msgid "Salary scales"
+msgstr "Grilles salariales"
+
+#. module: hr_extension
+#: model:ir.model.fields.selection,name:hr_extension.selection__hr_employee_category__nature__score
+msgid "Score"
+msgstr ""
+
+#. module: hr_extension
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_employee_skill_followup_filter
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_skill_need_filter
+msgid "Search"
+msgstr "Rechercher"
+
+#. module: hr_extension
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_skill_employee_rel_filter
+msgid "Search..."
+msgstr "Recherche…"
+
+#. module: hr_extension
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_skill_need_kanban_view
+msgid "Set Cover Image"
+msgstr ""
+"Ajouter l'image\n"
+"de couverture"
+
+#. module: hr_extension
+#: model:ir.model,name:hr_extension.model_hr_skill
+#: model:ir.model.fields,field_description:hr_extension.field_hr_employee_skill_followup__skill_id
+#: model:ir.model.fields,field_description:hr_extension.field_hr_skill_need__skill_id
+#: model:ir.model.fields,field_description:hr_extension.field_hr_skill_type_assessor__skill_id
+#: model_terms:ir.ui.view,arch_db:hr_extension.employee_skill_view_form_hr_ext
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_employee_skill_followup_filter
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_skill_employee_rel_filter
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_skill_need_filter
+msgid "Skill"
+msgstr "Compétence"
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_skill_need__skill_level_id
+msgid "Skill Level"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model,name:hr_extension.model_hr_skill_type
+#: model:ir.model.fields,field_description:hr_extension.field_hr_employee_skill_followup__skill_type_id
+#: model:ir.model.fields,field_description:hr_extension.field_hr_skill_need__skill_type_id
+msgid "Skill Type"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields.selection,name:hr_extension.selection__hr_employee_category__nature__skill_assessment
+msgid "Skill assessment"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.actions.act_window,name:hr_extension.hr_employee_skill_followup_action
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_employee_skill_followup_form_tree
+msgid "Skill followup"
+msgstr ""
+
+#. module: hr_extension
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_skill_employee_rel_filter
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_skill_need_filter
+msgid "Skill level"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model,name:hr_extension.model_hr_employee_skill
+msgid "Skill level for an employee"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.actions.act_window,name:hr_extension.hr_skill_need_action
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_employee_skill_followyp_form_form
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_skill_need_form_form
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_skill_need_form_tree
+msgid "Skill needs"
+msgstr ""
+
+#. module: hr_extension
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_employee_skill_followup_filter
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_skill_employee_rel_filter
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_skill_need_filter
+msgid "Skill type"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_employee__on_progress_employee_skill_ids
+#: model:ir.ui.menu,name:hr_extension.menu_hr_skill
+#: model_terms:ir.ui.view,arch_db:hr_extension.employee_skill_view_tree
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_skill_employee_rel_report_pivot
+msgid "Skills"
+msgstr "Compétences"
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_education_background__speciality_id
+#: model:ir.model.fields.selection,name:hr_extension.selection__hr_education_item__nature__spe
+msgid "Speciality"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_employee_skill__date_start
+msgid "Start date"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields.selection,name:hr_extension.selection__hr_employee_category__nature__aud
+msgid "Target Audience"
+msgstr ""
+
+#. module: hr_extension
+#: model_terms:ir.ui.view,arch_db:hr_extension.hr_employee_skill_followup_filter
+msgid "Target kill level"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_employee_skill_followup__target_skill_level_id
+msgid "Target level"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_employee_skill__target_skill_level_id
+msgid "Target skill level"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields.selection,name:hr_extension.selection__hr_employee_category__nature__typ
+msgid "Type"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_career__start_end_year
+msgid "Year"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_position__year_end
+#: model:ir.model.fields,field_description:hr_extension.field_hr_promotion__year_end
+msgid "Year end"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields.selection,name:hr_extension.selection__hr_education_item__nature__dipl
+msgid "diploma"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model,name:hr_extension.model_hr_employee_skill_followup
+msgid "hr.employee.skill.followup"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model,name:hr_extension.model_hr_position_wizard_copy
+msgid "hr.position.wizard.copy"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model,name:hr_extension.model_hr_position_wizard_update
+msgid "hr.position.wizard.update"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model,name:hr_extension.model_hr_skill_need
+msgid "hr.skill.need"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model,name:hr_extension.model_hr_skill_type_assessor
+msgid "hr.skill.type.assessor"
+msgstr ""
+
+#. module: hr_extension
+#: model:ir.model.fields,field_description:hr_extension.field_hr_employee_skill__state
+msgid "state"
+msgstr ""

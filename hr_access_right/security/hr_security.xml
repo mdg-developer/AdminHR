@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data >       
+	
+   
+        
+    <record model="ir.module.category" id="module_category_human_resources_whole_hr">
+            <field name="name">HR</field>
+            <field name="sequence">103</field>
+    </record>
+    
+     <record model="res.groups" id="group_system_hr">
+         <field name="name">Custom HR</field>           
+    </record>
+        
+    <record id="group_hr_whole_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="hr_access_right.module_category_human_resources_whole_hr"/>
+        <field name="implied_ids" eval="[(4, ref('hr_access_right.group_system_hr'))]"/>
+    </record>
+
+    <record id="group_hr_whole_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="hr_access_right.module_category_human_resources_whole_hr"/>
+        <field name="implied_ids" eval="[(4, ref('group_hr_whole_user'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+
+	<record id="group_hr_whole_administrator" model="res.groups">
+        <field name="name">Administrator</field>
+        <field name="category_id" ref="hr_access_right.module_category_human_resources_whole_hr"/>
+        <field name="implied_ids" eval="[(4, ref('group_hr_whole_manager'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+    
+	<record model="ir.module.category" id="module_category_human_resources_whole_admin">
+        <field name="name">Admin</field>
+        <field name="sequence">104</field>
+    </record>
+    
+    <record id="group_hr_whole_admin_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="hr_access_right.module_category_human_resources_whole_admin"/>
+        <field name="implied_ids" eval="[(4, ref('hr_access_right.group_system_hr'))]"/>
+    </record>
+
+    <record id="group_hr_whole_admin_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="category_id" ref="hr_access_right.module_category_human_resources_whole_admin"/>
+        <field name="implied_ids" eval="[(4, ref('group_hr_whole_admin_user'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+
+	<record id="group_hr_whole_admin_administrator" model="res.groups">
+        <field name="name">Administrator</field>
+        <field name="category_id" ref="hr_access_right.module_category_human_resources_whole_admin"/>
+        <field name="implied_ids" eval="[(4, ref('group_hr_whole_admin_manager'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+
+  </data>
+</odoo>

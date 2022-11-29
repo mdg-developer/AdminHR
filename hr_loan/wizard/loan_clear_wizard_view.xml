@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="loan_clear_wizard_view_form" model="ir.ui.view">
+        <field name="name">loan.clear.wizard.view.form</field>
+        <field name="model">loan.clear.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="clear_date" />
+                        <field name="remark"/>
+                        <field name="loan_id" invisible="1"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_clear" string="Clear" type="object" class="oe_highlight"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_loan_clear" model="ir.actions.act_window">
+        <field name="name">Loan Clear</field>
+        <field name="res_model">loan.clear.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

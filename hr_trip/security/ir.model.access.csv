@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_trip_user,access_hr_trip_user,model_fleet_trip,fleet.fleet_group_user,1,1,1,0
+access_hr_trip_manager,access_hr_trip_manager,model_fleet_trip,fleet.fleet_group_manager,1,1,1,1
+access_route_expense_user,access_route_expense_user,model_route_expense,fleet.fleet_group_user,1,1,1,1
+access_route_expense_manager,access_route_expense_manager,model_route_expense,fleet.fleet_group_manager,1,1,1,1
+access_route_allowance_user,access_route_allowance_user,model_route_allowance,fleet.fleet_group_user,1,1,1,1
+access_rout_allowance_manager,access_route_allowance_manager,model_route_allowance,fleet.fleet_group_manager,1,1,1,1

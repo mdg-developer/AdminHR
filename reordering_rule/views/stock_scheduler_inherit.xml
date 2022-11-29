@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+
+    <record id="view_procurement_compute_wizard_inherit" model="ir.ui.view">
+        <field name="name">Run Scheduler</field>
+        <field name="model">stock.scheduler.inherit</field>
+        <field name="arch" type="xml">
+            <form string="Parameters">
+                <p>
+                The stock will be reserved for operations waiting for availability and the reordering rules will be triggered.
+                </p>
+                <footer>
+                    <button name="procure_calculation" string="Run Scheduler" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_view_compute_wizard" model="ir.actions.act_window">
+        <field name="name">Run Scheduler</field>
+        <field name="res_model">stock.scheduler.inherit</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_procurement_compute_wizard_inherit"/>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="stock.model_stock_warehouse_orderpoint" />
+        <field name="binding_view_types">list</field>
+    </record>
+
+    
+
+
+
+</odoo>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+	    <record id="view_employee_form_ssb" model="ir.ui.view">
+			<field name="name">hr.employee.form</field>
+			<field name="model">hr.employee</field>
+			<field name="inherit_id" ref="hr.view_employee_form" />
+			<field name="arch" type="xml">
+                <xpath expr="//page[@name='hr_settings']" position="inside">
+                    <group string="Warnings Info" col="4">
+                        <field name="warning_carried_forward"/>
+                        <field name="warning_this_year"/>
+                        <field name="warning_total"/>
+                    </group>
+            	</xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

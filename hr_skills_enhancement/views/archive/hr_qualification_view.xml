@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+<odoo>
+
+
+    <!-- HR Qualification -->
+
+
+
+<record id="hr_qualification_filter" model="ir.ui.view">
+       <field name="name">hr.qualification</field>
+        <field name="model">hr.qualification</field>
+        <field name="arch" type="xml">
+
+            <search string="Search">
+
+                    <separator/>
+
+
+                <field name="name"/>
+                <field name="tag_ids"/>
+                <field name="issuing_partner_id"/>
+
+
+                <group expand="0" string="Group By...">
+                     <filter string="Tags" name="tag_ids"  icon="terp-accessories-archiver" domain="[]" context="{'group_by':'tag_ids'}"/>
+                     <filter string="Issuing partner" name="issuing_partner"  icon="terp-accessories-archiver" domain="[]" context="{'group_by':'issuing_partner_id'}"/>
+                     <filter string="Duration type" name="duration_type"  icon="terp-accessories-archiver" domain="[]" context="{'group_by':'duration_type'}"/>
+
+                </group>
+           </search>
+        </field>
+</record>
+
+
+    <record model="ir.ui.view" id="hr_qualification_form_tree">
+            <field name="name">Qualifications</field>
+            <field name="model">hr.qualification</field>
+            <field name="arch" type="xml">
+                <tree string="Qualifications">
+                    <field name="name"/>
+                    <field name="issuing_partner_id"/>
+                    <field name="duration_type"/>
+                    <field name="duration"/>
+                    <field name="tag_ids" widget="many2many_tags"/>
+                </tree>
+            </field>
+        </record>
+
+         <record model="ir.ui.view" id="hr_qualification_form_form">
+            <field name="name">Qualifications</field>
+            <field name="model">hr.qualification</field>
+            <field name="arch" type="xml">
+                <form string="Qualifications">
+                <header>
+               </header>
+                <sheet>
+
+               <group>
+
+                <group string="General">
+                  <field name="name"/>
+                 <field name="tag_ids" widget="many2many_tags" width="0.5" optional="hide" string="Tags"/>
+                 <field name ="issuing_partner_id"/>
+                 <field name="description"/>
+
+                </group>
+
+                 <group string="Miscellaneous">
+
+                     <field name="duration_type"/>
+                     <field name="duration"/>
+                       <field name="employee_ids">
+                        <tree editable="top" >
+                            <field name="employee_id"/>
+                            <field name="date_end"/>
+                            <field name="date_start"/>
+
+                        </tree>
+                      </field>
+
+
+                </group>
+
+
+
+               </group>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+
+
+      <!-- HR Qualification employee rel -->
+
+    <record model="ir.ui.view" id="hr_qualification_employee_rel_form_tree">
+            <field name="name">Employee qualifications</field>
+            <field name="model">hr.qualification.employee.rel</field>
+            <field name="arch" type="xml">
+                <tree string="Employee qualifications">
+                    <field name="qualification_id"/>
+                    <field name="employee_id"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                </tree>
+            </field>
+        </record>
+
+         <record model="ir.ui.view" id="hr_qualification_employee_rel_form_form">
+            <field name="name">Employee qualifications</field>
+            <field name="model">hr.qualification.employee.rel</field>
+            <field name="arch" type="xml">
+                <form string="Employee qualifications">
+                <group>
+                    <field name="qualification_id"/>
+                    <field name="employee_id"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                </group>
+                </form>
+            </field>
+        </record>
+
+
+<menuitem name="Qualifications" id="menu_hr_qualification" parent="hr.menu_hr_root" />
+
+
+
+
+
+        <record id="hr_qualification_action" model="ir.actions.act_window">
+            <field name="name">Qualifications</field>
+            <field name="res_model">hr.qualification</field>
+        </record>
+
+        <menuitem name="Qualifications" action="hr_qualification_action" id="menu_hr_qualification_action" parent="menu_hr_qualification"/>
+
+
+
+
+        <record id="hr_qualification_employee_rel_action" model="ir.actions.act_window">
+            <field name="name">Employee qualifications</field>
+            <field name="res_model">hr.qualification.employee.rel</field>
+        </record>
+
+        <menuitem name="Employee qualifications" action="hr_qualification_employee_rel_action" id="menu_hr_qualification_employee_rel_action" parent="menu_hr_qualification" />
+
+
+
+
+
+
+
+
+</odoo>

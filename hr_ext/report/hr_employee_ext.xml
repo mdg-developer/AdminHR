@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+        id="hr_employee_probation"
+        string="Probation Confirmation Letter"
+        model="hr.employee"
+        report_type="qweb-pdf"
+        name="hr_ext.print_probation_confirmation"
+        file="hr_ext.print_probation_confirmation"
+        print_report_name="'Probation Confirmation Letter - %s' % (object.name).replace('/', '')"
+        menu="False"
+    />
+    
+    <report
+        id="hr_employee_offer"
+        string="Employee Offer Letter"
+        model="hr.employee"
+        report_type="qweb-pdf"
+        name="hr_ext.print_employee_offer"
+        file="hr_ext.print_employee_offer"
+        print_report_name="'Employee Offer Letter - %s' % (object.name).replace('/', '')"
+        menu="False"
+    />
+    
+    <report
+        id="hr_employee_transfer"
+        string="Employee Transfer Letter"
+        model="hr.promotion"
+        report_type="qweb-pdf"
+        name="hr_ext.print_employee_transfer"
+        file="hr_ext.print_employee_transfer"
+        print_report_name="'Employee Transfer Letter - %s' % (object.name).replace('/', '')"
+        menu="True"
+    />
+
+    <report
+        id="hr_employee_extend_probation"
+        string="Extend Probation Letter"
+        model="hr.employee"
+        report_type="qweb-pdf"
+        name="hr_ext.print_extend_probation_letter"
+        file="hr_ext.print_extend_probation_letter"
+        print_report_name="'Extend Probation Letter - %s' % (object.name).replace('/', '')"
+        menu="False"
+    />
+	
+    <record id="hr_employee_probation" model="ir.actions.report">
+       <field name="paperformat_id" ref="hr_ext.paperformat_letter"/>
+    </record>
+    
+    <record id="hr_employee_offer" model="ir.actions.report">
+       <field name="paperformat_id" ref="hr_ext.paperformat_letter"/>
+    </record>
+    
+    <record id="hr_employee_transfer" model="ir.actions.report">
+       <field name="paperformat_id" ref="hr_ext.paperformat_letter"/>
+    </record>
+
+    <record id="hr_employee_extend_probation" model="ir.actions.report">
+        <field name="paperformat_id" ref="hr_ext.paperformat_letter"/>
+    </record>
+        
+</odoo>

@@ -1,0 +1,295 @@
+<?xml version="1.0"?>
+<odoo>
+
+
+    <!-- HR Skill need -->
+
+<record id="hr_skill_need_filter" model="ir.ui.view">
+       <field name="name">Skill needs</field>
+        <field name="model">hr.skill.need</field>
+        <field name="arch" type="xml">
+
+            <search string="Search">
+
+                    <separator/>
+
+                <group expand="0" string="Group By...">
+                    <filter string="Skill type" name="skill_type_id"  icon="terp-accessories-archiver" domain="[]" context="{'group_by':'skill_type_id'}"/>
+                    <filter string="Skill" name="skill_id"  icon="terp-accessories-archiver" domain="[]" context="{'group_by':'skill_id'}"/>
+                    <filter string="Skill level" name="skill_level_id"  icon="terp-accessories-archiver" domain="[]" context="{'group_by':'skill_level_id'}"/>
+
+                </group>
+
+
+                 <searchpanel>
+                    <field name="skill_type_id" select="multi"  icon="fa-users"/>
+                    <field name="skill_id" icon="fa-users" select="multi"   />
+                    <field name="skill_level_id" icon="fa-users" select="multi"   />
+                 </searchpanel>
+
+
+
+
+           </search>
+        </field>
+</record>
+
+
+    <record model="ir.ui.view" id="hr_skill_need_form_tree">
+            <field name="name">skill needs</field>
+            <field name="model">hr.skill.need</field>
+            <field name="arch" type="xml">
+                <tree string="Skill needs">
+                    <field name="skill_id"/>
+                    <field name="skill_level_id"/>
+                    <field name="number_employee_required"/>
+                    <field name="number_employee_ok"/>
+                    <field name="number_employee_on_progress"/>
+                    <field name="number_employee_missing"/>
+                    <!-- TODO
+                    <field name="department_ids" widget="one2many_list">
+                    <tree>
+                    <field name="department_id"/>
+                    </tree>
+                    </field>
+                    -->
+
+                </tree>
+            </field>
+        </record>
+
+         <record model="ir.ui.view" id="hr_skill_need_form_form">
+            <field name="name">Skill needs</field>
+            <field name="model">hr.skill.need</field>
+            <field name="arch" type="xml">
+                <form string="Skill needs">
+
+
+                <sheet>
+
+                  <div class="oe_button_box" name="button_box">
+
+                   <button class="oe_stat_button" name="open_employee_skill" context="{'option':'missing'}"
+                        type="object" icon="fa-star" help="xxx" >
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_text">Missing</span>
+                            <span class="o_stat_value">
+                                <field name="number_employee_missing" widget="statinfo" nolabel="1" class="mr4"/>
+                            </span>
+                        </div>
+                    </button>
+
+
+                    <button class="oe_stat_button" name="open_employee_skill" context="{'option':'ok'}"
+                        type="object" icon="fa-check" help="xxx" >
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_text">OK</span>
+                            <span class="o_stat_value">
+                                <field name="number_employee_ok" widget="statinfo" nolabel="1" class="mr4"/>
+                            </span>
+                        </div>
+                    </button>
+
+                     <button class="oe_stat_button" name="open_employee_skill" context="{'option':'on_progress'}"
+                        type="object" icon="fa-cogs" help="xxx" >
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_text">On progress</span>
+                            <span class="o_stat_value">
+                                <field name="number_employee_on_progress" widget="statinfo" nolabel="1" class="mr4"/>
+                            </span>
+                        </div>
+                    </button>
+
+
+                     <button class="oe_stat_button" name="open_employee_skill" context="{'option':'all'}"
+                        type="object" icon="fa-list" help="xxx" >
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_text">All levels</span>
+                            <span class="o_stat_value">
+                                <field name="number_employee_all" widget="statinfo" nolabel="1" class="mr4"/>
+                            </span>
+                        </div>
+                    </button>
+                    </div>
+
+
+
+
+                <group>
+                <group string="Skill details"   >
+                    <field name="skill_type_id"/>
+                    <field name="skill_id"/>
+                    <field name="skill_level_id"/>
+                </group>
+
+                 <group string="Needs" >
+                    <field name="is_department_need_specified"/>
+                    <field name="number_employee_required"
+                           attrs="{'readonly': [('is_department_need_specified', '!=', False)]}" />
+                   </group>
+                 </group>
+
+                    <group>
+                    <group string="Departments" attrs="{'invisible': [('is_department_need_specified', '=', False)]}" >
+                    <field name="department_ids" nolabel="1">
+                       <tree editable="top">
+                       <field name="department_id"/>
+                       <field name="number_employee_required"/>
+                    </tree>
+                    </field>
+                </group>
+                    <group>
+                    </group>
+                </group>
+
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+
+    <!-- useless
+    <record id="hr_employee_skill_on_process" model="ir.actions.act_window">
+        <field name="name">Employee skills</field>
+        <field name="res_model">hr.employee.skill</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('skill_id', '=', context.get('skill_id'))]</field>
+    </record>
+    -->
+
+
+
+<record id="hr_skill_need_kanban_view" model="ir.ui.view">
+            <field name="name">Skill needs</field>
+            <field name="model">hr.skill.need</field>
+            <field name="arch" type="xml">
+                <kanban class="oe_background_grey o_kanban_dashboard o_emphasize_colors o_res_skill_need_kanban"
+                        default_group_by="skill_type_id"   >
+                    <field name="id"/>
+                    <field name="skill_id"/>
+                    <field name="skill_type_id"/>
+	                <field name="skill_level_id"/>
+                    <field name="number_employee_required"/>
+                    <field name="number_employee_on_progress"/>
+                    <field name="number_employee_ok"/>
+                    <field name="number_employee_missing"/>
+                    <field name="number_employee_all"/>
+
+                    <field name="color"/>
+
+
+                    <templates>
+                        <t t-name="kanban-box">
+                        <div t-attf-class="{{!selection_mode ? 'oe_kanban_color_' + kanban_getcolor(record.color.raw_value) : ''}} oe_kanban_card oe_kanban_global_click">
+                            <div class="o_project_kanban_main">
+                                <div class="o_kanban_card_content">
+
+                                    <div class="o_kanban_primary_left">
+
+                                        <div class="o_primary">
+
+                                            <span><t t-esc="record.skill_id.value" />
+                                            </span>
+
+
+                                            <span t-if="record.skill_level_id.value">
+                                                <t t-esc="record.number_employee_required.value"/>
+                                                <t t-esc="record.skill_level_id.value"/>
+                                            </span>
+                                            <span> needed </span>
+
+                                        </div>
+                                        <br></br>
+                                    </div>
+
+
+                                <div class="container o_kanban_card_content">
+                                <div class="row">
+                                    <div class="col-6 o_kanban_primary_left">
+                                            <button class="btn btn-primary" name="open_employee_skill" type="object" context="{'option':'missing'}">
+                                            <t t-esc="record.number_employee_missing.value"/> Missing
+                                        </button>
+                                    </div>
+                                    <div class="col-6 o_kanban_primary_right">
+                                        <div class="row">
+
+                                            <div class="col-9">
+                                                <a name="open_employee_skill" type="object"  context="{'option':'ok'}">
+                                                OK
+                                                </a>
+                                            </div>
+                                            <div class="col-3">
+                                                <t t-esc="record.number_employee_ok.value"/>
+                                            </div>
+
+                                            <div class="col-9">
+                                                <a name="open_employee_skill" type="object"  context="{'option':'on_progress'}">
+                                                On progr.
+                                                </a>
+                                            </div>
+                                            <div class="col-3">
+                                                <t t-esc="record.number_employee_on_progress.value"/>
+                                            </div>
+
+                                            <div class="col-9">
+                                                <a name="open_employee_skill" type="object"  context="{'option':'all'}">
+                                                All levels
+                                                </a>
+                                            </div>
+                                            <div class="col-3">
+                                                <t t-esc="record.number_employee_all.value"/>
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                                    <div class="o_dropdown_kanban dropdown" t-if="!selection_mode" groups="base.group_user">
+                                        <a role="button" class="dropdown-toggle o-no-caret btn" data-toggle="dropdown" data-display="static" href="#" aria-label="Dropdown menu" title="Dropdown menu">
+                                            <span class="fa fa-ellipsis-v"/>
+                                        </a>
+                                        <div class="dropdown-menu" role="menu">
+                                            <a t-if="widget.editable" role="menuitem" type="set_cover" class="dropdown-item" data-field="displayed_image_id">Set Cover Image</a>
+                                            
+                                            <a t-if="widget.editable" role="menuitem" type="edit" class="dropdown-item">Edit</a>
+                                            <a t-if="widget.deletable" role="menuitem" type="delete" class="dropdown-item">Delete</a>
+                                            <div role="separator" class="dropdown-divider"></div>
+                                            <ul class="oe_kanban_colorpicker" data-field="color"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="oe_clear"></div>
+                        </div>
+                    </t>
+
+
+
+
+
+
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+
+
+
+
+
+
+
+        <record id="hr_skill_need_action" model="ir.actions.act_window">
+            <field name="name">Skill needs</field>
+            <field name="res_model">hr.skill.need</field>
+             <field name="view_mode">kanban,tree,form</field>
+        </record>
+
+        <menuitem name="Needs" action="hr_skill_need_action" id="menu_hr_skill_need_action" parent="menu_hr_skill" />
+
+</odoo>

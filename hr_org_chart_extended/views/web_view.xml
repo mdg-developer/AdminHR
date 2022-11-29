@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="amount_restict_cart" inherit_id="website_sale.cart" name="Amount Ristriction for checkout">
+    	<xpath expr="//div[@id='wrap']//div[hasclass('oe_cart')]" position="inside">
+    		<div t-if="error_message" class="mt8 alert alert-info" role="alert">
+    			<p><sapn t-esc="error_message"/></p>
+    		</div>
+    	</xpath>
+    </template>
+</odoo>

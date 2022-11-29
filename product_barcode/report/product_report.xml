@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+          <report
+            id="product.report_product_template_barcode"
+            string="Product Barcode (PDF)"
+            model="product.template"
+            report_type="qweb-pdf"
+            name="product_barcode.report_product_template_barcode"
+            file="product_barcode.report_product_template_barcode"
+            print_report_name="'Products barcode - %s' % (object.name)"
+        />
+
+
+    </data>
+</odoo>

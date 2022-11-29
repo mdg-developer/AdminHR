@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+
+    <!--
+    <xpath expr="//td[@class='o_data_cell o_skill_cell pr-3']" position="after">
+
+         <td class="o_data_cell o_skill_cell w-100">
+            <t t-esc="data.target_skill_level_id.data.display_name"/>
+         </td>
+</xpath>
+    <templates xml:space="preserve">
+<template id="xxxxx" name="hr_skills_assets_backend" inherit_id="hr_skills.template">
+      <t t-name="added" t-extend="hr_skills.hr_skill_data_row">
+     -->
+
+ <t t-extend="hr_skill_data_row">
+        <t t-jquery="span.my_account" t-operation="append">
+            <span class="logout">Logout</span>
+        </t>
+    </t>
+</templates>

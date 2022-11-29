@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="view_map" model="ir.ui.view">
+			<field name="name">Map</field>
+			<field name="model">gps.map</field>
+			<field name="arch" type="xml">
+				<form string="Map">
+					<group colspan="2" col="2">
+						<div>
+							<span class="oe_inline">( On</span>
+							<span>: Lat :</span>
+							<field name="partner_latitude" nolabel="1" class="oe_inline" />
+							<span>; Long:</span>
+							<field name="partner_longitude" nolabel="1" class="oe_inline" />
+							<span>)</span>
+						</div>
+					</group>
+					<widget name="location_ci" />
+					<footer>
+						<button name="button_create_from_map" string="OK"
+							type="object" class="btn-primary" />
+						<button string="Cancel" class="btn-secondary" special="cancel" />
+					</footer>
+				</form>
+			</field>
+		</record>
+		
+		<record id="view_to_map" model="ir.ui.view">
+			<field name="name">Map</field>
+			<field name="model">gps.map</field>
+			<field name="arch" type="xml">
+				<form string="Map">
+					<group colspan="2" col="2">
+						<div>
+							<span class="oe_inline">( On</span>
+							<span>: Lat :</span>
+							<field name="partner_latitude" nolabel="1" class="oe_inline" />
+							<span>; Long:</span>
+							<field name="partner_longitude" nolabel="1" class="oe_inline" />
+							<span>)</span>
+						</div>
+					</group>
+                    <widget name="location_ci" />
+					<footer>
+						<button name="button_create_to_map" string="OK"
+							type="object" class="btn-primary" />
+						<button string="Cancel" class="btn-secondary" special="cancel" />
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<record id="action_map" model="ir.actions.act_window">
+            <field name="name">Map</field>
+            <field name="res_model">gps.map</field>
+            <field name="view_mode">tree,form</field>
+           <field name="view_id" ref="view_map"/>
+           <field name="target">new</field>
+		</record>
+		
+		<record id="action_to_map" model="ir.actions.act_window">
+            <field name="name">Map</field>
+            <field name="res_model">gps.map</field>
+            <field name="view_mode">tree,form</field>
+           <field name="view_id" ref="view_to_map"/>
+           <field name="target">new</field>
+		</record>
+	</data>
+</odoo>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<template id="report_warning_letter">
+	    <t t-call="web.html_container">
+	        <t t-foreach="docs" t-as="o">
+	            <t t-if="not o.linked_warning_id">
+	                <t t-set="manager_warnings" t-value="o.approved and o.manager_warning_ids or o.temp_lines"/>   
+	                <t t-set="branch_manager" t-value="o.employee_id.branch_id and o.employee_id.branch_id.manager_id"/>
+	                <t t-set="i" t-value="1" />
+	                <div class="article o_company_#{o.employee_id.company_id.id}_layout" style="font-family: Tahoma, Verdana, Pyidaungsu, Arial,sans-serif; font-size: 12pt; letter-spacing: 0.5px;">
+	                    <div class="page px-5">
+							<span>To,</span><br/><br/>
+                           <span t-field="o.employee_id.name"/>
+                           <t t-if="o.employee_id.job_id"><br/><span t-field="o.employee_id.job_id"/></t>
+                           <t t-if="o.employee_id.department_id"><br/><span t-field="o.employee_id.department_id"/></t>
+                           <t t-if="o.employee_id.branch_id"><br/><span t-field="o.employee_id.branch_id"/></t>
+                           <t t-if="o.employee_id.company_id"><br/><span t-field="o.employee_id.company_id"/></t>
+                           <br/><br/>
+                           Date : <t t-esc="o.date" t-options="{'widget': 'date', 'format': 'dd/MM/yyyy'}"/>
+                           <br/><br/>
+                           <p style="font-weight: bolder;">Subject :&#8195;&#8195;: Warning letter</p>
+                           <br/>
+                           <p>Dear <span t-field="o.employee_id.name"/>,</p>
+                           <p>This letter serves you as first and last warning, the reason is on
+                               <t t-esc="o.warn_date" t-options="{'widget': 'date', 'format': 'dd/MM/yyyy'}"/>
+                               <t t-esc="o.linked_warning_id.employee_id.name"/> is
+                               <t t-esc="o.description"/>, this is not acceptable.</p>
+                           <p>We expect you to take a serious approach to your job and adhering to your day-to-day responsibilities.
+                               Be informed that if this behavior continues it would lead to more disciplinary action being taken.</p>
+                           <p>Warning Type&#8195;:&#8195;<span t-field="o.warning_type_id" /><br/>
+                               Warning Title&#8195;&#160;:&#8195;<span t-field="o.warning_title_id" />
+                           </p>
+	                        <p style="text-decoration: underline;">Action Taken &amp; Warning Marks</p>
+	                        <table style="width: 60%;">
+	                            <t t-set="no" t-value="1"/>
+	                            <tr>
+	                                <td style="width: 25px; text-align: right; padding-right: 10px;"><t t-esc="no"/>.</td>
+	                                <td style="width: 150px;"><t t-esc="o.employee_id.name"/></td>
+	                                <td style="width: 40px; text-align: right;"><t t-esc="o.warning_type_id.mark"/></td>
+	                                <td style="width: 40px; text-align: right;">mark</td>
+	                            </tr>
+	
+	                            <t t-foreach="manager_warnings" t-as="link">
+	                                <t t-set="no" t-value="no + 1"/>
+	                                <tr>
+	                                    <td style="text-align: right; padding-right: 10px;"><t t-esc="no"/>.</td>
+	                                    <td><t t-esc="link.employee_id.name"/></td>
+	                                    <td style="text-align: right;"><t t-esc="link.mark"/></td>
+	                                    <td style="width: 50px; text-align: right;">mark</td>
+	                                </tr>
+	                            </t>
+	                        </table>
+	                        <br/>
+	                        <p>The receipt of this letter should be acknowledged.</p>
+	                        <br/>
+	                        <p>
+	                            Yours sincerely,<br/><br/><br/>
+	                            <t t-if="branch_manager">
+	                                <span t-esc="branch_manager.name"/><br/>
+	                                <span t-field="branch_manager.job_id"/><br/>
+	                                <span t-field="branch_manager.company_id"/><br/>
+	                            </t>
+	                        </p>
+	                    </div>
+	                </div>
+				</t>
+				
+	            <t t-if="o.linked_warning_id">	    
+	               <t t-set="manager_warnings" t-value="o.linked_warning_id.approved and o.linked_warning_id.manager_warning_ids or o.linked_warning_id.temp_lines"/>
+	               <t t-set="branch_manager" t-value="o.employee_id.branch_id and o.employee_id.branch_id.manager_id"/>            
+	               <div class="article o_company_#{o.employee_id.company_id.id}_layout" style="font-family: Tahoma, Verdana, Pyidaungsu, Arial,sans-serif; font-size: 12pt; letter-spacing: 0.5px;">
+                       <div class="page px-5">
+							<span>To,</span><br/><br/>
+							<span t-field="o.employee_id.name"/>
+							<t t-if="o.employee_id.job_id"><br/><span t-field="o.employee_id.job_id"/></t>
+							<t t-if="o.employee_id.department_id"><br/><span t-field="o.employee_id.department_id"/></t>
+							<t t-if="o.employee_id.branch_id"><br/><span t-field="o.employee_id.branch_id"/></t>
+							<t t-if="o.employee_id.company_id"><br/><span t-field="o.employee_id.company_id"/></t>
+							<br/><br/>
+							Date : <t t-esc="o.date" t-options="{'widget': 'date', 'format': 'dd/MM/yyyy'}"/>
+							<br/><br/>
+							<p style="font-weight: bolder;">Subject :&#8195;&#8195;: Warning letter</p>
+							<br/>
+							<p>Dear <span t-field="o.employee_id.name"/>,</p>
+							<p>This letter serves as you written warning for you. The reason is on
+								<t t-esc="o.warn_date" t-options="{'widget': 'date', 'format': 'dd/MM/yyyy'}"/>
+								<t t-esc="o.description"/> which is not in line with our Policy and not acceptable.</p>
+							<p>This notice serves to you to remind you that such behavior; attitude will not be tolerated in future. Be informed that if this behavior,
+								attitude continues it would lead to more disciplinary action being taken up to and including termination.</p>
+							<p>According company disciplinary policy, your warning type and action taking are as follow.</p>
+							<p>Warning Type&#8195;:&#8195;<span t-field="o.warning_type_id" /><br/>
+								Warning Title&#8195;&#160;:&#8195;<span t-field="o.warning_title_id" />
+							</p>
+                           <p style="text-decoration: underline;">Action Taken &amp; Warning Marks</p>
+                           <table style="width: 60%;">
+	                            <t t-set="no" t-value="1"/>
+	                            <tr>
+	                                <td style="width: 25px; text-align: right; padding-right: 10px;"><t t-esc="no"/>.</td>
+	                                <td style="width: 150px;"><t t-esc="o.linked_warning_id.employee_id.name"/></td>
+	                                <td style="width: 40px; text-align: right;"><t t-esc="o.linked_warning_id.warning_type_id.mark"/></td>
+	                                <td style="width: 40px; text-align: right;">mark</td>
+	                            </tr>
+	
+	                            <t t-foreach="manager_warnings" t-as="link">
+	                                <t t-set="no" t-value="no + 1"/>
+	                                <tr>
+	                                    <td style="text-align: right; padding-right: 10px;"><t t-esc="no"/>.</td>
+	                                    <td><t t-esc="link.employee_id.name"/></td>
+	                                    <td style="text-align: right;"><t t-esc="link.mark"/></td>
+	                                    <td style="width: 50px; text-align: right;">mark</td>
+	                                </tr>
+	                            </t>
+	                       </table>
+                           <br/>
+                           <p>The receipt of this letter should be acknowledged.</p>
+                           <br/>
+                           <p>
+                               Yours sincerely,<br/><br/><br/>
+                               <t t-if="branch_manager">
+                                   <span t-esc="branch_manager.name"/><br/>
+                                   <span t-field="branch_manager.job_id"/><br/>
+                                   <span t-field="branch_manager.company_id"/><br/>
+                               </t>
+                           </p>
+                       </div>
+                   </div>
+	        	</t>
+			</t>
+        </t>
+    </template>
+</odoo>

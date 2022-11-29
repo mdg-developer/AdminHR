@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hr_resignation_scheduler" model="ir.cron">
+        <field name="name">Auto Archive Employee Resignation</field>
+        <field name="model_id" ref="hr_ext.model_hr_employee"/>
+        <field name="state">code</field>
+        <field name="code">model.auto_archive_employee_resignation()</field>
+        <field name="active" eval="True"/>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="True"/>
+    </record>
+
+</odoo>

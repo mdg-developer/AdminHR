@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_manager_replacement_list">
+			<field name="name">manager.replacement.tree</field>
+			<field name="model">manager.replacement</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Manager Replacement">
+					<field name="name"/>
+                	<field name="date"/>
+                	<field name="employee_id"/>
+	                <field name="replaced_employee_id"/>
+	                <field name="state"/>
+                </tree>
+			</field>
+		</record>
+
+        <record model="ir.ui.view" id="view_manager_replacement_form">
+			<field name="name">manager.replacement.form</field>
+			<field name="model">manager.replacement</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Manager Replacement">
+				    <header>
+				        <button name="action_submit" states="draft" string="Submit" type="object" class="oe_highlight" groups="hr.group_hr_user"/>
+				        <!--<button name="action_approve" attrs="{'invisible': ['|', ('state', '!=', 'submit'), ('allow_immediate_approve', '=', False)]}"
+                                string="Immediate Approve" type="object" class="oe_highlight" groups="hr.group_hr_manager"/>-->
+						<button name="action_approve" states="submit" string="Immediate Approve" type="object" class="oe_highlight" groups="hr.group_hr_manager"/>
+                        <button name="action_draft" states="submit" string="Reset to Draft" type="object" groups="hr.group_hr_user"/>
+	                    <field name="state" widget="statusbar" statusbar_visible="draft,submit,approve" />
+						<field name="allow_immediate_approve" invisible="1"/>
+	                </header>
+					<sheet>
+					    <div class="oe_title">
+						    <h1>
+						        <field name="name" readonly="1"/>
+						    </h1>
+						</div>
+						<group col="2">
+	                        <group>
+	                            <field name="date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+	                            <field name="employee_id" attrs="{'readonly': [('state', '!=', 'draft')]}" />
+	                            <field name="replaced_employee_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+	                        </group>
+                        </group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record model="ir.actions.act_window" id="action_manager_replacement">
+			<field name="name">Manager Replacement</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">manager.replacement</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_manager_replacement_list"/>
+		</record>
+
+		<menuitem id="menu_replacement"
+				  name="Replacement"
+				  groups="hr.group_hr_user"
+				  parent="hr.menu_hr_root"
+				  sequence="4"/>
+
+		<!-- <menuitem id="menu_manager_replacement" 
+				  name="Manager Replacement"
+				  groups="hr.group_hr_user"
+				  action="action_manager_replacement"
+				  parent="hr_replacement.menu_replacement"
+				  sequence="1"/> -->
+
+    </data>
+</odoo>

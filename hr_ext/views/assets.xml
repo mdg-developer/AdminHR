@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="reconcilation_analytic" inherit_id="account.assets_backend" >
+            <xpath expr="." position="inside">                
+
+                <script type="text/javascript" src="/hr_ext/static/src/js/reconcilation_asset.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

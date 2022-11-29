@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record model="ir.ui.view" id="view_insurance_type_tree">
+			<field name="name">insurance.type.tree</field>
+			<field name="model">insurance.type</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Insurance Template">
+					<field name="policy_type" />
+					<field name="policy_number" />
+					<field name="benefit" />
+					<field name="policy_coverage" />
+					<field name="effective_date" />
+					<field name="expire_date" />
+					<field name="premium_amount" />
+					<field name="coverage_amount" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_insurance_type_form">
+			<field name="name">insurance.type.form</field>
+			<field name="model">insurance.type</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Insurance Template">
+					<sheet>
+						<group>
+							<group>
+								<field name="policy_type" />
+								<field name="benefit" />
+								<field name="effective_date" />
+								<field name="premium_amount" />
+								<field name="fees_employee" />
+								<field name="installment" />
+							</group>
+							<group>
+								<field name="policy_number" />
+								<field name="policy_coverage" />
+								<field name="expire_date" />
+								<field name="coverage_amount" />
+								<field name="fees_employer" />
+								<field name="deduction_per_month" />
+							</group>
+						</group>
+						<group>
+							<field name="attached_file" class="oe_inline"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_insurance_type">
+			<field name="name">Insurance Template</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">insurance.type</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_insurance_type_tree" />
+		</record>
+
+		<menuitem id="menu_insurance_type" name="Insurance Template" parent="hr.menu_human_resources_configuration" action="action_insurance_type" sequence="60" />
+
+	</data>
+</odoo>

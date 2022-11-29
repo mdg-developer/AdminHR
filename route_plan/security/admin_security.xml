@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data noupdate="0">
+
+        <record id="group_allowed_endtrip" model="res.groups">
+            <field name="name">Allowed delay end trip</field>
+        </record>
+    </data>
+
+</odoo>

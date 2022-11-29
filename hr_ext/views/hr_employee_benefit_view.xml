@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record model="ir.ui.view" id="view_hr_employee_benefit_form">
+			<field name="name">employee.job.benefit.line.form</field>
+			<field name="model">employee.job.benefit.line</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Employee Job Position Benefit">
+					<header>
+						<button string="Paid" name="action_paid" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'in', ('paid', 'hand_over'))]}"/>
+						<button string="On Hand" name="action_on_hand" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'in', ('on_hand', 'paid', 'hand_over'))]}"/>
+						<button string="Hand Over" name="action_hand_over" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'in', ('pending', 'hand_over'))]}"/>
+						<field name="state" widget="statusbar" />
+					</header>
+					<sheet>
+						<group>
+							<group>
+								<field name="date" attrs="{'required': [('state', '=', 'paid')]}"/>
+								<field name="hand_over_date" attrs="{'required': [('state', '=', 'hand_over')]}"/>
+								<field name="emp_benefit_id" string="Employee" context="{'default_emp_benefit_id': active_id}"/>
+								<field name="company_id"/>
+								<field name="branch_id"/>
+								<field name="department_id"/>
+								<field name="job_id" />
+								
+							</group>
+							<group>
+								<field name="benefit_id" />
+								<field name="description" />
+								<field name="quantity" />
+								<field name="attachment_ids" widget="many2many_binary"/>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+        
+		<record model="ir.ui.view" id="view_hr_employee_benefit_tree">
+			<field name="name">employee.job.benefit.line.tree</field>
+			<field name="model">employee.job.benefit.line</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Employee Job Position Benefit">
+					<field name="emp_benefit_id" string="Employee"/>
+					<field name="job_id" />
+					<field name="benefit_id" />
+					<field name="description" />
+					<field name="quantity" />
+					<field name="state" />
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_hr_job_benefit_filter" model="ir.ui.view">
+            <field name="name">employee.job.benefit.line.search</field>
+            <field name="model">employee.job.benefit.line</field>
+            <field name="arch" type="xml">
+                <search string="Search Job Benefit">
+                    <field name="emp_benefit_id"/>                    
+                    <field name="job_id"/>
+                </search>
+            </field>
+        </record>
+        
+		<record model="ir.actions.act_window" id="open_view_hr_employee_benefit_form">
+			<field name="name">Employee Job Position Benefit</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">employee.job.benefit.line</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create Employee Job Position Benefit.
+                </p>
+            </field>
+		</record>
+
+		<record model="ir.actions.server" id="action_job_position_benefit_onhand">
+			<field name="name">On Hand</field>
+			<field name="model_id" ref="hr_ext.model_employee_job_benefit_line"/>
+			<field name="binding_model_id" ref="hr_ext.model_employee_job_benefit_line"/>
+			<field name="binding_view_types">list</field>
+			<field name="state">code</field>
+			<field name="code">
+				if records:
+					records.action_on_hand()
+			</field>
+		</record>
+
+		<record model="ir.actions.server" id="action_job_position_benefit_paid">
+			<field name="name">Paid</field>
+			<field name="model_id" ref="hr_ext.model_employee_job_benefit_line"/>
+			<field name="binding_model_id" ref="hr_ext.model_employee_job_benefit_line"/>
+			<field name="binding_view_types">list</field>
+			<field name="state">code</field>
+			<field name="code">
+				if records:
+					records.action_paid()
+			</field>
+		</record>
+
+		<record model="ir.actions.server" id="action_job_position_benefit_handover">
+			<field name="name">Hand Over</field>
+			<field name="model_id" ref="hr_ext.model_employee_job_benefit_line"/>
+			<field name="binding_model_id" ref="hr_ext.model_employee_job_benefit_line"/>
+			<field name="binding_view_types">list</field>
+			<field name="state">code</field>
+			<field name="code">
+				if records:
+					records.action_hand_over()
+			</field>
+		</record>
+
+		<menuitem id="menu_hr_employee_job_benefit" name="Employee Job Position Benefit" parent="hr.menu_hr_employee_payroll"
+			action="open_view_hr_employee_benefit_form" sequence="2" />
+	</data>
+</odoo>

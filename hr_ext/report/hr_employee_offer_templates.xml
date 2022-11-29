@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<template id="print_employee_offer">
+	    <t t-call="web.html_container">
+	        <t t-set="i" t-value="1" /> 
+	        <t t-foreach="docs" t-as="employee">
+			   <div style="text-align:right; margin-top:0pt;">
+			        <img t-if="employee.company_id.logo" t-att-src="image_data_uri(employee.company_id.logo)" style="max-height:45pt;max-width:90%;margin-top:0; margin-buttom:30px;" alt="Company Logo"/>
+			   </div>
+			   <div class="page">
+			       <div style="text-align:right; margin-right:150pt; margin-bottom:20pt;">
+                        <p style="font-size:15pt;font-family:Myanmar3,Yunghkio,'Masterpiece Uni Sans';">ရုံးအမိန် ့( <t t-foreach="employee" t-as="move"><span t-esc="i"/> <t t-set="i" t-value="i+1"/> </t> / <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y')" />)</p>   
+                    </div>
+                    <div style="text-align:right; margin-bottom:80pt;">
+                        <p style="font-size:15pt;font-family:Myanmar3,Yunghkio,'Masterpiece Uni Sans';">ရက်စွဲ ။ <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y')" /> ခုနှစ် ၊  <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B')" /> (<span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d')" />) ရက်</p>   
+                    </div>
+			       <div style="font-size:15pt;margin-top:20pt;text-align:center;font-family:Myanmar3,Yunghkio,'Masterpiece Uni Sans';">အ‌ေြကာင်းအရာ ။       &amp;nbsp;   ။ <t t-esc="employee.company_id.name"/> တွင်ဝန်ထမ်းခန် ့အပ်ြခင်း။</div>
+			       <div style="font-size:15pt;margin-top:30pt;font-family:Myanmar3,Yunghkio,'Masterpiece Uni Sans';">
+			           <t t-esc="employee.company_id.name"/> ၏
+			           <t t-esc="employee.department_id.name"/> တွင်တာဝန်ထမ်းဆောင်ရန် အတွက် အောက်ဖော်ြပပါ ဝန်ထမ်းအား ယှဉ်တွဲဖော်ြပပါရာထူး၊ လစာခံစားခွင့်အတိုင်း အစမ်းခန်ကာလ (၃)လ ြဖင့်ခန် ့အပ်လိုက်ပါသည်။
+			       </div>
+			       <table style="width:100%; border: 1px solid black; border-collapse:collapse; margin-top:30pt;font-family:Myanmar3,Yunghkio,'Masterpiece Uni Sans';">
+                    <thead>
+                        <tr style="background-color: #AED6F1;">
+                            <th style="border:1px solid black;text-align:center;height:50pt;">စဉ်</th>
+                            <th style="border:1px solid black;text-align:center;height:50pt;">ဝန်ထမ်းအမှတ်</th>
+                            <th style="border:1px solid black;text-align:center;height:50pt;">အမည်</th>
+                            <th style="border:1px solid black;text-align:center;height:50pt;">ရာထူး</th>
+                            <th style="border:1px solid black;text-align:center;height:50pt;">ရာထူးအဆင့်</th>
+                            <th style="border:1px solid black;text-align:center;height:50pt;">အ‌ေြခခံလစာ</th>
+                            <th style="border:1px solid black;text-align:center;height:50pt;">အလုပ်စတင်ဝင်ရောက်သည့်နေ့</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class ="text-center" style="border:1px solid black;text-align:center;height:50pt;">၁</td>
+                            <td class ="text-center" style="border:1px solid black;text-align:center;height:50pt;"><t t-esc="employee.barcode"/></td>
+                            <td class ="text-center" style="border:1px solid black;text-align:center;height:50pt;"><t t-esc="employee.name"/></td>
+                            <td class ="text-center" style="border:1px solid black;text-align:center;height:50pt;"><t t-esc="employee.job_id.name"/></td>
+                            <td class ="text-center" style="border:1px solid black;text-align:center;height:50pt;"><t t-foreach="employee.contract_id" t-as="contract" t-esc="contract.job_grade_id.name"/> </td>
+                            <td style="border:1px solid black;text-align:center;height:50pt;"><t t-foreach="employee.contract_id" t-as="contract" t-esc="contract.wage"/> </td>
+                            <td style="border:1px solid black;text-align:center;height:50pt;"><t t-esc="employee.joining_date"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+			   </div>
+                <div style="font-size:18pt;margin-top:90pt; text-align:right;">
+		           <t t-esc="employee.company_id.name"/>
+		       </div>
+       		</t>
+        </t>
+    </template>
+
+</odoo>

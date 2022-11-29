@@ -1,0 +1,201 @@
+<?xml version="1.0"?>
+<odoo>
+
+
+
+    <record id="hr_skill_employee_rel_filter" model="ir.ui.view">
+       <field name="name">hr.employee.skill.filter</field>
+        <field name="model">hr.employee.skill</field>
+        <field name="arch" type="xml">
+
+            <search string="Search...">
+                    <separator/>
+
+                <field name="skill_id"/>
+                <field name="skill_type_id"/>
+                <field name="skill_level_id"/>
+
+                <field name="employee_id"/>
+                <field name="state"/>
+
+                <group expand="0" string="Group By...">
+                    <filter string="Skill type" name="group_skill_type_id"  icon="terp-accessories-archiver" domain="[]" context="{'group_by':'skill_type_id'}"/>
+                    <filter string="Skill" name="group_skill_id"  icon="terp-accessories-archiver" domain="[]" context="{'group_by':'skill_id'}"/>
+                    <filter string="Skill level" name="group_skill_level_id"  icon="terp-accessories-archiver" domain="[]" context="{'group_by':'skill_level_id'}"/>
+                    <filter string="Employee" name="employee_id"  icon="terp-accessories-archiver" domain="[]" context="{'group_by':'employee_id'}"/>
+                    <filter string="State" name="employee_id"  icon="terp-accessories-archiver" domain="[]" context="{'group_by':'state'}"/>
+
+                    <!-- TOKNOW DNW
+                    <filter string="Tags" name="tag_ids"  icon="terp-accessories-archiver" domain="[]" context="{'group_by':'tags_ids'}"/>
+                    -->
+                </group>
+
+                 <searchpanel>
+                    <!-- WARNING state is selection, not m2o... -->
+                    <field name="skill_type_id" select="multi"  icon="fa-users"/>
+                    <field name="skill_id" icon="fa-users" select="multi"   />
+                    <field name="skill_level_id" icon="fa-users" select="multi" />
+                 </searchpanel>
+
+           </search>
+        </field>
+</record>
+
+
+    <record id="employee_skill_view_tree_hr_ext" model="ir.ui.view">
+        <field name="name">hr.employees.skill.tree</field>
+        <field name="model">hr.employee.skill</field>
+        <field name="arch" type="xml">
+            <tree string="Skills">
+                <field name="employee_id"/>
+                <field name="skill_type_id"/>
+                <field name="skill_id" domain="[('skill_type_id', '=', skill_type_id)]"/>
+                <field name="skill_level_id" domain="[('skill_type_id', '=', skill_type_id)]"/>
+                <field name="target_skill_level_id"  readonly="1" />
+                <field name="target_skill_assessment_deadline" readonly="1" string ="Asst.deadl."  />
+                <field name ="target_skill_assessment_user_id"/>
+                <field name="target_skill_date_assessment"  readonly="1" string ="Asst.date" />
+                <field name="target_skill_assessment_result"  readonly="1" string ="Asst.result"
+                        attrs="{'invisible': [('target_skill_assessment_result', '=', False)]}"  />
+                <field name="level_progress" widget="progressbar"/>
+
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="employee_skill_view_form_hr_ext" model="ir.ui.view">
+        <field name="name">hr.employees.skill.form.hr.ext</field>
+        <field name="model">hr.employee.skill</field>
+        <field name="inherit_id" ref="hr_skills.employee_skill_view_form"/>
+            <field name="arch" type="xml">
+
+            <xpath expr="//sheet" position="before">
+            <header>
+                <field name="state" widget="statusbar" />
+            </header>
+            </xpath>
+
+             <xpath expr="//sheet" position="replace">
+
+                <group>
+                <group string="Employee" col="3"  >
+                <field name="employee_id" />
+                <field name="is_new" invisible="1"/>
+                </group>
+                <group>
+
+                </group>
+                </group>
+                <group col="10" colspan="10">
+                    <group col="3" colspan="3" string ="Skill">
+                        <field name="skill_type_id"/>
+                        <field name="skill_id"/>
+                    </group>
+
+                    <group col="3" colspan="3" string ="Level">
+                        <field name="skill_level_id" domain="[('skill_type_id', '=', skill_type_id)]"/>
+                        <field name="level_progress" widget="progressbar"/>
+
+                    </group>
+
+                    <group col="3" colspan="3" string ="On process" attrs="{'invisible':[('target_skill_level_id','=',False),
+                        ('target_skill_date_assessment','=',False)]}">
+                     <field name="target_skill_level_id"  readonly="1"
+                            attrs="{'invisible': [('target_skill_level_id', '=', False)]}" />
+                     <field name="target_skill_assessment_deadline"  readonly="1"
+                            attrs="{'invisible': [('target_skill_assessment_deadline', '=', False)]}" />
+
+                    <field name="target_skill_date_assessment"  readonly="1"
+                            attrs="{'invisible': [('target_skill_date_assessment', '=', False)]}" />
+
+                    <field name="target_skill_assessment_result"  readonly="1"
+                            attrs="{'invisible': [('target_skill_assessment_result', '=', False)]}" />
+            </group>
+
+                </group>
+
+                <notebook>
+                <page string="Followup" >
+
+                <field name="employee_skill_followup_ids"
+                       context ="{'skill_type_id':skill_type_id,
+                       'skill_id':skill_id}" >
+
+                <tree editable="top">
+
+                <field name="skill_type_id" invisible ="1" />
+                <field name="target_skill_level_id" />
+                <field name="assessment_deadline" string ="Asst.deadl."/>
+                <field name ="assessment_user_id"  />
+                <field name="date_assessment" string ="Asst.date" />
+                <field name="assessment_result" string ="Asst.result"/>
+
+                <field name="comment"/>
+
+                </tree>
+
+                </field>
+
+                </page>
+
+                </notebook>
+
+
+
+
+             </xpath>
+
+        </field>
+    </record>
+
+
+
+     <record id="hr_skill_employee_rel_report_pivot" model="ir.ui.view">
+         <field name="name">Employees skills</field>
+         <field name="model">hr.employee.skill</field>
+         <field name="arch" type="xml">
+             <pivot string="Skills ">
+                <field name="skill_type_id" type="row"/>
+                <field name="skill_id" type="row"/>
+                <field name="skill_level_id" type="col"/>
+             </pivot>
+         </field>
+</record>
+
+
+
+<menuitem name="Skills" id="menu_hr_skill" parent="hr.menu_hr_root" />
+
+
+
+
+
+
+<record id="hr_skill_employee_rel_action" model="ir.actions.act_window">
+        <field name="name">Employees skills</field>
+        <field name="res_model">hr.employee.skill</field>
+        <field name="view_mode">tree,form,pivot</field>
+
+    <field name="context">{}</field>
+
+    </record>
+        <menuitem name="Employees skills" action="hr_skill_employee_rel_action" id="menu_hr_skill_employee_rel_action" parent="menu_hr_skill" />
+
+<record model="ir.actions.act_window.view" id="hr_skill_employee_rel_action_tree">
+   <field name="sequence" eval="1"/>
+   <field name="view_mode">tree</field>
+   <field name="view_id" ref="employee_skill_view_tree_hr_ext"/>
+   <field name="act_window_id" ref="hr_skill_employee_rel_action"/>
+</record>
+
+
+ <!-- WARNING 2 modes (tree/form) compulsory   -->
+ <record model="ir.actions.act_window.view" id="hr_skill_employee_rel_action_form">
+   <field name="sequence" eval="2"/>
+   <field name="view_mode">form</field>
+   <field name="view_id" ref="employee_skill_view_form_hr_ext"/>
+   <field name="act_window_id" ref="hr_skill_employee_rel_action"/>
+</record>
+
+</odoo>

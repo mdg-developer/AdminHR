@@ -1,0 +1,1 @@
+from . import hr_maintenance_ext

@@ -1,0 +1,183 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="admin_trip_expense_tree">
+            <field name="name">admin.trip.expense.list</field>
+            <field name="model">admin.trip.expense</field>
+            <field name="arch" type="xml">
+                <tree string="Trip Expense">
+                    <field name="number" />
+                    <field name="date" />                    
+                    <field name="employee_id" />      
+                    <field name="source_doc" />              
+                    <field name="state" />
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="admin_trip_expense_form">
+            <field name="name">admin.trip.expense.form</field>
+            <field name="model">admin.trip.expense</field>
+            <field name="arch" type="xml">
+                <form string="Trip Expense">
+                    <header>
+                        <button name="action_submit" states="draft" type="object" string="Submit"/>
+                  		<button name="action_approve" states="submit" type="object" string="Approve" groups="hr_ext.group_branch_manager"/>
+                        <button name="action_reject" states="submit" type="object" string="Reject" groups="hr_ext.group_branch_manager"/>
+                        <button name="action_finance_approve" states="approve" type="object" string="Finance Approve" groups="account.group_account_user"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,submit,approve,finance_approve,reconcile"/>
+                    </header>
+                    <sheet>           
+                        <div class="oe_button_box" name="button_box">
+                            <field name="payment_id" invisible="1"/>
+                            <field name="payment_state" invisible="1"/>
+                            <field name="invoice_payment_state" invisible="1"/>
+                            <button class="oe_stat_button" name="open_payment_matching_screen" string="Payment Matching"
+                                    type="object" groups="account.group_account_user"
+                                    attrs="{'invisible':[('state','in',('draft','submit','approve','reject','reconcile'))]}"
+                                    icon="fa-dollar"/>
+                        </div>             
+                        <div class="oe_title">
+                            <h1>
+                                <field name="number" readonly="1" force_save="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="date" attrs="{'readonly': [('state', 'in', ('finance_approve','reconcile','reject'))]}"/>
+                                <field name="company_id" attrs="{'readonly': [('state', 'in', ('approve','finance_approve','reconcile','reject'))]}" groups="base.group_multi_company"/>
+                                <field name="advanced_money" attrs="{'readonly': [('state', 'in', ('approve','finance_approve','reconcile','reject'))]}"/>
+                            </group>
+                            <group >
+                                <field name="employee_id" attrs="{'readonly': [('state', 'in', ('approve','finance_approve','reconcile','reject'))]}"/>
+                                <field name="source_doc" attrs="{'readonly': [('state', 'in', ('approve','finance_approve','reconcile','reject'))]}"/>
+                                <field name="daytrip_id" attrs="{'invisible': [('daytrip_id', '=', False)]}"/>
+                                <field name="plantrip_product_id" attrs="{'invisible': [('plantrip_product_id', '=', False)]}"/>
+                                <field name="plantrip_waybill_id" attrs="{'invisible': [('plantrip_waybill_id', '=', False)]}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Trip Expense Line">
+                                <field name="trip_expense_lines" context="{'default_company_id': company_id}">
+                                    <tree string="Trip Expense Line" editable="bottom">
+                                        <field name="company_id" invisible="1"/>
+                                        <field name="date" />
+                                        <field name="categ_id" />
+                                        <field name="product_id" />
+<!--                                         <field name="product_id" domain="[('categ_id', '=', categ_id), '|', ('company_id', '=', company_id), ('company_id', '=', False)]"/> -->
+                                        <field name="expense_title" invisible="1" />
+                                        <field name="expense" invisible="1" />
+                                        <field name="vehicle_id" domain="['|', ('company_id', '=', parent.company_id), ('company_id', '=', False)]"/>
+                                        <field name="description" />
+                                        <field name="qty" />
+                                        <field name="price_unit"/>
+                                        <field name="price_subtotal"/>
+                                        <field name="over_amount"/>
+                                        <field name="analytic_account_id" />
+                                        <field name="analytic_tag_ids" widget="many2many_tags"/>
+                                        <field name="attached_file"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <field name="total_expense"/>
+                                    <field name="diff_amount"/>
+                                </group>
+                            </page>  
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_admin_trip_expense_filter" model="ir.ui.view">
+			<field name="name">admin.trip.expense.view.filter</field>
+			<field name="model">admin.trip.expense</field>
+			<field name="arch" type="xml">
+                <search string="Trip Expense">
+                    <field name="company_id" />
+                    <separator/>
+					<filter string="Selected Company" name="selected_company" domain="[('company_id', 'in', allowed_company_ids)]" />
+                </search>
+			</field>
+		</record>
+
+        <record model="ir.actions.act_window" id="admin_trip_expense_action">
+            <field name="name">Trip Expense</field>
+            <field name="res_model">admin.trip.expense</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"search_default_selected_company":1}</field>
+			<field name="search_view_id" ref="view_admin_trip_expense_filter" />
+        </record>
+
+		<menuitem id="menu_admin_trip_expense" sequence="5" parent="hr_expense.menu_hr_expense_my_expenses" action="admin_trip_expense_action"/>
+        
+        <record id="day_plan_trip_form_inherit" model="ir.ui.view">
+            <field name="name">day.plan.trip.form</field>
+            <field name="model">day.plan.trip</field>
+            <field name="inherit_id" ref="route_plan.day_plan_trip_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='vehicle_id']" position="after">
+                    <field name="day_trip_expense_id" invisible="1"/>
+                    <field name="trip_expense_id" domain="[('id','in',day_trip_expense_id)]" attrs="{'readonly': [('state', '!=', 'close')]}" force_save="1"/>
+                </xpath>
+                <xpath expr="//form/sheet/group[1]" position="replace">
+                    <group>
+                        <group>
+                            <field name="company_id" attrs="{'readonly': [('state', '!=', 'draft')]}" />
+                            <field name="branch_id" attrs="{'readonly': [('state', '!=', 'draft')]}" />
+                        </group>
+                        <group>
+                            <field name="expense_status"/>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="plan_trip_product_form_inherit" model="ir.ui.view">
+            <field name="name">plan.trip.product.form</field>
+			<field name="model">plan.trip.product</field>
+            <field name="inherit_id" ref="route_plan.plan_trip_product_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='vehicle_id']" position="after">
+                    <field name="product_trip_expense_id" invisible="1"/>
+                    <field name="trip_expense_id" domain="[('id','in',product_trip_expense_id)]"/>
+                </xpath>
+                <xpath expr="//form/sheet/group[1]" position="replace">
+                    <group>
+                        <group>
+                            <field name="company_id" attrs="{'readonly': [('state', '!=', 'draft')]}" />
+                            <field name="branch_id" attrs="{'readonly': [('state', '!=', 'draft')]}" />
+                        </group>
+                        <group>
+                            <field name="expense_status"/>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="plan_trip_waybill_form_inherit" model="ir.ui.view">
+			<field name="name">plan.trip.waybill.form</field>
+			<field name="model">plan.trip.waybill</field>
+            <field name="inherit_id" ref="route_plan.plan_trip_waybill_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='vehicle_id']" position="after">
+                    <field name="waybill_trip_expense_id" invisible="1"/>
+                    <field name="trip_expense_id" domain="[('id','in',waybill_trip_expense_id)]"/>
+                </xpath>
+                <xpath expr="//form/sheet/group[1]" position="replace">
+                    <group>
+                        <group>
+                            <field name="company_id" attrs="{'readonly': [('state', '!=', 'draft')]}" />
+                            <field name="branch_id" attrs="{'readonly': [('state', '!=', 'draft')]}" />
+                        </group>
+                        <group>
+                            <field name="expense_status"/>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="view_track_solid_api_log_tree">
+			<field name="name">track.solid.api.log.tree</field>
+			<field name="model">track.solid.api.log</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Absent Log" create="0" edit="0">
+					<field name="name" />
+					<field name="date" />
+					<field name="value"/>
+					<field name="log" />
+					<field name="code" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_track_solid_api_log_form">
+			<field name="name">track.solid.api.log.form</field>
+			<field name="model">track.solid.api.log</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Track Solid Log" create="0" edit="0">
+					<sheet>
+					    <group>
+					        <group>
+						        <field name="name" />
+								<field name="date" />
+								<field name="value"/>
+
+						    </group>
+							<group>
+								<field name="log" />
+								<field name="code" />
+							</group>
+					    </group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+
+
+		<record model="ir.actions.act_window" id="action_track_solid_api_log">
+			<field name="name">Track Solid log</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">track.solid.api.log</field>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{}</field>
+			<field name="view_id" ref="view_track_solid_api_log_tree" />
+		</record>
+
+		<menuitem id="menu_track_solid_api_log"
+				  name="Track Solid Api log"
+				  parent="fleet.fleet_configuration"
+				  action="action_track_solid_api_log"
+				  />
+
+
+
+	</data>
+</odoo>

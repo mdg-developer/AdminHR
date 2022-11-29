@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_changing_shift_list">
+			<field name="name">changing.shift.tree</field>
+			<field name="model">changing.shift</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Changing Shift">
+					<field name="name"/>
+                	<field name="date"/>
+					<field name="department_id"/>
+                	<field name="resource_calendar_id"/>
+	                <field name="new_resource_calendar_id"/>
+	                <field name="state"/>
+                </tree>
+			</field>
+		</record>
+
+        <record model="ir.ui.view" id="view_changing_shift_form">
+			<field name="name">changing.shift.form</field>
+			<field name="model">changing.shift</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Changing Shift">
+				    <header>
+				        <button name="action_submit" states="draft" string="Submit" type="object" class="oe_highlight" groups="hr.group_hr_user"/>
+				        <!--<button name="action_approve" attrs="{'invisible': ['|', ('state', '!=', 'submit'), ('allow_immediate_approve', '=', False)]}"
+                                string="Immediate Approve" type="object" class="oe_highlight" groups="hr.group_hr_manager"/>-->
+						<button name="action_approve" states="submit" string="Immediate Approve" type="object" class="oe_highlight" groups="hr.group_hr_manager"/>
+                        <button name="action_draft" states="submit" string="Reset to Draft" type="object" groups="hr.group_hr_user"/>
+	                    <field name="state" widget="statusbar" statusbar_visible="draft,submit,approve" />
+						<field name="allow_immediate_approve" invisible="1"/>
+	                </header>
+					<sheet>
+					    <div class="oe_title">
+						    <h1>
+						        <field name="name" readonly="1"/>
+						    </h1>
+						</div>
+						<group col="2">
+	                        <group>
+	                            <field name="date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								<field name="department_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+	                            <field name="resource_calendar_id" attrs="{'readonly': [('state', '!=', 'draft')]}" />
+	                            <field name="new_resource_calendar_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+	                        </group>
+                        </group>
+                        <notebook>
+                            <page string="Employees">
+                                <field name="line_ids" attrs="{'readonly': [('state', '!=', 'draft')]}">
+                                    <tree editable="bottom">
+                                        <field name="employee_id"/>
+                                        <field name="date"/>
+										<field name="department_id"/>
+                                        <field name="resource_calendar_id"/>
+                                        <field name="new_resource_calendar_id"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record model="ir.actions.act_window" id="action_changing_shift">
+			<field name="name">Changing Shift</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">changing.shift</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_changing_shift_list"/>
+		</record>
+
+		<menuitem id="menu_changing_shift" 
+				  name="Changing Shift"
+				  groups="hr.group_hr_user"
+				  action="action_changing_shift"
+				  parent="hr_replacement.menu_replacement"
+				  sequence="2"/>
+    </data>
+</odoo>

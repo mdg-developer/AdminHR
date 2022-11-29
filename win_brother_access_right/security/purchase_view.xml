@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	    <record id="view_purchase_order_form_inherit_access_right" model="ir.ui.view">
+			<field name="name">purchase.order</field>
+			<field name="model">purchase.order</field>
+			<field name="inherit_id" ref="purchase.purchase_order_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//button[@name='action_view_invoice']" position="replace">
+					<button name="action_view_invoice" string="Create Bill" type="object" class="oe_highlight" context="{'create_bill':True}" attrs="{'invisible': ['|', ('state', 'not in', ('purchase', 'done')), ('invoice_status', 'in', ('no', 'invoiced'))]}" groups="win_brother_access_right.group_purchase_administrator,fleet.fleet_group_user"/>
+				</xpath>
+				
+            </field>
+		</record>
+
+		
+    </data>
+</odoo>

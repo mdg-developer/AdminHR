@@ -1,0 +1,55 @@
+<odoo>
+    <record model="ir.ui.view" id="view_hr_job_position_detail_tree">
+		<field name="name">job.line.tree</field>
+		<field name="model">job.line</field>
+		<field name="type">tree</field>
+		<field name="arch" type="xml">
+			<tree string="Job Position Detail">
+			    <field name="job_id"/>
+				<field name="company_id" />
+				<field name="branch_id" />
+				<field name="department_id"/>
+				<field name="upper_position"/>
+				<field name="total_employee"/>
+				<field name="current_employee"/>
+				<field name="new_employee"/>
+			</tree>
+		</field>
+	</record>
+
+	<record model="ir.ui.view" id="view_hr_job_position_detail_form">
+		<field name="name">job.line.form</field>
+		<field name="model">job.line</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Job Position Detail">
+				<sheet>
+				    <group>
+				       <group>
+				           	<field name="job_id"/>
+							<field name="company_id" />
+							<field name="branch_id" />
+							<field name="department_id"/>
+							<field name="upper_position"/>
+						</group>
+						<group>
+							<field name="total_employee"/>
+							<field name="current_employee"/>
+							<field name="new_employee"/>
+						</group>
+				    </group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+		
+	<record model="ir.actions.act_window" id="action_hr_job_position_detail">
+		<field name="name">Job Position Detail</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">job.line</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem id="menu_hr_job_position_detail" name="Job Position Detail" parent="hr_recruitment.menu_hr_recruitment_configuration"
+		action="action_hr_job_position_detail" sequence="4" />
+</odoo>

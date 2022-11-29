@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<!-- demo record -->
+		<record id="dotted_line_manager" model="hr.employee">
+          <field name="name">Dotted Line Manager</field>
+          <field name="job_title"></field>
+          <field name="work_location">Building 1, Second Floor</field>
+          <field name="work_phone">(376)-310-7863</field>
+          <field name="work_email">dotted.hart87@example.com</field>
+      	</record>
+
+      	<record id="approve_manager" model="hr.employee">
+          	<field name="name">Approve Manager</field>
+          	<field name="job_title"></field>
+          	<field name="work_location">Building 2, Second Floor</field>
+          	<field name="work_phone">(376)-310-7863</field>
+          	<field name="work_email">approve_manager@example.com</field>
+      	</record>
+
+      	<!-- demo record -->
+
+<!-- 		<record id="view_employee_form_he_extended" model="ir.ui.view"> -->
+<!-- 			<field name="name">hr.employee.form</field> -->
+<!-- 			<field name="model">hr.employee</field> -->
+<!-- 			<field name="inherit_id" ref="hr.view_employee_form" /> -->
+<!-- 			<field name="arch" type="xml"> -->
+<!-- 				<field name="parent_id" position="after"> -->
+<!-- 					<field name="dotted_line_manager_id"/> -->
+<!-- 					<field name="approve_manager"/> -->
+<!-- 				</field> -->
+<!-- 			</field> -->
+<!-- 		</record> -->
+	</data>
+</odoo>

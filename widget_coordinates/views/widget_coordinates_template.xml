@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="checkin_assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <t t-set="google_map_api_key" t-value="request.env['ir.config_parameter'].sudo().get_param('google_map_api_key', default='')"/>
+            <link rel="stylesheet" type="text/scss" href="/widget_coordinates/static/src/scss/web_maps.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/widget_coordinates/static/src/scss/web_maps_mobile.scss"/>
+            <script defer="defer"
+                    t-attf-src="https://maps.googleapis.com/maps/api/js?v=quarterly&amp;key=#{google_map_api_key}"/>
+            <script src="https://unpkg.com/location-picker/dist/location-picker.min.js"></script>
+            <script type="text/javascript" src="/widget_coordinates/static/src/js/current_coordinates.js"/>
+            <script type="text/javascript" src="/widget_coordinates/static/src/js/current_coordinates_auto.js"/>
+        </xpath>
+    </template>
+</odoo>

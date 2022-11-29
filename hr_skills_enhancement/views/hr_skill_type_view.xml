@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<odoo>
+
+
+    <record id="hr_employee_skill_type_view_form_hr_ext" model="ir.ui.view">
+        <field name="name">Skill types</field>
+        <field name="model">hr.skill.type</field>
+            <field name="inherit_id" ref="hr_skills.hr_employee_skill_type_view_form"/>
+            <field name="arch" type="xml">
+
+            <xpath expr="//sheet" position="inside">
+             <field name="id" invisible="1"/>
+            <group string="Assessors">
+                        <field name="assessment_user_ids" nolabel="1" context ="{'skill_type_id':id}">
+                            <tree editable="bottom">
+                                <field name="skill_type_id" />
+                                <field name="skill_id"/>
+                                <field name="user_id"/>
+                            </tree>
+                        </field>
+                    </group>
+
+                 </xpath>
+
+        </field>
+    </record>
+
+</odoo>
+
+

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	    <record id="type_leave_form_inherit" model="ir.ui.view">
+			<field name="name">hr.leave.type.form</field>
+			<field name="model">hr.leave.type</field>
+			<field name="inherit_id" ref="hr_holidays.edit_holiday_status_form" />
+			<field name="arch" type="xml">				
+				<xpath expr="//field[@name='request_unit']" position="after">
+					<field name="show_in_mobile_app" />
+					<field name="travel_leave" />
+				</xpath>
+				<xpath expr="//field[@name='responsible_id']" position="after">
+					<field name="monthly_limit"/>			    
+				</xpath>
+				<xpath expr="//field[@name='validity_stop']" position="after">
+					<field name="one_day_off" attrs="{'readonly': [('no_holidays', '=', True)]}"/>	
+					<field name="no_holidays" attrs="{'readonly': [('one_day_off', '=', True)]}"/>			    
+				</xpath>
+				<xpath expr="//field[@name='monthly_limit']" position="after">
+					<field name="max_continuous_days"/>	
+					<field name="pre_requested_days"/>			    
+				</xpath>
+            </field>
+		</record>
+    </data>
+</odoo>

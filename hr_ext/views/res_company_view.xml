@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+		<record id="view_company_tree_inherit" model="ir.ui.view">
+            <field name="name">res.company.tree</field>
+            <field name="model">res.company</field>
+			<field name="inherit_id" ref="base.view_company_tree"/>
+            <field name="arch" type="xml">
+				<xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="managing_director_id"/>
+				</xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_company_form">
+			<field name="name">res.company.form</field>
+			<field name="model">res.company</field>
+			<field name="inherit_id" ref="base.view_company_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//div[hasclass('oe_title')]" position="after">
+					<group col="2">
+						<group>
+							<field name="managing_director_id" options="{'no_create': True}"/>
+							<field name="hr_employee_ids" widget="many2many_tags" invisible="1" />
+						</group>
+					</group>
+                </xpath>
+				<xpath expr="//sheet" position="after">
+					<div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+				</xpath>
+			</field>
+		</record>
+    </data>
+</odoo>

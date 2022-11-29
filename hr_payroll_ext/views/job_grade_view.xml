@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_job_grade_form">
+			<field name="name">job.grade.form</field>
+			<field name="model">job.grade</field>
+			<field name="inherit_id" ref="job_grade.view_job_grade_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='name']" position="after">
+                    <field name="analytic_tag_id" options="{'no_create': True}"/>
+                </xpath>
+			</field>
+		</record>
+    </data>
+</odoo>

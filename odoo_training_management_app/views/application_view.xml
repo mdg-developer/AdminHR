@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_training_application_form" model="ir.ui.view">
+            <field name="name">Application Form View</field>
+            <field name="model">emp.training.application</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="create_task" type="object" string="Create Task" class="oe_highlight" groups="odoo_training_management_app.group_training_user" attrs="{'invisible': ['|',('is_approve','!=',True),('is_task_created','=',True)]}"/>
+                        <field name="stage_id" widget="statusbar" options="{'clickable': '1'}"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="view_task_application"
+                               type="object"
+                               class="oe_stat_button"
+                               icon="fa-pencil-square-o" groups="odoo_training_management_app.group_training_user">
+                             <field  string="Tasks" name="task_count" widget="statinfo"/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="number" placeholder="Number..."/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name='employee_id' invisible="1"/>
+                                <field name="trainer_id" />
+                                <field name='application_name'/>
+                                <field name='training_name'/>
+                                <field name='user_id'/>
+                                <field name='type'/>
+                            </group>
+                            <group> 
+                                <field name="create_date"/>
+                                <field name='start_date'/>
+                                <field name='end_date'/>
+                                <field name='training_hour'/>
+                                <field name='training_type_id'/>
+                                <field name='company_id' groups="base.group_multi_company"/>    
+                                <field name='is_approve' invisible="1"/>
+                                <field name='is_cancel' invisible="1"/>
+                                <field name='is_draft' invisible="1"/>
+                                <field name='is_task_created' invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Employee Trainings" name='employee_trainings'>
+                                <field name="application_line_ids" widget="section_and_note_one2many" mode="tree" attrs="{'readonly': [('is_draft','!=', True)]}">
+                                    <form>
+                                        <!-- <header>
+                                            <field name="app_stage_line_ids" widget="statusbar" options="{'clickable': '1'}"/>
+                                        </header> -->
+                                        <sheet>
+                                            <group>
+                                                <group>
+                                                    <field name='course_id'/>
+                                                    <field name='subject_ids' domain="[('course_id','in', course_id.ids)]" widget="many2many_tags"/>
+                                                    <field name='description'/>
+                                                    <field name='training_center_id'/>
+                                                    <field name='class_room_id' domain="[('training_center_id','=', training_center_id)]"/>
+                                                </group>
+                                                <group>
+                                                    <field name='start_date'/>
+                                                    <field name='end_date'/>
+
+                                                </group>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                    <tree string="Employee Trainings" editable="bottom"> 
+                                        <field name='course_id'/>
+                                        <field name='subject_ids' widget="many2many_tags"/>
+                                        <field name='description'/>
+                                        <field name='training_center_id'/>
+                                        <field name='class_room_id' domain="[('training_center_id','=', training_center_id)]"/>
+                                        <field name='start_date'/>
+                                        <field name='end_date'/>
+                                        <!-- <field name='app_stage_line_ids'/> -->
+                                    </tree>
+                                </field>
+                                    <field name="description" class="oe_inline" placeholder="Description"/>
+                            </page>
+                            <page string="Employee" name='employee'>
+                                <field name="employee_ids" mode="tree">
+                                    <tree string="Employee">
+                                        <field name="name" />
+                                        <field name="job_id" />
+                                        <field name="job_grade_id" />
+                                        <field name="company_id" />
+                                        <field name="branch_id" />
+                                        <field name="department_id" />
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Training Cost" name="training">
+                                <field name="cost_line_ids" mode="tree">
+                                    <tree string="Training Cost" editable="bottom">
+                                        <field name="training_cost_id"/>
+                                        <field name="cost" sum="Total Cost"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_application_tree" model="ir.ui.view">
+                <field name="name">Application Tree View</field>
+                <field name="model">emp.training.application</field>
+                <field name="arch" type="xml">
+                    <tree>
+                        <field name='number'/>
+                        <field name='employee_id'/>
+                        <field name='trainer_id' />
+                        <field name='application_name'/>
+                        <field name='training_name'/>
+                        <field name="create_date"/>
+                        <field name='project_id'/>
+                        <field name='user_id'/>
+                        <field name='start_date'/>
+                        <field name='end_date'/> 
+                        <field name='company_id' groups="base.group_multi_company"/>
+                        <field name="stage_id"/>
+                        <field name='is_approve' invisible="1"/>
+                        <field name='is_cancel' invisible="1"/>
+                        <field name='is_draft' invisible="1"/>
+                        <field name='is_task_created' invisible="1"/>
+                    </tree>
+                </field>
+        </record>
+
+        <record id="application_kanban" model="ir.ui.view">
+            <field name="name">Application kanban View</field>
+            <field name="model">emp.training.application</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile">
+                    <field name="number"/>
+                    <field name="training_name"/>
+                    <field name="user_id"/>
+                    <field name="employee_id"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                <div class="o_kanban_record_top mb16">
+                                    <div class="o_kanban_record_headings mt4">
+                                        <strong class="o_kanban_record_title"><span><field name="number"/></span></strong>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban">
+                                        <span style="font-weight:bold">Training Name:</span>
+                                        <field name="training_name"/>
+                                    </div>
+                                </div>
+
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban">
+                                        <span style="font-weight:bold">Employee:</span>
+                                            <field name="employee_id"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="view_application_search" model="ir.ui.view">
+                <field name="name">Application Search View</field>
+                <field name="model">emp.training.application</field>
+                <field name="arch" type="xml">
+                    <search>
+                        <field name='number'/>
+                        <field name="trainer_id" />
+                        <field name='application_name'/>
+                        <field name='training_name'/>
+                        <field name="create_date"/>
+                        <field name='company_id'/>
+                        <field name='project_id'/>
+                        <field name='user_id'/>
+                        <field name='employee_id'/>
+                        <field name='is_approve' invisible="1"/>
+                        <field name='is_cancel' invisible="1"/>
+                        <field name='is_draft' invisible="1"/>
+                        <field name='is_task_created' invisible="1"/>
+                        <group expand="0" string="Group By">
+                            <filter name="Create Date" context="{'group_by':'create_date'}"/>
+                            <filter name="Company" context="{'group_by':'company_id'}" groups="base.group_multi_company"/>
+                            <filter name="Project" context="{'group_by':'project_id'}"/>
+                            <filter name="Stage" context="{'group_by':'stage_id'}"/>
+                            <filter name='Responsible' context="{'group_by':'user_id'}"/>
+                            <filter name='Employee' context="{'group_by':'employee_id'}"/>
+                            <filter name='Trainer' context="{'group_by': 'trainer_id'}"/>
+                            <filter name='Start Date' context="{'group_by':'start_date'}"/>
+                            <filter name='End Date' context="{'group_by':'end_date'}"/>
+                        </group>
+                    </search>
+                </field>
+        </record>
+
+        <record id="view_application_calendar" model="ir.ui.view">
+           <field name="name">Application Calender</field>
+           <field name="model">emp.training.application</field>
+           <field name="arch" type="xml">
+               <calendar color="employee_id" date_start="start_date" date_stop="end_date">
+                    <field name="number"/>
+                    <field name="employee_id"/>
+               </calendar>
+           </field>
+       </record>
+
+        <record model="ir.actions.act_window" id="action_training_application">
+            <field name="name">Applications</field>
+            <field name="res_model">emp.training.application</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">kanban,tree,form,calendar</field>
+        </record>
+    </data>
+</odoo>
+
+

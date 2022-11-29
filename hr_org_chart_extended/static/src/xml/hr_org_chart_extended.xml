@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates id="template" xml:space="preserve">
+    <t t-extend="hr_org_chart">
+        <t t-jquery=".o_org_chart_group_up" t-operation="replace">
+            <div t-if="group_company" class="o_org_chart_group_up">
+                <t  t-call="hr_org_chart_employee">
+                    <t t-set="employee_type" t-value="'manager'"/>
+                    <t t-set="employee" t-value="group_company"/>
+                </t>
+            </div>
+            <div t-if="company" class="o_org_chart_group_up">
+                <t  t-call="hr_org_chart_employee">
+                    <t t-set="employee_type" t-value="'manager'"/>
+                    <t t-set="employee" t-value="company"/>
+                </t>
+            </div>            
+            <div t-if="branch" class="o_org_chart_group_up">
+                <t  t-call="hr_org_chart_employee">
+                    <t t-set="employee_type" t-value="'manager'"/>
+                    <t t-set="employee" t-value="branch"/>
+                </t>
+            </div>
+
+            <div t-if='departments' class="o_org_chart_group_up">
+                <t t-foreach="departments" t-as="employee">
+                    <t t-set="emp_count" t-value="emp_count + 1"/>
+                    <t t-call="hr_org_chart_employee">
+                        <t t-set="employee_type" t-value="'manager'"/>
+                    </t>
+                </t>
+            </div>
+            
+            <div t-if='managers.length &gt; 0' class="o_org_chart_group_up">
+                <t t-foreach="managers" t-as="employee">
+		            <t t-set="emp_count" t-value="emp_count + 1"/>
+		            <t t-call="hr_org_chart_employee">
+		                <t t-set="employee_type" t-value="'manager'"/>
+		            </t>
+		        </t>
+            </div>
+        </t>
+    </t>
+    <t t-extend="hr_org_chart_employee">
+        <t t-jquery="t[t-if='!is_self']" t-operation="replace">
+            <t t-if="!is_self">
+                <a t-att-href="employee.link" class="o_employee_redirect" t-att-data-employee-id="employee.id">
+                    <h5 t-if="employee.branch_name" class="o_media_heading"><b><t t-esc="employee.branch_name"/></b></h5>
+                    <h5 t-if="employee.department_name" class="o_media_heading"><b><t t-esc="employee.department_name"/></b></h5>
+                    <h5 t-if="employee.company_name" class="o_media_heading"><b><t t-esc="employee.company_name"/></b></h5>
+                    <h5 class="o_media_heading"><b><t t-esc="employee.job_title"/></b></h5>
+                    <h5 t-if="employee.manager_name" class="o_media_heading">
+                        <t t-if="employee.manager_name == 'Vacant'">
+                            <span style="color:red;">
+                                <b><t t-esc="employee.manager_name"/></b>
+                            </span>
+                        </t>
+                        <t t-if="employee.manager_name != 'Vacant'">
+                            <b><t t-esc="employee.manager_name"/></b>
+                        </t>                        
+                    </h5>
+                    <strong><t t-esc="employee.name"/></strong>
+                </a>
+            </t>
+        </t>
+        <t t-jquery="t[t-if='is_self']" t-operation="replace">
+            <t t-if="is_self">
+                <h5 t-if="employee.branch_name" class="o_media_heading"><b><t t-esc="employee.branch_name"/></b></h5>
+                <h5 t-if="employee.company_name" class="o_media_heading"><b><t t-esc="employee.company_name"/></b></h5> 
+                <h5 t-if="employee.department_name" class="o_media_heading"><b><t t-esc="employee.department_name"/></b></h5>
+                <h5 class="o_media_heading"><b><t t-esc="employee.job_title"/></b></h5>
+                <h5 t-if="employee.manager_name" class="o_media_heading"><b><t t-esc="employee.manager_name"/></b></h5>
+                <strong><t t-esc="employee.name"/></strong>
+            </t>
+        </t>
+    </t>
+</templates>

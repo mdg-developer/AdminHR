@@ -1,0 +1,208 @@
+<?xml version="1.0"?>
+<odoo>
+
+
+
+
+    <record id="view_hr_employee_form_hr_ext" model="ir.ui.view">
+            <field name="name">Employees</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr_skills.hr_employee_view_form"/>
+            <field name="arch" type="xml">
+
+            <xpath expr="//tree/field[@name='level_progress']" position="before">
+
+              <field name="date_start"/>
+              <field name="date_end"/>
+
+            </xpath>
+
+        </field>
+    </record>
+
+
+
+<menuitem name="Training" id="menu_hr_training" parent="hr.menu_hr_root" />
+
+           <!-- HR Training -->
+
+    <record model="ir.ui.view" id="hr_training_form_tree">
+            <field name="name">Trainings</field>
+            <field name="model">hr.training</field>
+            <field name="arch" type="xml">
+                <tree string="Trainings">
+                            <field name="name"/>
+                            <field name="description"/>
+                            <field name="lang_id"/>
+                            <field name="objective"/>
+                            <field name="audience_id"/>
+                            <field name="duration"/>
+                            <field name="date_start"/>
+                            <field name="date_end"/>
+                            <field name="qualification_id"/>
+                            <field name="tag_ids"/>
+                            <field name="date_validity"/>
+                </tree>
+            </field>
+        </record>
+
+         <record model="ir.ui.view" id="hr_training_form_form">
+            <field name="name">Trainings</field>
+            <field name="model">hr.training</field>
+            <field name="arch" type="xml">
+                <form string="Trainings">
+                <group>
+                    <group string="Informations">
+                        <field name="name"/>
+                        <field name="description"/>
+                        <field name="lang_id"/>
+                        <field name="objective"/>
+                        <field name="audience_id"/>
+                    </group>
+                    <group string="Details">
+                        <field name="type_ids" widget="many2many_tags" >
+                          <tree editable="top"  >
+                                <field name="name"/>
+                            </tree>
+                         </field>
+                        <field name="duration"/>
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                        <field name="qualification_id"/>
+                        <field name="tag_ids"/>
+                        <field name="date_validity"/>
+                        </group>
+                </group>
+            <notebook>
+                     <page string="Employees for this training">
+                     <group>
+
+                         <field name="employee_ids" nolabel="1"  >
+                          <tree editable="top"  >
+                                <field name="employee_id"/>
+                                <field name="date_start"/>
+                                <field name="date_end"/>
+                                <field name="assessor_partner_id"/>
+                                <field name="evaluation_result"/>
+                            </tree>
+                         </field>
+                     </group>
+                    </page>
+            </notebook>
+
+
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_training_action" model="ir.actions.act_window">
+            <field name="name">Trainings</field>
+            <field name="res_model">hr.training</field>
+        </record>
+
+        <menuitem name="Trainings" action="hr_training_action" id="menu_hr_training_action" parent="menu_hr_training" />
+
+                   <!-- HR Training employee rel -->
+
+    <record model="ir.ui.view" id="hr_training_employee_rel_form_tree">
+            <field name="name">Trainings employee</field>
+            <field name="model">hr.training.employee.rel</field>
+            <field name="arch" type="xml">
+                <tree string="Trainings employee">
+                    <field name="training_id"/>
+                    <field name="employee_id"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="assessor_partner_id"/>
+                    <field name="evaluation_result"/>
+                </tree>
+            </field>
+        </record>
+
+         <record model="ir.ui.view" id="hr_training_employee_rel_form_form">
+            <field name="name">Trainings employee</field>
+            <field name="model">hr.training.employee.rel</field>
+            <field name="arch" type="xml">
+                <form string="Trainings employee">
+                <group>
+                    <field name="training_id"/>
+                    <field name="employee_id"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                    <field name="assessor_partner_id"/>
+                    <field name="evaluation_result"/>
+                </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_training_employee_rel_action" model="ir.actions.act_window">
+            <field name="name">Employee trainings</field>
+            <field name="res_model">hr.training.employee.rel</field>
+        </record>
+
+        <menuitem name="Employee trainings" action="hr_training_employee_rel_action" id="menu_hr_training_employee_rel_action" parent="menu_hr_training" />
+
+
+                               <!-- HR training request -->
+
+    <record model="ir.ui.view" id="hr_training_request_form_tree">
+            <field name="name">Training requests</field>
+            <field name="model">hr.training.request</field>
+            <field name="arch" type="xml">
+                <tree string="Training requests">
+                    <field name="name"/>
+                    <field name="motivation"/>
+                    <field name="training_id"/>
+                    <field name="description"/>
+                    <field name="objective"/>
+                    <field name="contact_id"/>
+                </tree>
+            </field>
+        </record>
+
+         <record model="ir.ui.view" id="hr_training_request_form_form">
+            <field name="name">Training requests</field>
+            <field name="model">hr.training.request</field>
+            <field name="arch" type="xml">
+                <form string="Training requests">
+                <group>
+                    <field name="name"/>
+                    <field name="motivation"/>
+                    <field name="training_id"/>
+                    <field name="description"/>
+                    <field name="objective"/>
+                    <field name="contact_id"/>
+                </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="hr_training_request_action" model="ir.actions.act_window">
+            <field name="name">Training requests</field>
+            <field name="res_model">hr.training.request</field>
+        </record>
+
+        <menuitem name="Training requests" action="hr_training_request_action" id="menu_hr_training_request_action" parent="menu_hr_training" />
+
+
+
+
+
+    <record id="view_employee_category_list_hr_ext" model="ir.ui.view">
+            <field name="name">Multipurpose categories</field>
+            <field name="model">hr.employee.category</field>
+            <field name="inherit_id" ref="hr.view_employee_category_list"/>
+            <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='name']" position="after">
+              <field name="nature"/>
+            </xpath>
+
+        </field>
+    </record>
+
+
+
+
+</odoo>

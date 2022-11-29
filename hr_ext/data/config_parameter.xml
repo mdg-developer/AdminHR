@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="passport_expiry_date" model="ir.config_parameter">
+            <field name="key">passport_expiry_date</field>
+            <field name="value">30</field>
+        </record>
+		
+        <record id="driver_license_expiry_date" model="ir.config_parameter">
+            <field name="key">driver_license_expiry_date</field>
+            <field name="value">30</field>
+        </record>
+        <record id="fleet_license_expiry_date" model="ir.config_parameter">
+            <field name="key">fleet_license_expiry_date</field>
+            <field name="value">30</field>
+        </record>
+        <record id="visa_expiry_date" model="ir.config_parameter">
+            <field name="key">visa_expiry_date</field>
+            <field name="value">30</field>
+        </record>
+        
+        <record id="probation_expiry_date" model="ir.config_parameter">
+            <field name="key">probation_expiry_date</field>
+            <field name="value">15</field>
+        </record>
+        
+        <record id="maintenance_expiry_date" model="ir.config_parameter">
+            <field name="key">maintenance_expiry_date</field>
+            <field name="value">0</field>
+        </record>
+        
+    </data>
+</odoo>

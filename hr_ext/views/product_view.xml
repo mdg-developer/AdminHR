@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+                
+		<record id="product_template_form_view_inherit_expense" model="ir.ui.view">
+            <field name="name">product.template.expense.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <div name="options" position="inside">
+                    <div>
+                        <field name="fuel_cost"/>
+                        <label for="fuel_cost"/>
+                    </div>
+                </div>
+            </field>
+        </record>
+
+        <record id="product_template_only_form_view_inherit" model="ir.ui.view">
+            <field name="name">product.template.expense.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <field name="barcode" position="after">
+                    <field name="is_loan" />
+                    <field name="is_ssb" />
+                    <field name="is_tax" />
+                    <field name="is_ot" />
+                    <field name="is_commision" />
+                    <field name="is_tyre" />
+                    <field name="is_engine_oil" />
+                </field>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="product_category_form_view_inherit_expense">
+			<field name="name">product.category.form</field>
+			<field name="model">product.category</field>
+			<field name="inherit_id" ref="product.product_category_form_view"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='parent_id']" position="after">
+                    <field name="out_of_pocket_expense" />
+                    <field name="travel_expense" />
+                    <field name="travel_request" />
+                    <field name="trip_expense" invisible="1"/>
+                    <field name="maintenance" />
+                    <field name="preventive" />
+                    <field name="vehicle_cost" invisible="1"/>
+                    <field name="hr" />
+                    <field name="admin" />
+                    <field name="purchase" />
+                    <field name="is_vehicle_selected" />
+                    <field name="maintenance_type" />
+
+                </xpath>
+			</field>
+		</record>
+		
+        <record model="ir.ui.view" id="product_category_list_view_inherit_expense">
+			<field name="name">product.category.list</field>
+			<field name="model">product.category</field>
+			<field name="inherit_id" ref="product.product_category_list_view"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='display_name']" position="after">
+                    <field name="out_of_pocket_expense" />
+                    <field name="travel_expense" />
+                    <field name="travel_request" />
+                    <field name="trip_expense" invisible="1"/>
+                    <field name="vehicle_cost" invisible="1"/>
+                    <field name="maintenance" />
+                    <field name="preventive" />
+                    <field name="hr" />
+                    <field name="admin" />
+                    <field name="purchase" />
+                    <field name="is_vehicle_selected" />
+                    <field name="maintenance_type" />
+                </xpath>
+			</field>
+		</record>
+		
+    </data>
+</odoo>

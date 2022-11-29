@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_training_subject_form" model="ir.ui.view">
+                <field name="name">training.subject.form</field>
+                <field name="model">training.subject</field>
+                <field name="arch" type="xml">
+                    <form>
+                        <sheet>
+                            <group>
+                            <group>
+                              <field name="name" class="o_subject_name" placeholder="Subject Name..."/>
+                            </group>
+                            <group>
+                                <field name='code'/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Trainer" name='faculty_ids'>
+                               <field name='faculty_ids' domain="[('is_faculty', '=', True)]"/>
+                            </page>
+                            <page name="description_page" string="Description">
+                                <field name="description" type="html"/>
+                                <div class="oe_clear"/>
+                            </page>
+                        </notebook>
+                        </sheet>
+                    </form>
+                </field>
+        </record>
+
+        <record id="view_training_subject_tree" model="ir.ui.view">
+                <field name="name">training.subject.tree</field>
+                <field name="model">training.subject</field>
+                <field name="arch" type="xml">
+                    <tree>
+                        <field name='code'/>
+                        <field name='name'/>
+                    </tree>
+                </field>
+        </record>
+
+        <record id="view_training_subject_search" model="ir.ui.view">
+                <field name="name">training.subject.search</field>
+                <field name="model">training.subject</field>
+                <field name="arch" type="xml">
+                    <search>
+                        <field name='code'/>
+                        <field name='name'/>
+                    </search>
+                </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="action_training_subject">
+            <field name="name">Training Subjects</field>
+            <field name="res_model">training.subject</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>
+

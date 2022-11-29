@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_hr_attachment_form">
+            <field name="name">hr.attachment.form</field>
+            <field name="model">warning.attachment</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="attachment" filename="attached_filename"/>
+                            <field name="attached_filename" invisible="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_hr_warning_tree">
+            <field name="name">hr.warning.tree</field>
+            <field name="model">hr.warning</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Warning">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="employee_id"/>
+                    <field name="company_id"/>
+					<field name="branch_id"/>
+					<field name="department_id"/>
+                    <field name="description"/>
+                    <field name="warning_type_id"/>
+                    <field name="mark"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_hr_warning_form">
+            <field name="name">hr.warning.form</field>
+            <field name="model">hr.warning</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Warning">
+                    <header>
+                        <button name="action_submit" states="draft" type="object" string="Submit" class="oe_highlight"/>
+                        <button name="action_approve" states="submit" type="object" string="Approve" class="oe_highlight" groups="hr_ext.group_branch_manager"/>
+                        <button name="action_decline" states="submit" type="object" string="Decline" class="oe_highlight" groups="hr_ext.group_branch_manager"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="company_id" required="1" options="{'no_create': True, 'no_edit': True, 'no_quick_create': True}"/>
+                                <field name="branch_id" required="1" domain="[('company_id', '=', company_id)]" options="{'no_create': True, 'no_edit': True, 'no_quick_create': True}"/>
+                                <field name="department_id" required="1" domain="[('branch_id', '=', branch_id)]" options="{'no_create': True, 'no_edit': True, 'no_quick_create': True}"/>
+                                <field name="employee_id" required="1" domain="[('company_id', '=', company_id), ('branch_id', '=', branch_id), ('department_id', '=', department_id)]" options="{'no_create': True, 'no_edit': True, 'no_quick_create': True}"/>
+                                <field name="approved" invisible="1"/>
+                                <field name="fiscal_year" domain="[('company_id', '=', company_id), ('date_from', '&lt;=', date), ('date_to', '&gt;=', date)]"/>
+                            </group>
+                            <group>
+                                <field name="warn_date" required="1"/>
+                                <field name="date" required="1"/>
+                                <field name="description" required="1"/>
+                                <field name="warning_type_id" required="1"/>
+                                <field name="warning_title_id" required="1" domain="[('type_id', '=', warning_type_id)]" context="{'default_type_id': warning_type_id}"/>
+                                <field name="mark" required="1" readonly="1" force_save="1"/>
+                                <field name="fine_amt" force_save="1"/>
+                                <field name="linked_warning_id" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook attrs="{'invisible': [('linked_warning_id', '!=', False)]}">
+							<page name="action_list" string="Action List">
+								<field name="temp_lines" attrs="{'invisible': [('approved', '=', True)]}">
+									<tree create="0" delete="0">
+										<field name="employee_id" readonly="1" force_save="1"/>
+										<field name="mark" readonly="1" force_save="1"/>
+									</tree>
+									<form>
+										<group>
+											<field name="employee_id" readonly="1"/>
+											<field name="mark" readonly="1"/>
+										</group>
+									</form>
+								</field>
+								<field name="manager_warning_ids" attrs="{'invisible': [('approved', '=', False)]}">
+									<tree create="0" delete="0">
+										<field name="employee_id" readonly="1"/>
+										<field name="mark" readonly="1"/>
+									</tree>
+								</field>
+							</page>
+                            <page name="attachment" string="Attachment">
+                                
+                                <field name="warning_attach_id">
+                                    <tree create="1" delete="1">
+                                        <field name="attached_filename"/>
+                                        <field name="attachment"/>
+                                    </tree>
+                                </field>
+                                
+                                
+                            </page>
+						</notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="warning_sequence_id" model="ir.sequence">
+            <field name="name">Warning NO</field>
+            <field name="code">warning.code</field>
+            <field name="prefix">WN</field>
+            <field eval="5" name="padding"/>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record model="ir.actions.act_window" id="open_view_hr_warning_form">
+            <field name="name">Warning</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.warning</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_hr_warning_tree"/>
+        </record>
+
+        <!-- <menuitem id="menu_warning" name="Warning" parent="hr.menu_human_resources_configuration"
+                  action="open_view_hr_warning_form" sequence="58"/> -->
+    </data>
+</odoo>

@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_reward_type_user,access_reward_type_user,model_reward_type,hr.group_hr_user,1,1,1,0
+access_reward_type_manager,access_reward_type_manager,model_reward_type,hr.group_hr_manager,1,1,1,1
+access_hr_reward_user,access_hr_reward_user,model_hr_reward,hr.group_hr_user,1,1,1,0
+access_hr_reward_manager,access_hr_reward_manager,model_hr_reward,hr.group_hr_manager,1,1,1,1
+access_reward_title_user,access_reward_title_user,model_reward_title,hr.group_hr_user,1,1,1,0
+access_reward_title_manager,access_reward_title_manager,model_reward_title,hr.group_hr_manager,1,1,1,1
+access_hr_reward_temp_user,access_hr_reward_temp_user,model_hr_reward_temp,hr.group_hr_user,1,1,1,1
+access_reward_attachment_user,access_reward_attachment_user,model_reward_attachment,hr.group_hr_user,1,1,1,1

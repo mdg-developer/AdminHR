@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id='fleet_vehicle_view_form_ext' model='ir.ui.view'>
+            <field name="name">fleet.vehicle.form.ext</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='driver_id']" position="replace">
+                    <field name="driver_id" invisible="1" />
+                    <field name="hr_driver_id" options="{'no_create': True}"/>
+                </xpath>
+<!--                 <xpath expr="//field[@name='future_driver_id']" position="replace"> -->
+<!--                     <field name="future_driver_id" invisible="1" /> -->
+<!--                     <field name="hr_future_driver_id"/> -->
+<!--                 </xpath> -->
+				<xpath expr="//button[@name='return_action_to_open'][3]" position="replace"/>
+                <xpath expr="//field[@name='manager_id']" position="replace">
+                    <field name="hr_manager_id"/>
+                </xpath>
+                <xpath expr="//field[@name='first_contract_date']" position="after">
+                    <br/><br/>
+                    <label for="tyre_points_per_km" string="Tyre Points"/>
+                    <div class="o_row">
+                        <field name="tyre_points_per_km" class="oe_inline"/> /1000 KM
+                    </div>
+                    <label for="engine_points_per_km" string="Engine Oil Points"/>
+                    <div class="o_row">
+                        <field name="engine_points_per_km" class="oe_inline"/> /150 KM
+                    </div>
+                    <label for="tyre_points_per_mmk" string="Tyre Points"/>
+                    <div class="o_row">
+                        <field name="tyre_points_per_mmk" class="oe_inline"/> /MMK
+                    </div>
+                    <label for="engine_points_per_mmk" string="Engine Oil Points"/>
+                    <div class="o_row">
+                        <field name="engine_points_per_mmk" class="oe_inline"/> /MMK
+                    </div>
+                </xpath>
+                <xpath expr="//field[@name='acquisition_date']" position="before">
+                    <label for="last_odometer"/>
+                    <div class="o_row">
+                        <field name="last_odometer"/>
+                        <field name="odometer_unit"/>
+                    </div>
+                    <label for="last_odometer_datetime"/>
+                    <div class="o_row">
+                        <field name="last_odometer_datetime"/>                        
+                    </div>
+                </xpath> 
+                <xpath expr="//field[@name='odometer']" position="replace">
+                    <field name="trip_odometer"/>
+                </xpath> 
+                <xpath expr="//group/group[3]/label" position="replace">
+                    <label for="trip_odometer"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id='fleet_vehicle_view_tree_ext' model='ir.ui.view'>
+            <field name="name">fleet.vehicle.tree.ext</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='driver_id']" position="before">
+                    <field name="hr_driver_id" />
+                </xpath>
+                <xpath expr="//field[@name='driver_id']" position="replace">
+                </xpath>
+                <xpath expr="//field[@name='future_driver_id']" position="replace">
+                </xpath>
+            </field>
+        </record>
+
+        <record id='fleet_vehicle_view_kanban_ext' model='ir.ui.view'>
+            <field name="name">fleet.vehicle.kanban.ext</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_view_kanban"/>
+            <field name="arch" type="xml">
+                <field name="id" position="after">
+                    <field name="hr_driver_id" />
+                </field>
+                <xpath expr="//kanban/templates/t[@t-name='kanban-box']/div[@class='oe_kanban_global_click']/div[@class='oe_kanban_details']/ul/li[2]" position="after">
+                    <li>
+                        <t t-if="record.hr_driver_id.raw_value"><field name="hr_driver_id"/></t>
+                    </li>
+                </xpath>
+                <xpath expr="//kanban/templates/t[@t-name='kanban-box']/div[@class='oe_kanban_global_click']/div[@class='oe_kanban_details']/ul/li[1]/t[@t-if='record.driver_id.raw_value']/field[@name='driver_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//kanban/templates/t[@t-name='kanban-box']/div[@class='oe_kanban_global_click']/div[@class='oe_kanban_details']/ul/li[2]/t[@t-if='record.future_driver_id.raw_value']/field[@name='future_driver_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id='fleet_vehicle_costs_view_form_inherit' model='ir.ui.view'>
+            <field name="name">fleet.vehicle.cost.form</field>
+            <field name="model">fleet.vehicle.cost</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_costs_view_form"/>
+            <field name="arch" type="xml">
+                <field name="parent_id" position="after">
+                    <field name="source_doc" />
+                    <field name="vendor_bill_ref" />
+                    <field name="po_ref" />
+                </field>
+            </field>
+        </record>
+
+        <record id='fleet_vehicle_cost_view_tree_inherit' model='ir.ui.view'>
+            <field name="name">fleet.vehicle.cost.tree</field>
+            <field name="model">fleet.vehicle.cost</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_cost_view_tree"/>
+            <field name="arch" type="xml">
+                <field name="vehicle_id" position="after">
+                    <field name="source_doc" />
+                </field>
+            </field>
+        </record>
+        
+        <record id='view_vehicle_odometer_log_tree' model='ir.ui.view'>
+            <field name="name">vehicle.odometer.log.tree</field>
+            <field name="model">vehicle.odometer.log</field>
+            <field name="arch" type="xml">
+                <tree string="Odometer Log" create="false" import="false">
+                    <field name="create_date"/>
+                    <field name="user_id"/>
+                    <field name="old_odometer"/>
+                    <field name="odometer"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="action_vehicle_odometer_log">
+	        <field name="name">Odometer Log</field>
+	        <field name="type">ir.actions.act_window</field>
+	        <field name="res_model">vehicle.odometer.log</field>
+	        <field name="view_mode">tree</field>
+	        <field name="view_id" ref="view_vehicle_odometer_log_tree" />
+	    </record>
+        
+        <record id="view_fleet_vehicle_form_odometer_log" model="ir.ui.view">
+	        <field name="name">fleet.vehicle.form.view.inherit.bi</field>
+	        <field name="model">fleet.vehicle</field>
+	        <field name="inherit_id" ref="fleet_fuel_tank.view_fleet_vehicle_inherit_bi"/>
+	        <field name="arch" type="xml">
+	            <xpath expr="//button[@name='action_open_preventive_reminder']" position="before">
+	                <button name="action_open_odometer_log" 
+	                        type="object" class="oe_stat_button" icon="fa-tachometer" 
+	                        string="Odometer Log" 
+	                        context="{'xml_id':'action_vehicle_odometer_log'}">
+	                </button>
+	            </xpath>
+	        </field>
+	    </record>
+
+    </data>
+</odoo>

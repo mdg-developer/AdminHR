@@ -1,0 +1,226 @@
+# -*- coding: utf-8 -*-
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
+
+#
+# Order Point Method:
+#    - Order if the virtual stock of today is below the min of the defined order point
+#
+
+# -*- coding: utf-8 -*-
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
+
+from collections import namedtuple, OrderedDict, defaultdict
+from dateutil.relativedelta import relativedelta
+from odoo.tools.misc import split_every
+from psycopg2 import OperationalError
+
+from odoo import api, fields, models, tools, registry, SUPERUSER_ID, _
+from odoo.osv import expression
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT, float_compare, float_is_zero, float_round
+import threading
+from odoo.exceptions import UserError
+
+import logging
+_logger = logging.getLogger(__name__)
+
+
+
+class StockSchedulerInherit(models.TransientModel):
+    _name = 'stock.scheduler.inherit'
+    _description = 'Run Scheduler'
+
+    def _procure_calculation_orderpoint(self):
+        
+        with api.Environment.manage():
+            # As this function is in a new thread, I need to open a new cursor, because the old one may be closed
+            new_cr = self.pool.cursor()
+            self = self.with_env(self.env(cr=new_cr))
+            scheduler_cron = self.sudo().env.ref('stock.ir_cron_scheduler_action')
+            # Avoid to run the scheduler multiple times in the same time
+            try:
+                with tools.mute_logger('odoo.sql_db'):
+                    self._cr.execute("SELECT id FROM ir_cron WHERE id = %s FOR UPDATE NOWAIT", (scheduler_cron.id,))
+            except Exception:
+                _logger.info('Attempt to run procurement scheduler aborted, as already running')
+                self._cr.rollback()
+                self._cr.close()
+                return {}
+
+            for company in self.env.user.company_ids:
+                cids = (self.env.user.company_id | self.env.user.company_ids).ids
+                self.env['procurement.group'].with_context(allowed_company_ids=cids).run_scheduler_inherit(
+                    use_new_cursor=self._cr.dbname,
+                    company_id=company.id)
+            new_cr.close()
+            return {}
+
+    def procure_calculation(self):
+        
+        threaded_calculation = threading.Thread(target=self._procure_calculation_orderpoint, args=())
+        threaded_calculation.start()
+        return {'type': 'ir.actions.act_window_close'}
+
+
+class ProcurementGroup(models.Model):
+    
+    _inherit = 'procurement.group'
+
+
+    @api.model
+    def _run_scheduler_tasks_inherit(self, use_new_cursor=False, company_id=False):
+        # Minimum stock rules
+        self.sudo()._procure_orderpoint_confirm_inherit(use_new_cursor=use_new_cursor, company_id=company_id)
+
+        # Search all confirmed stock_moves and try to assign them
+        domain = self._get_moves_to_assign_domain()
+        moves_to_assign = self.env['stock.move'].search(domain, limit=None,
+            order='priority desc, date_expected asc')
+        for moves_chunk in split_every(100, moves_to_assign.ids):
+            self.env['stock.move'].browse(moves_chunk)._action_assign()
+            if use_new_cursor:
+                self._cr.commit()
+
+        if use_new_cursor:
+            self._cr.commit()
+
+        # Merge duplicated quants
+        self.env['stock.quant']._quant_tasks()
+        if use_new_cursor:
+            self._cr.commit()
+
+    @api.model
+    def run_scheduler_inherit(self, use_new_cursor=False, company_id=False):
+        """ Call the scheduler in order to check the running procurements (super method), to check the minimum stock rules
+        and the availability of moves. This function is intended to be run for all the companies at the same time, so
+        we run functions as SUPERUSER to avoid intercompanies and access rights issues. """
+        try:
+            if use_new_cursor:
+                cr = registry(self._cr.dbname).cursor()
+                self = self.with_env(self.env(cr=cr))  # TDE FIXME
+
+            self._run_scheduler_tasks_inherit(use_new_cursor=use_new_cursor, company_id=company_id)
+        finally:
+            if use_new_cursor:
+                try:
+                    self._cr.close()
+                except Exception:
+                    pass
+        return {}
+
+
+
+    @api.model
+    def _procure_orderpoint_confirm_inherit(self, use_new_cursor=False, company_id=False):
+        """ Create procurements based on orderpoints.
+        :param bool use_new_cursor: if set, use a dedicated cursor and auto-commit after processing
+            1000 orderpoints.
+            This is appropriate for batch jobs only.
+        """
+        
+        if company_id and self.env.company.id != company_id:
+            # To ensure that the company_id is taken into account for
+            # all the processes triggered by this method
+            # i.e. If a PO is generated by the run of the procurements the
+            # sequence to use is the one for the specified company not the
+            # one of the user's company
+            self = self.with_context(company_id=company_id, force_company=company_id)
+        # import pdb
+        # pdb.set_trace()
+        OrderPoint = self.env['stock.warehouse.orderpoint']
+        # record_ids =self.env.context.get('active_ids', [])
+        record_ids =self.env.context.get('active_ids', [])
+        # if record_ids:
+        #     orderpoints_noprefetch =record_ids
+        
+        domain = self._get_orderpoint_domain(company_id=company_id)
+        orderpoints_noprefetch = OrderPoint.with_context(prefetch_fields=False).search(domain,
+            order=self._procurement_from_orderpoint_get_order()).ids
+        while orderpoints_noprefetch:
+            if use_new_cursor:
+                cr = registry(self._cr.dbname).cursor()
+                self = self.with_env(self.env(cr=cr))
+            OrderPoint = self.env['stock.warehouse.orderpoint']
+
+            orderpoints = OrderPoint.browse(orderpoints_noprefetch[:1000])
+            orderpoints_noprefetch = orderpoints_noprefetch[1000:]
+
+            # Calculate groups that can be executed together
+            location_data = OrderedDict()
+
+            def makedefault():
+                return {
+                    'products': self.env['product.product'],
+                    'orderpoints': self.env['stock.warehouse.orderpoint'],
+                    'groups': []
+                }
+
+            for orderpoint in orderpoints:
+                key = self._procurement_from_orderpoint_get_grouping_key([orderpoint.id])
+                if not location_data.get(key):
+                    location_data[key] = makedefault()
+                location_data[key]['products'] += orderpoint.product_id
+                location_data[key]['orderpoints'] += orderpoint
+                location_data[key]['groups'] = self._procurement_from_orderpoint_get_groups([orderpoint.id])
+
+            for location_id, location_res in location_data.items():
+                location_orderpoints = location_res['orderpoints']
+                product_context = dict(self._context, location=location_orderpoints[0].location_id.id)
+                substract_quantity = location_orderpoints._quantity_in_progress()
+                
+                for group in location_res['groups']:
+                    if group.get('from_date'):
+                        product_context['from_date'] = group['from_date'].strftime(DEFAULT_SERVER_DATETIME_FORMAT)
+                    if group['to_date']:
+                        product_context['to_date'] = group['to_date'].strftime(DEFAULT_SERVER_DATETIME_FORMAT)
+                    product_quantity = location_res['products'].with_context(product_context)._product_available()
+                    for orderpoint in location_orderpoints:
+                        try:
+                            op_product_virtual = product_quantity[orderpoint.product_id.id]['virtual_available']
+                            if op_product_virtual is None:
+                                continue
+                            
+                            qty = orderpoint.product_max_qty-op_product_virtual
+                            qty_rounded = float_round(qty, precision_rounding=orderpoint.product_uom.rounding)
+                            if qty_rounded > 0:
+                                values = orderpoint._prepare_procurement_values(qty_rounded, **group['procurement_values'])
+                                try:
+                                    with self._cr.savepoint():
+                                        #TODO: make it batch
+                                        if orderpoint.id in record_ids:
+                                            self.env['procurement.group'].run([self.env['procurement.group'].Procurement(
+                                                orderpoint.product_id, qty_rounded, orderpoint.product_uom,
+                                                orderpoint.location_id, orderpoint.name, orderpoint.name,
+                                                orderpoint.company_id, values)])
+                                except UserError as error:
+                                    self.env['stock.rule']._log_next_activity(orderpoint.product_id, error.name)
+                                self._procurement_from_orderpoint_post_process([orderpoint.id])
+                            if use_new_cursor:
+                                cr.commit()
+
+                        except OperationalError:
+                            if use_new_cursor:
+                                orderpoints_noprefetch += [orderpoint.id]
+                                cr.rollback()
+                                continue
+                            else:
+                                raise
+
+            try:
+                if use_new_cursor:
+                    cr.commit()
+            except OperationalError:
+                if use_new_cursor:
+                    cr.rollback()
+                    continue
+                else:
+                    raise
+
+            if use_new_cursor:
+                cr.commit()
+                cr.close()
+
+        return {}
+
+
+
+

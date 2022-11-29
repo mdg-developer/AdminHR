@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record model="ir.ui.view" id="view_reward_type_tree">
+			<field name="name">reward.type.tree</field>
+			<field name="model">reward.type</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Reward Type">
+					<field name="name" />
+					<field name="mark" />
+					<field name="manager_mark" />
+					<field name="approval_mark" />
+					<field name="dotted_line_mark" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_reward_type_form">
+			<field name="name">reward.type.form</field>
+			<field name="model">reward.type</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Reward Type">
+					<sheet>
+						<group>
+							<field name="name" required="1"/>
+							<field name="mark" />
+							<field name="manager_mark" />
+							<field name="approval_mark" />
+							<field name="dotted_line_mark" />
+							<field name="carry_reward"/>
+						</group>
+						<notebook>
+							<page name="titles" string="Reward Titles">
+								<field name="reward_title_ids" nolabel="1">
+									<tree editable="bottom">
+										<field name="name"/>
+									</tree>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_reward_title_tree">
+			<field name="name">reward.title.tree</field>
+			<field name="model">reward.title</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Reward Title">
+					<field name="name" />
+					<field name="type_id" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_reward_title_form">
+			<field name="name">reward.title.form</field>
+			<field name="model">reward.title</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Reward Title">
+					<sheet>
+						<group>
+							<field name="name" required="1" />
+							<field name="type_id" />
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="open_view_reward_type_form">
+			<field name="name">Reward Type</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">reward.type</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="open_view_reward_title_form">
+			<field name="name">Reward Title</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">reward.title</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<!-- <menuitem id="menu_reward_type" name="Reward Type"
+				  parent="hr.menu_human_resources_configuration"
+				  action="open_view_reward_type_form" sequence="62"/>
+
+		<menuitem id="menu_reward_title" name="Reward Title"
+				  parent="hr.menu_human_resources_configuration"
+				  action="open_view_reward_title_form" sequence="63" /> -->
+	</data>
+</odoo>

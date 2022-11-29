@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <report
+            id="report_training_application_line"
+            string="Print Employee Trainings"
+            model="emp.training.application.line"
+            report_type="qweb-pdf"
+            name="odoo_training_management_app.template_report_application_line"
+            file="odoo_training_management_app.template_report_application_line"
+        />
+
+        <template id="template_report_application_line">
+            <t t-foreach="docs" t-as="doc">
+             <t t-call="web.html_container">
+              <t t-call="web.internal_layout">
+                <div class="page">
+                 <table class="table table-bordered">
+                            <tr>
+                                <td style="text-align: left;" colspan="4">
+                                    <strong><h3>Employee Trainings</h3></strong>
+                                </td>
+                            </tr>
+                        <tbody>
+                            <tr>
+                                <td style="text-align: center;" colspan="4">
+                                    <strong><h3><span t-field="doc.number"/></h3></strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                     <strong>Employee</strong>
+                                </td>
+                                <td>
+                                     <span t-field="doc.employee_id.name"/>
+                                </td>
+                                <td>
+                                    <strong>Responsible</strong>
+                                </td>
+                                <td>
+                                    <span t-field="doc.user_id.name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                     <strong>Training Center</strong>
+                                </td>
+                                <td>
+                                     <span t-field="doc.training_center_id.name"/>
+                                </td>
+                                <td>
+                                    <strong>Class Room</strong>
+                                </td>
+                                <td>
+                                    <span t-field="doc.class_room_id.name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                     <strong>Course</strong>
+                                </td>
+                                <td>
+                                     <span t-field="doc.course_id.name"/>
+                                </td>
+                                <td>
+                                    <strong>Subject</strong>
+                                </td>
+                                <td class='text-left'>
+                                    <t t-set="subject_name" t-value="doc._get_report_doc_values(doc)"/>
+                                    <span t-esc="subject_name"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Create Date</strong>
+                                </td>
+                                <td>
+                                    <span t-field="doc.create_date"/>
+                                </td>
+                                <td>
+                                    <strong>Start Date</strong>
+                                </td>
+                                <td>
+                                    <span t-field="doc.start_date"/> 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Project</strong>
+                                </td>
+                                <td>
+                                    <span t-field="doc.project_id.name"/>
+                                </td>
+                                <td>
+                                    <strong>End Date</strong>
+                                </td>
+                                <td>
+                                    <span t-field="doc.end_date"/><br/>
+                               </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Description</strong>
+                                </td>
+                                <td>
+                                    <span t-field="doc.description"/>
+                                </td>
+                                <td>
+                                    <strong>Employee Training Stages</strong>
+                                </td>
+                                <td>
+                                    <span t-field="doc.app_stage_line_ids.name"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+         </t>
+         </t>
+     </t>
+     </template>
+
+    </data>
+</odoo>

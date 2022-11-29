@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="view_preventive_reminder_tree">
+        <field name="name">preventive.reminder.tree</field>
+        <field name="model">preventive.reminder</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Preventive Reminder">
+                <field name="vehicle_id" />
+                <field name="product_id" />
+                <field name="name" />
+                <field name="last_date" />
+                <field name="last_odometer" />
+                <field name="next_odometer" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_preventive_reminder_form">
+        <field name="name">preventive.reminder.form</field>
+        <field name="model">preventive.reminder</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Preventive Reminder" >
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" invisible="1"/>
+                            <field name="product_id" domain="['|', ('product_tmpl_id.company_id', '=', False),('product_tmpl_id.categ_id.maintenance_type', '=', 'preventive')]"/>
+                            <field name="last_date" />
+                            <field name="last_odometer" />
+                            <field name="next_odometer" />
+                            <field name="odometer_next" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_preventive_reminder">
+        <field name="name">Preventive Reminder</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">preventive.reminder</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_preventive_reminder_tree" />
+    </record>
+
+    <record id="view_fleet_vehicle_inherit_bi" model="ir.ui.view">
+        <field name="name">fleet.vehicle.form.view.inherit.bi</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='return_action_to_open_trip']" position="before">
+                <button name="action_open_preventive_reminder" 
+                        type="object" class="oe_stat_button" icon="fa-wrench" 
+                        string="Preventive Reminder" 
+                        context="{'xml_id':'action_preventive_reminder'}">
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="view_absent_log_tree">
+			<field name="name">absent.log.tree</field>
+			<field name="model">absent.log</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Absent Log" create="0" edit="0">
+					<field name="employee_id" />
+					<field name="date" />
+					<field name="company_id"/>
+					<field name="log" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_absent_log_form">
+			<field name="name">absent.log.form</field>
+			<field name="model">absent.log</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Absent Log" create="0" edit="0">
+					<sheet>
+					    <group>
+					        <group>
+						        <field name="employee_id" />
+								<field name="date" />
+								
+						    </group>
+							<group>
+								<field name="company_id"/>
+								<field name="log" />								
+							</group>
+					    </group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_hr_attendance_raw_search_form" model="ir.ui.view">
+			<field name="name">absent.log.search.form</field>
+			<field name="model">absent.log</field>
+			<field name="arch" type="xml">
+				<search string="Absent Log">					
+					<field name="employee_id" string="Employee"/>
+				</search>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="action_absent_log">
+			<field name="name">Absent log</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">absent.log</field>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{}</field>
+			<field name="view_id" ref="view_absent_log_tree" />
+		</record>
+
+		<menuitem id="menu_hr_absent_log"
+				  name="Absent log"
+				  parent="hr_attendance.menu_hr_attendance_manage_attendances"
+				  action="action_absent_log"
+				  sequence="60" />
+
+		
+
+	</data>
+</odoo>

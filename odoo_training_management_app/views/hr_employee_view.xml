@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="hr_employee_view_inherited" model="ir.ui.view">
+		   <field name="name">hr.employee.view</field>
+		   <field name="model">hr.employee</field>
+		   <field name="inherit_id" ref="hr.view_employee_form"/>
+		   <field name="priority" eval="20"/>
+		   <field name="arch" type="xml">
+			 	<!-- <xpath expr="//div[@class='oe_button_box']" position="inside"> -->
+        <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                <button name="action_emp_application"
+                   type="object"
+                   class="oe_stat_button"
+                   icon="fa-pencil-square-o" groups="odoo_training_management_app.group_training_user">
+                   <field  string="Applications" name="custom_application_count" widget="statinfo"/>
+                </button>
+                <button name="action_view_employee_task"
+                   type="object"
+                   class="oe_stat_button"
+                   icon="fa-pencil-square-o" groups="odoo_training_management_app.group_training_user">
+                 <field  string="Tasks" name="custom_task_count" widget="statinfo"/>
+                </button>
+          </xpath>
+		   </field>
+	</record>
+
+
+
+</odoo>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+	    <record id="hr_employee_inherit_form_view" model="ir.ui.view">
+			<field name="name">hr.employee.form</field>
+			<field name="model">hr.employee</field>
+			<field name="inherit_id" ref="hr.view_employee_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//header" position="inside">
+                    <button name="%(action_change_permanent)d" type="action" states="probation,extend_probation" class="oe_highlight" string="Permanent"/>
+                    <field name="state" widget="statusbar" statusbar_visible="probation,permanent,extend_probation"/>
+					<button name="print_probation_confirm" type="object" states="permanent" class="oe_highlight" string="Probation Confirmation Letter"/>
+					<button name="print_extend_probation" type="object" states="extend_probation" class="oe_highlight" string="Extend Probation Letter"/>
+					<button name="print_employee_offer" type="object" class="oe_highlight" string="Employee Offer Letter"/>
+                </xpath>
+				<xpath expr="//field[@name='joining_date']" position="after">
+					<field name="permanent_date" />
+				</xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

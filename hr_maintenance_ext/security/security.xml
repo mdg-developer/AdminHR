@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <record id="maintenance.group_equipment_manager" model="res.groups">
+            <field name="name">User</field>
+        </record>
+
+    </data>
+    
+
+</odoo>

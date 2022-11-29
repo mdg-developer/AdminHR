@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="hr_payslip_view_form">
+            <field name="name">hr.payslip.inherit.form</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group" position="before">
+                    <group col="2" style="margin: 10px 0 0">
+                        <group style="margin: 10px 0 0">
+                            <label for="month" string="Payroll Period"/>
+                            <div class="o_row">
+                                <field name="month" class="oe_inline"/> - <field name="year" class="oe_inline"/>
+                            </div>
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="service_year" invisible="1"/>
+                    <field name="previous_income" />
+                    <field name="previous_tax_paid" />
+                    <field name="remaining_months" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="currency_id" />
+                </xpath>
+                <xpath expr="//button[@name='action_payslip_done']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='input_line_ids']//tree//field[@name='loan_line_id']" position="after">
+                    <field name="loan_line_ids" invisible="1"/>
+                    <field name="insurance_line_ids" invisible="1" />
+                </xpath>
+                <xpath expr="//field[@name='journal_id']" position="replace">
+                    <field name="journal_id" readonly="1" />
+                </xpath>
+                <xpath expr="//field[@name='move_id']" position="after">
+                    <field name="misc_journal_id" />
+                    <field name="misc_move_id" />
+                    <field name="logistics_journal_id" />
+                    <field name="logistics_move_id" />
+                </xpath>
+                <xpath expr="//field[@name='payslip_run_id']" position="replace">
+                     <field name="payslip_run_id" domain="[('state','in',('draft', 'verify','close'))]"/>
+                </xpath>
+                <xpath expr="//notebook/page/field[@name='worked_days_line_ids']/tree/field[@name='number_of_hours']" position="replace">
+                    <field name="number_of_hours" widget="float_time"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_payslip_run_view_form" model="ir.ui.view">
+            <field name="name">hr.payslip.run.inherit.form</field>
+            <field name="model">hr.payslip.run</field>
+            <field name="inherit_id" ref="hr_payroll.hr_payslip_run_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='%(hr_payroll.action_hr_payslip_by_employees)d']" position="attributes">
+                    <attribute name="context">{'default_company_id': company_id,'default_structure_id': struct_id}</attribute>
+                </xpath>
+                 <xpath expr="//field[@name='company_id']" position="after">
+                     <field name="struct_id" domain="['|', ('company_id', '=', False ), ('company_id', '=', company_id)]" />
+                 </xpath>
+                <xpath expr="//group" position="before">
+                    <group col="2" style="margin: 10px 0 0">
+                        <group style="margin: 10px 0 0">
+                            <label for="month" string="Payroll Period"/>
+                            <div class="o_row">
+                                <field name="month" class="oe_inline" attrs="{'readonly': [('state', 'not in', ('draft'))]}"/> -
+                                <field name="year" class="oe_inline" attrs="{'readonly': [('state', 'not in', ('draft'))]}"/>
+                            </div>
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="//form/header" position="inside">
+                    <button string="Set to Draft" name="action_set_to_draft" type="object" states="verify,close"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_payslip_view_form_inherit">
+            <field name="name">hr.payslip.form.inherit.journal</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll_account.hr_payslip_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_payslip_done']" position="replace">
+                    <button string="Account Draft Entry" name="action_payslip_done" type="object" attrs="{'invisible': [('state', 'not in', 'verify')]}" class="oe_highlight" context="{'payslip_generate_pdf': True}"/>
+                </xpath>
+                <field name="journal_id" position="replace">
+                    <field name="journal_id" required="1" attrs="{'readonly': [('state', 'in', ('done', 'cancel'))]}" />
+                </field>
+            </field>
+        </record>
+        
+        <record id="view_hr_payslip_tree_inherit" model="ir.ui.view">
+            <field name="name">hr.payslip.tree</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_tree"/>
+            <field name="arch" type="xml">
+                <field name="date_to" position="after">
+                    <field name="gross_wage" string="Gross" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.actions.server" id="hr_payroll.action_hr_payroll_confirm_payroll">
+            <field name="name">Account Draft Entry</field>
+        </record>
+        <function model="ir.actions.server" name="unlink_action"
+          eval="[ref('hr_payroll.action_hr_payroll_confirm_payroll')]"/>    </data>
+</odoo>

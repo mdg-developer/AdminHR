@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_hr_extension_hr_skill_need,hr.skill.need,model_hr_skill_need,hr.group_hr_user,1,0,0,0
+access_hr_extension_hr_skill_need_manager,hr.skill.need,model_hr_skill_need,hr.group_hr_manager,1,1,1,1
+
+access_hr_extension_hr_employee_skill_followup,hr.employee.skill.followup.,model_hr_employee_skill_followup,hr.group_hr_user,1,0,0,0
+access_hr_extension_hr_employee_skill_followup_manager,hr.employee.skill.followup,model_hr_employee_skill_followup,hr.group_hr_manager,1,1,1,1
+
+access_hr_extension_hr_skill_need_department,hr.skill.need,model_hr_skill_need_department,hr.group_hr_user,1,0,0,0
+access_hr_extension_hr_skill_need_department_manager,hr.skill.need,model_hr_skill_need_department,hr.group_hr_manager,1,1,1,1
+
+access_hr_extension_hr_skill_type_assessor,hr.skill.type.assessor,model_hr_skill_type_assessor,hr.group_hr_user,1,0,0,0
+access_hr_extension_hr_skill_type_assessor_manager,type.assessor,model_hr_skill_type_assessor,hr.group_hr_manager,1,1,1,1
+
+

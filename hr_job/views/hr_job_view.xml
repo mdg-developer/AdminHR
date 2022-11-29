@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record model="ir.ui.view" id="view_hr_job_benefit_tree">
+			<field name="name">hr.job.benefit.tree</field>
+			<field name="model">hr.job.benefit</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Job Position Benefit">
+					<field name="name" />
+					<field name="job_id" />
+					<field name="company_id" />
+					<field name="branch_id" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_hr_job_benefit_form">
+			<field name="name">hr.job.benefit.form</field>
+			<field name="model">hr.job.benefit</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Job Position Benefit">
+					<sheet>
+					    <group>
+					       <group>
+								<field name="name" />
+								<field name="job_id" required="1"/>
+							</group>
+							<group>
+								<field name="company_id" />
+								<field name="branch_id" />
+							</group>
+					    </group>
+						<group>
+							<notebook>
+							    <page name="benefit" string="Benefit">
+				                    <field editable="bottom" name="benefit_line" >
+				                        <tree>
+				                            <field name="benefit_id" />
+											<field name="description" />
+											<field name="qty" />
+				                        </tree>
+				                    </field>
+				                </page>
+		                	</notebook>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="view_hr_job_benefit_line_form">
+			<field name="name">job.benefit.line.form</field>
+			<field name="model">job.benefit.line</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Job Position Benefit">
+					<header>
+						<field name="state" widget="statusbar"/>
+					</header>
+					<sheet>
+						<group>
+							<group>
+								<field name="benefit_id" />
+							</group>
+							<group>
+								<field name="description" />
+								<field name="qty" />
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_hr_job_benefit_filter" model="ir.ui.view">
+            <field name="name">hr.job.benefit.search</field>
+            <field name="model">hr.job.benefit</field>
+            <field name="arch" type="xml">
+                <search string="Search Job Benefit">                    
+                    <field name="job_id"/>                    
+                </search>
+            </field>
+        </record>
+        
+		<record model="ir.actions.act_window" id="open_view_hr_job_benefit_form">
+			<field name="name">Job Position Benefit</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">hr.job.benefit</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_hr_job_benefit_tree" />
+		</record>
+		
+		<!-- <menuitem id="menu_hr_job_benefit" name="Job Position Benefit" parent="hr_recruitment.menu_hr_recruitment_configuration"
+			action="open_view_hr_job_benefit_form" sequence="59" /> -->
+		
+	</data>
+</odoo>

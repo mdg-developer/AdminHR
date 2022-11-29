@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="maintenance_request_sequence" model="ir.sequence">			
+		    <field name="name">Maintenance Request Code</field>			
+			<field name="code">maintenance.request.code</field>
+			<field name="prefix">MT/%(year)s/</field>
+			<field eval="6" name="padding"/>
+		</record>
+	</data>
+</odoo>

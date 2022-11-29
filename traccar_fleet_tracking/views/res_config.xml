@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+        <record id="view_fleet_config_settings" model="ir.ui.view">
+            <field name="name">Fleet settings</field>
+            <field name="model">fleet.config.settings</field>
+            <field name="arch" type="xml">
+                <form string="Configure Fleet Settings" class="oe_form_configuration">
+                    <header>
+                        <button string="Apply" type="object" name="execute" class="oe_highlight"/>
+                        <button string="Cancel" type="object" name="cancel" class="oe_link" special="cancel"/>
+                    </header>
+
+                    <label for="id" string="Traccar Integration"/>
+                    <div name="traccar_integration">
+                        <div>
+                            <p>Visit the <a href="https://www.traccar.org/" target="_blank">Traccar homepage</a> for more information on how to setup it.</p>
+                        </div>
+                        <div>
+                            <label for="traccar_server_url" string="Server URL"/>
+                            <field name="traccar_server_url" class="oe_inline"/>
+                            <div>
+                                <label for="traccar_username" string="Username"/>
+                                <field name="traccar_username" class="oe_inline"/>
+                                <label for="traccar_password" string="Password"/>
+                                <field name="traccar_password" class="oe_inline"/>
+                           	</div>
+                            <div name="gmaps_api">
+                                <label for="gmaps_api_key" string="Google Maps API key"/>
+                                <field name="gmaps_api_key" class="oe_inline"/>
+                            </div>
+                            <div name="gmaps_theme">
+                                <label for="gmaps_theme" string="Google Maps theme"/>
+                                <field name="gmaps_theme" class="oe_inline"/>
+                            </div>
+                            <div name="odometer">
+                                <label for="add_to_odometer" string="Automatically increase vehicle odometer from GPS data"/>
+                                <field name="add_to_odometer" class="oe_inline"/>
+                            </div>
+                            <div name="inactivity_period">
+                                <label for="inactivity_period_duration" string="Inactivity Period Duration (in Minutes)"/>
+                                <field name="inactivity_period_duration" class="oe_inline"/>
+                            </div>
+                            <div name="reverse_geocode">
+                                <label for="do_reverse_geocoding"/>
+                                <field name="do_reverse_geocoding" class="oe_inline"/>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="action_traccar_configuration" model="ir.actions.act_window">
+            <field name="name">Traccar Settings</field>
+            <field name="res_model">fleet.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+
+        <menuitem id="menu_traccar_settings" parent="fleet.menu_root" sequence="99" name="Traccar Settings" action="action_traccar_configuration"/>
+
+        <record id="traccar_scheduler_act" model="ir.actions.act_window">
+            <field name="name">Fleet Tracking Scheduler</field>
+            <field name="res_model">ir.cron</field>
+           
+            <field name="view_mode">tree,form</field>
+<!--             <field name="domain" eval="[('id', 'in', [ref('traccar_fleet_tracking.fleet_tracking_scheduler')])]"/> -->
+            <field name="view_id" ref="base.ir_cron_view_tree"/>
+        </record>
+        <menuitem name="Fleet Tracking Scheduler" action="traccar_scheduler_act" id="menu_traccar_scheduler" parent="fleet.fleet_configuration"  sequence="99"/>
+
+</odoo>

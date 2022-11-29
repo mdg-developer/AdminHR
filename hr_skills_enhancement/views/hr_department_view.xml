@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<odoo>
+
+
+    <record id="view_department_form_hr_ext" model="ir.ui.view">
+        <field name="name">Departments</field>
+        <field name="model">hr.department</field>
+            <field name="inherit_id" ref="hr.view_department_form"/>
+            <field name="arch" type="xml">
+
+            <!-- <xpath expr="//sheet/group/field[@name='parent_id']" position="after"> -->
+            <xpath expr="//sheet" position="inside">
+
+            <group string="Skill needs" col="3">
+                        <field name="skill_need_ids" nolabel="1" >
+                            <tree editable="bottom">
+                                <field name="skill_need_id" />
+                                 <field name="number_employee_required"/>
+                            </tree>
+                        </field>
+                    </group>
+
+                 </xpath>
+
+        </field>
+    </record>
+
+</odoo>
+
+

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="act_job_position_benefit" model="ir.actions.act_window">
+			<field name="name">Job Position Benefit</field>
+			<field name="res_model">hr.job.benefit</field>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{
+                'search_default_job_id': active_id
+            }</field>
+			<field name="help" type="html">
+				<p class="o_view_nocontent_smiling_face">
+                    Create job position benefit.
+				</p>
+			</field>
+		</record>
+
+		<record id="menu_view_hr_job_form_inherit" model="ir.ui.view">
+			<field name="name">hr.job.form</field>
+			<field name="model">hr.job</field>
+			<field name="inherit_id" ref="hr.view_hr_job_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//group[@name='recruitment']" position="replace">
+					<group>
+						<!-- <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company" invisible="0"/>
+						<field name="branch_id" />
+						<field name="department_id" invisible="0"/> -->
+						<field name="total_employee"/>
+						<field name="current_employee"/>
+						<field name="job_grade_id"/>
+					</group>
+				</xpath>
+				<xpath expr="//field[@name='user_id']" position="after">
+					<field name="template_id"/>
+					<field name="comp_template_id"/>
+				</xpath>
+				<xpath expr="//field[@name='user_id']" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+				<xpath expr="//group[1]" position="after">
+					<notebook>
+						<page string="Skill">
+							<separator string="Skills"/>
+							<field mode="tree" nolabel="1" name="skill_line" widget="hr_skills">
+								<tree>
+									<field name="skill_type_id" invisible="1"/>
+									<field name="skill_id"/>
+									<field name="skill_level_id"/>
+									<field name="level_progress" widget="progressbar"/>
+								</tree>
+							</field>
+							<!-- 				          <field name="skill_line"> -->
+							<!-- 					          <tree editable="bottom"> -->
+							<!-- 					            <field name="skill" /> -->
+							<!-- 								<field name="level" /> -->
+							<!-- 								<field name="point" /> -->
+							<!-- 					          </tree> -->
+							<!-- 					      </field> -->
+						</page>
+					</notebook>
+				</xpath>
+				<xpath expr="//field[@name='skill_line']" position="after">
+					<notebook>
+						<page string="Job">
+							<field name="job_line">
+								<tree editable="bottom">
+									<field name="company_id" />
+									<field name="branch_id" domain="[('company_id', '=', company_id)]" />
+									<field name="department_id" domain="[('company_id', '=', company_id), ('branch_id', '=', branch_id)]" />
+									<field name="upper_position" />
+									<field name="total_employee" />
+									<field name="current_employee" />
+									<field name="new_employee" />
+								</tree>
+								<form>
+								    <group>
+								        <group>
+									        <field name="job_id" />
+									        <field name="branch_id" domain="[('company_id', '=', company_id)]" />
+									        <field name="total_employee" />
+									        <field name="new_employee" />
+									        <field name="upper_position" />
+									    </group>
+									    <group>
+									        <field name="company_id" />
+									        <field name="department_id" domain="[('company_id', '=', company_id), ('branch_id', '=', branch_id)]" />
+									        <field name="current_employee" />
+									    </group>	
+								    </group>								    				
+								</form>
+							</field>
+							<div>
+                            	<label for="jd_summary"/>
+                            	<field name="jd_summary"/>
+                        	</div>							
+						</page>
+					</notebook>
+				</xpath>
+				<div name="button_box" position="inside">
+					<button class="oe_stat_button" icon="fa-diamond" name="open_view_hr_appraisal_tree" type="action">
+						<field name="appraisal_count" widget="statinfo" string="Appraisal" />
+					</button>
+					<button class="oe_stat_button" name="%(act_job_position_benefit)d" type="action" icon="fa-briefcase">
+						<field string="Benefits" name="benefit_count" widget="statinfo"/>
+					</button>
+				</div>
+			</field>
+		</record>
+		
+		<record id="view_hr_job_tree" model="ir.ui.view">
+            <field name="name">hr.job.tree</field>
+            <field name="model">hr.job</field>
+            <field name="inherit_id" ref="hr.view_hr_job_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='no_of_employee']" position="replace">
+                    <field name="current_employee" string="Current Number of Employees"/>
+                </xpath>
+                <xpath expr="//field[@name='expected_employees']" position="replace">
+                </xpath>
+				<xpath expr="//field[@name='company_id']" position="replace">
+                </xpath>
+				<xpath expr="//field[@name='no_of_hired_employee']" position="replace">
+                </xpath>
+				<xpath expr="//field[@name='department_id']" position="after">
+                    <field name="total_employee" string="Total Expected Employees"/>
+                </xpath>
+            </field>
+        </record>
+
+		<record id="hr_department_form_inherit" model="ir.ui.view">
+			<field name="name">hr.department.form.inherit</field>
+			<field name="model">hr.department</field>
+			<field name="inherit_id" ref="hr.view_department_form" />
+			<field name="arch" type="xml">
+				<!-- <field name="company_id" position="after">
+                    <field name="branch_id" options='{"no_create_edit": True}' domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]"/>
+                </field>
+                <field name="parent_id" position="after">
+                    <field name="job_id"/>
+                </field> -->
+				<xpath expr="//form/sheet/group" position="replace">
+					<group>
+						<group>
+							<field name="name" />
+							<field name="parent_id" />
+						</group>
+						<group>
+							<field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+							<field name="branch_id" options='{"no_create_edit": True}' domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]"/>
+							<field name="job_id" />
+							<field name="manager_id" domain="[('job_id', '=', job_id), ('department_id', '=', active_id)]"/>
+							<field name="analytic_tag_id" domain="[('company_id', '=', company_id), ('branch_id', '=', branch_id)]" required="1"/>
+							<field name="approve_manager"/>
+						</group>
+					</group>
+				</xpath>
+			</field>
+		</record>
+
+		<record id="view_department_tree_inherit_job" model="ir.ui.view">
+			<field name="name">hr.department.tree.inherit</field>
+			<field name="model">hr.department</field>
+			<field name="inherit_id" ref="hr.view_department_tree" />
+			<field name="arch" type="xml">
+				<field name="manager_id" position="after">
+					<field name="job_id"/>
+					<field name="branch_id"/>
+				</field>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="hr_applicant_view_form_inherit">
+			<field name="name">Jobs - Recruitment Form</field>
+			<field name="model">hr.applicant</field>
+			<field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='company_id']" position="after">
+					<field name="branch_id" domain="[('company_id', '=', company_id)]" />
+				</xpath>
+			</field>
+		</record>
+
+	</data>
+</odoo>

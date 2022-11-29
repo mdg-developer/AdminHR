@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record model="ir.ui.view" id="view_employee_transfer_tree">
+			<field name="name">hr.transfer.tree</field>
+			<field name="model">hr.transfer</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Transfers">
+					<field name="name"/>
+                	<field name="employee_id"/>
+                	<field name="date"/>
+	                <field name="company_id"/>
+	                <field name="new_company_id"/>
+	                <field name="state"/>
+					</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_employee_transfer_form">
+			<field name="name">hr.transfer.form</field>
+			<field name="model">hr.transfer</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Transfers">
+				    <header>
+				        <button name="button_request" states="draft" string="Request" type="object" class="oe_highlight" groups="hr.group_hr_user"/>
+				        <button name="button_approve" states="request" string="Approve" type="object" class="oe_highlight" groups="hr.group_hr_manager"/>
+				        <button name="cancel_request" states="draft,request" string="Cancel" type="object" groups="hr.group_hr_manager"/>
+						<button name="button_done" states="transfer" string="Done" type="object" class="oe_highlight" groups="hr.group_hr_manager"/>
+						<button name="button_draft" states="cancel" string="Reset to Draft" type="object" class="btn-secondary" groups="hr.group_hr_user"/>
+	                    <field name="state" widget="statusbar" statusbar_visible="draft,request,transfer,done" />
+	                </header>
+					<sheet>
+					    <div class="oe_title">
+						    <h1>
+						        <field name="transfer_no" readonly="1"/>
+						    </h1>
+						</div>
+						<group>
+	                        <group>
+	                            <field name="date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+	                            <field name="employee_id" attrs="{'readonly': [('state', '!=', 'draft')]}" />
+	                            <field name="company_id" groups="base.group_multi_company" readonly="1" force_save="1"/>
+	                            <field name="branch_id" readonly="1" force_save="1"/>
+	                            <field name="department_id" readonly="1" force_save="1"/>
+	                            <field name="job_id" readonly="1" force_save="1"/>
+								<field name="requested_employee_id" readonly="1" attrs="{'invisible': [('requested_employee_id', '=', False)]}"/>
+	                            <field name="approved_employee_id" readonly="1" attrs="{'invisible': [('approved_employee_id', '=', False)]}"/>
+	                        </group>
+	                        <group>
+	                            <field name="new_company_id" required="1"  groups="base.group_multi_company" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+	                            <field name="new_branch_id" required="1" domain="['|', ('company_id', '=', False), ('company_id', '=', new_company_id)]" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+	                            <field name="new_department_id" required="1"  domain="['|', ('branch_id', '=', False), ('branch_id', '=', new_branch_id)]" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+	                            <field name="new_job_id" required="1"  domain="['|', ('branch_id', '=', False), ('branch_id', '=', new_branch_id)]" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+	                            <field name="new_job_grade_id" required="1" />
+								<field name="new_salary_level_id" required="1" />
+								<field name="new_wage" required="1" />
+								<field name="responsible"  options="{'no_create': True}" invisible="1"/>
+	                        </group>
+	                    </group>
+	                    <notebook colspan="4">
+	                        <page string="Internal Notes" >
+	                            <field name="note"/>
+	                        </page>
+	                    </notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		<record id="transfer_sequence_id" model="ir.sequence">           
+            <field name="name">Transfer NO</field>           
+            <field name="code">transfer.code</field>
+            <field name="prefix">TRAN</field>
+            <field eval="6" name="padding"/>
+        </record>
+		<record model="ir.actions.act_window" id="open_view_employee_transfer_form">
+			<field name="name">Transfers</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">hr.transfer</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_employee_transfer_tree" />
+		</record>
+
+		<menuitem id="menu_employee_transfer" name="Transfers" groups="hr.group_hr_manager"
+				  action="open_view_employee_transfer_form" sequence="59"/>
+	</data>
+</odoo>

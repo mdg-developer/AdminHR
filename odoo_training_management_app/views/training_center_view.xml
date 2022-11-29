@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_training_center_form" model="ir.ui.view">
+                <field name="name">training.center.form</field>
+                <field name="model">emp.training.center</field>
+                <field name="arch" type="xml">
+                    <form>
+                        <sheet>
+                            <h1>
+                              <field name="name" class="o_training_centre_name" placeholder="Training Centre Name..."/>
+                            </h1>
+                            <group>
+                                <group>
+                                    <field name='code'/>
+                                </group>
+                                <group>
+                                    <field name='partner_id'/>
+                                </group>
+                            </group>
+                        </sheet>
+                    </form>
+                </field>
+        </record>
+
+        <record id="view_training_centre_tree" model="ir.ui.view">
+                <field name="name">training.center.tree</field>
+                <field name="model">emp.training.center</field>
+                <field name="arch" type="xml">
+                    <tree>
+                        <field name='code'/>
+                        <field name='name'/>
+                        <field name='partner_id'/>
+                    </tree>
+                </field>
+        </record>
+
+        <record id="view_training_center_search" model="ir.ui.view">
+                <field name="name">training.center.search</field>
+                <field name="model">emp.training.center</field>
+                <field name="arch" type="xml">
+                    <search>
+                        <field name='code'/>
+                        <field name='name'/>
+                        <field name='partner_id'/>
+                        <group expand="1" string="Group By">
+                            <filter name='Training Center Location' context="{'group_by':'partner_id'}"/>
+                        </group>
+                    </search>
+                </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_training_center">
+            <field name="name">Training Centers</field>
+            <field name="res_model">emp.training.center</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+    </data>
+   
+</odoo>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+         
+
+		<!-- Report Form -->
+		<record id="view_hr_report_form" model="ir.ui.view">
+			<field name="name">report_Form</field>
+			<field name="model">hr.report.url</field>
+			<field name="arch" type="xml">
+				<form string="Report URL" version="8.0">
+
+					<sheet>
+						<separator string="Report Form" />
+						<group>
+							<field name="url_name" />
+							<field name='url_link'/>
+
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+        
+		<record id="view_hr_report_filter" model="ir.ui.view">
+			<field name="name">Local_Cloud Filter</field>
+			<field name="model">hr.report.url</field>
+			<field name="arch" type="xml">
+				<search string="Filters">
+
+					<group expand="0" string="Group By">
+						
+						<filter string="Local Server" name="local_cloud" domain="[('local_cloud','=','local')]" />
+
+					</group>
+				</search>
+			</field>
+		</record>
+		
+		<!-- Report URL Tree -->
+		<record id="view_hr_report_tree" model="ir.ui.view">
+			<field name="name">report_Tree</field>
+			<field name="model">hr.report.url</field>
+			<field name="arch" type="xml">
+				<tree string="Report URL">
+					<button name="go_report" string="Scrap Products" icon="fa-play" type="object" />
+					<field name="url_name" />
+				</tree>
+			</field>
+		</record>
+
+
+
+		<!-- Report URL Action -->
+		<record id="menu_hr_report_action" model="ir.actions.act_window">
+			<field name="name">HR Reports</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">hr.report.url</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_hr_report_tree"/>
+		</record>
+
+		
+		<menuitem id="action_hr_report_url_id"
+				  web_icon="reports_url,static/description/report.png"
+				  action="menu_hr_report_action"
+				  name="HR Reports"
+				  parent="hr_payroll.menu_hr_payroll_report"
+				  sequence="209"
+		    />
+		
+	</data>
+</odoo>

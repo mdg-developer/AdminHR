@@ -1,0 +1,98 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="hr_pocket_expense_tree">
+            <field name="name">hr.pocket.expense.list</field>
+            <field name="model">hr.pocket.expense</field>
+            <field name="arch" type="xml">
+                <tree string="Out of Pocket Expense">
+                    <field name="number" />
+                    <field name="date" />                    
+                    <field name="employee_id" />                    
+                    <field name="state" />
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_pocket_expense_form">
+            <field name="name">hr.pocket.expense.form</field>
+            <field name="model">hr.pocket.expense</field>
+            <field name="arch" type="xml">
+                <form string="Out of Pocket Expense">
+                    <header>
+						<!-- <button name="action_reject" states="submit,approve" type="object" string="Reject"/> -->
+                  		<button name="action_submit" states="draft" type="object" string="Submit"/>
+                  		<button name="action_approve" states="submit" type="object" string="Approve" groups="hr_ext.group_branch_manager"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,submit,approve,finance_approve"/>
+                        <button name="action_finance_approve" states="approve" type="object" string="Finance Approve" groups="account.group_account_user"/>
+                    </header>
+                    <sheet>                        
+                        <div class="oe_title">
+                            <h1>
+                                <field name="number" readonly="1" force_save="1"/>
+                            </h1>
+                        </div>
+                        <group col="4">
+                            <field name="date" attrs="{'readonly': [('state', 'in', ('finance_approve','reconcile','reject'))]}"/>
+                            <field name="employee_id" attrs="{'readonly': [('state', 'in', ('approve','finance_approve','reconcile','reject'))]}"/>
+                            <field name="company_id" attrs="{'readonly': [('state', 'in', ('approve','finance_approve','reconcile','reject'))]}" groups="base.group_multi_company"/>
+                        </group>
+                        <group >
+                            
+                        </group>
+                        <notebook>
+                            
+                            <page string="Pocket Expense Line">
+                                <field name="enable_line_edit" invisible="1"/>
+                                <field name="pocket_line" context="{'default_company_id': company_id}" attrs="{'readonly': [('enable_line_edit', '=', False)]}">
+                                    <tree string="Pocket Expense Line" editable="bottom">
+                                        <field name="company_id" invisible="1"/>
+                                        <field name="date" />
+                                        <field name="categ_id" />
+                                        <field name="product_id" />
+<!--                                         <field name="product_id" domain="[('categ_id', '=', categ_id), '|', ('company_id', '=', parent.company_id), ('company_id', '=', False)]"/> -->
+                                        <field name="expense_title" invisible="1" />
+                                        <field name="expense" invisible="1" />
+                                        <field name="vehicle_id" domain="['|', ('company_id', '=', parent.company_id), ('company_id', '=', False)]" />
+                                        <field name="description" />
+                                        <field name="qty" />
+                                        <field name="price_unit"/>
+                                        <field name="price_subtotal"/>
+                                        <field name="analytic_account_id" />
+                                        <field name="analytic_tag_ids" widget="many2many_tags"/>
+                                        <field name="attached_file"/>
+                                    </tree>
+                                </field>
+                            </page>  
+                            
+                        </notebook>
+                    </sheet>
+                    
+                </form>
+            </field>
+        </record>
+
+        <record id="view_hr_pocket_expense_filter" model="ir.ui.view">
+			<field name="name">hr.pocket.expense.view.filter</field>
+			<field name="model">hr.pocket.expense</field>
+			<field name="arch" type="xml">
+                <search string="Out of Pocket Expense">
+                    <field name="company_id" />
+                    <separator/>
+					<filter string="Selected Company" name="selected_company" domain="[('company_id', 'in', allowed_company_ids)]" />
+                </search>
+			</field>
+		</record>
+
+        <record model="ir.actions.act_window" id="hr_pocket_expense_action">
+            <field name="name">Out Of Pocket Expense</field>
+            <field name="res_model">hr.pocket.expense</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"search_default_selected_company":1}</field>
+			<field name="search_view_id" ref="view_hr_pocket_expense_filter" />
+        </record>
+		<menuitem id="menu_hr_pocket_expense" sequence="3" parent="hr_expense.menu_hr_expense_my_expenses" action="hr_pocket_expense_action"/>
+       
+
+    </data>
+</odoo>
