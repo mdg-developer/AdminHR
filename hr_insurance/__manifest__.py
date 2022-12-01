@@ -16,6 +16,7 @@ Insurance
             'views/hr_insurance_view.xml',
             'views/hr_claims_view.xml',
 
+
     ],    
     'installable': True,
     'auto_install': False,

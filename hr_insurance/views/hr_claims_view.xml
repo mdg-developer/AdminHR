@@ -51,5 +51,6 @@
 		</record>
 
 		<menuitem id="menu_hr_claims" name="Claims" parent="menu_hr_insurance" action="open_view_hr_claims_form" sequence="2" />
+
 	</data>
 </odoo>

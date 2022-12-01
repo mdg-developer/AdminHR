@@ -150,3 +150,5 @@ class HrEmployee(models.Model):
         self.insurance_count = self.env['hr.insurance'].search_count([('employee_id', '=', self.id)])
 
     insurance_count = fields.Integer(string="Insurance Count", compute='_compute_employee_insurance')
+
+
