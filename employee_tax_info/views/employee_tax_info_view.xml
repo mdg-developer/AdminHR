@@ -31,7 +31,14 @@
 						<field name="financial_year" />
 					</group>
  				</xpath>
+				<xpath expr="//sheet/notebook/page[@name='personal_information']/group/group[2]" position="inside">
+					<field name="bus_stop_id"/>
+					<field name="ferry_car_no"/>
+					<field name="ferry_route_name"/>
+				</xpath>
             </field>
 		</record>
+
+
     </data>
 </odoo>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_employee_bus" model="ir.actions.act_window">
+        <field name="name">employee.bus.form</field>
+        <field name="res_model">employee.bus</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <field name="employee_bus"/>
+        </field>
+    </record>
+    <menuitem id="menu_employee_bus"
+              name="Bus Stop"
+              parent="hr_insurance.menu_hr_insurance"
+              action="action_employee_bus"
+              sequence="3" />
+
+</odoo>

@@ -14,4 +14,14 @@ class EmployeeTaxInfo(models.Model):
     salary_total = fields.Float(string='Previous Income Total')
     tax_paid = fields.Float(string='Previous Tax Paid')
     financial_year = fields.Many2one('account.fiscal.year', string='Financial Year')
-# '|', ('company_id', '=', False), ('company_id', '=', company_id), '|', ('branch_id', '=', False), 
+    bus_stop_id = fields.Many2one('employee.bus', string='Bus Stop')
+    ferry_car_no = fields.Many2one('fleet.vehicle')
+    ferry_route_name = fields.Many2one('route.plan')
+
+
+class EmployeeBus(models.Model):
+    _name = 'employee.bus'
+
+    employee_bus = fields.Selection([('bus stop', 'Bus Stop'),
+                                     ('min lan', 'Min Lan'),
+                                     ('street', 'Street')], string="Status", default='name')
