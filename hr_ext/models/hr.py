@@ -144,11 +144,19 @@ class JobLine(models.Model):
     company_id = fields.Many2one('res.company', string='Company')
     branch_id = fields.Many2one('res.branch', string='Branch')
     department_id = fields.Many2one('hr.department', string='Department')
-    total_employee  = fields.Integer(string='Expected Total Employee')
+    total_employee  = fields.Integer(compute='_get_total_employee', string='Expected Total Employee')
     current_employee = fields.Integer(compute='_get_current_employee', string='Current Employee', readonly=True) 
     new_employee = fields.Integer(compute='_get_new_employee', string='Expected New Employee', readonly=True)
     expected_new_employee  = fields.Integer(string='New Employee')
     upper_position = fields.Many2one('hr.job', string='Upper Position')
+    normal_employee  = fields.Integer(string='Normal Employee')
+    urgent_employee  = fields.Integer(string='Urgent Employee')
+
+    @api.depends('normal_employee', 'urgent_employee')
+    def _get_total_employee(self):
+        for line in self:
+            line.total_employee = line.normal_employee + line.urgent_employee
+
 
     def write(self, vals):
         old_job_id = old_manager_id = False
