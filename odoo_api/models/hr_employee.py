@@ -2940,7 +2940,7 @@ class HrEmployeePrivate(models.Model):
         date_range = []
         if company_id:
             today_date = fields.Date.today()
-            fiscal_year = self.env['account.fiscal.year'].sudo().search([('date_from', '<=', today_date),
+            fiscal_year = self.env['hr.fiscal.year'].sudo().search([('date_from', '<=', today_date),
                                                                         ('date_to', '>=', today_date),
                                                                         ('company_id', '=', company_id)])
             if fiscal_year:
