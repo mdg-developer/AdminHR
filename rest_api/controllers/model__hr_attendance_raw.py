@@ -42,6 +42,9 @@ OUT__hr_attendance_raw__read_all__SUCCESS_CODE = 200       # editable
 #           "results": [
 OUT__hr_attendance_raw__read_all__SCHEMA = (                 # editable
     'id',
+    'fingerprint_id',
+    'employee_name',
+    'attendance_datetime',
 )
 #           ]
 #       }
@@ -68,7 +71,10 @@ OUT__hr_attendance_raw__read_one__SUCCESS_CODE = 200       # editable
 OUT__hr_attendance_raw__read_one__SCHEMA = (                 # editable
     # (The order of fields of different types can be arbitrary)
     # simple fields (non relational):
-    'id',    
+    'id',
+    'fingerprint_id',
+    'employee_name',
+    'attendance_datetime',
 )
 
 # /api/hr.attendance.raw  POST  - Create one
