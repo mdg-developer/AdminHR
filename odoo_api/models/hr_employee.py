@@ -2968,7 +2968,31 @@ class HrEmployeePrivate(models.Model):
                     for att in attendances:
                         result.append(att.id)
         return result
-    
+
+    def get_self_attendance_raw(self, employee_id):
+        result = []
+        if employee_id:
+            employee_id = int(employee_id)
+            emp_id = self.env['hr.employee'].sudo().search([('id', '=', employee_id)])
+            if emp_id:
+                fingerprint_id = emp_id.fingerprint_id
+                today_date = fields.Date.today()
+                first_day_of_month = fields.Date.today().replace(day=1)
+                one_month_before = today_date - timedelta(days=30)
+                print("1st day of month : ", first_day_of_month)
+                print("1 month before : ", one_month_before)
+                self.env.cr.execute("""
+                    select id from hr_attendance_raw  
+                where fingerprint_id = %s and attendance_datetime::date >= %s and create_date::date >= %s
+                    """,(fingerprint_id,first_day_of_month,one_month_before,))
+                attendance = set(res[0] for res in self.env.cr.fetchall())
+                if attendance:
+                    attendances = self.env['hr.attendance.raw'].sudo().search([('id', 'in', tuple(attendance))], order='attendance_datetime desc')
+                    if attendances:
+                        for att in attendances:
+                            result.append(att.id)
+        return result
+
     def get_employee_changes_list(self, employee_id):
         result = []
         if employee_id:
