@@ -70,21 +70,21 @@ class HrJob(models.Model):
                         
     total_employee  = fields.Integer(string='Expected Total Employee',compute='compute_total_employee')
     #total_employee  = fields.Integer(string='Expected Total Employee')
-    new_employee  = fields.Integer(string='Expected New Employee')
-    current_employee  = fields.Integer(string='Current Employee',compute='compute_current_employee')
-    job_grade_id  = fields.Many2one('job.grade', string='Job Grade')    
+    new_employee = fields.Integer(string='Expected New Employee')
+    current_employee = fields.Integer(string='Current Employee',compute='compute_current_employee')
+    job_grade_id = fields.Many2one('job.grade', string='Job Grade')
     skill_line = fields.One2many('skill.line', 'job_id', string='Skill')     
     job_line = fields.One2many('job.line', 'job_id', string='Job')
     no_of_recruitment = fields.Integer(string='Expected New Employees', copy=False,
         help='Number of new employees you expect to recruit.',compute='compute_total_new_employee')   
     appraisal_count = fields.Integer(string='Appraisals')
-    benefit  = fields.Char('Benefit')  
+    benefit = fields.Char('Benefit')
     benefit_count = fields.Integer(compute='_compute_benefit_ids', string="Benefit Count")
-    branch_id  = fields.Many2one('res.branch', string='Branch')    
+    branch_id = fields.Many2one('res.branch', string='Branch')
     template_id = fields.Many2one('performance.template', string='Key Performance Template')
     comp_template_id = fields.Many2one('competencies.template', string='Competency Template')
     company_id = fields.Many2one('res.company', string='Company', default=False)
-    jd_summary  = fields.Char(string='JD Summary')
+    jd_summary = fields.Char(string='JD Summary')
     
 class SkillLine(models.Model):    
     _name = 'skill.line'    
@@ -144,13 +144,13 @@ class JobLine(models.Model):
     company_id = fields.Many2one('res.company', string='Company')
     branch_id = fields.Many2one('res.branch', string='Branch')
     department_id = fields.Many2one('hr.department', string='Department')
-    total_employee  = fields.Integer(compute='_get_total_employee', string='Expected Total Employee')
+    total_employee = fields.Integer(compute='_get_total_employee', string='Expected Total Employee')
     current_employee = fields.Integer(compute='_get_current_employee', string='Current Employee', readonly=True) 
     new_employee = fields.Integer(compute='_get_new_employee', string='Expected New Employee', readonly=True)
-    expected_new_employee  = fields.Integer(string='New Employee')
+    expected_new_employee = fields.Integer(string='New Employee')
     upper_position = fields.Many2one('hr.job', string='Upper Position')
-    normal_employee  = fields.Integer(string='Normal Employee')
-    urgent_employee  = fields.Integer(string='Urgent Employee')
+    normal_employee = fields.Integer(string='Normal Employee')
+    urgent_employee = fields.Integer(string='Urgent Employee')
 
     @api.depends('normal_employee', 'urgent_employee')
     def _get_total_employee(self):
@@ -201,6 +201,19 @@ class JobLine(models.Model):
 class Applicant(models.Model):
     _inherit = "hr.applicant"
     _description = "Applicant"
+
+    date_of_birth = fields.Date('Date Of Birth')
+    nrc = fields.Char('NRC')
+    qualification = fields.Char('Qualification')
+    applied_date = fields.Date('Applied Date')
+    noticed_period = fields.Char('Noticed Period')
+    send_offer = fields.Char('Send Offer')
+    offer_date = fields.Date('Offer Date')
+    current_company = fields.Char('Current Company')
+    current_position = fields.Char('Current Position')
+    current_salary = fields.Integer('Current Salary')
+    final_interview = fields.Date('Final Interview Date')
+
 
     branch_id = fields.Many2one('res.branch', string='Branch')
 

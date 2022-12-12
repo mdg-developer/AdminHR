@@ -180,6 +180,40 @@
 				<xpath expr="//field[@name='company_id']" position="after">
 					<field name="branch_id" domain="[('company_id', '=', company_id)]" />
 				</xpath>
+				<xpath expr="//field[@name='type_id']" position="after">
+					<field name="nrc"/>
+					<field name="date_of_birth"/>
+				</xpath>
+				<xpath expr="//field[@name='source_id']" position="after">
+					<field name="noticed_period"/>
+				</xpath>
+				<xpath expr="//field[@name='branch_id']" position="after">
+					<field name="send_offer"/>
+					<field name="offer_date"/>
+					<field name="applied_date"/>
+				</xpath>
+				<xpath expr="//field[@name='availability']" position="after">
+					<field name="current_company"/>
+					<field name="current_position"/>
+					<field name="current_salary"/>
+				</xpath>
+<!--				<xpath expr="//notebook[@name='studio_notebook_fxHx1']/page[@name='studio_page_fxHx1']/group[@name='studio_group_fxHx1']/group[@name='studio_group_fxHx1_left']/field[@name='x_studio_second_interview_date']" position="after">-->
+<!--					<field name="final_interview"/>-->
+<!--				</xpath>-->
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="hr_applicant_view_form_inherit_final_interview">
+			<field name="name">Jobs - Recruitment Form- Final Interview</field>
+			<field name="model">hr.applicant</field>
+			<field name="inherit_id" ref="studio_customization.odoo_studio_jobs_rec_dc071a41-0cb0-4703-8db5-098a6b9a2228" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='x_studio_first_interview_date']" position="after">
+					<field name="final_interview"/>
+				</xpath>
+<!--				<xpath expr="//notebook[@name='studio_notebook_fxHx1']/page[@name='studio_page_fxHx1']/group[@name='studio_group_fxHx1']/group[@name='studio_group_fxHx1_left']/field[@name='x_studio_second_interview_date']" position="after">-->
+<!--					<field name="final_interview"/>-->
+<!--				</xpath>-->
 			</field>
 		</record>
 
