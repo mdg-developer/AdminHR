@@ -185,21 +185,24 @@
 					<field name="date_of_birth"/>
 				</xpath>
 				<xpath expr="//field[@name='source_id']" position="after">
+					<field name="qualification"/>
 					<field name="noticed_period"/>
 				</xpath>
 				<xpath expr="//field[@name='branch_id']" position="after">
 					<field name="send_offer"/>
 					<field name="offer_date"/>
 					<field name="applied_date"/>
+					<field name="hod_name"/>
+					<field name="date_of_send"/>
+					<field name="hr_received_date"/>
 				</xpath>
 				<xpath expr="//field[@name='availability']" position="after">
 					<field name="current_company"/>
 					<field name="current_position"/>
 					<field name="current_salary"/>
+					<field name="employment_status"/>
+					<field name="cv_attached"/>
 				</xpath>
-<!--				<xpath expr="//notebook[@name='studio_notebook_fxHx1']/page[@name='studio_page_fxHx1']/group[@name='studio_group_fxHx1']/group[@name='studio_group_fxHx1_left']/field[@name='x_studio_second_interview_date']" position="after">-->
-<!--					<field name="final_interview"/>-->
-<!--				</xpath>-->
 			</field>
 		</record>
 
@@ -211,9 +214,6 @@
 				<xpath expr="//field[@name='x_studio_first_interview_date']" position="after">
 					<field name="final_interview"/>
 				</xpath>
-<!--				<xpath expr="//notebook[@name='studio_notebook_fxHx1']/page[@name='studio_page_fxHx1']/group[@name='studio_group_fxHx1']/group[@name='studio_group_fxHx1_left']/field[@name='x_studio_second_interview_date']" position="after">-->
-<!--					<field name="final_interview"/>-->
-<!--				</xpath>-->
 			</field>
 		</record>
 

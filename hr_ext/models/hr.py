@@ -198,6 +198,8 @@ class JobLine(models.Model):
                                 #     if direct_mng:
                                 #         employee.write({'manager_job_id': job_line.upper_position.id, 'parent_id': direct_mng.id})
 
+
+
 class Applicant(models.Model):
     _inherit = "hr.applicant"
     _description = "Applicant"
@@ -213,6 +215,12 @@ class Applicant(models.Model):
     current_position = fields.Char('Current Position')
     current_salary = fields.Integer('Current Salary')
     final_interview = fields.Date('Final Interview Date')
+    date_of_send = fields.Date('Date Of Send To HOD')
+    hr_received_date = fields.Date('Hr Received Date')
+    employment_status = fields.Many2one('employment.new.status')
+    cv_attached = fields.Char('CV Attached')
+    hod_name = fields.Char('HOD Name')
+
 
 
     branch_id = fields.Many2one('res.branch', string='Branch')

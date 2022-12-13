@@ -231,7 +231,7 @@ Group by us.name]]></xml-property>
             <property name="marginBottom">13px</property>
             <property name="textAlign">justify</property>
             <property name="contentType">auto</property>
-            <text-property name="content"><![CDATA[                                             Source of Here]]></text-property>
+            <text-property name="content"><![CDATA[                                             Source of Hire]]></text-property>
         </text>
         <grid id="4825">
             <property name="height">0.34375in</property>
