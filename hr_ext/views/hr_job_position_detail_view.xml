@@ -13,6 +13,8 @@
 				<field name="total_employee"/>
 				<field name="current_employee"/>
 				<field name="new_employee"/>
+<!--				<field name="requisition_date"/>-->
+<!--				<field name="job_announcement_date"/>-->
 			</tree>
 		</field>
 	</record>
@@ -36,6 +38,8 @@
 							<field name="total_employee"/>
 							<field name="current_employee"/>
 							<field name="new_employee"/>
+							<field name="requisition_date"/>
+							<field name="job_announcement_date"/>
 						</group>
 				    </group>
 				</sheet>
