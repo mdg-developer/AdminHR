@@ -225,6 +225,7 @@ class Applicant(models.Model):
 
 
     branch_id = fields.Many2one('res.branch', string='Branch')
+    replace_for = fields.Boolean(string='Replace For?', default=False)
 
     def create_employee_from_applicant(self):
         """ Create an hr.employee from the hr.applicants """
