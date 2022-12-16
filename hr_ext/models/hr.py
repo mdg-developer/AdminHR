@@ -151,7 +151,8 @@ class JobLine(models.Model):
     upper_position = fields.Many2one('hr.job', string='Upper Position')
     normal_employee = fields.Integer(string='Normal Employee')
     urgent_employee = fields.Integer(string='Urgent Employee')
-
+    requisition_date = fields.Date(string="Requisition Date")
+    job_announcement_date = fields.Date(string="Job Announcement Date")
     @api.depends('normal_employee', 'urgent_employee')
     def _get_total_employee(self):
         for line in self:
@@ -224,6 +225,7 @@ class Applicant(models.Model):
 
 
     branch_id = fields.Many2one('res.branch', string='Branch')
+    replace_for = fields.Boolean(string='Replace For?', default=False)
 
     def create_employee_from_applicant(self):
         """ Create an hr.employee from the hr.applicants """

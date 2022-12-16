@@ -180,6 +180,10 @@
 				<xpath expr="//field[@name='company_id']" position="after">
 					<field name="branch_id" domain="[('company_id', '=', company_id)]" />
 				</xpath>
+				<xpath expr="//field[@name='source_id']" position="after">
+					<field name="replace_for" />
+					<field name="employee_id" attrs="{'invisible': [('replace_for', '=', False)], 'required': [('replace_for', '=', True)]}" />
+				</xpath>
 				<xpath expr="//field[@name='type_id']" position="after">
 					<field name="nrc"/>
 					<field name="date_of_birth"/>

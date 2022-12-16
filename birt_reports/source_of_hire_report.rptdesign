@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.24" id="1">
-    <property name="createdBy">Eclipse BIRT Designer Version 4.12.0.v202211220955</property>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.10.0.v202204260816</property>
     <property name="units">in</property>
     <property name="iconFile">/templates/blank_report.gif</property>
     <property name="bidiLayoutOrientation">ltr</property>
@@ -12,6 +12,24 @@
         </structure>
     </list-property>
     <parameters>
+        <scalar-parameter name="company_id" id="4875">
+            <text-property name="promptText">Company</text-property>
+            <property name="valueType">dynamic</property>
+            <property name="isRequired">true</property>
+            <property name="dataSetName">company</property>
+            <expression name="valueExpr" type="javascript">dataSetRow["id"]</expression>
+            <expression name="labelExpr" type="javascript">dataSetRow["name"]</expression>
+            <property name="dataType">integer</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">list-box</property>
+            <property name="mustMatch">true</property>
+            <property name="fixedOrder">true</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
         <scalar-parameter name="from_date" id="4702">
             <text-property name="promptText">From Date</text-property>
             <property name="valueType">static</property>
@@ -42,13 +60,8 @@
         </scalar-parameter>
     </parameters>
     <data-sources>
-        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="110"
- extends="report_library.Data Source">
-            <property name="odaDriverClass">org.postgresql.Driver</property>
-            <property name="odaURL">jdbc:postgresql://localhost:5433/mdg_hr_5_12_2022_mdg</property>
-            <property name="odaUser">odoo</property>
-            <encrypted-property name="odaPassword" encryptionID="base64">YWRtaW4=</encrypted-property>
-        </oda-data-source>
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="4873"
+ extends="report_library.Data Source"/>
     </data-sources>
     <data-sets>
         <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="Data Set" id="4704">
@@ -87,6 +100,16 @@
                     <property name="isInput">true</property>
                     <property name="isOutput">false</property>
                 </structure>
+                <structure>
+                    <property name="name">company_id</property>
+                    <property name="paramName">company_id</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                    <property name="position">3</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
             </list-property>
             <structure name="cachedMetaData">
                 <list-property name="resultSet">
@@ -122,45 +145,17 @@
             <xml-property name="queryText"><![CDATA[select us.name,
 count(DISTINCT(hp.id))
 from hr_employee he
-left join hr_applicant hp on he.id = hp.emp_id
-left join utm_source us on us.id = hp.source_id
+inner join hr_applicant hp on (he.id = hp.emp_id)
+inner join utm_source us on (us.id = hp.source_id)
+inner join hr_recruitment_stage stage on (hp.stage_id = stage.id)
 where he.joining_date between ? and ?
-Group by us.name]]></xml-property>
+and he.active=true
+and stage.name='Contract Signed'
+and he.company_id=?
+group by us.name]]></xml-property>
             <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
   <Version>2.0</Version>
-  <DataSetParameters>
-    <parameter>
-      <design:ParameterDefinition>
-        <design:inOutMode>In</design:inOutMode>
-        <design:attributes>
-          <design:identifier>
-            <design:name></design:name>
-            <design:position>1</design:position>
-          </design:identifier>
-          <design:nativeDataTypeCode>91</design:nativeDataTypeCode>
-          <design:precision>0</design:precision>
-          <design:scale>0</design:scale>
-          <design:nullability>Unknown</design:nullability>
-        </design:attributes>
-      </design:ParameterDefinition>
-    </parameter>
-    <parameter>
-      <design:ParameterDefinition>
-        <design:inOutMode>In</design:inOutMode>
-        <design:attributes>
-          <design:identifier>
-            <design:name></design:name>
-            <design:position>2</design:position>
-          </design:identifier>
-          <design:nativeDataTypeCode>91</design:nativeDataTypeCode>
-          <design:precision>0</design:precision>
-          <design:scale>0</design:scale>
-          <design:nullability>Unknown</design:nullability>
-        </design:attributes>
-      </design:ParameterDefinition>
-    </parameter>
-  </DataSetParameters>
   <design:ResultSets derivedMetaData="true">
     <design:resultSetDefinitions>
       <design:resultSetColumns>
@@ -212,6 +207,109 @@ Group by us.name]]></xml-property>
   </design:ResultSets>
 </model:DesignValues>]]></xml-property>
         </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="company" id="4874">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">id</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">id</text-property>
+                    <text-property name="heading">id</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">name</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">name</text-property>
+                    <text-property name="heading">name</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">id</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">id</property>
+                    <property name="nativeName">id</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">name</property>
+                    <property name="nativeName">name</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[select id,name
+from res_company
+order by name;]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>id</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>id</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>id</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>name</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>2147483647</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>name</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>name</design:label>
+            <design:formattingHints>
+              <design:displaySize>2147483647</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
     </data-sets>
     <page-setup>
         <simple-master-page name="Simple MasterPage" id="2">
@@ -224,31 +322,46 @@ Group by us.name]]></xml-property>
         </simple-master-page>
     </page-setup>
     <body>
-        <text id="4723">
+        <data id="4876">
             <property name="fontFamily">sans-serif</property>
-            <property name="fontSize">17px</property>
+            <property name="fontSize">12pt</property>
             <property name="fontWeight">bold</property>
-            <property name="marginBottom">13px</property>
-            <property name="textAlign">justify</property>
-            <property name="contentType">auto</property>
-            <text-property name="content"><![CDATA[                                             Source of Hire]]></text-property>
-        </text>
+            <property name="textAlign">center</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">company_id</property>
+                    <expression name="expression" type="javascript">params["company_id"].displayText</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+            </list-property>
+            <property name="resultSetColumn">company_id</property>
+        </data>
+        <label id="4877">
+            <property name="fontFamily">sans-serif</property>
+            <property name="fontSize">12pt</property>
+            <property name="fontWeight">bold</property>
+            <property name="textAlign">center</property>
+            <text-property name="text">Source of Hire</text-property>
+        </label>
         <grid id="4825">
             <property name="height">0.34375in</property>
-            <property name="width">5.947916666666667in</property>
+            <property name="width">10.666666666666666in</property>
             <column id="4826">
-                <property name="width">2.3125in</property>
+                <property name="width">5.097222222222222in</property>
             </column>
             <column id="4827">
-                <property name="width">1.0729166666666667in</property>
+                <property name="width">0.4027777777777778in</property>
             </column>
             <column id="4828">
-                <property name="width">2.5625in</property>
+                <property name="width">5.166666666666667in</property>
             </column>
             <row id="4829">
                 <property name="height">0.34375in</property>
                 <cell id="4830">
                     <data id="4870">
+                        <property name="fontFamily">sans-serif</property>
+                        <property name="fontSize">10pt</property>
                         <property name="fontWeight">bold</property>
                         <property name="textAlign">right</property>
                         <list-property name="boundDataColumns">
@@ -263,6 +376,8 @@ Group by us.name]]></xml-property>
                 </cell>
                 <cell id="4831">
                     <label id="4854">
+                        <property name="fontFamily">sans-serif</property>
+                        <property name="fontSize">10pt</property>
                         <property name="fontWeight">bold</property>
                         <property name="textAlign">center</property>
                         <text-property name="text">to</text-property>
@@ -270,6 +385,8 @@ Group by us.name]]></xml-property>
                 </cell>
                 <cell id="4832">
                     <data id="4872">
+                        <property name="fontFamily">sans-serif</property>
+                        <property name="fontSize">10pt</property>
                         <property name="fontWeight">bold</property>
                         <list-property name="boundDataColumns">
                             <structure>
@@ -345,7 +462,7 @@ Group by us.name]]></xml-property>
                     <property name="height">0.28125in</property>
                     <cell id="4835">
                         <text id="4856">
-                            <property name="fontFamily">serif</property>
+                            <property name="fontFamily">sans-serif</property>
                             <property name="fontWeight">bold</property>
                             <property name="contentType">auto</property>
                             <text-property name="content"><![CDATA[Sr.]]></text-property>
@@ -357,6 +474,7 @@ Group by us.name]]></xml-property>
                         <property name="borderRightStyle">groove</property>
                         <property name="borderRightWidth">thin</property>
                         <text id="4857">
+                            <property name="fontFamily">sans-serif</property>
                             <property name="fontWeight">bold</property>
                             <property name="contentType">auto</property>
                             <text-property name="content"><![CDATA[Candidate Source]]></text-property>
@@ -364,6 +482,7 @@ Group by us.name]]></xml-property>
                     </cell>
                     <cell id="4837">
                         <text id="4858">
+                            <property name="fontFamily">sans-serif</property>
                             <property name="fontWeight">bold</property>
                             <property name="contentType">auto</property>
                             <text-property name="content"><![CDATA[No. of Candidate]]></text-property>
@@ -388,6 +507,7 @@ Group by us.name]]></xml-property>
                         <property name="borderRightStyle">groove</property>
                         <property name="borderRightWidth">thin</property>
                         <data id="4868">
+                            <property name="fontFamily">sans-serif</property>
                             <property name="textAlign">center</property>
                             <property name="resultSetColumn">Aggregation_1</property>
                         </data>
@@ -396,11 +516,21 @@ Group by us.name]]></xml-property>
                         <property name="borderRightStyle">groove</property>
                         <property name="borderRightWidth">thin</property>
                         <data id="4860">
+                            <property name="fontFamily">sans-serif</property>
                             <property name="resultSetColumn">name</property>
                         </data>
                     </cell>
                     <cell id="4841">
                         <data id="4861">
+                            <property name="fontFamily">sans-serif</property>
+                            <property name="borderBottomStyle">none</property>
+                            <property name="borderLeftStyle">none</property>
+                            <property name="borderRightStyle">none</property>
+                            <property name="borderTopStyle">none</property>
+                            <structure name="numberFormat">
+                                <property name="category">Currency</property>
+                                <property name="pattern">#,##0{RoundingMode=HALF_UP}</property>
+                            </structure>
                             <property name="textAlign">center</property>
                             <property name="resultSetColumn">count</property>
                         </data>
@@ -428,12 +558,21 @@ Group by us.name]]></xml-property>
                         <property name="borderRightStyle">groove</property>
                         <property name="borderRightWidth">thin</property>
                         <text id="4859">
+                            <property name="fontFamily">sans-serif</property>
+                            <property name="fontWeight">bold</property>
+                            <property name="textAlign">center</property>
                             <property name="contentType">auto</property>
                             <text-property name="content"><![CDATA[Grand Total]]></text-property>
                         </text>
                     </cell>
                     <cell id="4849">
                         <data id="4866">
+                            <property name="fontFamily">sans-serif</property>
+                            <property name="fontWeight">bold</property>
+                            <structure name="numberFormat">
+                                <property name="category">Currency</property>
+                                <property name="pattern">#,##0{RoundingMode=HALF_UP}</property>
+                            </structure>
                             <property name="textAlign">center</property>
                             <property name="resultSetColumn">Aggregation</property>
                         </data>

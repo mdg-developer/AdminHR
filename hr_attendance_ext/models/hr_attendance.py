@@ -138,14 +138,27 @@ class HrAttendance(models.Model):
                     week_type = int(math.floor((check_in.toordinal() - 1) / 7) % 2)
                     domain += [('week_type', '=', str(week_type))]
 
-                working_hours = self.env['resource.calendar.attendance'].search(domain)
+                if att.employee_id.is_roaster:
+                    working_hours = self.env['planning.slot'].search([('employee_id', '=', att.employee_id.id),
+                                                                      ('check_date', '=', att.check_in.date())])
+                else:
+                    working_hours = self.env['resource.calendar.attendance'].search(domain)
+
                 for wh in working_hours:
-                    hour_from = wh.hour_from + 0.000001
-                    hour_to = wh.hour_to + 0.000001
+                    if att.employee_id.is_roaster:
+                        start = (wh.start_datetime.hour + 6) + (wh.start_datetime.minute + 30) / 60
+                        end = (wh.end_datetime.hour + 6) + (wh.end_datetime.minute + 30) / 60
+                        wh_hour_from = start
+                        wh_hour_to = end
+                    else:
+                        wh_hour_from = wh.hour_from
+                        wh_hour_to = wh.hour_to
+                    hour_from = wh_hour_from
+                    hour_to = wh_hour_to
                     in_diff = out_diff = 0
-                    if round(wh.hour_from) == 0:
+                    if round(wh_hour_from) == 0:
                         out_diff = hour_to - out_float
-                    elif round(wh.hour_to) == 24:
+                    elif round(wh_hour_to) == 24:
                         in_diff = in_float - hour_from
                     else:
                         in_diff = in_float - hour_from
