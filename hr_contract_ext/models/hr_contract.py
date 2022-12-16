@@ -23,9 +23,9 @@ class Contract(models.Model):
     hotel_allowance = fields.Float('Hotel Allowance')
     cooker = fields.Boolean("Kitchen Staff",default=False,copy=False)
     structure_type_id = fields.Many2one('hr.payroll.structure.type', string="Salary Structure Type",tracking=True)
-    active = fields.Boolean(default=True,tracking=True)
-    ferry_name = fields.Boolean('Ferry', default=False)
-    ferry_ta = fields.Boolean('Ferry/TA', default=False)
+    active = fields.Boolean(default=True, tracking=True)
+    ferry_route_name = fields.Boolean('ferry', default=False)
+    ferry_route_ta = fields.Boolean('ferry/ta', default=False)
     traveling_allowance = fields.Char('Travelling Allowance')
 
     @api.onchange('struct_id')
