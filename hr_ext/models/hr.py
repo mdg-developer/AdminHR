@@ -200,6 +200,12 @@ class JobLine(models.Model):
                                 #         employee.write({'manager_job_id': job_line.upper_position.id, 'parent_id': direct_mng.id})
 
 
+class HrEmploymentStatus(models.Model):
+    _name = "employment.new.status"
+    _description = "Employment Status"
+
+    name = fields.Char('Employment Status')
+
 
 class Applicant(models.Model):
     _inherit = "hr.applicant"
@@ -302,3 +308,4 @@ class Applicant(models.Model):
         dict_act_window['context'] = {'form_view_initial_mode': 'edit'}
         dict_act_window['res_id'] = employee.id
         return dict_act_window
+
