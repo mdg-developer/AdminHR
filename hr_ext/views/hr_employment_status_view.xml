@@ -1,0 +1,17 @@
+  <odoo>
+       <!--   Employment Status     -->
+        <record id="action_hr_new_employment_status" model="ir.actions.act_window">
+                <field name="name">Hr Employment</field>
+                <field name="res_model">employment.new.status</field>
+                <field name="view_mode">tree,form</field>
+                <field name="help" type="html">
+                     <field name="name"/>
+                </field>
+        </record>
+        <menuitem
+            id="menu_hr_employment"
+            name="Employment Status"
+            parent="hr_recruitment.menu_hr_recruitment_configuration"
+            action="action_hr_new_employment_status"
+            sequence="12"/>
+  </odoo>
