@@ -45,8 +45,8 @@
 					<xpath expr="//group[@name='salary_and_advantages']" position="after">
 						<group>
 							<br><br></br></br><br></br>
-							<field name=" ferry_route_name" string="Ferry Name"/>
-							<field name="ferry_route_ta" string="Ferry/TA"/>
+							<field name="ferry_route" string="Ferry Name"/>
+							<field name="ferry_ta" string="Ferry/TA"/>
 							<field name="traveling_allowance" string="Travelling Allowance"/>
 						</group>
 					</xpath>

@@ -324,10 +324,10 @@ Group by us.name]]></xml-property>
                 </structure>
             </list-property>
             <column id="4850">
-                <property name="width">0.8333333333333334in</property>
+                <property name="width">0.7083333333333334in</property>
             </column>
             <column id="4851">
-                <property name="width">2.6354166666666665in</property>
+                <property name="width">2.7604166666666665in</property>
             </column>
             <column id="4852">
                 <property name="width">2.46875in</property>
