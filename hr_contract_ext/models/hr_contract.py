@@ -25,7 +25,7 @@ class Contract(models.Model):
     structure_type_id = fields.Many2one('hr.payroll.structure.type', string="Salary Structure Type",tracking=True)
     active = fields.Boolean(default=True, tracking=True)
     ferry_name = fields.Boolean('Ferry', default=False)
-    ferry_route = fields.Boolean('Ferry/Ta', default=False)
+    ferry_route = fields.Boolean('Ferry Ta', default=False)
     traveling_allowance = fields.Char('Travelling Allowance')
 
     @api.onchange('struct_id')
