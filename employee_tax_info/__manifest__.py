@@ -3,7 +3,7 @@
     'version': '1.0.0',
     'author': '7thcomputing',
     'license': 'AGPL-3',
-    'category': 'Employee',
+    'category': 'Employee Tax',
     'website': 'http://7thcomputing.com',
     'description': """
 

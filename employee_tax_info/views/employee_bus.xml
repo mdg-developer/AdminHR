@@ -2,10 +2,10 @@
 <odoo>
     <record id="action_employee_bus" model="ir.actions.act_window">
         <field name="name">employee.bus.form</field>
-        <field name="res_model">employee.bus</field>
+        <field name="res_model">employee.bus.route</field>
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
-            <field name="employee_bus"/>
+            <field name="name"/>
         </field>
     </record>
     <menuitem id="menu_employee_bus"
