@@ -41,6 +41,8 @@
 							<field name="requisition_date"/>
 							<field name="job_announcement_date"/>
 						</group>
+						<field name="job_description"/>
+						<field name="job_requirment"/>
 				    </group>
 				</sheet>
 			</form>

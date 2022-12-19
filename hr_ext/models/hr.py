@@ -1,5 +1,8 @@
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError, ValidationError
+from openerp import models, fields
+from openerp.osv import osv
+import re
 
 
 class HrJob(models.Model):    
@@ -85,6 +88,7 @@ class HrJob(models.Model):
     comp_template_id = fields.Many2one('competencies.template', string='Competency Template')
     company_id = fields.Many2one('res.company', string='Company', default=False)
     jd_summary = fields.Char(string='JD Summary')
+
     
 class SkillLine(models.Model):    
     _name = 'skill.line'    
@@ -153,6 +157,52 @@ class JobLine(models.Model):
     urgent_employee = fields.Integer(string='Urgent Employee')
     requisition_date = fields.Date(string="Requisition Date")
     job_announcement_date = fields.Date(string="Job Announcement Date")
+    job_description = fields.Html(string='Job Description')
+    job_requirment = fields.Html(string='Job Requirment')
+
+    def get_requirment(self):
+        if self.job_requirment:
+            data_one = self.job_requirment
+            reg = re.compile(r'<[^>]+>')
+            text = reg.sub('', data_one)
+        else:
+            text = ''
+        return text
+
+    @api.constrains('job_requirment')
+    def _check_emp_no(self):
+        if self.job_requirment:
+            rec = self.job_requirment
+            reg = re.compile(r'<[^>]+>')
+            text = reg.sub('', rec)
+
+            if len(text) < 3000:
+                raise ValidationError('Minimum must be fill 3000')
+
+    def get_description(self):
+        if self.job_description:
+            data = self.job_description
+            reg = re.compile(r'<[^>]+>')
+            text = reg.sub('', data)
+        else:
+            text = ''
+        return text
+
+    @api.constrains('job_description')
+    def _check_emp_no(self):
+        if self.job_description:
+            rec = self.job_description
+            reg = re.compile(r'<[^>]+>')
+            text = reg.sub('', rec)
+
+            if len(text) > 200 or len(text) < 8000:
+                raise ValidationError('Minimum must be 200 characters and Maximum 8000')
+
+
+
+
+
+
     @api.depends('normal_employee', 'urgent_employee')
     def _get_total_employee(self):
         for line in self:
