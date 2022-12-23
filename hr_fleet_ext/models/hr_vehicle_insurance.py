@@ -18,6 +18,7 @@ class VehicleInsurance (models.Model):
     nil_excess = fields.Float(string='Nil Excess')
     total_premium = fields.Float(string='Total Premium',readonly=True)
     expired_date = fields.Date(string='Expired Date')
+    insurance_company = fields.Char(string='Insurance Company')
     
     trailer_count = fields.Integer( string='Trainers History')
     

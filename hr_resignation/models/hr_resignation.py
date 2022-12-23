@@ -33,7 +33,7 @@ class HrResignation(models.Model):
 
     expected_revealing_date = fields.Date(string="Last Day of Employee",
                                           help='Employee requested date on which he is revealing from the company.')
-    reason = fields.Text(string="Reason", required=True, help='Specify reason for leaving the company')
+    reason = fields.Many2one('hr.reasons')
     notice_period = fields.Char(string="Notice Period")
     state = fields.Selection(
         [('draft', 'Draft'), ('confirm', 'Confirm'), ('approved', 'Approved'), ('cancel', 'Rejected')],
@@ -220,3 +220,10 @@ class HrEmployee(models.Model):
     resigned = fields.Boolean(string="Resigned", default=False, store=True,
                               help="If checked then employee has resigned")
     fired = fields.Boolean(string="Fired", default=False, store=True, help="If checked then employee has fired")
+
+
+class HrReason(models.Model):
+    _name = 'hr.reasons'
+
+    name = fields.Char('Reason Name')
+

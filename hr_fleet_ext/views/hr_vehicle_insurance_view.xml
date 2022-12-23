@@ -60,6 +60,7 @@
 								<field name="basic_premium" />
 								<field name="wind_screen" />
 								<field name="srcc" />
+								<field name="insurance_company"/>
 						    </group>
 							<group>							
 								<field name="act_god" />
