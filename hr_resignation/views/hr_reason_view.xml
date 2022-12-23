@@ -8,7 +8,5 @@
                 <field name="name" string="Reason Name"/>
             </field>
         </record>
-         <menuitem id="hr_resignation" parent="employee_resignation_request" name="Reasons"
-                  action="view_hr_reasons" groups="base.group_user" sequence="5"/>
     </data>
 </odoo>

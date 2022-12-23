@@ -88,6 +88,8 @@
                   sequence="21"/>
         <menuitem id="employee_resignation_request" parent="employee_resignation" name="Resignation Request"
                   action="view_employee_resignation" groups="base.group_user" sequence="4"/>
+        <menuitem id="hr_reasons_request" parent="employee_resignation_request" name="Reasons"
+                  action="view_hr_reasons" groups="base.group_user" sequence="5"/>
 
     </data>
 </odoo>
