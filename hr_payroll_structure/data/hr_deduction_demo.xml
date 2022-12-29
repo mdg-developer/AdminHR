@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Deduction-->
+    <record id="hr_allowance_config_DAD" model="deduction.config">
+        <field name="name">Driving Allowance Deduction</field>
+        <field name="code">DAD</field>
+     </record>
+    <record id="input_type_DAD" model="hr.payslip.input.type">
+        <field name="name">Driving Allowance Deduction</field>
+        <field name="code">DAD</field>
+    </record>
+
+    <record id="hr_allowance_config_TD" model="deduction.config">
+        <field name="name">Transportation Deduction</field>
+        <field name="code">TD</field>
+     </record>
+    <record id="input_type_TD" model="hr.payslip.input.type">
+        <field name="name">Transportation Deduction</field>
+        <field name="code">TD</field>
+    </record>
+
+    <record id="hr_allowance_config_AAD" model="deduction.config">
+        <field name="name">Attendance Allowance Deduction</field>
+        <field name="code">AAD</field>
+     </record>
+    <record id="input_type_AAD" model="hr.payslip.input.type">
+        <field name="name">Attendance Allowance Deduction</field>
+        <field name="code">AAD</field>
+    </record>
+
+    <record id="hr_allowance_config_MAD" model="deduction.config">
+        <field name="name">Meal Allowance Deduction</field>
+        <field name="code">MAD</field>
+     </record>
+    <record id="input_type_MAD" model="hr.payslip.input.type">
+        <field name="name">Meal Allowance Deduction</field>
+        <field name="code">MAD</field>
+    </record>
+
+    <record id="hr_allowance_config_WHFD" model="deduction.config">
+        <field name="name">WHF Deduction</field>
+        <field name="code">WHFD</field>
+     </record>
+    <record id="input_type_WHFD" model="hr.payslip.input.type">
+        <field name="name">WHF Deduction</field>
+        <field name="code">WHFD</field>
+    </record>
+
+    <record id="hr_allowance_config_UD" model="deduction.config">
+        <field name="name">Uniform Deduction</field>
+        <field name="code">UD</field>
+     </record>
+    <record id="input_type_UD" model="hr.payslip.input.type">
+        <field name="name">Uniform Deduction</field>
+        <field name="code">UD</field>
+    </record>
+
+    <record id="hr_allowance_config_OD" model="deduction.config">
+        <field name="name">Other Deduction</field>
+        <field name="code">D00</field>
+    </record>
+
+</odoo>
