@@ -154,8 +154,6 @@ class JobLine(models.Model):
     upper_position = fields.Many2one('hr.job', string='Upper Position')
     normal_employee = fields.Integer(string='Normal Employee')
     urgent_employee = fields.Integer(string='Urgent Employee')
-    requisition_date = fields.Date(string="Requisition Date")
-    job_announcement_date = fields.Date(string="Job Announcement Date")
     job_description = fields.Html(string='Job Description')
     job_requirment = fields.Html(string='Job Requirment')
 
@@ -276,7 +274,8 @@ class Applicant(models.Model):
     employment_status = fields.Many2one('employment.new.status')
     cv_attached = fields.Char('CV Attached')
     hod_name = fields.Char('HOD Name')
-
+    requisition_date = fields.Date(string="Requisition Date")
+    job_announcement_date = fields.Date(string="Job Announcement Date")
 
 
     branch_id = fields.Many2one('res.branch', string='Branch')

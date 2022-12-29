@@ -38,8 +38,6 @@
 							<field name="total_employee"/>
 							<field name="current_employee"/>
 							<field name="new_employee"/>
-							<field name="requisition_date"/>
-							<field name="job_announcement_date"/>
 						</group>
 						<field name="job_description"/>
 						<field name="job_requirment"/>

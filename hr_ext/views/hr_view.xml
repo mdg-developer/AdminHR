@@ -199,6 +199,8 @@
 					<field name="hod_name" invisible="1"/>
 					<field name="date_of_send"/>
 					<field name="hr_received_date"/>
+					<field name="requisition_date"/>
+					<field name="job_announcement_date"/>
 				</xpath>
 				<xpath expr="//field[@name='availability']" position="after">
 					<field name="current_company"/>
