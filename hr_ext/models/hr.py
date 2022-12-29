@@ -119,7 +119,6 @@ class JobLine(models.Model):
                 current_employee = self.env['hr.employee'].search_count([('company_id', '=', line.company_id.id),
                                                                         ('branch_id', '=', line.branch_id.id),
                                                                         ('department_id', '=', line.department_id.id),
-                                                                        ('resign_date', '=', False),
                                                                         ('job_id', '=', line.job_id.id)])
             line.current_employee = current_employee
             # if line.company_id and line.job_id:

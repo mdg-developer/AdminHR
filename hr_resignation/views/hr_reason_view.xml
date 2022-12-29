@@ -1,0 +1,12 @@
+<odoo>
+    <data>
+        <record model="ir.actions.act_window" id="view_hr_reasons">
+            <field name="name">Hr Reasons</field>
+            <field name="res_model">hr.reasons</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <field name="name" string="Reason Name"/>
+            </field>
+        </record>
+    </data>
+</odoo>
