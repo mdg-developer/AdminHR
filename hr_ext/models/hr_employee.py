@@ -85,6 +85,7 @@ class Employee(models.Model):
     department_id = fields.Many2one('hr.department', string='Department', domain="[('branch_id', '=', branch_id)]")
     job_id = fields.Many2one('hr.job', string='Job Position')
     job_grade_id = fields.Many2one('job.grade', string='Job Grade', related='job_id.job_grade_id', store=True)
+    qualification = fields.Char('Qualification')
 
     # Default
     allow_leave_request = fields.Boolean('Leave Request', default=True, copy=False)

@@ -277,6 +277,29 @@ class Applicant(models.Model):
     cv_attached = fields.Char('CV Attached')
     hod_name = fields.Char('HOD Name')
 
+    @api.model
+    def _default_nrc_type(self):
+        return self.env['res.nrc.type'].search([('name', '=', 'N')]).id
+
+    @api.model
+    def _default_nrc_region_code(self):
+        return self.env['res.nrc.region'].search([('name', '=', '12')]).id
+
+    @api.onchange('nrc_region_code')
+    def _onchange_nrc_region_code(self):
+        if self.nrc_region_code and self.nrc_prefix:
+            if self.nrc_region_code != self.nrc_prefix.nrc_region:
+                self.nrc_prefix = False
+
+    @api.onchange('nrc_region_code', 'nrc_region_code', 'nrc_type', 'nrc_number')
+    def _onchange_nrc_number(self):
+        if self.nrc_region_code and self.nrc_prefix and self.nrc_type and self.nrc_number:
+            self.nrc = self.nrc_region_code.name + '/' + self.nrc_prefix.name + '(' + self.nrc_type.name + ')' + str(self.nrc_number)
+
+    nrc_region_code = fields.Many2one("res.nrc.region", string='Region', default=_default_nrc_region_code)
+    nrc_prefix = fields.Many2one("res.nrc.prefix", string='Prefix')
+    nrc_type = fields.Many2one("res.nrc.type", string='Type', default= _default_nrc_type)
+    nrc_number = fields.Char('NRC Entry', size=6)
 
 
     branch_id = fields.Many2one('res.branch', string='Branch')
@@ -321,7 +344,13 @@ class Applicant(models.Model):
                     'branch_id': applicant.branch_id.id or False,
                     'job_id': applicant.job_id.id or False,
                     'job_title': applicant.job_id.name,
-#                     'address_home_id': address_id,
+                    'nrc_region_code': applicant.nrc_region_code.id,
+                    'nrc_prefix': applicant.nrc_prefix.id,
+                    'nrc_type': applicant.nrc_type.id,
+                    'nrc_number': applicant.nrc_number,
+                    'nrc': applicant.nrc,
+                    'qualification': applicant.qualification,
+                    # 'address_home_id': address_id,
                     'department_id': applicant.department_id.id or False,
                     'address_id': applicant.company_id and applicant.company_id.partner_id
                             and applicant.company_id.partner_id.id or False,
