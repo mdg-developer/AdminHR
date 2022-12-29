@@ -334,15 +334,14 @@ class HrPayslip(models.Model):
                     continue
                 elif ded.effective_type == 'yearly' and ded.effective_date.month != date_from.month:
                     continue
-                if ded.deduction_config_id.code in ('D01', 'D02'):
-                    input_type = input_type_obj.search([('code', '=', ded.deduction_config_id.code)])
-                    if input_type:
-                        existing_ded = next((input for input in res if input["input_type_id"] == input_type.id), False)
-                        if existing_ded:
-                            existing_ded.update({'amount': existing_ded['amount'] + ded.amount})
-                        else:
-                            res.append({'input_type_id': input_type.id,
-                                        'amount': ded.amount})
+                input_type = input_type_obj.search([('code', '=', ded.deduction_config_id.code)])
+                if input_type:
+                    existing_ded = next((input for input in res if input["input_type_id"] == input_type.id), False)
+                    if existing_ded:
+                        existing_ded.update({'amount': existing_ded['amount'] + ded.amount})
+                    else:
+                        res.append({'input_type_id': input_type.id,
+                                    'amount': ded.amount})
                 else:
 
                     res.append({'input_type_id': other_deduction_input.id,
@@ -353,22 +352,20 @@ class HrPayslip(models.Model):
                                                             ('effective_date', '<=', date_to), '|',
                                                             ('end_date', '=', False),
                                                             ('end_date', '>=', date_to)])
-
         if allowance:
             for alw in allowance:
                 if alw.effective_type == 'one_time' and (alw.effective_date.month != date_from.month or alw.effective_date.year != date_from.year):
                     continue
                 elif alw.effective_type == 'yearly' and alw.effective_date.month != date_from.month:
                     continue
-                if alw.allowance_config_id.code in ('A01', 'A02', 'A03', 'A04', 'A05', 'A06'):
-                    input_type = input_type_obj.search([('code', '=', alw.allowance_config_id.code)])
-                    if input_type:
-                        existing_alw = next((input for input in res if input["input_type_id"] == input_type.id), False)
-                        if existing_alw:
-                            existing_alw.update({'amount': existing_alw['amount'] + alw.amount})
-                        else:
-                            res.append({'input_type_id': input_type.id,
-                                        'amount': alw.amount})
+                input_type = input_type_obj.search([('code', '=', alw.allowance_config_id.code)])
+                if input_type:
+                    existing_alw = next((input for input in res if input["input_type_id"] == input_type.id), False)
+                    if existing_alw:
+                        existing_alw.update({'amount': existing_alw['amount'] + alw.amount})
+                    else:
+                        res.append({'input_type_id': input_type.id,
+                                    'amount': alw.amount})
                 else:
                     res.append({'input_type_id': other_allowance_input.id,
                                'amount': alw.amount})

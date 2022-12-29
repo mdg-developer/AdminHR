@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Structure Type -->
+        <record id="payroll_structure_type_monthly" model="hr.payroll.structure.type">
+            <field name="name">Monthly</field>
+            <field name="country_id" eval="False"/>
+        </record>
+
+        <record id="structure_payroll_monthly" model="hr.payroll.structure">
+            <field name="name">PST01</field>
+            <field name="description">44 hrs Structure</field>
+            <field name="type_id" ref="hr_payroll_structure.payroll_structure_type_monthly"/>
+            <field name="regular_pay" eval="True"/>
+            <field name="unpaid_work_entry_type_ids" eval="[(4, ref('hr_payroll.work_entry_type_unpaid_leave'))]"/>
+            <field name="country_id" eval="False"/>
+        </record>
+
+<!--    Allowance    -->
+        <record id="structure_payroll_monthly_WMOA" model="hr.salary.rule">
+            <field name="name">WH MHE Operator Allowance</field>
+            <field name="code">WMOA</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="struct_id" ref="hr_payroll_structure.structure_payroll_monthly"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.WMOA and inputs.WMOA.amount
+            </field>
+        </record>
+
+        <record id="structure_payroll_monthly_TA" model="hr.salary.rule">
+            <field name="name">Transportation Allowance</field>
+            <field name="code">TA</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="struct_id" ref="hr_payroll_structure.structure_payroll_monthly"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.TA and inputs.TA.amount
+            </field>
+        </record>
+
+        <record id="structure_payroll_monthly_EMA" model="hr.salary.rule">
+            <field name="name">E-Bike Maintenance Allowance</field>
+            <field name="code">EMA</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="struct_id" ref="hr_payroll_structure.structure_payroll_monthly"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.EMA and inputs.EMA.amount
+            </field>
+        </record>
+
+        <record id="structure_payroll_monthly_DA" model="hr.salary.rule">
+            <field name="name">Driving Allowance</field>
+            <field name="code">DA</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="struct_id" ref="hr_payroll_structure.structure_payroll_monthly"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.DA and inputs.DA.amount
+            </field>
+        </record>
+
+        <record id="structure_payroll_monthly_PA" model="hr.salary.rule">
+            <field name="name">Phone Allowance</field>
+            <field name="code">PA</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="struct_id" ref="hr_payroll_structure.structure_payroll_monthly"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.PA and inputs.PA.amount
+            </field>
+        </record>
+
+        <record id="structure_payroll_monthly_OSA" model="hr.salary.rule">
+            <field name="name">Other/Security Allowance</field>
+            <field name="code">OSA</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="struct_id" ref="hr_payroll_structure.structure_payroll_monthly"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.OSA and inputs.OSA.amount
+            </field>
+        </record>
+
+        <record id="structure_payroll_monthly_HP" model="hr.salary.rule">
+            <field name="name">Half Price</field>
+            <field name="code">HP</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="struct_id" ref="hr_payroll_structure.structure_payroll_monthly"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.HP and inputs.HP.amount
+            </field>
+        </record>
+
+        <record id="structure_payroll_monthly_A00" model="hr.salary.rule">
+            <field name="name">Other Allowance</field>
+            <field name="code">A00</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="struct_id" ref="hr_payroll_structure.structure_payroll_monthly"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.A00 and inputs.A00.amount
+            </field>
+        </record>
+
+        <record id="structure_payroll_monthly_OT" model="hr.salary.rule">
+            <field name="name">OT</field>
+            <field name="code">OT</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="struct_id" ref="hr_payroll_structure.structure_payroll_monthly"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+payslip_days = (payslip.date_to - payslip.date_from).days + 1
+ot_hour = worked_days.OVERTIME100 and worked_days.OVERTIME100.number_of_hours or 0
+result = (contract.wage / payslip_days) * ot_hour
+            </field>
+        </record>
+
+        <record id="structure_payroll_monthly_FOT" model="hr.salary.rule">
+            <field name="name">Fix OT</field>
+            <field name="code">FOT</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="struct_id" ref="hr_payroll_structure.structure_payroll_monthly"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+ot_hour = worked_days.OVERTIME100 and worked_days.OVERTIME100.number_of_hours or 0
+result = contract.ot_allowance_per_day * ot_hour
+            </field>
+        </record>
+
+        <record id="structure_payroll_monthly_LOT" model="hr.salary.rule">
+            <field name="name">Labour OT</field>
+            <field name="code">LOT</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="struct_id" ref="hr_payroll_structure.structure_payroll_monthly"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+ot_hour = worked_days.OVERTIME100 and worked_days.OVERTIME100.number_of_hours or 0
+result = 0 * ot_hour
+            </field>
+        </record>
+
+        <record id="structure_payroll_monthly_DOT" model="hr.salary.rule">
+            <field name="name">Duty OT</field>
+            <field name="code">DOT</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="struct_id" ref="hr_payroll_structure.structure_payroll_monthly"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+ot_hour = worked_days.OVERTIME100 and worked_days.OVERTIME100.number_of_hours or 0
+result = contract.ot_duty_per_hour * ot_hour
+            </field>
+        </record>
+
+        <record id="structure_payroll_monthly_MA" model="hr.salary.rule">
+            <field name="name">Meal Allowance</field>
+            <field name="code">MA</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="struct_id" ref="hr_payroll_structure.structure_payroll_monthly"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = contract.meal_allowance
+            </field>
+        </record>
+
+        <record id="structure_payroll_monthly_AA" model="hr.salary.rule">
+            <field name="name">Attendance Allowance</field>
+            <field name="code">AA</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="struct_id" ref="hr_payroll_structure.structure_payroll_monthly"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = contract.attendance_allowance
+            </field>
+        </record>
+
+<!--    Deduction    -->
+        <record id="structure_payroll_monthly_DAD" model="hr.salary.rule">
+            <field name="name">Driving Allowance Deduction</field>
+            <field name="code">DAD</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="struct_id" ref="hr_payroll_structure.structure_payroll_monthly"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.DAD and inputs.DAD.amount
+            </field>
+        </record>
+
+        <record id="structure_payroll_monthly_TD" model="hr.salary.rule">
+            <field name="name">Transportation Deduction</field>
+            <field name="code">TD</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="struct_id" ref="hr_payroll_structure.structure_payroll_monthly"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.TD and inputs.TD.amount
+            </field>
+        </record>
+
+        <record id="structure_payroll_monthly_AAD" model="hr.salary.rule">
+            <field name="name">Attendance Allowance Deduction</field>
+            <field name="code">AAD</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="struct_id" ref="hr_payroll_structure.structure_payroll_monthly"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.AAD and inputs.AAD.amount
+            </field>
+        </record>
+
+        <record id="structure_payroll_monthly_MAD" model="hr.salary.rule">
+            <field name="name">Meal Allowance Deduction</field>
+            <field name="code">MAD</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="struct_id" ref="hr_payroll_structure.structure_payroll_monthly"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.MAD and inputs.MAD.amount
+            </field>
+        </record>
+
+        <record id="structure_payroll_monthly_WHFD" model="hr.salary.rule">
+            <field name="name">WHF Deduction</field>
+            <field name="code">WHFD</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="struct_id" ref="hr_payroll_structure.structure_payroll_monthly"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.WHFD and inputs.WHFD.amount
+            </field>
+        </record>
+
+        <record id="structure_payroll_monthly_UD" model="hr.salary.rule">
+            <field name="name">Uniform Deduction</field>
+            <field name="code">UD</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="struct_id" ref="hr_payroll_structure.structure_payroll_monthly"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.UD and inputs.UD.amount
+            </field>
+        </record>
+
+        <record id="structure_payroll_monthly_D00" model="hr.salary.rule">
+            <field name="name">Other Deduction</field>
+            <field name="code">D00</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="struct_id" ref="hr_payroll_structure.structure_payroll_monthly"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = inputs.D00 and inputs.D00.amount
+            </field>
+        </record>
+
+        <record id="structure_payroll_monthly_LED" model="hr.salary.rule">
+            <field name="name">Late/Early Out Deduction</field>
+            <field name="code">LED</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="struct_id" ref="hr_payroll_structure.structure_payroll_monthly"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+            </field>
+        </record>
+
+        <record id="structure_payroll_monthly_CIOD" model="hr.salary.rule">
+            <field name="name">Check In/Out Deduction</field>
+            <field name="code">CIOD</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="struct_id" ref="hr_payroll_structure.structure_payroll_monthly"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+            </field>
+        </record>
+
+        <record id="structure_payroll_monthly_LD" model="hr.salary.rule">
+            <field name="name">Leave Deduction</field>
+            <field name="code">LD</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="struct_id" ref="hr_payroll_structure.structure_payroll_monthly"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+unpaid_leave = worked_days.LEAVE90 and worked_days.LEAVE90.number_of_days or 0
+calendar_days = payslip.days_of_month
+if unpaid_leave:
+    result = ((contract.wage / calendar_days) * unpaid_leave)
+else:
+    result = 0
+            </field>
+        </record>
+
+        <record id="structure_payroll_monthly_AD" model="hr.salary.rule">
+            <field name="name">Absent Deduction</field>
+            <field name="code">AD</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="struct_id" ref="hr_payroll_structure.structure_payroll_monthly"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+            </field>
+        </record>
+
+        <record id="structure_payroll_monthly_LOD" model="hr.salary.rule">
+            <field name="name">Loan Deduction</field>
+            <field name="code">LOD</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="struct_id" ref="hr_payroll_structure.structure_payroll_monthly"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = 0
+            </field>
+        </record>
+
+        <record id="structure_payroll_monthly_ICT" model="hr.salary.rule">
+            <field name="name">Income Tax</field>
+            <field name="code">ICT</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="struct_id" ref="hr_payroll_structure.structure_payroll_monthly"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = payable_tax = 0
+remaining_months = payslip.remaining_months
+if contract.wage > 400000:
+    ssb_amount = contract.wage * 0.02
+    if employee.ssb_not_calculate:
+        ssb_amount = 0
+    elif abs(ssb_amount) > 6000:
+        ssb_amount = 6000
+
+    income_amt = categories.BASIC
+    unpaid_leaves_amt = categories.LDED
+    this_month_income = income_amt - unpaid_leaves_amt
+    remaining_month_income = (remaining_months * contract.wage) - remaining_months
+    actual_annual_income = payslip.previous_income + this_month_income + remaining_month_income
+
+    twenty_percent_exemption = actual_annual_income * 0.2
+    if twenty_percent_exemption &lt;= 10000000:
+        twenty_percent_exemption = twenty_percent_exemption
+    else:
+        twenty_percent_exemption = 10000000
+
+    if actual_annual_income > 4800000:
+        family_exemption = 0
+        if employee.spouse_exemption:
+            family_exemption += 1000000
+        if employee.father_exemption:
+            family_exemption += 1000000
+        if employee.mother_exemption:
+            family_exemption += 1000000
+        if employee.children > 0:
+            family_exemption += employee.children * 500000
+        taxable_income = actual_annual_income - family_exemption - twenty_percent_exemption - ((remaining_months + 1) * ssb_amount)
+
+    # For 0 to 2,000,000 Kyats == 0%
+        if taxable_income > 2000000:
+
+    # For 2,000,001 to 5,000,000 Kyats == 5%
+            if taxable_income &lt;= 5000000:
+                payable_tax += (taxable_income - 2000000) * 0.05;
+            if taxable_income > 5000000:
+                payable_tax += (5000000 - 2000000) * 0.05;
+
+    # For 5,000,001 to 10,000,000 Kyats == 10%
+                if taxable_income &lt;= 10000000:
+                    payable_tax += (taxable_income - 5000000 ) * 0.10;
+                if taxable_income > 10000000:
+                    payable_tax += (10000000 - 5000000 ) * 0.10;
+
+    # For 10,000,001 to 20,000,000 Kyats == 15%
+                    if taxable_income &lt;= 20000000:
+                        payable_tax += (taxable_income - 10000000) * 0.15;
+                    if taxable_income > 20000000:
+                        payable_tax += (20000000 - 10000000) * 0.15;
+
+    # For 20,000,001 to 30,000,000 Kyats == 20%
+                        if taxable_income &lt;= 30000000:
+                            payable_tax += (taxable_income - 20000000 ) * 0.20;
+                        if taxable_income > 30000000:
+                            payable_tax += (30000000 - 20000000 ) * 0.20;
+
+    # For 30,000,001 Kyats and Up == 25%
+                            payable_tax += (taxable_income - 30000000 ) * 0.25;
+
+    payable_tax = payable_tax - payslip.previous_tax_paid
+    result = payable_tax / (remaining_months + 1)
+if result &lt; 0:
+    result = 0
+result = round(result)
+            </field>
+        </record>
+
+        <record id="structure_payroll_monthly_SSB" model="hr.salary.rule">
+            <field name="name">SSB</field>
+            <field name="code">SSB</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="struct_id" ref="hr_payroll_structure.structure_payroll_monthly"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+result = contract.wage * 0.02
+if employee.ssb_not_calculate:
+    result = 0
+elif abs(result) > 6000:
+    result = 6000
+            </field>
+        </record>
+
+    </data>
+</odoo>

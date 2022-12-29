@@ -26,7 +26,9 @@ class Contract(models.Model):
     active = fields.Boolean(default=True, tracking=True)
     ferry_name = fields.Boolean('Ferry', default=False)
     ferry_route = fields.Boolean('Ferry Ta', default=False)
-    traveling_allowance = fields.Char('Travelling Allowance')
+    traveling_allowance = fields.Float('Travelling Allowance')
+    meal_allowance = fields.Float('Meal Allowance')
+    attendance_allowance = fields.Float('Attendance Allowance')
 
     @api.onchange('struct_id')
     def onchange_struct_id(self):

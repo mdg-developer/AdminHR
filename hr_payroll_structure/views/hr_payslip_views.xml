@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="view_hr_payslip_form_day_of_month" model="ir.ui.view">
+			<field name="name">hr.payslip.form.days</field>
+			<field name="model">hr.payslip</field>
+			<field name="priority" eval="1" />
+			<field name="inherit_id" ref="hr_payroll.view_hr_payslip_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='name']" position="after">
+					<field name="slip_day_of_month" string="Payslip Total Days" force_save="1"/>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</odoo>

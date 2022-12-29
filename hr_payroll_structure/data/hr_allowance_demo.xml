@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Allowance-->
+    <record id="hr_allowance_config_WMOA" model="allowance.config">
+        <field name="name">WH MHE Operator Allowance</field>
+        <field name="code">WMOA</field>
+     </record>
+    <record id="input_type_WMOA" model="hr.payslip.input.type">
+        <field name="name">WH MHE Operator Allowance</field>
+        <field name="code">WMOA</field>
+    </record>
+
+    <record id="hr_allowance_config_TA" model="allowance.config">
+        <field name="name">Transportation Allowance</field>
+        <field name="code">TA</field>
+     </record>
+    <record id="input_type_TA" model="hr.payslip.input.type">
+        <field name="name">Transportation Allowance</field>
+        <field name="code">TA</field>
+    </record>
+
+    <record id="hr_allowance_config_EMA" model="allowance.config">
+        <field name="name">E-Bike Maintenance Allowance</field>
+        <field name="code">EMA</field>
+     </record>
+    <record id="input_type_EMA" model="hr.payslip.input.type">
+        <field name="name">E-Bike Maintenance Allowance</field>
+        <field name="code">EMA</field>
+    </record>
+
+    <record id="hr_allowance_config_DA" model="allowance.config">
+        <field name="name">Driving Allowance</field>
+        <field name="code">DA</field>
+     </record>
+    <record id="input_type_DA" model="hr.payslip.input.type">
+        <field name="name">Driving Allowance</field>
+        <field name="code">DA</field>
+    </record>
+
+    <record id="hr_allowance_config_PA" model="allowance.config">
+        <field name="name">Phone Allowance</field>
+        <field name="code">PA</field>
+     </record>
+    <record id="input_type_PA" model="hr.payslip.input.type">
+        <field name="name">Phone Allowance</field>
+        <field name="code">PA</field>
+    </record>
+
+    <record id="hr_allowance_config_OSA" model="allowance.config">
+        <field name="name">Other/Security Allowance</field>
+        <field name="code">OSA</field>
+     </record>
+    <record id="input_type_OSA" model="hr.payslip.input.type">
+        <field name="name">Other/Security Allowance</field>
+        <field name="code">OSA</field>
+    </record>
+
+    <record id="hr_allowance_config_HP" model="allowance.config">
+        <field name="name">Half Price</field>
+        <field name="code">HP</field>
+     </record>
+    <record id="input_type_HP" model="hr.payslip.input.type">
+        <field name="name">Half Price</field>
+        <field name="code">HP</field>
+    </record>
+
+    <record id="hr_allowance_config_OSA" model="allowance.config">
+        <field name="name">	Other Allowance</field>
+        <field name="code">A00</field>
+     </record>
+
+</odoo>
