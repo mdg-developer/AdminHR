@@ -7,7 +7,7 @@ from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT as DT
 import pyotp
 from odoo.tools import float_compare, DEFAULT_SERVER_DATE_FORMAT as DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT as DT_FORMAT
 import math
-from requests_oauthlib import OAuth2Session
+# from requests_oauthlib import OAuth2Session
 from oauthlib.oauth2 import MobileApplicationClient
 import urllib.parse as urlparse
 from urllib.parse import parse_qs
