@@ -56,4 +56,5 @@
 
 	<menuitem id="menu_hr_job_position_detail" name="Job Position Detail" parent="hr_recruitment.menu_hr_recruitment_configuration"
 		action="action_hr_job_position_detail" sequence="4" />
+
 </odoo>

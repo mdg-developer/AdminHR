@@ -254,6 +254,13 @@ class HrEmploymentStatus(models.Model):
     name = fields.Char('Employment Status')
 
 
+class HrReasons(models.Model):
+    _name = "hr.reasons.status"
+    _description = "Hr Reasons"
+
+    name = fields.Char('Reasons')
+
+
 class Applicant(models.Model):
     _inherit = "hr.applicant"
     _description = "Applicant"
@@ -280,6 +287,7 @@ class Applicant(models.Model):
 
     branch_id = fields.Many2one('res.branch', string='Branch')
     replace_for = fields.Boolean(string='Replace For?', default=False)
+    reason_for = fields.Many2one('hr.reasons.status')
 
     def create_employee_from_applicant(self):
         """ Create an hr.employee from the hr.applicants """
