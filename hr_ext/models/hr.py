@@ -154,8 +154,6 @@ class JobLine(models.Model):
     upper_position = fields.Many2one('hr.job', string='Upper Position')
     normal_employee = fields.Integer(string='Normal Employee')
     urgent_employee = fields.Integer(string='Urgent Employee')
-    requisition_date = fields.Date(string="Requisition Date")
-    job_announcement_date = fields.Date(string="Job Announcement Date")
     job_description = fields.Html(string='Job Description')
     job_requirment = fields.Html(string='Job Requirment')
 
@@ -256,6 +254,13 @@ class HrEmploymentStatus(models.Model):
     name = fields.Char('Employment Status')
 
 
+class HrReasons(models.Model):
+    _name = "hr.reasons.status"
+    _description = "Hr Reasons"
+
+    name = fields.Char('Reasons')
+
+
 class Applicant(models.Model):
     _inherit = "hr.applicant"
     _description = "Applicant"
@@ -276,6 +281,7 @@ class Applicant(models.Model):
     employment_status = fields.Many2one('employment.new.status')
     cv_attached = fields.Char('CV Attached')
     hod_name = fields.Char('HOD Name')
+
 
     @api.model
     def _default_nrc_type(self):
@@ -300,10 +306,13 @@ class Applicant(models.Model):
     nrc_prefix = fields.Many2one("res.nrc.prefix", string='Prefix')
     nrc_type = fields.Many2one("res.nrc.type", string='Type', default= _default_nrc_type)
     nrc_number = fields.Char('NRC Entry', size=6)
+    requisition_date = fields.Date(string="Requisition Date")
+    job_announcement_date = fields.Date(string="Job Announcement Date")
 
 
     branch_id = fields.Many2one('res.branch', string='Branch')
     replace_for = fields.Boolean(string='Replace For?', default=False)
+    reason_for = fields.Many2one('hr.reasons.status')
 
     def create_employee_from_applicant(self):
         """ Create an hr.employee from the hr.applicants """

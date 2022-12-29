@@ -48,6 +48,8 @@
 							<field name="ferry_name" string="Ferry"/>
 							<field name="ferry_route" string="Ferry/TA"/>
 							<field name="traveling_allowance" string="Travelling Allowance"/>
+							<field name="meal_allowance" string="Meal Allowance"/>
+							<field name="attendance_allowance" string="Attendance Allowance"/>
 						</group>
 					</xpath>
 			</field>

@@ -185,6 +185,7 @@
 				</xpath>
 				<xpath expr="//field[@name='source_id']" position="after">
 					<field name="replace_for" />
+					<field name="reason_for"/>
 <!--					<field name="employee_id" attrs="{'invisible': [('replace_for', '=', False)], 'required': [('replace_for', '=', True)]}" />-->
 				</xpath>
 
@@ -210,6 +211,8 @@
 					<field name="hod_name" invisible="1"/>
 					<field name="date_of_send"/>
 					<field name="hr_received_date"/>
+					<field name="requisition_date"/>
+					<field name="job_announcement_date"/>
 				</xpath>
 				<xpath expr="//field[@name='availability']" position="after">
 					<field name="current_company"/>
