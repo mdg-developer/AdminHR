@@ -140,6 +140,9 @@
 				<xpath expr="//page[@name='personal_information']/group/group/field[@name='study_school']" position="after">
                    <field name="qualification"/>
                 </xpath>
+				<xpath expr="//page[@name='personal_information']/group/group/field[@name='visa_expire']" position="after">
+                   <field name="job_grade_id"/>
+                </xpath>
 				<xpath expr="//page[@name='hr_settings']" position="after">
 	                <page name="benefit" string="Benefit">
 	                    <field editable="bottom" name="benefit_line" >
