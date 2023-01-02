@@ -189,6 +189,11 @@
 <!--					<field name="employee_id" attrs="{'invisible': [('replace_for', '=', False)], 'required': [('replace_for', '=', True)]}" />-->
 				</xpath>
 
+				<xpath expr="//h2[@class='o_row']" position="replace">
+					<label for="partner_name" class="oe_edit_only"/>
+					<field name="partner_name" required="True"/>
+				</xpath>
+
 				<xpath expr="//field[@name='type_id']" position="after">
 					<label for="nrc_number" name="NRC Entry"/>
 						<div class="o_address_format">
