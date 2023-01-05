@@ -904,6 +904,7 @@
         <menuitem name="Reporting" id="menu_reporting_config" parent="menu_template" groups="hr.group_hr_manager" sequence="3"/>
             <menuitem id="menu_report_performance" parent="menu_reporting_config" action="report_report_key_performance_pivot_action" groups="hr.group_hr_manager"/>
             <menuitem id="menu_report_competencies" parent="menu_reporting_config" action="report_report_competencies_pivot_action" groups="hr.group_hr_manager"/>
+            <menuitem id="menu_report_job_position_checklist" parent="menu_reporting_config" action="action_job_position_checklist" groups="hr.group_hr_manager"/>
 
         <menuitem name="Configuration" id="menu_performance_config" parent="menu_template" groups="hr.group_hr_manager" />
             <menuitem id="menu_job_employee" parent="menu_performance_config" action="job_view_action" groups="hr.group_hr_manager"/>

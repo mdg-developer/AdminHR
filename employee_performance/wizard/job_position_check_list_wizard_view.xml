@@ -30,5 +30,4 @@
         <field name="target">new</field>
     </record>
     
-    <menuitem id="menu_report_job_position_checklist" parent="menu_reporting_config" action="action_job_position_checklist" groups="hr.group_hr_manager"/>
 </odoo>

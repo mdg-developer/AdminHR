@@ -157,9 +157,9 @@ class SummaryRequest(models.Model):
                      'request_unit_half': request_unit_half,
                      }
             leave = leave_obj.create(value)
-            leave.action_approve()
-            leave.action_validate()
-        self._create_approved_notification_message(self.employee_id)
+            # leave.action_approve()
+            # leave.action_validate()
+        # self._create_approved_notification_message(self.employee_id)
         self.state = 'approve'
 
     def button_cancel(self):
