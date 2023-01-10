@@ -8,7 +8,14 @@ import re
 class HrJob(models.Model):    
     _inherit = 'hr.job'
     _description = 'Job Position'
-    
+
+    @api.onchange('name')
+    def _onchange_name(self):
+        if self.name:
+            name = self.search([('name', '=', self.name)])
+            if name:
+                raise ValidationError(_(" '%s'  already exists in Job Position !")%(self.name))
+
     @api.depends('job_line.total_employee')
     def compute_total_employee(self):
         for job in self:
@@ -74,7 +81,7 @@ class HrJob(models.Model):
     total_employee  = fields.Integer(string='Expected Total Employee',compute='compute_total_employee')
     #total_employee  = fields.Integer(string='Expected Total Employee')
     new_employee = fields.Integer(string='Expected New Employee')
-    current_employee = fields.Integer(string='Current Employee',compute='compute_current_employee')
+    current_employee = fields.Integer(string='Current Employee',compute='compute_current_employee', store = True)
     job_grade_id = fields.Many2one('job.grade', string='Job Grade')
     skill_line = fields.One2many('skill.line', 'job_id', string='Skill')     
     job_line = fields.One2many('job.line', 'job_id', string='Job')
@@ -148,7 +155,7 @@ class JobLine(models.Model):
     branch_id = fields.Many2one('res.branch', string='Branch')
     department_id = fields.Many2one('hr.department', string='Department')
     total_employee = fields.Integer(compute='_get_total_employee', string='Expected Total Employee')
-    current_employee = fields.Integer(compute='_get_current_employee', string='Current Employee', readonly=True) 
+    current_employee = fields.Integer(compute='_get_current_employee', string='Current Employee', readonly=True, store = True)
     new_employee = fields.Integer(compute='_get_new_employee', string='Expected New Employee', readonly=True)
     expected_new_employee = fields.Integer(string='New Employee')
     upper_position = fields.Many2one('hr.job', string='Upper Position')
