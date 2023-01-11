@@ -822,8 +822,27 @@ class HrPayslip(models.Model):
             
             return sunday_count + total_day
         return 0
+
     def _get_worked_day_lines(self):
         res = super(HrPayslip, self)._get_worked_day_lines()
+        leave_entry_type = self.struct_id.unpaid_work_entry_type_ids.filtered(lambda x: x.name == 'Unpaid')
+        if leave_entry_type:
+            res.append({
+                'sequence': leave_entry_type.sequence,
+                'work_entry_type_id': leave_entry_type.id,
+                'number_of_days': 0,
+                'number_of_hours': 0,
+                'amount': 0.0
+            })
+            leave_entry_type = self.struct_id.unpaid_work_entry_type_ids.filtered(lambda x: x.name == 'Home Working')
+            if leave_entry_type:
+                res.append({
+                    'sequence': leave_entry_type.sequence,
+                    'work_entry_type_id': leave_entry_type.id,
+                    'number_of_days': 0,
+                    'number_of_hours': 0,
+                    'amount': 0.0
+                })
         for unpaid_line in res:
             if unpaid_line['work_entry_type_id'] == 5:
                 unpaid_day = self._get_unpaid_count()
@@ -838,6 +857,15 @@ class HrPayslip(models.Model):
                     print("before sunday_unpaid>>>>>>>>>>>>>>",self.sunday_unpaid)
                     print("unpaid_day>>>>>>>>>>>>>>",unpaid_day)
                     self.sunday_unpaid = unpaid_day
+                    # leave_entry_type = self.struct_id.unpaid_work_entry_type_ids.filtered(lambda x: x.name == 'Unpaid')
+                    # if leave_entry_type:
+                    #     res.append({
+                    #         'sequence': leave_entry_type.sequence,
+                    #         'work_entry_type_id': leave_entry_type.id,
+                    #         'number_of_days': 0,
+                    #         'number_of_hours': 0,
+                    #         'amount': 0.0
+                    #     })
                     
         #duty_structs = self.env['hr.payroll.structure'].search([('name', 'in', ('ST05', 'ST06', 'ST07'))])
         duty_structs = self.env['hr.payroll.structure'].search([('shift', '=', True)]) 
