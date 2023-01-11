@@ -1,0 +1,1925 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.24" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.12.0.v202211220955</property>
+    <list-property name="propertyBindings">
+        <structure>
+            <property name="name">odaDriverClass</property>
+            <property name="id">4873</property>
+        </structure>
+        <structure>
+            <property name="name">odaURL</property>
+            <property name="id">4873</property>
+        </structure>
+        <structure>
+            <property name="name">odaUser</property>
+            <property name="id">4873</property>
+        </structure>
+        <structure>
+            <property name="name">odaAutoCommit</property>
+            <property name="id">4873</property>
+        </structure>
+        <structure>
+            <property name="name">odaIsolationMode</property>
+            <property name="id">4873</property>
+        </structure>
+        <structure>
+            <property name="name">odaPassword</property>
+            <property name="id">4873</property>
+        </structure>
+        <structure>
+            <property name="name">odaJndiName</property>
+            <property name="id">4873</property>
+        </structure>
+        <structure>
+            <property name="name">OdaConnProfileName</property>
+            <property name="id">4873</property>
+        </structure>
+        <structure>
+            <property name="name">OdaConnProfileStorePath</property>
+            <property name="id">4873</property>
+        </structure>
+    </list-property>
+    <property name="units">in</property>
+    <property name="theme">report_library.defaultTheme</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="layoutPreference">auto layout</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">96</property>
+    <list-property name="libraries">
+        <structure>
+            <property name="fileName">report_library.rptlibrary</property>
+            <property name="namespace">report_library</property>
+        </structure>
+    </list-property>
+    <parameters>
+        <scalar-parameter name="company_id1" id="5074">
+            <text-property name="promptText">Company</text-property>
+            <property name="valueType">dynamic</property>
+            <property name="isRequired">true</property>
+            <property name="dataSetName">company</property>
+            <expression name="valueExpr" type="javascript">dataSetRow["id"]</expression>
+            <expression name="labelExpr" type="javascript">dataSetRow["name"]</expression>
+            <property name="dataType">integer</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">list-box</property>
+            <property name="mustMatch">true</property>
+            <property name="fixedOrder">true</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="4873"
+ extends="report_library.Data Source">
+            <property name="odaDriverClass">org.postgresql.Driver</property>
+            <property name="odaURL">jdbc:postgresql://localhost:5433/odoo_13_live_database_1_2_2023</property>
+            <property name="odaUser">odoo</property>
+            <encrypted-property name="odaPassword" encryptionID="base64">YWRtaW4=</encrypted-property>
+        </oda-data-source>
+    </data-sources>
+    <data-sets>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="Data Set" id="4704">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">name</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">name</text-property>
+                    <text-property name="heading">name</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">employment_status</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">employment_status</text-property>
+                    <text-property name="heading">employment_status</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">applied_date</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">applied_date</text-property>
+                    <text-property name="heading">applied_date</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">name_1</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">name</text-property>
+                    <text-property name="heading">name</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">date_of_birth</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">date_of_birth</text-property>
+                    <text-property name="heading">date_of_birth</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">nrc</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">nrc</text-property>
+                    <text-property name="heading">nrc</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">name_2</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">name</text-property>
+                    <text-property name="heading">name</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">qualification</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">qualification</text-property>
+                    <text-property name="heading">qualification</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">current_company</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">current_company</text-property>
+                    <text-property name="heading">current_company</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">current_position</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">current_position</text-property>
+                    <text-property name="heading">current_position</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">current_salary</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">current_salary</text-property>
+                    <text-property name="heading">current_salary</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">salary_expected</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">salary_expected</text-property>
+                    <text-property name="heading">salary_expected</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">noticed_period</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">noticed_period</text-property>
+                    <text-property name="heading">noticed_period</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">partner_mobile</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">partner_mobile</text-property>
+                    <text-property name="heading">partner_mobile</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">email_from</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">email_from</text-property>
+                    <text-property name="heading">email_from</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">cv_attached</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">cv_attached</text-property>
+                    <text-property name="heading">cv_attached</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">hod_name</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">hod_name</text-property>
+                    <text-property name="heading">hod_name</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">date_of_send</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">date_of_send</text-property>
+                    <text-property name="heading">date_of_send</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">hr_received_date</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">hr_received_date</text-property>
+                    <text-property name="heading">hr_received_date</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">x_studio_first_interview_date</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">x_studio_first_interview_date</text-property>
+                    <text-property name="heading">x_studio_first_interview_date</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">x_studio_second_interview_date</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">x_studio_second_interview_date</text-property>
+                    <text-property name="heading">x_studio_second_interview_date</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">final_interview</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">final_interview</text-property>
+                    <text-property name="heading">final_interview</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">rejected_after_interview</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">rejected_after_interview</text-property>
+                    <text-property name="heading">rejected_after_interview</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">withdraw</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">withdraw</text-property>
+                    <text-property name="heading">withdraw</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">send_offer</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">send_offer</text-property>
+                    <text-property name="heading">send_offer</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">offer_date</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">offer_date</text-property>
+                    <text-property name="heading">offer_date</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">joining_date</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">joining_date</text-property>
+                    <text-property name="heading">joining_date</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">source_id</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">source_id</text-property>
+                    <text-property name="heading">source_id</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">description</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">description</text-property>
+                    <text-property name="heading">description</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">company_id</property>
+                    <property name="paramName">company_id1</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                    <property name="position">1</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">employment_status</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">applied_date</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">name_1</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">date_of_birth</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">nrc</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">name_2</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">qualification</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">current_company</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">current_position</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">current_salary</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">salary_expected</property>
+                        <property name="dataType">float</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">noticed_period</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">14</property>
+                        <property name="name">partner_mobile</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">15</property>
+                        <property name="name">email_from</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">16</property>
+                        <property name="name">cv_attached</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">17</property>
+                        <property name="name">hod_name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">18</property>
+                        <property name="name">date_of_send</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">19</property>
+                        <property name="name">hr_received_date</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">20</property>
+                        <property name="name">x_studio_first_interview_date</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">21</property>
+                        <property name="name">x_studio_second_interview_date</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">22</property>
+                        <property name="name">final_interview</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">23</property>
+                        <property name="name">rejected_after_interview</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">24</property>
+                        <property name="name">withdraw</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">25</property>
+                        <property name="name">send_offer</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">26</property>
+                        <property name="name">offer_date</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">27</property>
+                        <property name="name">joining_date</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">28</property>
+                        <property name="name">source_id</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">29</property>
+                        <property name="name">description</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">name</property>
+                    <property name="nativeName">name</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">employment_status</property>
+                    <property name="nativeName">employment_status</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">applied_date</property>
+                    <property name="nativeName">applied_date</property>
+                    <property name="dataType">date</property>
+                    <property name="nativeDataType">91</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">name_1</property>
+                    <property name="nativeName">name</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">date_of_birth</property>
+                    <property name="nativeName">date_of_birth</property>
+                    <property name="dataType">date</property>
+                    <property name="nativeDataType">91</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">nrc</property>
+                    <property name="nativeName">nrc</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">name_2</property>
+                    <property name="nativeName">name</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">qualification</property>
+                    <property name="nativeName">qualification</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">current_company</property>
+                    <property name="nativeName">current_company</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">current_position</property>
+                    <property name="nativeName">current_position</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">current_salary</property>
+                    <property name="nativeName">current_salary</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">salary_expected</property>
+                    <property name="nativeName">salary_expected</property>
+                    <property name="dataType">float</property>
+                    <property name="nativeDataType">8</property>
+                </structure>
+                <structure>
+                    <property name="position">13</property>
+                    <property name="name">noticed_period</property>
+                    <property name="nativeName">noticed_period</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">14</property>
+                    <property name="name">partner_mobile</property>
+                    <property name="nativeName">partner_mobile</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">15</property>
+                    <property name="name">email_from</property>
+                    <property name="nativeName">email_from</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">16</property>
+                    <property name="name">cv_attached</property>
+                    <property name="nativeName">cv_attached</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">17</property>
+                    <property name="name">hod_name</property>
+                    <property name="nativeName">hod_name</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">18</property>
+                    <property name="name">date_of_send</property>
+                    <property name="nativeName">date_of_send</property>
+                    <property name="dataType">date</property>
+                    <property name="nativeDataType">91</property>
+                </structure>
+                <structure>
+                    <property name="position">19</property>
+                    <property name="name">hr_received_date</property>
+                    <property name="nativeName">hr_received_date</property>
+                    <property name="dataType">date</property>
+                    <property name="nativeDataType">91</property>
+                </structure>
+                <structure>
+                    <property name="position">20</property>
+                    <property name="name">x_studio_first_interview_date</property>
+                    <property name="nativeName">x_studio_first_interview_date</property>
+                    <property name="dataType">date</property>
+                    <property name="nativeDataType">91</property>
+                </structure>
+                <structure>
+                    <property name="position">21</property>
+                    <property name="name">x_studio_second_interview_date</property>
+                    <property name="nativeName">x_studio_second_interview_date</property>
+                    <property name="dataType">date</property>
+                    <property name="nativeDataType">91</property>
+                </structure>
+                <structure>
+                    <property name="position">22</property>
+                    <property name="name">final_interview</property>
+                    <property name="nativeName">final_interview</property>
+                    <property name="dataType">date</property>
+                    <property name="nativeDataType">91</property>
+                </structure>
+                <structure>
+                    <property name="position">23</property>
+                    <property name="name">rejected_after_interview</property>
+                    <property name="nativeName">rejected_after_interview</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">-7</property>
+                </structure>
+                <structure>
+                    <property name="position">24</property>
+                    <property name="name">withdraw</property>
+                    <property name="nativeName">withdraw</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">-7</property>
+                </structure>
+                <structure>
+                    <property name="position">25</property>
+                    <property name="name">send_offer</property>
+                    <property name="nativeName">send_offer</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">26</property>
+                    <property name="name">offer_date</property>
+                    <property name="nativeName">offer_date</property>
+                    <property name="dataType">date</property>
+                    <property name="nativeDataType">91</property>
+                </structure>
+                <structure>
+                    <property name="position">27</property>
+                    <property name="name">joining_date</property>
+                    <property name="nativeName">joining_date</property>
+                    <property name="dataType">date</property>
+                    <property name="nativeDataType">91</property>
+                </structure>
+                <structure>
+                    <property name="position">28</property>
+                    <property name="name">source_id</property>
+                    <property name="nativeName">source_id</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">29</property>
+                    <property name="name">description</property>
+                    <property name="nativeName">description</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[select ha.name,ha.employment_status,
+ha.applied_date,rp.name,ha.date_of_birth,ha.nrc,ht.name,ha.qualification,ha.current_company,ha.current_position,
+ha.current_salary,ha.salary_expected,ha.noticed_period,ha.partner_mobile,ha.email_from,ha.cv_attached,ha.hod_name,
+ha.date_of_send,ha.hr_received_date,ha.x_studio_first_interview_date,ha.x_studio_second_interview_date,
+ha.final_interview,hs.rejected_after_interview,hs.withdraw,ha.send_offer,ha.offer_date,he.joining_date,ha.source_id,ha.description
+from hr_applicant ha 
+left join hr_employee he on (ha.emp_id = he.id ) 
+left join hr_recruitment_stage hs on (ha.stage_id = hs.id)
+left join hr_recruitment_degree ht on (ha.type_id = ht.id)
+left join res_users ru on (ru.id = ha.user_id )
+left join res_partner rp on (rp.id = ru.partner_id )
+WHERE ha.company_id = ?]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>name</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>2147483647</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>name</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>name</design:label>
+            <design:formattingHints>
+              <design:displaySize>2147483647</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>count</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>-5</design:nativeDataTypeCode>
+            <design:precision>19</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Unknown</design:nullability>
+            <design:uiHints>
+              <design:displayName>count</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>count</design:label>
+            <design:formattingHints>
+              <design:displaySize>20</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="company" id="4874">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">id</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">id</text-property>
+                    <text-property name="heading">id</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">name</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">name</text-property>
+                    <text-property name="heading">name</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">id</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">id</property>
+                    <property name="nativeName">id</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">name</property>
+                    <property name="nativeName">name</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[select id,name
+from res_company
+order by name;]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>id</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>id</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>id</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>name</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>2147483647</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>name</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>name</design:label>
+            <design:formattingHints>
+              <design:displaySize>2147483647</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+    </data-sets>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <property name="type">us-ledger</property>
+            <property name="orientation">landscape</property>
+            <property name="topMargin">0.5in</property>
+            <property name="leftMargin">0.2916666666666667in</property>
+            <property name="bottomMargin">0.5in</property>
+            <property name="rightMargin">0in</property>
+            <property name="height">297mm</property>
+            <property name="width">620mm</property>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <label id="4877">
+            <property name="fontFamily">sans-serif</property>
+            <property name="fontSize">12pt</property>
+            <property name="fontWeight">bold</property>
+            <property name="textAlign">center</property>
+            <text-property name="text">Applicants Tracking System</text-property>
+        </label>
+        <table id="6349">
+            <property name="dataSet">Data Set</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">name</property>
+                    <text-property name="displayName">name</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["name"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">employment_status</property>
+                    <text-property name="displayName">employment_status</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["employment_status"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">applied_date</property>
+                    <text-property name="displayName">applied_date</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["applied_date"]</expression>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="name">name_1</property>
+                    <text-property name="displayName">name</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["name_1"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">date_of_birth</property>
+                    <text-property name="displayName">date_of_birth</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["date_of_birth"]</expression>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="name">nrc</property>
+                    <text-property name="displayName">nrc</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["nrc"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">name_2</property>
+                    <text-property name="displayName">name</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["name_2"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">qualification</property>
+                    <text-property name="displayName">qualification</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["qualification"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">current_company</property>
+                    <text-property name="displayName">current_company</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["current_company"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">current_position</property>
+                    <text-property name="displayName">current_position</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["current_position"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">current_salary</property>
+                    <text-property name="displayName">current_salary</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["current_salary"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">salary_expected</property>
+                    <text-property name="displayName">salary_expected</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["salary_expected"]</expression>
+                    <property name="dataType">float</property>
+                </structure>
+                <structure>
+                    <property name="name">noticed_period</property>
+                    <text-property name="displayName">noticed_period</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["noticed_period"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">partner_mobile</property>
+                    <text-property name="displayName">partner_mobile</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["partner_mobile"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">email_from</property>
+                    <text-property name="displayName">email_from</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["email_from"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">cv_attached</property>
+                    <text-property name="displayName">cv_attached</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["cv_attached"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">hod_name</property>
+                    <text-property name="displayName">hod_name</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["hod_name"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">date_of_send</property>
+                    <text-property name="displayName">date_of_send</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["date_of_send"]</expression>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="name">hr_received_date</property>
+                    <text-property name="displayName">hr_received_date</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["hr_received_date"]</expression>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="name">x_studio_first_interview_date</property>
+                    <text-property name="displayName">x_studio_first_interview_date</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["x_studio_first_interview_date"]</expression>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="name">x_studio_second_interview_date</property>
+                    <text-property name="displayName">x_studio_second_interview_date</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["x_studio_second_interview_date"]</expression>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="name">final_interview</property>
+                    <text-property name="displayName">final_interview</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["final_interview"]</expression>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="name">rejected_after_interview</property>
+                    <text-property name="displayName">rejected_after_interview</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["rejected_after_interview"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">withdraw</property>
+                    <text-property name="displayName">withdraw</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["withdraw"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">send_offer</property>
+                    <text-property name="displayName">send_offer</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["send_offer"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">offer_date</property>
+                    <text-property name="displayName">offer_date</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["offer_date"]</expression>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="name">joining_date</property>
+                    <text-property name="displayName">joining_date</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["joining_date"]</expression>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="name">source_id</property>
+                    <text-property name="displayName">source_id</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["source_id"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">description</property>
+                    <text-property name="displayName">description</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["description"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">Aggregation</property>
+                    <property name="dataType">integer</property>
+                    <property name="aggregateFunction">RUNNINGCOUNT</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">true</property>
+                </structure>
+            </list-property>
+            <column id="6738">
+                <property name="width">1in</property>
+            </column>
+            <column id="6498">
+                <property name="width">0.5416666666666666in</property>
+            </column>
+            <column id="6499">
+                <property name="width">1.28125in</property>
+            </column>
+            <column id="6500">
+                <property name="width">1.0520833333333333in</property>
+            </column>
+            <column id="6501">
+                <property name="width">0.59375in</property>
+            </column>
+            <column id="6502">
+                <property name="width">1.0833333333333333in</property>
+            </column>
+            <column id="6503">
+                <property name="width">0.8854166666666666in</property>
+            </column>
+            <column id="6504">
+                <property name="width">0.6666666666666666in</property>
+            </column>
+            <column id="6505">
+                <property name="width">2.1354166666666665in</property>
+            </column>
+            <column id="6506">
+                <property name="width">1.1666666666666667in</property>
+            </column>
+            <column id="6507"/>
+            <column id="6508"/>
+            <column id="6509"/>
+            <column id="6510"/>
+            <column id="6511">
+                <property name="width">1.0208333333333333in</property>
+            </column>
+            <column id="6512">
+                <property name="width">0.7916666666666666in</property>
+            </column>
+            <column id="6513">
+                <property name="width">0.875in</property>
+            </column>
+            <column id="6514"/>
+            <column id="6515"/>
+            <column id="6516"/>
+            <column id="6517"/>
+            <column id="6518"/>
+            <column id="6519"/>
+            <column id="6520"/>
+            <column id="6521"/>
+            <column id="6522">
+                <property name="width">1.2083333333333333in</property>
+            </column>
+            <column id="6523">
+                <property name="width">1.375in</property>
+            </column>
+            <column id="6524">
+                <property name="width">0.8854166666666666in</property>
+            </column>
+            <column id="6525"/>
+            <column id="6526"/>
+            <header>
+                <row id="6350">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <cell id="6735">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6739">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Sr]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6351">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6705">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Name]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6353">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6706">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Employee Status]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6355">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6707">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Applied Date]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6357">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6708">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Applied Position]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6359">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6709">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Date Of Birth]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6361">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6710">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[NRC]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6363">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6711">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Education]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6365">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6712">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Qualification]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6367">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6713">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Current Company]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6369">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6714">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Current Position]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6371">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6715">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Current Salary]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6373">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6716">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Expected Salary]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6375">
+                        <text id="6717">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Noticed Period]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6377">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6718">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Contact Number]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6379">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6719">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Email]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6381">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6720">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[CV Attached]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6383">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6721">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[HOD Name]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6385">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6722">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Date of send To HOD]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6387">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6723">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[HR Received Date]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6389">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6724">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[First Interview Date]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6391">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6725">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Second Interview Date]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6393">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6726">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Final Interview]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6395">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6727">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Rejected After Interview]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6397">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6728">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Withdraw]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6399">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6729">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Send Offer]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6401">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6730">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Offer Date]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6403">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6731">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Joining Date]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6405">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6732">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Soured]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6407">
+                        <text id="6733">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Notes]]></text-property>
+                        </text>
+                    </cell>
+                </row>
+            </header>
+            <detail>
+                <row id="6409">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="height">0.2708333333333333in</property>
+                    <cell id="6736">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6740">
+                            <property name="resultSetColumn">Aggregation</property>
+                        </data>
+                    </cell>
+                    <cell id="6410">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6411">
+                            <property name="resultSetColumn">name</property>
+                        </data>
+                    </cell>
+                    <cell id="6412">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6413">
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">employment_status</property>
+                        </data>
+                    </cell>
+                    <cell id="6414">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6415">
+                            <property name="resultSetColumn">applied_date</property>
+                        </data>
+                    </cell>
+                    <cell id="6416">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6417">
+                            <property name="resultSetColumn">name_1</property>
+                        </data>
+                    </cell>
+                    <cell id="6418">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6419">
+                            <property name="marginLeft">0pt</property>
+                            <property name="marginRight">10pt</property>
+                            <property name="resultSetColumn">date_of_birth</property>
+                        </data>
+                    </cell>
+                    <cell id="6420">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6421">
+                            <property name="resultSetColumn">nrc</property>
+                        </data>
+                    </cell>
+                    <cell id="6422">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6423">
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">name_2</property>
+                        </data>
+                    </cell>
+                    <cell id="6424">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6425">
+                            <property name="resultSetColumn">qualification</property>
+                        </data>
+                    </cell>
+                    <cell id="6426">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6427">
+                            <property name="resultSetColumn">current_company</property>
+                        </data>
+                    </cell>
+                    <cell id="6428">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6429">
+                            <property name="resultSetColumn">current_position</property>
+                        </data>
+                    </cell>
+                    <cell id="6430">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6431">
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">current_salary</property>
+                        </data>
+                    </cell>
+                    <cell id="6432">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6433">
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">salary_expected</property>
+                        </data>
+                    </cell>
+                    <cell id="6434">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6435">
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">noticed_period</property>
+                        </data>
+                    </cell>
+                    <cell id="6436">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6437">
+                            <property name="resultSetColumn">partner_mobile</property>
+                        </data>
+                    </cell>
+                    <cell id="6438">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6439">
+                            <property name="resultSetColumn">email_from</property>
+                        </data>
+                    </cell>
+                    <cell id="6440">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6441">
+                            <property name="resultSetColumn">cv_attached</property>
+                        </data>
+                    </cell>
+                    <cell id="6442">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6443">
+                            <property name="resultSetColumn">hod_name</property>
+                        </data>
+                    </cell>
+                    <cell id="6444">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6445">
+                            <property name="textAlign">center</property>
+                            <property name="resultSetColumn">date_of_send</property>
+                        </data>
+                    </cell>
+                    <cell id="6446">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6447">
+                            <property name="resultSetColumn">hr_received_date</property>
+                        </data>
+                    </cell>
+                    <cell id="6448">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6449">
+                            <property name="resultSetColumn">x_studio_first_interview_date</property>
+                        </data>
+                    </cell>
+                    <cell id="6450">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6451">
+                            <property name="resultSetColumn">x_studio_second_interview_date</property>
+                        </data>
+                    </cell>
+                    <cell id="6452">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6453">
+                            <property name="resultSetColumn">final_interview</property>
+                        </data>
+                    </cell>
+                    <cell id="6454">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6455">
+                            <property name="resultSetColumn">rejected_after_interview</property>
+                        </data>
+                    </cell>
+                    <cell id="6456">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6457">
+                            <property name="resultSetColumn">withdraw</property>
+                        </data>
+                    </cell>
+                    <cell id="6458">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6459">
+                            <property name="resultSetColumn">send_offer</property>
+                        </data>
+                    </cell>
+                    <cell id="6460">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6461">
+                            <property name="resultSetColumn">offer_date</property>
+                        </data>
+                    </cell>
+                    <cell id="6462">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6463">
+                            <property name="resultSetColumn">joining_date</property>
+                        </data>
+                    </cell>
+                    <cell id="6464">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6465">
+                            <property name="textAlign">right</property>
+                            <property name="resultSetColumn">source_id</property>
+                        </data>
+                    </cell>
+                    <cell id="6466">
+                        <data id="6467">
+                            <property name="resultSetColumn">description</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+            <footer>
+                <row id="6468">
+                    <cell id="6737"/>
+                    <cell id="6469"/>
+                    <cell id="6470"/>
+                    <cell id="6471"/>
+                    <cell id="6472"/>
+                    <cell id="6473"/>
+                    <cell id="6474"/>
+                    <cell id="6475"/>
+                    <cell id="6476"/>
+                    <cell id="6477"/>
+                    <cell id="6478"/>
+                    <cell id="6479"/>
+                    <cell id="6480"/>
+                    <cell id="6481"/>
+                    <cell id="6482"/>
+                    <cell id="6483"/>
+                    <cell id="6484"/>
+                    <cell id="6485"/>
+                    <cell id="6486"/>
+                    <cell id="6487"/>
+                    <cell id="6488"/>
+                    <cell id="6489"/>
+                    <cell id="6490"/>
+                    <cell id="6491"/>
+                    <cell id="6492"/>
+                    <cell id="6493"/>
+                    <cell id="6494"/>
+                    <cell id="6495"/>
+                    <cell id="6496"/>
+                    <cell id="6497"/>
+                </row>
+            </footer>
+        </table>
+    </body>
+</report>
