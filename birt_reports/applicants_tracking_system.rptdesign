@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.24" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.12.0.v202211220955</property>
+=======
 <report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
     <property name="createdBy">Eclipse BIRT Designer Version 4.10.0.v202204260816</property>
+>>>>>>> 0ac2b31c1358111c2e23365ccccd38937917921f
     <property name="units">in</property>
     <property name="theme">report_library.defaultTheme</property>
     <property name="iconFile">/templates/blank_report.gif</property>
@@ -173,10 +178,10 @@
                     <text-property name="heading">final_interview</text-property>
                 </structure>
                 <structure>
-                    <property name="columnName">rejected_after_interview</property>
-                    <property name="analysis">measure</property>
-                    <text-property name="displayName">rejected_after_interview</text-property>
-                    <text-property name="heading">rejected_after_interview</text-property>
+                    <property name="columnName">name_3</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">name</text-property>
+                    <text-property name="heading">name</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">withdraw</property>
@@ -341,8 +346,8 @@
                     </structure>
                     <structure>
                         <property name="position">23</property>
-                        <property name="name">rejected_after_interview</property>
-                        <property name="dataType">integer</property>
+                        <property name="name">name_3</property>
+                        <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">24</property>
@@ -534,10 +539,10 @@
                 </structure>
                 <structure>
                     <property name="position">23</property>
-                    <property name="name">rejected_after_interview</property>
-                    <property name="nativeName">rejected_after_interview</property>
-                    <property name="dataType">integer</property>
-                    <property name="nativeDataType">-7</property>
+                    <property name="name">name_3</property>
+                    <property name="nativeName">name</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
                     <property name="position">24</property>
@@ -586,9 +591,9 @@
 ha.applied_date,rp.name,ha.date_of_birth,ha.nrc,ht.name,ha.qualification,ha.current_company,ha.current_position,
 ha.current_salary,ha.salary_expected,ha.noticed_period,ha.partner_mobile,ha.email_from,ha.cv_attached,ha.hod_name,
 ha.date_of_send,ha.hr_received_date,ha.x_studio_first_interview_date,ha.x_studio_second_interview_date,
-ha.final_interview,hs.rejected_after_interview,hs.withdraw,ha.send_offer,ha.offer_date,he.joining_date,ha.source_id,ha.description
-from hr_applicant ha 
-left join hr_employee he on (ha.emp_id = he.id ) 
+ha.final_interview,hs.name,hs.withdraw,ha.send_offer,ha.offer_date,he.joining_date,ha.source_id,ha.description
+from hr_applicant ha
+left join hr_employee he on (ha.emp_id = he.id )
 left join hr_recruitment_stage hs on (ha.stage_id = hs.id)
 left join hr_recruitment_degree ht on (ha.type_id = ht.id)
 left join res_users ru on (ru.id = ha.user_id )
@@ -908,12 +913,6 @@ order by name;]]></xml-property>
                     <property name="dataType">date</property>
                 </structure>
                 <structure>
-                    <property name="name">rejected_after_interview</property>
-                    <text-property name="displayName">rejected_after_interview</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["rejected_after_interview"]</expression>
-                    <property name="dataType">integer</property>
-                </structure>
-                <structure>
                     <property name="name">withdraw</property>
                     <text-property name="displayName">withdraw</text-property>
                     <expression name="expression" type="javascript">dataSetRow["withdraw"]</expression>
@@ -959,6 +958,12 @@ order by name;]]></xml-property>
                         </structure>
                     </list-property>
                     <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">name_3</property>
+                    <text-property name="displayName">name</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["name_3"]</expression>
+                    <property name="dataType">string</property>
                 </structure>
             </list-property>
             <column id="6738">
@@ -1766,8 +1771,8 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <data id="6455">
-                            <property name="resultSetColumn">rejected_after_interview</property>
+                        <data id="6743">
+                            <property name="resultSetColumn">name_3</property>
                         </data>
                     </cell>
                     <cell id="6456">
