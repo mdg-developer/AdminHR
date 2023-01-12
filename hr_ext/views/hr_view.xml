@@ -225,6 +225,7 @@
 					<field name="current_salary"/>
 					<field name="employment_status"/>
 					<field name="cv_attached" invisible="1"/>
+					<field name="withdraw" invisible="1"/>
 				</xpath>
 			</field>
 		</record>
