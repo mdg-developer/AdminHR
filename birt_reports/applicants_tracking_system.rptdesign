@@ -586,7 +586,7 @@
 ha.applied_date,rp.name,ha.date_of_birth,ha.nrc,ht.name,ha.qualification,ha.current_company,ha.current_position,
 ha.current_salary,ha.salary_expected,ha.noticed_period,ha.partner_mobile,ha.email_from,ha.cv_attached,ha.hod_name,
 ha.date_of_send,ha.hr_received_date,ha.x_studio_first_interview_date,ha.x_studio_second_interview_date,
-ha.final_interview,hs.name,hs.withdraw,ha.send_offer,ha.offer_date,he.joining_date,ha.source_id,ha.description
+ha.final_interview,hs.name,ha.withdraw,ha.send_offer,ha.offer_date,he.joining_date,ha.source_id,ha.description
 from hr_applicant ha
 left join hr_employee he on (ha.emp_id = he.id )
 left join hr_recruitment_stage hs on (ha.stage_id = hs.id)
