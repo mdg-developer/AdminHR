@@ -288,6 +288,7 @@ class Applicant(models.Model):
     employment_status = fields.Many2one('employment.new.status')
     cv_attached = fields.Char('CV Attached')
     hod_name = fields.Char('HOD Name')
+    withdraw = fields.Char('Withdraw')
 
 
     @api.model
