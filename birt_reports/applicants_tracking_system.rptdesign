@@ -586,7 +586,7 @@
 ha.applied_date,rp.name,ha.date_of_birth,ha.nrc,ht.name,ha.qualification,ha.current_company,ha.current_position,
 ha.current_salary,ha.salary_expected,ha.noticed_period,ha.partner_mobile,ha.email_from,ha.cv_attached,ha.hod_name,
 ha.date_of_send,ha.hr_received_date,ha.x_studio_first_interview_date,ha.x_studio_second_interview_date,
-ha.final_interview,hs.name,hs.withdraw,ha.send_offer,ha.offer_date,he.joining_date,ha.source_id,ha.description
+ha.final_interview,hs.name,ha.withdraw,ha.send_offer,ha.offer_date,he.joining_date,ha.source_id,ha.description
 from hr_applicant ha
 left join hr_employee he on (ha.emp_id = he.id )
 left join hr_recruitment_stage hs on (ha.stage_id = hs.id)
@@ -1843,40 +1843,6 @@ order by name;]]></xml-property>
                     </cell>
                 </row>
             </detail>
-            <footer>
-                <row id="6468">
-                    <cell id="6737"/>
-                    <cell id="6469"/>
-                    <cell id="6470"/>
-                    <cell id="6471"/>
-                    <cell id="6472"/>
-                    <cell id="6473"/>
-                    <cell id="6474"/>
-                    <cell id="6475"/>
-                    <cell id="6476"/>
-                    <cell id="6477"/>
-                    <cell id="6478"/>
-                    <cell id="6479"/>
-                    <cell id="6480"/>
-                    <cell id="6481"/>
-                    <cell id="6482"/>
-                    <cell id="6483"/>
-                    <cell id="6484"/>
-                    <cell id="6485"/>
-                    <cell id="6486"/>
-                    <cell id="6487"/>
-                    <cell id="6488"/>
-                    <cell id="6489"/>
-                    <cell id="6490"/>
-                    <cell id="6491"/>
-                    <cell id="6492"/>
-                    <cell id="6493"/>
-                    <cell id="6494"/>
-                    <cell id="6495"/>
-                    <cell id="6496"/>
-                    <cell id="6497"/>
-                </row>
-            </footer>
         </table>
     </body>
 </report>

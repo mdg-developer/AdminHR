@@ -158,8 +158,8 @@ class JobLine(models.Model):
     current_employee = fields.Integer(compute='_get_current_employee', string='Current Employee', readonly=True, store = True)
     new_employee = fields.Integer(compute='_get_new_employee', string='Expected New Employee', readonly=True)
     expected_new_employee = fields.Integer(string='New Employee')
-    upper_position = fields.Many2one('hr.job', string='Upper Position')
-    normal_employee = fields.Integer(string='Normal Employee')
+    upper_position = fields.Many2one('hr.job', string='Upper Position', stored=True)
+    normal_employee = fields.Integer(string='Normal Employee', stored=True)
     urgent_employee = fields.Integer(string='Urgent Employee')
     job_description = fields.Html(string='Job Description')
     job_requirment = fields.Html(string='Job Requirment')
@@ -288,7 +288,7 @@ class Applicant(models.Model):
     employment_status = fields.Many2one('employment.new.status')
     cv_attached = fields.Char('CV Attached')
     hod_name = fields.Char('HOD Name')
-    withdraw = fields.Char('withdraw')
+    withdraw = fields.Char('Withdraw')
 
 
     @api.model
