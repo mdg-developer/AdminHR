@@ -70,6 +70,7 @@
 								<field name="nil_excess" />
 								<field name="total_premium" />
 								<field name="expired_date" />
+								<field name="ncb"/>
 							</group>
 					    </group>
 					</sheet>

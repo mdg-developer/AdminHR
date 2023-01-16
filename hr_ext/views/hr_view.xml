@@ -185,7 +185,7 @@
 				</xpath>
 				<xpath expr="//field[@name='source_id']" position="after">
 					<field name="replace_for" />
-					<field name="reason_for"/>
+					<field name="reason_for" string="Reason For?"/>
 <!--					<field name="employee_id" attrs="{'invisible': [('replace_for', '=', False)], 'required': [('replace_for', '=', True)]}" />-->
 				</xpath>
 

@@ -19,6 +19,7 @@ class VehicleInsurance (models.Model):
     total_premium = fields.Float(string='Total Premium',readonly=True)
     expired_date = fields.Date(string='Expired Date')
     insurance_company = fields.Char(string='Insurance Company')
+    ncb = fields.Char(string="NCB")
     
     trailer_count = fields.Integer( string='Trainers History')
     
