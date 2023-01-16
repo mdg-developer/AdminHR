@@ -43,14 +43,14 @@
 		</record>
 
 		<record model="ir.actions.act_window" id="open_view_hr_claims_form">
-			<field name="name">Claims</field>
+			<field name="name">Insurance Claims</field>
 			<field name="type">ir.actions.act_window</field>
 			<field name="res_model">hr.claims</field>
 			<field name="view_mode">tree,form</field>
 			<field name="view_id" ref="view_hr_claims_tree" />
 		</record>
 
-		<menuitem id="menu_hr_claims" name="Claims" parent="menu_hr_insurance" action="open_view_hr_claims_form" sequence="2" />
-
+		<menuitem id="menu_hr_claims" name="Insurance Claims" parent="fleet.fleet_configuration"
+			action="open_view_hr_claims_form" sequence="65" />
 	</data>
 </odoo>
