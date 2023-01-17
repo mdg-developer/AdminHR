@@ -1,0 +1,1543 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.24" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.12.0.v202211220955</property>
+    <property name="units">in</property>
+    <property name="theme">report_library.defaultTheme</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="layoutPreference">auto layout</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">96</property>
+    <list-property name="libraries">
+        <structure>
+            <property name="fileName">report_library.rptlibrary</property>
+            <property name="namespace">report_library</property>
+        </structure>
+    </list-property>
+    <parameters>
+        <scalar-parameter name="company_id1" id="5074">
+            <text-property name="promptText">Company</text-property>
+            <property name="valueType">dynamic</property>
+            <property name="isRequired">true</property>
+            <property name="dataSetName">company</property>
+            <expression name="valueExpr" type="javascript">dataSetRow["id"]</expression>
+            <expression name="labelExpr" type="javascript">dataSetRow["name"]</expression>
+            <property name="dataType">integer</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">list-box</property>
+            <property name="mustMatch">true</property>
+            <property name="fixedOrder">true</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="4873"
+ extends="report_library.Data Source">
+            <property name="odaDriverClass">org.postgresql.Driver</property>
+            <property name="odaURL">jdbc:postgresql://localhost:5433/odoo_13_live_database_1_2_2023</property>
+            <property name="odaUser">odoo</property>
+            <encrypted-property name="odaPassword" encryptionID="base64">YWRtaW4=</encrypted-property>
+        </oda-data-source>
+    </data-sources>
+    <data-sets>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="Data Set" id="4704">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">x_company</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">x_company</text-property>
+                    <text-property name="heading">x_company</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">x_branch</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">x_branch</text-property>
+                    <text-property name="heading">x_branch</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">x_location</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">x_location</text-property>
+                    <text-property name="heading">x_location</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">x_department</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">x_department</text-property>
+                    <text-property name="heading">x_department</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">x_section</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">x_section</text-property>
+                    <text-property name="heading">x_section</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">x_position</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">x_position</text-property>
+                    <text-property name="heading">x_position</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">x_requisition_date</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">x_requisition_date</text-property>
+                    <text-property name="heading">x_requisition_date</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">x_jobnet</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">x_jobnet</text-property>
+                    <text-property name="heading">x_jobnet</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">x_alote_com</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">x_alote_com</text-property>
+                    <text-property name="heading">x_alote_com</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">x_mdg_own</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">x_mdg_own</text-property>
+                    <text-property name="heading">x_mdg_own</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">x_total_app</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">x_total_app</text-property>
+                    <text-property name="heading">x_total_app</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">x_screened</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">x_screened</text-property>
+                    <text-property name="heading">x_screened</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">x_rejected</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">x_rejected</text-property>
+                    <text-property name="heading">x_rejected</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">x_send_to_hod</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">x_send_to_hod</text-property>
+                    <text-property name="heading">x_send_to_hod</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">x_interview</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">x_interview</text-property>
+                    <text-property name="heading">x_interview</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">x_hired</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">x_hired</text-property>
+                    <text-property name="heading">x_hired</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">x_send_offer_date</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">x_send_offer_date</text-property>
+                    <text-property name="heading">x_send_offer_date</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">x_joining_date</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">x_joining_date</text-property>
+                    <text-property name="heading">x_joining_date</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">x_cardidate_name</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">x_cardidate_name</text-property>
+                    <text-property name="heading">x_cardidate_name</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">x_no_of_placement</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">x_no_of_placement</text-property>
+                    <text-property name="heading">x_no_of_placement</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">x_source_by</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">x_source_by</text-property>
+                    <text-property name="heading">x_source_by</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">x_notes</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">x_notes</text-property>
+                    <text-property name="heading">x_notes</text-property>
+                </structure>
+            </list-property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">company_id</property>
+                    <property name="paramName">company_id1</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                    <property name="position">1</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">x_company</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">x_branch</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">x_location</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">x_department</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">x_section</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">x_position</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">x_requisition_date</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">x_jobnet</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">x_alote_com</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">x_mdg_own</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">x_total_app</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">x_screened</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">x_rejected</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">14</property>
+                        <property name="name">x_send_to_hod</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">15</property>
+                        <property name="name">x_interview</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">16</property>
+                        <property name="name">x_hired</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">17</property>
+                        <property name="name">x_send_offer_date</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">18</property>
+                        <property name="name">x_joining_date</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">19</property>
+                        <property name="name">x_cardidate_name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">20</property>
+                        <property name="name">x_no_of_placement</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">21</property>
+                        <property name="name">x_source_by</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">22</property>
+                        <property name="name">x_notes</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">x_company</property>
+                    <property name="nativeName">x_company</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">x_branch</property>
+                    <property name="nativeName">x_branch</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">x_location</property>
+                    <property name="nativeName">x_location</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">x_department</property>
+                    <property name="nativeName">x_department</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">x_section</property>
+                    <property name="nativeName">x_section</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">x_position</property>
+                    <property name="nativeName">x_position</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">x_requisition_date</property>
+                    <property name="nativeName">x_requisition_date</property>
+                    <property name="dataType">date</property>
+                    <property name="nativeDataType">91</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">x_jobnet</property>
+                    <property name="nativeName">x_jobnet</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">-5</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">x_alote_com</property>
+                    <property name="nativeName">x_alote_com</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">-5</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">x_mdg_own</property>
+                    <property name="nativeName">x_mdg_own</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">-5</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">x_total_app</property>
+                    <property name="nativeName">x_total_app</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">-5</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">x_screened</property>
+                    <property name="nativeName">x_screened</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">-5</property>
+                </structure>
+                <structure>
+                    <property name="position">13</property>
+                    <property name="name">x_rejected</property>
+                    <property name="nativeName">x_rejected</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">-5</property>
+                </structure>
+                <structure>
+                    <property name="position">14</property>
+                    <property name="name">x_send_to_hod</property>
+                    <property name="nativeName">x_send_to_hod</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">-5</property>
+                </structure>
+                <structure>
+                    <property name="position">15</property>
+                    <property name="name">x_interview</property>
+                    <property name="nativeName">x_interview</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">-5</property>
+                </structure>
+                <structure>
+                    <property name="position">16</property>
+                    <property name="name">x_hired</property>
+                    <property name="nativeName">x_hired</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">-5</property>
+                </structure>
+                <structure>
+                    <property name="position">17</property>
+                    <property name="name">x_send_offer_date</property>
+                    <property name="nativeName">x_send_offer_date</property>
+                    <property name="dataType">date</property>
+                    <property name="nativeDataType">91</property>
+                </structure>
+                <structure>
+                    <property name="position">18</property>
+                    <property name="name">x_joining_date</property>
+                    <property name="nativeName">x_joining_date</property>
+                    <property name="dataType">date</property>
+                    <property name="nativeDataType">91</property>
+                </structure>
+                <structure>
+                    <property name="position">19</property>
+                    <property name="name">x_cardidate_name</property>
+                    <property name="nativeName">x_cardidate_name</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">20</property>
+                    <property name="name">x_no_of_placement</property>
+                    <property name="nativeName">x_no_of_placement</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">-5</property>
+                </structure>
+                <structure>
+                    <property name="position">21</property>
+                    <property name="name">x_source_by</property>
+                    <property name="nativeName">x_source_by</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">22</property>
+                    <property name="name">x_notes</property>
+                    <property name="nativeName">x_notes</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[select 
+rc.name as x_company,
+rb.name as x_branch,
+he.work_location as x_location,
+hd.name as x_department,
+hdp.name as x_section,
+hj.name as x_position,
+hap.requisition_date as x_requisition_date,
+(select count(*) from hr_applicant hrap
+ left join utm_source use ON use.id = hrap.source_id
+ where hrap.id = hap.id
+and use.name in ('Jobnet')) x_Jobnet,
+(select count(*) from hr_applicant hrap
+ left join utm_source use ON use.id = hrap.source_id
+ where hrap.id = hap.id
+and use.name in ('Alote.com')) x_Alote_com,
+(select count(*) from hr_applicant hrap
+ left join utm_source use ON use.id = hrap.source_id
+ where hrap.id = hap.id
+and use.name in ('MDG Own')) x_mdg_own,
+(select count(*) from hr_applicant hrap
+ left join utm_source use ON use.id = hrap.source_id
+ where hrap.id = hap.id
+and use.name in ('Jobnet','Alote.com','MDG Own')) x_total_app,
+(select count(*) from hr_applicant hrt
+where hrt.x_studio_cv_screening_date = hap.x_studio_cv_screening_date) x_screened,
+(select count(*) from hr_applicant hrap
+ left join hr_recruitment_stage hrse ON hrse.id = hrap.stage_id
+ where hrse.id = hrap.id
+and hrse.name in ('Rejected After Interview', 'Offer Rejected')) x_rejected,
+(select count(*) from hr_applicant hrap
+where hrap.date_of_send = hap.date_of_send) x_send_to_hod,
+(select count(*) from hr_applicant hapt
+where hapt.final_interview = hap.final_interview) x_interview,
+(select count(*) from hr_applicant hrap
+ left join hr_recruitment_stage hrse ON hrse.id = hrap.stage_id
+ where hrse.id = hrap.id
+and hrse.name in ('contract sign')) x_hired,
+hap.offer_date as x_send_offer_date,
+he.joining_date as x_joining_date,
+hap.partner_name as x_cardidate_name,
+(select count(*) from hr_applicant hrt
+where hrt.partner_id = hap.partner_id) x_no_of_placement,
+us.name as x_source_by,
+hap.description as x_notes
+from hr_applicant hap
+left join res_company rc on rc.id = hap.company_id
+left join res_branch rb on rb.id = hap.branch_id
+left join hr_department hd ON hd.id = hap.department_id
+left join hr_department hdp ON hdp.id = hd.parent_id
+left join hr_job hj ON hj.id = hap.job_id
+left join utm_source us ON us.id = hap.source_id
+left join hr_employee he ON he.id = hap.emp_id
+WHERE hap.company_id = ?]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>name</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>2147483647</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>name</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>name</design:label>
+            <design:formattingHints>
+              <design:displaySize>2147483647</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>count</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>-5</design:nativeDataTypeCode>
+            <design:precision>19</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>Unknown</design:nullability>
+            <design:uiHints>
+              <design:displayName>count</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>count</design:label>
+            <design:formattingHints>
+              <design:displaySize>20</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+        <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="company" id="4874">
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">id</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">id</text-property>
+                    <text-property name="heading">id</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">name</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">name</text-property>
+                    <text-property name="heading">name</text-property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">id</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <list-property name="resultSet">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">id</property>
+                    <property name="nativeName">id</property>
+                    <property name="dataType">integer</property>
+                    <property name="nativeDataType">4</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">name</property>
+                    <property name="nativeName">name</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+            </list-property>
+            <xml-property name="queryText"><![CDATA[select id,name
+from res_company
+order by name;]]></xml-property>
+            <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
+  <Version>2.0</Version>
+  <design:ResultSets derivedMetaData="true">
+    <design:resultSetDefinitions>
+      <design:resultSetColumns>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>id</design:name>
+              <design:position>1</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>4</design:nativeDataTypeCode>
+            <design:precision>10</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>id</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>id</design:label>
+            <design:formattingHints>
+              <design:displaySize>11</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+        <design:resultColumnDefinitions>
+          <design:attributes>
+            <design:identifier>
+              <design:name>name</design:name>
+              <design:position>2</design:position>
+            </design:identifier>
+            <design:nativeDataTypeCode>12</design:nativeDataTypeCode>
+            <design:precision>2147483647</design:precision>
+            <design:scale>0</design:scale>
+            <design:nullability>NotNullable</design:nullability>
+            <design:uiHints>
+              <design:displayName>name</design:displayName>
+            </design:uiHints>
+          </design:attributes>
+          <design:usageHints>
+            <design:label>name</design:label>
+            <design:formattingHints>
+              <design:displaySize>2147483647</design:displaySize>
+            </design:formattingHints>
+          </design:usageHints>
+        </design:resultColumnDefinitions>
+      </design:resultSetColumns>
+      <design:criteria/>
+    </design:resultSetDefinitions>
+  </design:ResultSets>
+</model:DesignValues>]]></xml-property>
+        </oda-data-set>
+    </data-sets>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <property name="type">us-ledger</property>
+            <property name="orientation">landscape</property>
+            <property name="topMargin">0.5in</property>
+            <property name="leftMargin">0in</property>
+            <property name="bottomMargin">0.5in</property>
+            <property name="rightMargin">0in</property>
+            <property name="height">297mm</property>
+            <property name="width">620mm</property>
+            <property name="headerHeight">5in</property>
+            <property name="footerHeight">5in</property>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <label id="4877">
+            <property name="fontFamily">sans-serif</property>
+            <property name="fontSize">12pt</property>
+            <property name="fontWeight">bold</property>
+            <property name="textAlign">justify</property>
+            <property name="verticalAlign">middle</property>
+            <text-property name="text">Recruitment Pipeline</text-property>
+        </label>
+        <table id="6744">
+            <property name="dataSet">Data Set</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">x_company</property>
+                    <text-property name="displayName">x_company</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["x_company"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">x_branch</property>
+                    <text-property name="displayName">x_branch</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["x_branch"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">x_location</property>
+                    <text-property name="displayName">x_location</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["x_location"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">x_department</property>
+                    <text-property name="displayName">x_department</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["x_department"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">x_section</property>
+                    <text-property name="displayName">x_section</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["x_section"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">x_position</property>
+                    <text-property name="displayName">x_position</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["x_position"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">x_requisition_date</property>
+                    <text-property name="displayName">x_requisition_date</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["x_requisition_date"]</expression>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="name">x_jobnet</property>
+                    <text-property name="displayName">x_jobnet</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["x_jobnet"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">x_alote_com</property>
+                    <text-property name="displayName">x_alote_com</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["x_alote_com"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">x_mdg_own</property>
+                    <text-property name="displayName">x_mdg_own</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["x_mdg_own"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">x_total_app</property>
+                    <text-property name="displayName">x_total_app</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["x_total_app"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">x_screened</property>
+                    <text-property name="displayName">x_screened</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["x_screened"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">x_rejected</property>
+                    <text-property name="displayName">x_rejected</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["x_rejected"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">x_send_to_hod</property>
+                    <text-property name="displayName">x_send_to_hod</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["x_send_to_hod"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">x_interview</property>
+                    <text-property name="displayName">x_interview</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["x_interview"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">x_hired</property>
+                    <text-property name="displayName">x_hired</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["x_hired"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">x_send_offer_date</property>
+                    <text-property name="displayName">x_send_offer_date</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["x_send_offer_date"]</expression>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="name">x_joining_date</property>
+                    <text-property name="displayName">x_joining_date</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["x_joining_date"]</expression>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="name">x_cardidate_name</property>
+                    <text-property name="displayName">x_cardidate_name</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["x_cardidate_name"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">x_no_of_placement</property>
+                    <text-property name="displayName">x_no_of_placement</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["x_no_of_placement"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">x_source_by</property>
+                    <text-property name="displayName">x_source_by</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["x_source_by"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">x_notes</property>
+                    <text-property name="displayName">x_notes</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["x_notes"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">Aggregation</property>
+                    <property name="dataType">integer</property>
+                    <property name="aggregateFunction">RUNNINGCOUNT</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">Aggregation_1</property>
+                    <text-property name="displayName">N</text-property>
+                    <property name="dataType">integer</property>
+                    <property name="aggregateFunction">RUNNINGCOUNT</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">true</property>
+                </structure>
+            </list-property>
+            <column id="6975">
+                <property name="width">0.3854166666666667in</property>
+            </column>
+            <column id="6858">
+                <property name="width">1.3958333333333333in</property>
+            </column>
+            <column id="6859">
+                <property name="width">0.7395833333333334in</property>
+            </column>
+            <column id="6860"/>
+            <column id="6861"/>
+            <column id="6862"/>
+            <column id="6863"/>
+            <column id="6864"/>
+            <column id="6865"/>
+            <column id="6866"/>
+            <column id="6867"/>
+            <column id="6868"/>
+            <column id="6869"/>
+            <column id="6870"/>
+            <column id="6871"/>
+            <column id="6872"/>
+            <column id="6873"/>
+            <column id="6874"/>
+            <column id="6875"/>
+            <column id="6876"/>
+            <column id="6877"/>
+            <column id="6878"/>
+            <column id="6879"/>
+            <header>
+                <row id="6745">
+                    <property name="backgroundColor">#AAAFD5</property>
+                    <property name="borderBottomColor">#000000</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">1px</property>
+                    <property name="borderLeftColor">#000000</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">1px</property>
+                    <property name="borderRightColor">#000000</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">1px</property>
+                    <property name="borderTopColor">#000000</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">1px</property>
+                    <property name="height">0.4270833333333333in</property>
+                    <cell id="6972">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <text id="6976">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Sr]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6746">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6880">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Company Name]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6748">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6978">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Branch]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6750">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6882">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Location]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6752">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6883">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Department]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6754">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6884">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Section]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6756">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6885">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Position]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6758">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6886">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Reuestion Date]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6760">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6887">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Jobnet]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6762">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6888">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Alote.com]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6764">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6889">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[MDG Own]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6766">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6890">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Total Apps]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6768">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6891">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Screened]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6770">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6892">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Rejected]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6772">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6893">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Send To HOD]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6774">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6894">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Interview]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6776">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6895">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Hired]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6778">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6896">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Send Offer Date]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6780">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6897">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Joining Date]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6782">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6898">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Candidate Name]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6784">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6899">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[No. of Placement]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6786">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6900">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Sourced by]]></text-property>
+                        </text>
+                    </cell>
+                    <cell id="6788">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="6901">
+                            <property name="contentType">auto</property>
+                            <text-property name="content"><![CDATA[Notes]]></text-property>
+                        </text>
+                    </cell>
+                </row>
+            </header>
+            <detail>
+                <row id="6790">
+                    <property name="borderBottomColor">#000000</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">1px</property>
+                    <property name="borderLeftColor">#000000</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">1px</property>
+                    <property name="borderRightColor">#000000</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">1px</property>
+                    <property name="borderTopColor">#000000</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">1px</property>
+                    <property name="height">0.3958333333333333in</property>
+                    <cell id="6973">
+                        <property name="textAlign">right</property>
+                        <property name="width">10px</property>
+                        <data id="6979">
+                            <property name="textAlign">center</property>
+                            <property name="resultSetColumn">Aggregation_1</property>
+                        </data>
+                    </cell>
+                    <cell id="6791">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">1px</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">1px</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">1px</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">1px</property>
+                        <data id="6792">
+                            <property name="resultSetColumn">x_company</property>
+                        </data>
+                    </cell>
+                    <cell id="6793">
+                        <data id="6794">
+                            <property name="resultSetColumn">x_branch</property>
+                        </data>
+                    </cell>
+                    <cell id="6795">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6796">
+                            <property name="resultSetColumn">x_location</property>
+                        </data>
+                    </cell>
+                    <cell id="6797">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6798">
+                            <property name="resultSetColumn">x_department</property>
+                        </data>
+                    </cell>
+                    <cell id="6799">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6800">
+                            <property name="resultSetColumn">x_section</property>
+                        </data>
+                    </cell>
+                    <cell id="6801">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6802">
+                            <property name="resultSetColumn">x_position</property>
+                        </data>
+                    </cell>
+                    <cell id="6803">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6804">
+                            <property name="resultSetColumn">x_requisition_date</property>
+                        </data>
+                    </cell>
+                    <cell id="6805">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <property name="textAlign">right</property>
+                        <data id="6806">
+                            <property name="textAlign">center</property>
+                            <property name="resultSetColumn">x_jobnet</property>
+                        </data>
+                    </cell>
+                    <cell id="6807">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6808">
+                            <property name="textAlign">center</property>
+                            <property name="resultSetColumn">x_alote_com</property>
+                        </data>
+                    </cell>
+                    <cell id="6809">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6810">
+                            <property name="textAlign">center</property>
+                            <property name="resultSetColumn">x_mdg_own</property>
+                        </data>
+                    </cell>
+                    <cell id="6811">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6812">
+                            <property name="textAlign">center</property>
+                            <property name="resultSetColumn">x_total_app</property>
+                        </data>
+                    </cell>
+                    <cell id="6813">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6814">
+                            <property name="textAlign">center</property>
+                            <property name="resultSetColumn">x_screened</property>
+                        </data>
+                    </cell>
+                    <cell id="6815">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6816">
+                            <property name="textAlign">center</property>
+                            <property name="resultSetColumn">x_rejected</property>
+                        </data>
+                    </cell>
+                    <cell id="6817">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6818">
+                            <property name="textAlign">center</property>
+                            <property name="resultSetColumn">x_send_to_hod</property>
+                        </data>
+                    </cell>
+                    <cell id="6819">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6820">
+                            <property name="textAlign">center</property>
+                            <property name="resultSetColumn">x_interview</property>
+                        </data>
+                    </cell>
+                    <cell id="6821">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6822">
+                            <property name="textAlign">center</property>
+                            <property name="resultSetColumn">x_hired</property>
+                        </data>
+                    </cell>
+                    <cell id="6823">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6824">
+                            <property name="resultSetColumn">x_send_offer_date</property>
+                        </data>
+                    </cell>
+                    <cell id="6825">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6826">
+                            <property name="resultSetColumn">x_joining_date</property>
+                        </data>
+                    </cell>
+                    <cell id="6827">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6828">
+                            <property name="resultSetColumn">x_cardidate_name</property>
+                        </data>
+                    </cell>
+                    <cell id="6829">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6830">
+                            <property name="textAlign">center</property>
+                            <property name="resultSetColumn">x_no_of_placement</property>
+                        </data>
+                    </cell>
+                    <cell id="6831">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6832">
+                            <property name="resultSetColumn">x_source_by</property>
+                        </data>
+                    </cell>
+                    <cell id="6833">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="6834">
+                            <property name="resultSetColumn">x_notes</property>
+                        </data>
+                    </cell>
+                </row>
+            </detail>
+        </table>
+    </body>
+</report>
