@@ -185,7 +185,7 @@
 				</xpath>
 				<xpath expr="//field[@name='source_id']" position="after">
 					<field name="replace_for" />
-					<field name="reason_for" string="Reason For?"/>
+					<field name="employment_status" string="Employee Status"/>
 <!--					<field name="employee_id" attrs="{'invisible': [('replace_for', '=', False)], 'required': [('replace_for', '=', True)]}" />-->
 				</xpath>
 
@@ -194,7 +194,8 @@
 					<field name="partner_name" required="True"/>
 				</xpath>
 
-				<xpath expr="//field[@name='type_id']" position="after">
+				<xpath expr="//field[@name='type_id']" position="replace">
+					<field name="type_id" string="Education"/>
 					<label for="nrc_number" name="NRC Entry"/>
 						<div class="o_address_format">
 							<field name="nrc_region_code" style="width: 15%" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>/

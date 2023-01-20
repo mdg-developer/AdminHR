@@ -98,6 +98,9 @@
 				<xpath expr="//group[@name='active_group']" position="inside">
 					<field name="is_branch_manager" readonly="1" invisible="1"/>
 				</xpath>
+				<xpath expr="//field[@name='study_school']" position="after">
+					<field name="degree_id" string="Education"/>
+				</xpath>
 				<xpath expr="//page[@name='personal_information']/group" position="inside">				    
 			        <group string="SSB">
 						<field name="ssb_not_calculate" />
@@ -138,6 +141,7 @@
                    <field name="current_address"/>
                 </xpath>
 				<xpath expr="//page[@name='personal_information']/group/group/field[@name='study_school']" position="after">
+
                    <field name="qualification"/>
                 </xpath>
 				<xpath expr="//page[@name='personal_information']/group/group/field[@name='visa_expire']" position="after">
