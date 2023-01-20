@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
-    <property name="createdBy">Eclipse BIRT Designer Version 4.10.0.v202204260816</property>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.24" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.13.0.v202301192028</property>
     <property name="units">in</property>
     <property name="theme">report_library.defaultTheme</property>
     <property name="iconFile">/templates/blank_report.gif</property>
@@ -34,7 +34,7 @@
         </scalar-parameter>
     </parameters>
     <data-sources>
-        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="7047"
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="6741"
  extends="report_library.Data Source"/>
     </data-sources>
     <data-sets>
@@ -42,48 +42,56 @@
             <list-property name="columnHints">
                 <structure>
                     <property name="columnName">x_branch</property>
+                    <property name="alias">x_branch</property>
                     <property name="analysis">dimension</property>
                     <text-property name="displayName">x_branch</text-property>
                     <text-property name="heading">x_branch</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">x_department</property>
+                    <property name="alias">x_department</property>
                     <property name="analysis">dimension</property>
                     <text-property name="displayName">x_department</text-property>
                     <text-property name="heading">x_department</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">x_name</property>
+                    <property name="alias">x_name</property>
                     <property name="analysis">dimension</property>
                     <text-property name="displayName">x_name</text-property>
                     <text-property name="heading">x_name</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">x_nrc</property>
+                    <property name="alias">x_nrc</property>
                     <property name="analysis">dimension</property>
                     <text-property name="displayName">x_nrc</text-property>
                     <text-property name="heading">x_nrc</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">x_bradge_id</property>
+                    <property name="alias">x_bradge_id</property>
                     <property name="analysis">dimension</property>
                     <text-property name="displayName">x_bradge_id</text-property>
                     <text-property name="heading">x_bradge_id</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">x_job_position</property>
+                    <property name="alias">x_job_position</property>
                     <property name="analysis">dimension</property>
                     <text-property name="displayName">x_job_position</text-property>
                     <text-property name="heading">x_job_position</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">x_joining_date</property>
+                    <property name="alias">x_joining_date</property>
                     <property name="analysis">dimension</property>
                     <text-property name="displayName">x_joining_date</text-property>
                     <text-property name="heading">x_joining_date</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">x_service_year</property>
+                    <property name="alias">x_service_year</property>
                     <property name="analysis">measure</property>
                     <text-property name="displayName">x_service_year</text-property>
                     <text-property name="heading">x_service_year</text-property>
@@ -140,68 +148,70 @@
                     </structure>
                     <structure>
                         <property name="position">8</property>
+                        <property name="name">x_comfirm_date</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
                         <property name="name">x_service_year</property>
                         <property name="dataType">integer</property>
                     </structure>
                 </list-property>
             </structure>
-            <property name="dataSource">Data Source</property>
             <list-property name="resultSet">
                 <structure>
                     <property name="position">1</property>
                     <property name="name">x_branch</property>
                     <property name="nativeName">x_branch</property>
                     <property name="dataType">string</property>
-                    <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
                     <property name="position">2</property>
                     <property name="name">x_department</property>
                     <property name="nativeName">x_department</property>
                     <property name="dataType">string</property>
-                    <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
                     <property name="position">3</property>
                     <property name="name">x_name</property>
                     <property name="nativeName">x_name</property>
                     <property name="dataType">string</property>
-                    <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
                     <property name="position">4</property>
                     <property name="name">x_nrc</property>
                     <property name="nativeName">x_nrc</property>
                     <property name="dataType">string</property>
-                    <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
                     <property name="position">5</property>
                     <property name="name">x_bradge_id</property>
                     <property name="nativeName">x_bradge_id</property>
                     <property name="dataType">string</property>
-                    <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
                     <property name="position">6</property>
                     <property name="name">x_job_position</property>
                     <property name="nativeName">x_job_position</property>
                     <property name="dataType">string</property>
-                    <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
                     <property name="position">7</property>
                     <property name="name">x_joining_date</property>
                     <property name="nativeName">x_joining_date</property>
                     <property name="dataType">date</property>
-                    <property name="nativeDataType">91</property>
                 </structure>
                 <structure>
                     <property name="position">8</property>
+                    <property name="name">x_comfirm_date</property>
+                    <property name="nativeName">x_comfirm_date</property>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
                     <property name="name">x_service_year</property>
                     <property name="nativeName">x_service_year</property>
                     <property name="dataType">integer</property>
-                    <property name="nativeDataType">4</property>
                 </structure>
             </list-property>
             <xml-property name="queryText"><![CDATA[select
@@ -212,6 +222,7 @@ he.nrc as x_nrc,
 he.barcode as x_bradge_id,
 hj.name as x_job_position,
 he.joining_date as x_joining_date,
+he.permanent_date as x_comfirm_date,
 (now()::date-he.joining_date)/365 as x_service_year
 from hr_employee he
 left join res_branch rs ON rs.id = he.branch_id
@@ -302,7 +313,6 @@ WHERE he.company_id=?]]></xml-property>
                     </structure>
                 </list-property>
             </structure>
-            <property name="dataSource">Data Source</property>
             <list-property name="resultSet">
                 <structure>
                     <property name="position">1</property>
@@ -463,6 +473,13 @@ order by name;]]></xml-property>
                     </list-property>
                     <property name="allowExport">true</property>
                 </structure>
+                <structure>
+                    <property name="name">x_confirm_date</property>
+                    <text-property name="displayName">x_confirm_date</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["x_comfirm_date"]</expression>
+                    <property name="dataType">date</property>
+                    <property name="allowExport">true</property>
+                </structure>
             </list-property>
             <column id="7035">
                 <property name="width">0.5104166666666666in</property>
@@ -486,6 +503,9 @@ order by name;]]></xml-property>
                 <property name="width">2.71875in</property>
             </column>
             <column id="7030">
+                <property name="width">1.8541666666666667in</property>
+            </column>
+            <column id="7051">
                 <property name="width">1.8541666666666667in</property>
             </column>
             <column id="7031">
@@ -614,6 +634,19 @@ order by name;]]></xml-property>
                             <property name="contentType">auto</property>
                             <text-property name="content"><![CDATA[Joining Date]]></text-property>
                         </text>
+                    </cell>
+                    <cell id="7048">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <label id="7052">
+                            <text-property name="text">Confirm Date/ End of Month</text-property>
+                        </label>
                     </cell>
                     <cell id="6996">
                         <property name="borderBottomStyle">solid</property>
@@ -749,6 +782,19 @@ order by name;]]></xml-property>
                             <property name="resultSetColumn">x_joining_date</property>
                         </data>
                     </cell>
+                    <cell id="7049">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="7053">
+                            <property name="resultSetColumn">x_confirm_date</property>
+                        </data>
+                    </cell>
                     <cell id="7013">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
@@ -775,6 +821,7 @@ order by name;]]></xml-property>
                     <cell id="7020"/>
                     <cell id="7021"/>
                     <cell id="7022"/>
+                    <cell id="7050"/>
                     <cell id="7023"/>
                 </row>
             </footer>
