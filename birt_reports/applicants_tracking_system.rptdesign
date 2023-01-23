@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.24" id="1">
-    <property name="createdBy">Eclipse BIRT Designer Version 4.13.0.v202301192028</property>
+    <property name="createdBy">Eclipse BIRT Designer Version 4.12.0.v202211220955</property>
+    <list-property name="propertyBindings">
+        <structure>
+            <property name="name">queryText</property>
+            <property name="id">4874</property>
+        </structure>
+        <structure>
+            <property name="name">queryTimeOut</property>
+            <property name="id">4874</property>
+        </structure>
+        <structure>
+            <property name="name">rowFetchSize</property>
+            <property name="id">4874</property>
+        </structure>
+    </list-property>
     <property name="units">in</property>
     <property name="theme">report_library.defaultTheme</property>
     <property name="iconFile">/templates/blank_report.gif</property>
@@ -32,14 +46,42 @@
                 <property name="category">Unformatted</property>
             </structure>
         </scalar-parameter>
+        <scalar-parameter name="from_date" id="4702">
+            <text-property name="promptText">From Date</text-property>
+            <property name="valueType">static</property>
+            <property name="isRequired">true</property>
+            <property name="dataType">date</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="concealValue">false</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="to_date" id="4703">
+            <text-property name="promptText">To Date</text-property>
+            <property name="valueType">static</property>
+            <property name="isRequired">true</property>
+            <property name="dataType">date</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="concealValue">false</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
     </parameters>
     <data-sources>
-        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="6741"
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="4873"
  extends="report_library.Data Source">
             <property name="odaDriverClass">org.postgresql.Driver</property>
-            <property name="odaURL">jdbc:postgresql://localhost:5432/MDG_HR_Live</property>
+            <property name="odaURL">jdbc:postgresql://localhost:5433/odoo_13_live_database_1_2_2023</property>
             <property name="odaUser">odoo</property>
-            <encrypted-property name="odaPassword" encryptionID="base64">amFjazEyMyQ=</encrypted-property>
+            <encrypted-property name="odaPassword" encryptionID="base64">YWRtaW4=</encrypted-property>
         </oda-data-source>
     </data-sources>
     <data-sets>
@@ -52,10 +94,10 @@
                     <text-property name="heading">name</text-property>
                 </structure>
                 <structure>
-                    <property name="columnName">employment_status</property>
-                    <property name="analysis">measure</property>
-                    <text-property name="displayName">employment_status</text-property>
-                    <text-property name="heading">employment_status</text-property>
+                    <property name="columnName">name_1</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">name</text-property>
+                    <text-property name="heading">name</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">applied_date</property>
@@ -64,7 +106,7 @@
                     <text-property name="heading">applied_date</text-property>
                 </structure>
                 <structure>
-                    <property name="columnName">name_1</property>
+                    <property name="columnName">name_2</property>
                     <property name="analysis">dimension</property>
                     <text-property name="displayName">name</text-property>
                     <text-property name="heading">name</text-property>
@@ -82,7 +124,7 @@
                     <text-property name="heading">nrc</text-property>
                 </structure>
                 <structure>
-                    <property name="columnName">name_2</property>
+                    <property name="columnName">name_3</property>
                     <property name="analysis">dimension</property>
                     <text-property name="displayName">name</text-property>
                     <text-property name="heading">name</text-property>
@@ -178,16 +220,10 @@
                     <text-property name="heading">final_interview</text-property>
                 </structure>
                 <structure>
-                    <property name="columnName">name_3</property>
-                    <property name="analysis">dimension</property>
-                    <text-property name="displayName">name</text-property>
-                    <text-property name="heading">name</text-property>
-                </structure>
-                <structure>
-                    <property name="columnName">withdraw</property>
+                    <property name="columnName">x_rejected</property>
                     <property name="analysis">measure</property>
-                    <text-property name="displayName">withdraw</text-property>
-                    <text-property name="heading">withdraw</text-property>
+                    <text-property name="displayName">x_rejected</text-property>
+                    <text-property name="heading">x_rejected</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">send_offer</property>
@@ -208,10 +244,10 @@
                     <text-property name="heading">joining_date</text-property>
                 </structure>
                 <structure>
-                    <property name="columnName">source_id</property>
-                    <property name="analysis">measure</property>
-                    <text-property name="displayName">source_id</text-property>
-                    <text-property name="heading">source_id</text-property>
+                    <property name="columnName">x_source_by</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">x_source_by</text-property>
+                    <text-property name="heading">x_source_by</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">description</property>
@@ -222,12 +258,34 @@
             </list-property>
             <list-property name="parameters">
                 <structure>
+                    <property name="name">from_date</property>
+                    <property name="paramName">from_date</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">date</property>
+                    <property name="nativeDataType">91</property>
+                    <property name="position">1</property>
+                    <property name="isOptional">false</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
+                    <property name="name">to_date</property>
+                    <property name="paramName">to_date</property>
+                    <property name="nativeName"></property>
+                    <property name="dataType">date</property>
+                    <property name="nativeDataType">91</property>
+                    <property name="position">2</property>
+                    <property name="isOptional">false</property>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">false</property>
+                </structure>
+                <structure>
                     <property name="name">company_id</property>
                     <property name="paramName">company_id1</property>
                     <property name="nativeName"></property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
-                    <property name="position">1</property>
+                    <property name="position">3</property>
                     <property name="isInput">true</property>
                     <property name="isOutput">false</property>
                 </structure>
@@ -241,7 +299,7 @@
                     </structure>
                     <structure>
                         <property name="position">2</property>
-                        <property name="name">employment_status</property>
+                        <property name="name">name_1</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
@@ -251,7 +309,7 @@
                     </structure>
                     <structure>
                         <property name="position">4</property>
-                        <property name="name">name_1</property>
+                        <property name="name">name_2</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
@@ -266,7 +324,7 @@
                     </structure>
                     <structure>
                         <property name="position">7</property>
-                        <property name="name">name_2</property>
+                        <property name="name">name_3</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
@@ -346,41 +404,37 @@
                     </structure>
                     <structure>
                         <property name="position">23</property>
-                        <property name="name">name_3</property>
-                        <property name="dataType">string</property>
+                        <property name="name">x_rejected</property>
+                        <property name="dataType">decimal</property>
                     </structure>
                     <structure>
                         <property name="position">24</property>
-                        <property name="name">withdraw</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">25</property>
                         <property name="name">send_offer</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">26</property>
+                        <property name="position">25</property>
                         <property name="name">offer_date</property>
                         <property name="dataType">date</property>
                     </structure>
                     <structure>
-                        <property name="position">27</property>
+                        <property name="position">26</property>
                         <property name="name">joining_date</property>
                         <property name="dataType">date</property>
                     </structure>
                     <structure>
-                        <property name="position">28</property>
-                        <property name="name">source_id</property>
-                        <property name="dataType">integer</property>
+                        <property name="position">27</property>
+                        <property name="name">x_source_by</property>
+                        <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">29</property>
+                        <property name="position">28</property>
                         <property name="name">description</property>
                         <property name="dataType">string</property>
                     </structure>
                 </list-property>
             </structure>
+            <property name="dataSource">Data Source</property>
             <list-property name="resultSet">
                 <structure>
                     <property name="position">1</property>
@@ -391,8 +445,8 @@
                 </structure>
                 <structure>
                     <property name="position">2</property>
-                    <property name="name">employment_status</property>
-                    <property name="nativeName">employment_status</property>
+                    <property name="name">name_1</property>
+                    <property name="nativeName">name</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
@@ -405,7 +459,7 @@
                 </structure>
                 <structure>
                     <property name="position">4</property>
-                    <property name="name">name_1</property>
+                    <property name="name">name_2</property>
                     <property name="nativeName">name</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
@@ -426,7 +480,7 @@
                 </structure>
                 <structure>
                     <property name="position">7</property>
-                    <property name="name">name_2</property>
+                    <property name="name">name_3</property>
                     <property name="nativeName">name</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
@@ -538,66 +592,92 @@
                 </structure>
                 <structure>
                     <property name="position">23</property>
-                    <property name="name">name_3</property>
-                    <property name="nativeName">name</property>
-                    <property name="dataType">string</property>
-                    <property name="nativeDataType">12</property>
+                    <property name="name">x_rejected</property>
+                    <property name="nativeName">x_rejected</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">-5</property>
                 </structure>
                 <structure>
                     <property name="position">24</property>
-                    <property name="name">withdraw</property>
-                    <property name="nativeName">withdraw</property>
-                    <property name="dataType">string</property>
-                    <property name="nativeDataType">12</property>
-                </structure>
-                <structure>
-                    <property name="position">25</property>
                     <property name="name">send_offer</property>
                     <property name="nativeName">send_offer</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">26</property>
+                    <property name="position">25</property>
                     <property name="name">offer_date</property>
                     <property name="nativeName">offer_date</property>
                     <property name="dataType">date</property>
                     <property name="nativeDataType">91</property>
                 </structure>
                 <structure>
-                    <property name="position">27</property>
+                    <property name="position">26</property>
                     <property name="name">joining_date</property>
                     <property name="nativeName">joining_date</property>
                     <property name="dataType">date</property>
                     <property name="nativeDataType">91</property>
                 </structure>
                 <structure>
-                    <property name="position">28</property>
-                    <property name="name">source_id</property>
-                    <property name="nativeName">source_id</property>
-                    <property name="dataType">integer</property>
-                    <property name="nativeDataType">4</property>
+                    <property name="position">27</property>
+                    <property name="name">x_source_by</property>
+                    <property name="nativeName">x_source_by</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">29</property>
+                    <property name="position">28</property>
                     <property name="name">description</property>
                     <property name="nativeName">description</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
             </list-property>
-            <xml-property name="queryText"><![CDATA[select ha.name,hs.name employment_status,
-ha.applied_date,rp.name,ha.date_of_birth,ha.nrc,ht.name,ha.qualification,ha.current_company,ha.current_position,
-ha.current_salary,ha.salary_expected,ha.noticed_period,ha.partner_mobile,ha.email_from,ha.cv_attached,ha.hod_name,
-ha.date_of_send,ha.hr_received_date,ha.x_studio_first_interview_date,ha.x_studio_second_interview_date,
-ha.final_interview,hs.name,ha.withdraw,ha.send_offer,ha.offer_date,he.joining_date,ha.source_id,ha.description
+            <xml-property name="queryText"><![CDATA[select
+ha.name,
+hs.name,
+ha.applied_date,
+hj.name,
+ha.date_of_birth,
+ha.nrc,
+ht.name,
+ha.qualification,
+ha.current_company,
+ha.current_position,
+ha.current_salary,
+ha.salary_expected,
+ha.noticed_period,
+ha.partner_mobile,
+ha.email_from,
+ha.cv_attached,
+ha.hod_name,
+ha.date_of_send,
+ha.hr_received_date,
+ha.x_studio_first_interview_date,
+ha.x_studio_second_interview_date,
+ha.final_interview,
+(select count(*) from hr_applicant hrap
+ left join hr_recruitment_stage hrse ON hrse.id = hrap.stage_id
+ where hrse.id = hrap.id
+and hrse.name in ('Rejected After Interview', 'Offer Rejected')) x_rejected,
+ha.send_offer,
+ha.offer_date,
+he.joining_date,
+(select STRING_AGG(use.name, ', ') from hr_applicant hrap
+ left join utm_source use ON use.id = hrap.source_id
+left join hr_job job ON job.id = hrap.job_id
+where job.id = hj.id) x_source_by,
+ha.description
 from hr_applicant ha
 left join hr_employee he on (ha.emp_id = he.id )
+left join hr_job hj on (hj.id = ha.job_id)
 left join hr_recruitment_stage hs on (ha.stage_id = hs.id)
 left join hr_recruitment_degree ht on (ha.type_id = ht.id)
 left join res_users ru on (ru.id = ha.user_id )
 left join res_partner rp on (rp.id = ru.partner_id )
-WHERE ha.company_id = ?]]></xml-property>
+where ha.applied_date between ? and ?
+and ha.active=true
+and ha.company_id = ?]]></xml-property>
             <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
   <Version>2.0</Version>
@@ -653,6 +733,7 @@ WHERE ha.company_id = ?]]></xml-property>
 </model:DesignValues>]]></xml-property>
         </oda-data-set>
         <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="company" id="4874">
+            <property name="nullsOrdering">nulls lowest</property>
             <list-property name="columnHints">
                 <structure>
                     <property name="columnName">id</property>
@@ -681,6 +762,7 @@ WHERE ha.company_id = ?]]></xml-property>
                     </structure>
                 </list-property>
             </structure>
+            <property name="dataSource">Data Source</property>
             <list-property name="resultSet">
                 <structure>
                     <property name="position">1</property>
@@ -775,7 +857,55 @@ order by name;]]></xml-property>
             <property name="textAlign">center</property>
             <text-property name="text">Applicants Tracking System</text-property>
         </label>
-        <table id="6349">
+        <grid id="7081">
+            <column id="7082">
+                <property name="width">8.125in</property>
+            </column>
+            <column id="7083">
+                <property name="width">0.9895833333333334in</property>
+            </column>
+            <column id="7084">
+                <property name="width">7.541666666666667in</property>
+            </column>
+            <row id="7085">
+                <cell id="7086">
+                    <data id="7270">
+                        <property name="fontWeight">bold</property>
+                        <property name="textAlign">right</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">from_date</property>
+                                <expression name="expression" type="javascript">params["from_date"]</expression>
+                                <property name="dataType">date</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">from_date</property>
+                    </data>
+                </cell>
+                <cell id="7087">
+                    <text id="7276">
+                        <property name="fontWeight">bold</property>
+                        <property name="textAlign">center</property>
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[to]]></text-property>
+                    </text>
+                </cell>
+                <cell id="7088">
+                    <data id="7271">
+                        <property name="fontWeight">bold</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">to_date</property>
+                                <expression name="expression" type="javascript">params["to_date"]</expression>
+                                <property name="dataType">date</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">to_date</property>
+                    </data>
+                </cell>
+            </row>
+        </grid>
+        <table id="7316">
             <property name="dataSet">Data Set</property>
             <list-property name="boundDataColumns">
                 <structure>
@@ -785,11 +915,10 @@ order by name;]]></xml-property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="name">employment_status</property>
-                    <text-property name="displayName">employment_status</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["employment_status"]</expression>
+                    <property name="name">name_1</property>
+                    <text-property name="displayName">name</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["name_1"]</expression>
                     <property name="dataType">string</property>
-                    <property name="allowExport">true</property>
                 </structure>
                 <structure>
                     <property name="name">applied_date</property>
@@ -798,9 +927,9 @@ order by name;]]></xml-property>
                     <property name="dataType">date</property>
                 </structure>
                 <structure>
-                    <property name="name">name_1</property>
+                    <property name="name">name_2</property>
                     <text-property name="displayName">name</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["name_1"]</expression>
+                    <expression name="expression" type="javascript">dataSetRow["name_2"]</expression>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
@@ -816,9 +945,9 @@ order by name;]]></xml-property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="name">name_2</property>
+                    <property name="name">name_3</property>
                     <text-property name="displayName">name</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["name_2"]</expression>
+                    <expression name="expression" type="javascript">dataSetRow["name_3"]</expression>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
@@ -912,10 +1041,10 @@ order by name;]]></xml-property>
                     <property name="dataType">date</property>
                 </structure>
                 <structure>
-                    <property name="name">withdraw</property>
-                    <text-property name="displayName">withdraw</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["withdraw"]</expression>
-                    <property name="dataType">integer</property>
+                    <property name="name">x_rejected</property>
+                    <text-property name="displayName">x_rejected</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["x_rejected"]</expression>
+                    <property name="dataType">decimal</property>
                 </structure>
                 <structure>
                     <property name="name">send_offer</property>
@@ -936,10 +1065,10 @@ order by name;]]></xml-property>
                     <property name="dataType">date</property>
                 </structure>
                 <structure>
-                    <property name="name">source_id</property>
-                    <text-property name="displayName">source_id</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["source_id"]</expression>
-                    <property name="dataType">integer</property>
+                    <property name="name">x_source_by</property>
+                    <text-property name="displayName">x_source_by</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["x_source_by"]</expression>
+                    <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="name">description</property>
@@ -959,76 +1088,49 @@ order by name;]]></xml-property>
                     <property name="allowExport">true</property>
                 </structure>
                 <structure>
-                    <property name="name">name_3</property>
-                    <text-property name="displayName">name</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["name_3"]</expression>
-                    <property name="dataType">string</property>
+                    <property name="name">Aggregation_1</property>
+                    <text-property name="displayName">N</text-property>
+                    <property name="dataType">integer</property>
+                    <property name="aggregateFunction">RUNNINGCOUNT</property>
+                    <list-property name="arguments">
+                        <structure>
+                            <property name="name">Expression</property>
+                        </structure>
+                    </list-property>
+                    <property name="allowExport">true</property>
                 </structure>
             </list-property>
-            <column id="6738">
-                <property name="width">1in</property>
-            </column>
-            <column id="6498">
-                <property name="width">0.5416666666666666in</property>
-            </column>
-            <column id="6499">
-                <property name="width">1.28125in</property>
-            </column>
-            <column id="6500">
-                <property name="width">1.0520833333333333in</property>
-            </column>
-            <column id="6501">
-                <property name="width">0.59375in</property>
-            </column>
-            <column id="6502">
-                <property name="width">1.0833333333333333in</property>
-            </column>
-            <column id="6503">
-                <property name="width">0.8854166666666666in</property>
-            </column>
-            <column id="6504">
-                <property name="width">0.6666666666666666in</property>
-            </column>
-            <column id="6505">
-                <property name="width">2.1354166666666665in</property>
-            </column>
-            <column id="6506">
-                <property name="width">1.1666666666666667in</property>
-            </column>
-            <column id="6507"/>
-            <column id="6508"/>
-            <column id="6509"/>
-            <column id="6510"/>
-            <column id="6511">
-                <property name="width">1.0208333333333333in</property>
-            </column>
-            <column id="6512">
-                <property name="width">0.7916666666666666in</property>
-            </column>
-            <column id="6513">
-                <property name="width">0.875in</property>
-            </column>
-            <column id="6514"/>
-            <column id="6515"/>
-            <column id="6516"/>
-            <column id="6517"/>
-            <column id="6518"/>
-            <column id="6519"/>
-            <column id="6520"/>
-            <column id="6521"/>
-            <column id="6522">
-                <property name="width">1.2083333333333333in</property>
-            </column>
-            <column id="6523">
-                <property name="width">1.375in</property>
-            </column>
-            <column id="6524">
-                <property name="width">0.8854166666666666in</property>
-            </column>
-            <column id="6525"/>
-            <column id="6526"/>
+            <column id="7491"/>
+            <column id="7460"/>
+            <column id="7461"/>
+            <column id="7462"/>
+            <column id="7463"/>
+            <column id="7464"/>
+            <column id="7465"/>
+            <column id="7466"/>
+            <column id="7467"/>
+            <column id="7468"/>
+            <column id="7469"/>
+            <column id="7470"/>
+            <column id="7471"/>
+            <column id="7472"/>
+            <column id="7473"/>
+            <column id="7474"/>
+            <column id="7475"/>
+            <column id="7476"/>
+            <column id="7477"/>
+            <column id="7478"/>
+            <column id="7479"/>
+            <column id="7480"/>
+            <column id="7481"/>
+            <column id="7482"/>
+            <column id="7483"/>
+            <column id="7484"/>
+            <column id="7485"/>
+            <column id="7486"/>
+            <column id="7487"/>
             <header>
-                <row id="6350">
+                <row id="7317">
                     <property name="borderBottomStyle">solid</property>
                     <property name="borderBottomWidth">thin</property>
                     <property name="borderLeftStyle">solid</property>
@@ -1037,7 +1139,8 @@ order by name;]]></xml-property>
                     <property name="borderRightWidth">thin</property>
                     <property name="borderTopStyle">solid</property>
                     <property name="borderTopWidth">thin</property>
-                    <cell id="6735">
+                    <property name="height">0.6770833333333334in</property>
+                    <cell id="7488">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1046,12 +1149,12 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <text id="6739">
+                        <text id="7492">
                             <property name="contentType">auto</property>
                             <text-property name="content"><![CDATA[Sr]]></text-property>
                         </text>
                     </cell>
-                    <cell id="6351">
+                    <cell id="7318">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1060,12 +1163,12 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <text id="6705">
+                        <text id="7495">
                             <property name="contentType">auto</property>
                             <text-property name="content"><![CDATA[Name]]></text-property>
                         </text>
                     </cell>
-                    <cell id="6353">
+                    <cell id="7320">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1074,12 +1177,12 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <text id="6706">
+                        <text id="7496">
                             <property name="contentType">auto</property>
                             <text-property name="content"><![CDATA[Employee Status]]></text-property>
                         </text>
                     </cell>
-                    <cell id="6355">
+                    <cell id="7322">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1088,12 +1191,12 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <text id="6707">
+                        <text id="7497">
                             <property name="contentType">auto</property>
                             <text-property name="content"><![CDATA[Applied Date]]></text-property>
                         </text>
                     </cell>
-                    <cell id="6357">
+                    <cell id="7324">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1102,12 +1205,12 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <text id="6708">
+                        <text id="7498">
                             <property name="contentType">auto</property>
                             <text-property name="content"><![CDATA[Applied Position]]></text-property>
                         </text>
                     </cell>
-                    <cell id="6359">
+                    <cell id="7326">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1116,12 +1219,12 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <text id="6709">
+                        <text id="7499">
                             <property name="contentType">auto</property>
-                            <text-property name="content"><![CDATA[Date Of Birth]]></text-property>
+                            <text-property name="content"><![CDATA[Date of Birth]]></text-property>
                         </text>
                     </cell>
-                    <cell id="6361">
+                    <cell id="7328">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1130,12 +1233,12 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <text id="6710">
+                        <text id="7500">
                             <property name="contentType">auto</property>
                             <text-property name="content"><![CDATA[NRC]]></text-property>
                         </text>
                     </cell>
-                    <cell id="6363">
+                    <cell id="7330">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1144,12 +1247,12 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <text id="6711">
+                        <text id="7501">
                             <property name="contentType">auto</property>
                             <text-property name="content"><![CDATA[Education]]></text-property>
                         </text>
                     </cell>
-                    <cell id="6365">
+                    <cell id="7332">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1158,12 +1261,12 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <text id="6712">
+                        <text id="7502">
                             <property name="contentType">auto</property>
                             <text-property name="content"><![CDATA[Qualification]]></text-property>
                         </text>
                     </cell>
-                    <cell id="6367">
+                    <cell id="7334">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1172,12 +1275,12 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <text id="6713">
+                        <text id="7503">
                             <property name="contentType">auto</property>
                             <text-property name="content"><![CDATA[Current Company]]></text-property>
                         </text>
                     </cell>
-                    <cell id="6369">
+                    <cell id="7336">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1186,12 +1289,12 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <text id="6714">
+                        <text id="7504">
                             <property name="contentType">auto</property>
                             <text-property name="content"><![CDATA[Current Position]]></text-property>
                         </text>
                     </cell>
-                    <cell id="6371">
+                    <cell id="7338">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1200,12 +1303,12 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <text id="6715">
+                        <text id="7505">
                             <property name="contentType">auto</property>
                             <text-property name="content"><![CDATA[Current Salary]]></text-property>
                         </text>
                     </cell>
-                    <cell id="6373">
+                    <cell id="7340">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1214,18 +1317,26 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <text id="6716">
+                        <text id="7506">
                             <property name="contentType">auto</property>
                             <text-property name="content"><![CDATA[Expected Salary]]></text-property>
                         </text>
                     </cell>
-                    <cell id="6375">
-                        <text id="6717">
+                    <cell id="7342">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="7507">
                             <property name="contentType">auto</property>
                             <text-property name="content"><![CDATA[Noticed Period]]></text-property>
                         </text>
                     </cell>
-                    <cell id="6377">
+                    <cell id="7344">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1234,12 +1345,12 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <text id="6718">
+                        <text id="7508">
                             <property name="contentType">auto</property>
                             <text-property name="content"><![CDATA[Contact Number]]></text-property>
                         </text>
                     </cell>
-                    <cell id="6379">
+                    <cell id="7346">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1248,12 +1359,12 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <text id="6719">
+                        <text id="7509">
                             <property name="contentType">auto</property>
                             <text-property name="content"><![CDATA[Email]]></text-property>
                         </text>
                     </cell>
-                    <cell id="6381">
+                    <cell id="7348">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1262,26 +1373,18 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <text id="6720">
+                        <text id="7510">
                             <property name="contentType">auto</property>
                             <text-property name="content"><![CDATA[CV Attached]]></text-property>
                         </text>
                     </cell>
-                    <cell id="6383">
-                        <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">thin</property>
-                        <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">thin</property>
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">thin</property>
-                        <text id="6721">
+                    <cell id="7350">
+                        <text id="7512">
                             <property name="contentType">auto</property>
                             <text-property name="content"><![CDATA[HOD Name]]></text-property>
                         </text>
                     </cell>
-                    <cell id="6385">
+                    <cell id="7352">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1290,12 +1393,12 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <text id="6722">
+                        <text id="7511">
                             <property name="contentType">auto</property>
-                            <text-property name="content"><![CDATA[Date of send To HOD]]></text-property>
+                            <text-property name="content"><![CDATA[Date of send to HOD]]></text-property>
                         </text>
                     </cell>
-                    <cell id="6387">
+                    <cell id="7354">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1304,12 +1407,12 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <text id="6723">
+                        <text id="7513">
                             <property name="contentType">auto</property>
                             <text-property name="content"><![CDATA[HR Received Date]]></text-property>
                         </text>
                     </cell>
-                    <cell id="6389">
+                    <cell id="7356">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1318,12 +1421,12 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <text id="6724">
+                        <text id="7514">
                             <property name="contentType">auto</property>
                             <text-property name="content"><![CDATA[First Interview Date]]></text-property>
                         </text>
                     </cell>
-                    <cell id="6391">
+                    <cell id="7358">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1332,12 +1435,12 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <text id="6725">
+                        <text id="7515">
                             <property name="contentType">auto</property>
                             <text-property name="content"><![CDATA[Second Interview Date]]></text-property>
                         </text>
                     </cell>
-                    <cell id="6393">
+                    <cell id="7360">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1346,12 +1449,12 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <text id="6726">
+                        <text id="7516">
                             <property name="contentType">auto</property>
                             <text-property name="content"><![CDATA[Final Interview]]></text-property>
                         </text>
                     </cell>
-                    <cell id="6395">
+                    <cell id="7362">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1360,12 +1463,12 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <text id="6727">
+                        <text id="7517">
                             <property name="contentType">auto</property>
                             <text-property name="content"><![CDATA[Rejected After Interview]]></text-property>
                         </text>
                     </cell>
-                    <cell id="6397">
+                    <cell id="7364">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1374,26 +1477,12 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <text id="6728">
-                            <property name="contentType">auto</property>
-                            <text-property name="content"><![CDATA[Withdraw]]></text-property>
-                        </text>
-                    </cell>
-                    <cell id="6399">
-                        <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">thin</property>
-                        <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">thin</property>
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">thin</property>
-                        <text id="6729">
+                        <text id="7521">
                             <property name="contentType">auto</property>
                             <text-property name="content"><![CDATA[Send Offer]]></text-property>
                         </text>
                     </cell>
-                    <cell id="6401">
+                    <cell id="7366">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1402,12 +1491,12 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <text id="6730">
+                        <text id="7522">
                             <property name="contentType">auto</property>
                             <text-property name="content"><![CDATA[Offer Date]]></text-property>
                         </text>
                     </cell>
-                    <cell id="6403">
+                    <cell id="7368">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1416,12 +1505,12 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <text id="6731">
+                        <text id="7520">
                             <property name="contentType">auto</property>
                             <text-property name="content"><![CDATA[Joining Date]]></text-property>
                         </text>
                     </cell>
-                    <cell id="6405">
+                    <cell id="7370">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1430,13 +1519,21 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <text id="6732">
+                        <text id="7519">
                             <property name="contentType">auto</property>
-                            <text-property name="content"><![CDATA[Soured]]></text-property>
+                            <text-property name="content"><![CDATA[Sourced]]></text-property>
                         </text>
                     </cell>
-                    <cell id="6407">
-                        <text id="6733">
+                    <cell id="7372">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <text id="7518">
                             <property name="contentType">auto</property>
                             <text-property name="content"><![CDATA[Notes]]></text-property>
                         </text>
@@ -1444,7 +1541,7 @@ order by name;]]></xml-property>
                 </row>
             </header>
             <detail>
-                <row id="6409">
+                <row id="7374">
                     <property name="borderBottomStyle">solid</property>
                     <property name="borderBottomWidth">thin</property>
                     <property name="borderLeftStyle">solid</property>
@@ -1453,8 +1550,8 @@ order by name;]]></xml-property>
                     <property name="borderRightWidth">thin</property>
                     <property name="borderTopStyle">solid</property>
                     <property name="borderTopWidth">thin</property>
-                    <property name="height">0.2708333333333333in</property>
-                    <cell id="6736">
+                    <property name="height">0.4895833333333333in</property>
+                    <cell id="7489">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1463,11 +1560,11 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <data id="6740">
-                            <property name="resultSetColumn">Aggregation</property>
+                        <data id="7494">
+                            <property name="resultSetColumn">Aggregation_1</property>
                         </data>
                     </cell>
-                    <cell id="6410">
+                    <cell id="7375">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1476,11 +1573,11 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <data id="6411">
+                        <data id="7376">
                             <property name="resultSetColumn">name</property>
                         </data>
                     </cell>
-                    <cell id="6412">
+                    <cell id="7377">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1489,38 +1586,11 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <data id="6413">
-                            <property name="textAlign">right</property>
-                            <property name="resultSetColumn">employment_status</property>
-                        </data>
-                    </cell>
-                    <cell id="6414">
-                        <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">thin</property>
-                        <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">thin</property>
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">thin</property>
-                        <data id="6415">
-                            <property name="resultSetColumn">applied_date</property>
-                        </data>
-                    </cell>
-                    <cell id="6416">
-                        <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">thin</property>
-                        <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">thin</property>
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">thin</property>
-                        <data id="6417">
+                        <data id="7378">
                             <property name="resultSetColumn">name_1</property>
                         </data>
                     </cell>
-                    <cell id="6418">
+                    <cell id="7379">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1529,13 +1599,11 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <data id="6419">
-                            <property name="marginLeft">0pt</property>
-                            <property name="marginRight">10pt</property>
-                            <property name="resultSetColumn">date_of_birth</property>
+                        <data id="7380">
+                            <property name="resultSetColumn">applied_date</property>
                         </data>
                     </cell>
-                    <cell id="6420">
+                    <cell id="7381">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1544,25 +1612,11 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <data id="6421">
-                            <property name="resultSetColumn">nrc</property>
-                        </data>
-                    </cell>
-                    <cell id="6422">
-                        <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">thin</property>
-                        <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">thin</property>
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">thin</property>
-                        <data id="6423">
-                            <property name="textAlign">right</property>
+                        <data id="7382">
                             <property name="resultSetColumn">name_2</property>
                         </data>
                     </cell>
-                    <cell id="6424">
+                    <cell id="7383">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1571,11 +1625,11 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <data id="6425">
-                            <property name="resultSetColumn">qualification</property>
+                        <data id="7384">
+                            <property name="resultSetColumn">date_of_birth</property>
                         </data>
                     </cell>
-                    <cell id="6426">
+                    <cell id="7385">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1584,11 +1638,11 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <data id="6427">
-                            <property name="resultSetColumn">current_company</property>
+                        <data id="7386">
+                            <property name="resultSetColumn">nrc</property>
                         </data>
                     </cell>
-                    <cell id="6428">
+                    <cell id="7387">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1597,184 +1651,11 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <data id="6429">
-                            <property name="resultSetColumn">current_position</property>
-                        </data>
-                    </cell>
-                    <cell id="6430">
-                        <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">thin</property>
-                        <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">thin</property>
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">thin</property>
-                        <data id="6431">
-                            <property name="textAlign">right</property>
-                            <property name="resultSetColumn">current_salary</property>
-                        </data>
-                    </cell>
-                    <cell id="6432">
-                        <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">thin</property>
-                        <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">thin</property>
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">thin</property>
-                        <data id="6433">
-                            <property name="textAlign">right</property>
-                            <property name="resultSetColumn">salary_expected</property>
-                        </data>
-                    </cell>
-                    <cell id="6434">
-                        <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">thin</property>
-                        <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">thin</property>
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">thin</property>
-                        <data id="6435">
-                            <property name="textAlign">right</property>
-                            <property name="resultSetColumn">noticed_period</property>
-                        </data>
-                    </cell>
-                    <cell id="6436">
-                        <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">thin</property>
-                        <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">thin</property>
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">thin</property>
-                        <data id="6437">
-                            <property name="resultSetColumn">partner_mobile</property>
-                        </data>
-                    </cell>
-                    <cell id="6438">
-                        <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">thin</property>
-                        <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">thin</property>
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">thin</property>
-                        <data id="6439">
-                            <property name="resultSetColumn">email_from</property>
-                        </data>
-                    </cell>
-                    <cell id="6440">
-                        <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">thin</property>
-                        <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">thin</property>
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">thin</property>
-                        <data id="6441">
-                            <property name="resultSetColumn">cv_attached</property>
-                        </data>
-                    </cell>
-                    <cell id="6442">
-                        <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">thin</property>
-                        <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">thin</property>
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">thin</property>
-                        <data id="6443">
-                            <property name="resultSetColumn">hod_name</property>
-                        </data>
-                    </cell>
-                    <cell id="6444">
-                        <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">thin</property>
-                        <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">thin</property>
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">thin</property>
-                        <data id="6445">
-                            <property name="textAlign">center</property>
-                            <property name="resultSetColumn">date_of_send</property>
-                        </data>
-                    </cell>
-                    <cell id="6446">
-                        <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">thin</property>
-                        <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">thin</property>
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">thin</property>
-                        <data id="6447">
-                            <property name="resultSetColumn">hr_received_date</property>
-                        </data>
-                    </cell>
-                    <cell id="6448">
-                        <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">thin</property>
-                        <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">thin</property>
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">thin</property>
-                        <data id="6449">
-                            <property name="resultSetColumn">x_studio_first_interview_date</property>
-                        </data>
-                    </cell>
-                    <cell id="6450">
-                        <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">thin</property>
-                        <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">thin</property>
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">thin</property>
-                        <data id="6451">
-                            <property name="resultSetColumn">x_studio_second_interview_date</property>
-                        </data>
-                    </cell>
-                    <cell id="6452">
-                        <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">thin</property>
-                        <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">thin</property>
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">thin</property>
-                        <data id="6453">
-                            <property name="resultSetColumn">final_interview</property>
-                        </data>
-                    </cell>
-                    <cell id="6454">
-                        <property name="borderBottomStyle">solid</property>
-                        <property name="borderBottomWidth">thin</property>
-                        <property name="borderLeftStyle">solid</property>
-                        <property name="borderLeftWidth">thin</property>
-                        <property name="borderRightStyle">solid</property>
-                        <property name="borderRightWidth">thin</property>
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">thin</property>
-                        <data id="6743">
+                        <data id="7388">
                             <property name="resultSetColumn">name_3</property>
                         </data>
                     </cell>
-                    <cell id="6456">
+                    <cell id="7389">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1783,11 +1664,11 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <data id="6457">
-                            <property name="resultSetColumn">withdraw</property>
+                        <data id="7390">
+                            <property name="resultSetColumn">qualification</property>
                         </data>
                     </cell>
-                    <cell id="6458">
+                    <cell id="7391">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1796,11 +1677,206 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <data id="6459">
+                        <data id="7392">
+                            <property name="resultSetColumn">current_company</property>
+                        </data>
+                    </cell>
+                    <cell id="7393">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="7394">
+                            <property name="resultSetColumn">current_position</property>
+                        </data>
+                    </cell>
+                    <cell id="7395">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="7396">
+                            <property name="resultSetColumn">current_salary</property>
+                        </data>
+                    </cell>
+                    <cell id="7397">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="7398">
+                            <property name="resultSetColumn">salary_expected</property>
+                        </data>
+                    </cell>
+                    <cell id="7399">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="7400">
+                            <property name="resultSetColumn">noticed_period</property>
+                        </data>
+                    </cell>
+                    <cell id="7401">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="7402">
+                            <property name="resultSetColumn">partner_mobile</property>
+                        </data>
+                    </cell>
+                    <cell id="7403">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="7404">
+                            <property name="resultSetColumn">email_from</property>
+                        </data>
+                    </cell>
+                    <cell id="7405">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="7406">
+                            <property name="resultSetColumn">cv_attached</property>
+                        </data>
+                    </cell>
+                    <cell id="7407">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="7408">
+                            <property name="resultSetColumn">hod_name</property>
+                        </data>
+                    </cell>
+                    <cell id="7409">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="7410">
+                            <property name="resultSetColumn">date_of_send</property>
+                        </data>
+                    </cell>
+                    <cell id="7411">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="7412">
+                            <property name="resultSetColumn">hr_received_date</property>
+                        </data>
+                    </cell>
+                    <cell id="7413">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="7414">
+                            <property name="resultSetColumn">x_studio_first_interview_date</property>
+                        </data>
+                    </cell>
+                    <cell id="7415">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="7416">
+                            <property name="resultSetColumn">x_studio_second_interview_date</property>
+                        </data>
+                    </cell>
+                    <cell id="7417">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="7418">
+                            <property name="resultSetColumn">final_interview</property>
+                        </data>
+                    </cell>
+                    <cell id="7419">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="7420">
+                            <property name="resultSetColumn">x_rejected</property>
+                        </data>
+                    </cell>
+                    <cell id="7421">
+                        <property name="borderBottomStyle">solid</property>
+                        <property name="borderBottomWidth">thin</property>
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">thin</property>
+                        <property name="borderRightStyle">solid</property>
+                        <property name="borderRightWidth">thin</property>
+                        <property name="borderTopStyle">solid</property>
+                        <property name="borderTopWidth">thin</property>
+                        <data id="7422">
                             <property name="resultSetColumn">send_offer</property>
                         </data>
                     </cell>
-                    <cell id="6460">
+                    <cell id="7423">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1809,11 +1885,11 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <data id="6461">
+                        <data id="7424">
                             <property name="resultSetColumn">offer_date</property>
                         </data>
                     </cell>
-                    <cell id="6462">
+                    <cell id="7425">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1822,11 +1898,11 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <data id="6463">
+                        <data id="7426">
                             <property name="resultSetColumn">joining_date</property>
                         </data>
                     </cell>
-                    <cell id="6464">
+                    <cell id="7427">
                         <property name="borderBottomStyle">solid</property>
                         <property name="borderBottomWidth">thin</property>
                         <property name="borderLeftStyle">solid</property>
@@ -1835,18 +1911,50 @@ order by name;]]></xml-property>
                         <property name="borderRightWidth">thin</property>
                         <property name="borderTopStyle">solid</property>
                         <property name="borderTopWidth">thin</property>
-                        <data id="6465">
-                            <property name="textAlign">right</property>
-                            <property name="resultSetColumn">source_id</property>
+                        <data id="7428">
+                            <property name="resultSetColumn">x_source_by</property>
                         </data>
                     </cell>
-                    <cell id="6466">
-                        <data id="6467">
+                    <cell id="7429">
+                        <data id="7430">
                             <property name="resultSetColumn">description</property>
                         </data>
                     </cell>
                 </row>
             </detail>
+            <footer>
+                <row id="7431">
+                    <cell id="7490"/>
+                    <cell id="7432"/>
+                    <cell id="7433"/>
+                    <cell id="7434"/>
+                    <cell id="7435"/>
+                    <cell id="7436"/>
+                    <cell id="7437"/>
+                    <cell id="7438"/>
+                    <cell id="7439"/>
+                    <cell id="7440"/>
+                    <cell id="7441"/>
+                    <cell id="7442"/>
+                    <cell id="7443"/>
+                    <cell id="7444"/>
+                    <cell id="7445"/>
+                    <cell id="7446"/>
+                    <cell id="7447"/>
+                    <cell id="7448"/>
+                    <cell id="7449"/>
+                    <cell id="7450"/>
+                    <cell id="7451"/>
+                    <cell id="7452"/>
+                    <cell id="7453"/>
+                    <cell id="7454"/>
+                    <cell id="7455"/>
+                    <cell id="7456"/>
+                    <cell id="7457"/>
+                    <cell id="7458"/>
+                    <cell id="7459"/>
+                </row>
+            </footer>
         </table>
     </body>
 </report>
