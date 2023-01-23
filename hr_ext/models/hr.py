@@ -368,6 +368,7 @@ class Applicant(models.Model):
                     'nrc': applicant.nrc,
                     'qualification': applicant.qualification,
                     'degree_id': applicant.type_id.id,
+                    'source_id': applicant.source_id.id or False,
                     # 'address_home_id': address_id,
                     'department_id': applicant.department_id.id or False,
                     'address_id': applicant.company_id and applicant.company_id.partner_id
