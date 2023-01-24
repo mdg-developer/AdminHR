@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.24" id="1">
-    <property name="createdBy">Eclipse BIRT Designer Version 4.12.0.v202211220955</property>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.10.0.v202204260816</property>
     <list-property name="propertyBindings">
         <structure>
             <property name="name">queryText</property>
@@ -76,13 +76,8 @@
         </scalar-parameter>
     </parameters>
     <data-sources>
-        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="4873"
- extends="report_library.Data Source">
-            <property name="odaDriverClass">org.postgresql.Driver</property>
-            <property name="odaURL">jdbc:postgresql://localhost:5433/odoo_13_live_database_1_2_2023</property>
-            <property name="odaUser">odoo</property>
-            <encrypted-property name="odaPassword" encryptionID="base64">YWRtaW4=</encrypted-property>
-        </oda-data-source>
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="7523"
+ extends="report_library.Data Source"/>
     </data-sources>
     <data-sets>
         <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="Data Set" id="4704">
@@ -1922,39 +1917,6 @@ order by name;]]></xml-property>
                     </cell>
                 </row>
             </detail>
-            <footer>
-                <row id="7431">
-                    <cell id="7490"/>
-                    <cell id="7432"/>
-                    <cell id="7433"/>
-                    <cell id="7434"/>
-                    <cell id="7435"/>
-                    <cell id="7436"/>
-                    <cell id="7437"/>
-                    <cell id="7438"/>
-                    <cell id="7439"/>
-                    <cell id="7440"/>
-                    <cell id="7441"/>
-                    <cell id="7442"/>
-                    <cell id="7443"/>
-                    <cell id="7444"/>
-                    <cell id="7445"/>
-                    <cell id="7446"/>
-                    <cell id="7447"/>
-                    <cell id="7448"/>
-                    <cell id="7449"/>
-                    <cell id="7450"/>
-                    <cell id="7451"/>
-                    <cell id="7452"/>
-                    <cell id="7453"/>
-                    <cell id="7454"/>
-                    <cell id="7455"/>
-                    <cell id="7456"/>
-                    <cell id="7457"/>
-                    <cell id="7458"/>
-                    <cell id="7459"/>
-                </row>
-            </footer>
         </table>
     </body>
 </report>
