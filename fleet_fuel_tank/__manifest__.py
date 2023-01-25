@@ -26,7 +26,7 @@ Odoo car fuel consumption fuel on vehicle consumption fuel on car
     "website" : "https://www.browseinfo.in",
     'price': 79,
     'currency': "EUR",
-    'depends': ['base','fleet','hr', 'fleet_insurance', 'account'],
+    'depends': ['base','fleet','hr', 'fleet_insurance', 'account','hr_fleet_ext'],
     'data': [
         "security/ir.model.access.csv",
         'views/add_liters.xml',

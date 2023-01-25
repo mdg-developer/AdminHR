@@ -140,6 +140,7 @@
 					</button>
                     <button name="action_open_fuel_consumption" type="object" class="oe_stat_button" icon="fa-flask" string="Fuel Consumption" context="{'xml_id':'open_view_consumption_great_average_form'}">
 					</button>
+                    <button name="%(hr_fleet_ext.open_view_fleet_vehicle_insurance_form)d" icon="fa-pencil-square-o" type="action" string="Vehicle Insurance" class="oe_stat_button"/>
 				</xpath>
 			</field>
 		</record>

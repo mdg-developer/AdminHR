@@ -86,8 +86,8 @@
 			<field name="view_id" ref="view_fleet_vehicle_insurance_tree" />
 		</record>
 
-		<menuitem id="menu_fleet_vehicle_insurance" name="Vehicle Insurance" parent="fleet.fleet_configuration"
-			action="open_view_fleet_vehicle_insurance_form" sequence="59" />
+		<menuitem id="fleet.menu_fleet_vehicle_insurance" name="Vehicle Insurance" parent="fleet.fleet_vehicles"
+			action="open_view_fleet_vehicle_insurance_form" sequence="20" />
 
 	</data>
 </odoo>
