@@ -43,15 +43,24 @@ class HrJob(models.Model):
     def compute_current_employee(self):
         for job in self:
             total_current_emp = 0
+            current_employee = self.env['hr.employee'].search_count([('company_id', '=', self.env.company.id),
+                                                                     ('resign_date', '=', False),
+                                                                     ('job_id', '=', job.id)])
             
-            for line in job.job_line:
-                current_employee = self.env['hr.employee'].search_count([('company_id', '=',line.company_id.id),
-                                                                        ('branch_id', '=', line.branch_id.id),
-                                                                        ('department_id', '=', line.department_id.id),
-                                                                        ('resign_date','=',False),
-                                                                        ('job_id', '=', line.job_id.id)])
-                total_current_emp = total_current_emp + current_employee
-            job.current_employee = total_current_emp
+            # for line in job.job_line:
+            #     # current_employee = self.env['hr.employee'].search_count([('company_id', '=',line.company_id.id),
+            #     #                                                         ('branch_id', '=', line.branch_id.id),
+            #     #                                                         ('department_id', '=', line.department_id.id),
+            #     #                                                         ('resign_date','=',False),
+            #     #                                                         ('job_id', '=', line.job_id.id)])
+            #     current_employee = self.env['hr.employee'].search_count([('company_id', '=', line.company_id.id),
+            #                                                              ('resign_date', '=', False),
+            #                                                              ('job_id', '=', line.job_id.id)])
+            # total_current_emp += current_employee
+            # total_current_emp = total_current_emp + current_employee
+            job.current_employee = current_employee
+
+
                 
     def _compute_benefit_ids(self):   
         
@@ -81,7 +90,7 @@ class HrJob(models.Model):
     total_employee  = fields.Integer(string='Expected Total Employee',compute='compute_total_employee')
     #total_employee  = fields.Integer(string='Expected Total Employee')
     new_employee = fields.Integer(string='Expected New Employee')
-    current_employee = fields.Integer(string='Current Employee',compute='compute_current_employee', store = True)
+    current_employee = fields.Integer(string='Current Employee',compute='compute_current_employee')
     job_grade_id = fields.Many2one('job.grade', string='Job Grade')
     skill_line = fields.One2many('skill.line', 'job_id', string='Skill')     
     job_line = fields.One2many('job.line', 'job_id', string='Job')
@@ -122,11 +131,11 @@ class JobLine(models.Model):
     def _get_current_employee(self):
         for line in self:
             current_employee = 0
-            if line.company_id and line.job_id:
-                current_employee = self.env['hr.employee'].search_count([('company_id', '=', line.company_id.id),
+            if line.job_id and line.job_id:
+                current_employee = self.env['hr.employee'].search_count ([('company_id', '=', self.env.company.id),
                                                                         ('branch_id', '=', line.branch_id.id),
-                                                                        ('department_id', '=', line.department_id.id),
                                                                         ('job_id', '=', line.job_id.id)])
+
             line.current_employee = current_employee
             # if line.company_id and line.job_id:
             #     employee = self.env['hr.employee'].search_count([('company_id', '=',line.company_id.id),('job_id', '=', line.job_id.id)])
@@ -155,7 +164,7 @@ class JobLine(models.Model):
     branch_id = fields.Many2one('res.branch', string='Branch')
     department_id = fields.Many2one('hr.department', string='Department')
     total_employee = fields.Integer(compute='_get_total_employee', string='Expected Total Employee')
-    current_employee = fields.Integer(compute='_get_current_employee', string='Current Employee', readonly=True, store = True)
+    current_employee = fields.Integer(compute='_get_current_employee', string='Current Employee', readonly=True)
     new_employee = fields.Integer(compute='_get_new_employee', string='Expected New Employee', readonly=True)
     expected_new_employee = fields.Integer(string='New Employee')
     upper_position = fields.Many2one('hr.job', string='Upper Position', stored=True)
@@ -207,10 +216,10 @@ class JobLine(models.Model):
 
 
 
-    @api.depends('normal_employee', 'urgent_employee')
+    @api.depends('normal_employee', 'urgent_employee', 'current_employee')
     def _get_total_employee(self):
         for line in self:
-            line.total_employee = line.normal_employee + line.urgent_employee
+            line.total_employee = line.normal_employee + line.urgent_employee + line.current_employee
 
 
     def write(self, vals):
