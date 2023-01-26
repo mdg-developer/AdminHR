@@ -214,7 +214,7 @@
 					<field name="send_offer"/>
 					<field name="offer_date"/>
 					<field name="applied_date"/>
-					<field name="hod_name" invisible="1"/>
+					<field name="hod_name"/>
 					<field name="date_of_send"/>
 					<field name="hr_received_date"/>
 					<field name="requisition_date"/>
