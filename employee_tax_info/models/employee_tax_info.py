@@ -23,3 +23,8 @@ class EmployeeBus(models.Model):
     _name = 'employee.bus.route'
 
     name = fields.Char('Route')
+
+
+class HrEmployeeBus(models.Model):
+    _name = 'employee.bus'
+    _description = 'Employee Bus'

@@ -10,8 +10,8 @@
     </record>
     <menuitem id="menu_employee_bus"
               name="Bus Stop"
-              parent="hr_insurance.menu_hr_insurance"
+              parent="hr.menu_human_resources_configuration"
               action="action_employee_bus"
-              sequence="3" />
+              sequence="70" />
 
 </odoo>
