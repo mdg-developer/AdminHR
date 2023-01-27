@@ -9,12 +9,29 @@ class HrJob(models.Model):
     _inherit = 'hr.job'
     _description = 'Job Position'
 
+    name = fields.Char(string='Job Position', required=False, help="Job Position")
+
     @api.onchange('name')
     def _onchange_name(self):
         if self.name:
             name = self.search([('name', '=', self.name)])
             if name:
                 raise ValidationError(_(" '%s'  already exists in Job Position !")%(self.name))
+            elif self.name == '' or self.name is False:
+                raise ValidationError(_(" Invalid in Job Position !"))
+
+    @api.model
+    def create(self, values):
+        if values['name'] == '' or values['name'] is False:
+            raise ValidationError(_(" Invalid in Job Position !"))
+        else:
+            name = self.search([('name', '=', values['name'])])
+            if name:
+                raise ValidationError(_(" '%s'  already exists in Job Position !")%(self.name))
+            elif values['name'] == '' or values['name'] is False:
+                raise ValidationError(_(" Invalid in Job Position !"))
+
+        return super(HrJob, self).create(values)
 
     @api.depends('job_line.total_employee')
     def compute_total_employee(self):
@@ -86,7 +103,8 @@ class HrJob(models.Model):
                 new_emp = line.total_employee - line.current_employee
                 if new_emp < 0:
                     raise ValidationError(_('Expected New Employee is Less Than Zero.'))
-                        
+
+
     total_employee  = fields.Integer(string='Expected Total Employee',compute='compute_total_employee')
     #total_employee  = fields.Integer(string='Expected Total Employee')
     new_employee = fields.Integer(string='Expected New Employee')
