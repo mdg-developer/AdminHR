@@ -11,6 +11,8 @@ Fleet Insurance
     """,
     'depends': ['base','fleet'],
     'data': [
+            'data/fleet_insurance_scheduled_act.xml',
+            'data/fleet_insurance_expired_reminder_channel.xml',
             'views/hr_vehicle_insurance_view.xml',
             'views/hr_trailer_insurance_view.xml',
             'security/ir.model.access.csv',
