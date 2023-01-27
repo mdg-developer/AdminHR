@@ -100,10 +100,10 @@
                     <text-property name="heading">name</text-property>
                 </structure>
                 <structure>
-                    <property name="columnName">employment_status</property>
-                    <property name="analysis">measure</property>
-                    <text-property name="displayName">employment_status</text-property>
-                    <text-property name="heading">employment_status</text-property>
+                    <property name="columnName">es_name</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">es_name</text-property>
+                    <text-property name="heading">es_name</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">applied_date</property>
@@ -310,8 +310,8 @@
                     </structure>
                     <structure>
                         <property name="position">3</property>
-                        <property name="name">employment_status</property>
-                        <property name="dataType">integer</property>
+                        <property name="name">es_name</property>
+                        <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">4</property>
@@ -462,10 +462,10 @@
                 </structure>
                 <structure>
                     <property name="position">3</property>
-                    <property name="name">employment_status</property>
-                    <property name="nativeName">employment_status</property>
-                    <property name="dataType">integer</property>
-                    <property name="nativeDataType">4</property>
+                    <property name="name">es_name</property>
+                    <property name="nativeName">es_name</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
                     <property name="position">4</property>
@@ -653,7 +653,7 @@
             <xml-property name="queryText"><![CDATA[select
 ha.name,
 hs.name,
-ha.employment_status,
+es.name es_name,
 ha.applied_date,
 hj.name,
 ha.date_of_birth,
@@ -693,6 +693,7 @@ left join hr_recruitment_stage hs on (ha.stage_id = hs.id)
 left join hr_recruitment_degree ht on (ha.type_id = ht.id)
 left join res_users ru on (ru.id = ha.user_id )
 left join res_partner rp on (rp.id = ru.partner_id )
+left join employment_new_status es on (ha.employment_status = es.id)
 where ha.applied_date between ? and ?
 and ha.active=true
 and ha.company_id = ?]]></xml-property>
@@ -934,7 +935,7 @@ order by name;]]></xml-property>
                 <structure>
                     <property name="name">name_1</property>
                     <text-property name="displayName">employee_status</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["employment_status"]</expression>
+                    <expression name="expression" type="javascript">dataSetRow["es_name"]</expression>
                     <property name="dataType">string</property>
                     <property name="allowExport">true</property>
                 </structure>
@@ -1120,8 +1121,12 @@ order by name;]]></xml-property>
             </list-property>
             <column id="7491"/>
             <column id="7460"/>
-            <column id="7461"/>
-            <column id="7462"/>
+            <column id="7461">
+                <property name="width">1.3020833333333333in</property>
+            </column>
+            <column id="7462">
+                <property name="width">0.90625in</property>
+            </column>
             <column id="7463"/>
             <column id="7464"/>
             <column id="7465"/>
