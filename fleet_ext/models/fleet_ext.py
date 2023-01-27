@@ -1,5 +1,7 @@
+from dateutil.relativedelta import relativedelta
 from odoo import api, fields, models, tools, _
 from odoo.exceptions import UserError
+
 
 class fleet_vehicle(models.Model):
     _inherit = 'fleet.vehicle'
@@ -170,30 +172,57 @@ class fleet_vehicle(models.Model):
                 # vehicle.write({
                 #     'last_odometer': last_odometer
                 # })
+    @api.model
+    def update_expired_license_reminder(self):
+        #This method is called by a cron task 'ir_cron_vehicle_license_expired_action_reminder'
+        date_today = fields.Date.today()
+        outdated_days = date_today + relativedelta(days=+30)
+        nearly_expired_vehicles = self.search([('active', '=', True),
+                                              ('license_expired_date', '<', outdated_days),
+                                              ('license_expired_date', '>=', date_today)]
+                                             )
+
+        if nearly_expired_vehicles:
+            #add schedule activity on each vehicle where their license will expired soon
+            for vehicle in nearly_expired_vehicles:
+                vehicle.activity_schedule(
+                    'fleet_ext.mail_act_fleet_license_to_renew', vehicle.license_expired_date,  note="License သက်တမ်းတိုးရန်",
+                )
+
+            #send message reminder on Administration/Access Right group users
+            odoobot_id = self.env['ir.model.data'].xmlid_to_res_id("base.partner_root")
+            self.env['mail.message'].create({
+                'author_id': odoobot_id,  # creator id
+                'model': 'mail.channel',
+                'message_type': 'comment',
+                'subtype_id': self.env.ref('mail.mt_comment').id,
+                'subject': 'သက်တမ်းတိုးရန်',
+                'body': "Vehicle Licenses will expired soon!",
+                'channel_ids': [(4, self.env.ref(
+                    'fleet_ext.channel_fleet_expired_reminder').id)],
+                'res_id': self.env.ref('fleet_ext.channel_fleet_expired_reminder').id,
+            })
 
 
-class FleetVehicleCost(models.Model):
-    _inherit = 'fleet.vehicle.cost'
+    class FleetVehicleCost(models.Model):
+        _inherit = 'fleet.vehicle.cost'
 
-    vendor_bill_ref = fields.Char(string='Vendor Bill Ref')
-    po_ref = fields.Char(string='PO Ref')
-    source_doc = fields.Char(string='Source Doc')
+        vendor_bill_ref = fields.Char(string='Vendor Bill Ref')
+        po_ref = fields.Char(string='PO Ref')
+        source_doc = fields.Char(string='Source Doc')
 
+    class FleetVehicleAssignationLogInherit(models.Model):
+        _inherit = 'fleet.vehicle.assignation.log'
 
-class FleetVehicleAssignationLogInherit(models.Model):
-    _inherit = 'fleet.vehicle.assignation.log'
+        hr_driver_id = fields.Many2one('hr.employee', string="Driver", required=True)
+        driver_id = fields.Many2one('res.partner', string="Driver")
 
-    hr_driver_id = fields.Many2one('hr.employee', string="Driver", required=True)
-    driver_id = fields.Many2one('res.partner', string="Driver")
+    class VehicleOdometerLog(models.Model):
+        _name = 'vehicle.odometer.log'
+        _description = 'Vehicle Odometer Log'
 
-
-
-class VehicleOdometerLog(models.Model):
-    _name = 'vehicle.odometer.log'
-    _description = 'Vehicle Odometer Log'
-
-    vehicle_id = fields.Many2one('fleet.vehicle', string='Vehicle')
-    date = fields.Date(string='Date')
-    user_id = fields.Many2one('res.users', string='Updated By')
-    old_odometer = fields.Float(string='Old Odometer')
-    odometer = fields.Float(string='New Odometer')
+        vehicle_id = fields.Many2one('fleet.vehicle', string='Vehicle')
+        date = fields.Date(string='Date')
+        user_id = fields.Many2one('res.users', string='Updated By')
+        old_odometer = fields.Float(string='Old Odometer')
+        odometer = fields.Float(string='New Odometer')

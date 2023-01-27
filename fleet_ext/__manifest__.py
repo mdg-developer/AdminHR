@@ -1,14 +1,16 @@
-
 {
-    "name" : "Fleet Customization",
-    "version" : "1.0.0.",
-    "category" : "Fleet",
+    "name": "Fleet Customization",
+    "version": "1.0.0.",
+    "category": "Fleet",
     "summary": 'Fleet Customization',
     'description': """ """,
     "author": "7thcomputing",
-    "website" : "http://7thcomputing.com",
-    'depends': ['base','fleet','hr','mail'],
+    "website": "http://7thcomputing.com",
+    'depends': ['base', 'fleet', 'hr', 'mail'],
     'data': [
+        'data/fleet_expired_reminder_channel.xml',
+        'data/fleet_license_scheduled_act.xml',
+        'data/mail_data_template.xml',
         'security/ir.model.access.csv',
         'views/fleet_scheduled_data.xml',
         'views/fleet_ext_view.xml',
