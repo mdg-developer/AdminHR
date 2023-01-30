@@ -33,14 +33,14 @@
 							<field name="branch_id" />
 							<field name="department_id"/>
 							<field name="upper_position"/>
+						   <field name="job_description"/>
 						</group>
 						<group>
 							<field name="total_employee"/>
 							<field name="current_employee"/>
 							<field name="new_employee"/>
+							<field name="job_requirment"/>
 						</group>
-						<field name="job_description"/>
-						<field name="job_requirment"/>
 				    </group>
 				</sheet>
 			</form>

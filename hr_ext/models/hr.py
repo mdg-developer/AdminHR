@@ -5,7 +5,7 @@ from openerp.osv import osv
 import re
 
 
-class HrJob(models.Model):    
+class HrJob(models.Model):
     _inherit = 'hr.job'
     _description = 'Job Position'
 
@@ -40,7 +40,7 @@ class HrJob(models.Model):
             for line in job.job_line:
                 total_emp = total_emp + line.total_employee
             job.total_employee = total_emp
-    
+
     # @api.depends('job_line.new_employee')
     # def compute_total_new_employee(self):
     #     for job in self:
@@ -55,7 +55,7 @@ class HrJob(models.Model):
             rec.no_of_recruitment = 0
             if rec.total_employee >= rec.current_employee:
                 rec.no_of_recruitment = rec.total_employee - rec.current_employee
-        
+
     @api.depends('job_line.current_employee')
     def compute_current_employee(self):
         for job in self:
@@ -63,7 +63,7 @@ class HrJob(models.Model):
             current_employee = self.env['hr.employee'].search_count([('company_id', '=', self.env.company.id),
                                                                      ('resign_date', '=', False),
                                                                      ('job_id', '=', job.id)])
-            
+
             # for line in job.job_line:
             #     # current_employee = self.env['hr.employee'].search_count([('company_id', '=',line.company_id.id),
             #     #                                                         ('branch_id', '=', line.branch_id.id),
@@ -78,15 +78,15 @@ class HrJob(models.Model):
             job.current_employee = current_employee
 
 
-                
-    def _compute_benefit_ids(self):   
-        
+
+    def _compute_benefit_ids(self):
+
         benefits = self.env['hr.job.benefit'].search([('job_id', '=', self.id)])
         for job in self:
             job.benefit_count = benefits
             self.job_id='job_id'
-            
-            
+
+
     @api.onchange('comp_template_id')
     def onchange_comp_template_id(self):
         job = self.env['hr.job'].browse(self.user_id.id)
@@ -95,7 +95,7 @@ class HrJob(models.Model):
                                                                     'template_id':self.template_id.id,
                                                                     'comp_template_id':self.comp_template_id.id,
                                                                 })
-    
+
     @api.constrains('job_line')
     def _constrains_job_line(self):
         if self.job_line:
@@ -110,10 +110,10 @@ class HrJob(models.Model):
     new_employee = fields.Integer(string='Expected New Employee')
     current_employee = fields.Integer(string='Current Employee',compute='compute_current_employee')
     job_grade_id = fields.Many2one('job.grade', string='Job Grade')
-    skill_line = fields.One2many('skill.line', 'job_id', string='Skill')     
+    skill_line = fields.One2many('skill.line', 'job_id', string='Skill')
     job_line = fields.One2many('job.line', 'job_id', string='Job')
     no_of_recruitment = fields.Integer(string='Expected New Employees', copy=False,
-        help='Number of new employees you expect to recruit.',compute='compute_total_new_employee')   
+        help='Number of new employees you expect to recruit.',compute='compute_total_new_employee')
     appraisal_count = fields.Integer(string='Appraisals')
     benefit = fields.Char('Benefit')
     benefit_count = fields.Integer(compute='_compute_benefit_ids', string="Benefit Count")
@@ -123,10 +123,10 @@ class HrJob(models.Model):
     company_id = fields.Many2one('res.company', string='Company', default=False)
     jd_summary = fields.Char(string='JD Summary')
 
-    
-class SkillLine(models.Model):    
-    _name = 'skill.line'    
-     
+
+class SkillLine(models.Model):
+    _name = 'skill.line'
+
     job_id = fields.Many2one('hr.job', string='Skill Line', index=True, required=True, ondelete='cascade')
     skill_id = fields.Many2one('hr.skill', required=True)
     skill_level_id = fields.Many2one('hr.skill.level', required=True)
@@ -135,16 +135,16 @@ class SkillLine(models.Model):
 #     skill_type_id = fields.Many2one('hr.skill.type')
 #     name = fields.Char(required=True)
 #     level_progress = fields.Integer(string="Progress", help="Progress from zero knowledge (0%) to fully mastered (100%).")
-#      
+#
 #     skill  = fields.Char('Skill')
 #     level  = fields.Char('Level')
 #     point  = fields.Float('Point')
 
 
-class JobLine(models.Model):    
-    _name = 'job.line'    
+class JobLine(models.Model):
+    _name = 'job.line'
     _rec_name = 'job_id'
-         
+
     @api.depends('company_id', 'branch_id', 'department_id', 'job_id')
     def _get_current_employee(self):
         for line in self:
@@ -162,27 +162,34 @@ class JobLine(models.Model):
 #                     line.current_employee = employee
 #                 else:
 #                     line.current_employee = 0
-                    
+
     @api.depends('total_employee', 'current_employee')
     def _get_new_employee(self):
-        for line in self:            
+        for line in self:
             line.new_employee = line.total_employee - line.current_employee
             line.expected_new_employee = line.new_employee
-#             line.expected_new_employee = line.new_employee        
-#             if line.total_employee >= line.current_employee:                
+#             line.expected_new_employee = line.new_employee
+#             if line.total_employee >= line.current_employee:
 #                 line.new_employee = line.total_employee - line.current_employee
 #                 line.expected_new_employee = line.new_employee
 #             else:
 #                 line.new_employee = 0
 #                 line.expected_new_employee = line.new_employee
-     
+
+    @api.depends('normal_employee', 'urgent_employee', 'current_employee')
+    def _get_total_employee(self):
+        for line in self:
+            line.total_employee = line.normal_employee + line.urgent_employee + line.current_employee
+
+
+
     job_id = fields.Many2one('hr.job', string='Job', index=True, required=True, ondelete='cascade')
-    
+
     company_id = fields.Many2one('res.company', string='Company')
     branch_id = fields.Many2one('res.branch', string='Branch')
     department_id = fields.Many2one('hr.department', string='Department')
-    total_employee = fields.Integer(compute='_get_total_employee', string='Expected Total Employee')
-    current_employee = fields.Integer(compute='_get_current_employee', string='Current Employee', readonly=True)
+    total_employee = fields.Integer(compute='_get_total_employee', string='Expected Total Employee', store=True)
+    current_employee = fields.Integer(compute='_get_current_employee', string='Current Employee', readonly=True, store=True)
     new_employee = fields.Integer(compute='_get_new_employee', string='Expected New Employee', readonly=True)
     expected_new_employee = fields.Integer(string='New Employee')
     upper_position = fields.Many2one('hr.job', string='Upper Position', stored=True)
@@ -207,7 +214,7 @@ class JobLine(models.Model):
             reg = re.compile(r'<[^>]+>')
             text = reg.sub('', rec)
 
-            if len(text) < 3000:
+            if len(text) < 1 or len(text) > 3000:
                 raise ValidationError('Minimum must be fill 3000')
 
     def get_description(self):
@@ -226,18 +233,18 @@ class JobLine(models.Model):
             reg = re.compile(r'<[^>]+>')
             text = reg.sub('', rec)
 
-            if len(text) > 200 or len(text) < 8000:
-                raise ValidationError('Minimum must be 200 characters and Maximum 8000')
+            if len(text) <1 or len(text) > 8000:
+                raise ValidationError('Minimum must be 1 characters and Maximum 8000')
 
 
 
 
 
 
-    @api.depends('normal_employee', 'urgent_employee', 'current_employee')
-    def _get_total_employee(self):
-        for line in self:
-            line.total_employee = line.normal_employee + line.urgent_employee + line.current_employee
+    # @api.depends('normal_employee', 'urgent_employee', 'current_employee')
+    # def _get_total_employee(self):
+    #     for line in self:
+    #         line.total_employee = line.normal_employee + line.urgent_employee + line.current_employee
 
 
     def write(self, vals):
