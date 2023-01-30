@@ -31,6 +31,9 @@
 						<field name="job_grade_id"/>
 					</group>
 				</xpath>
+				<xpath expr="//field[@name='no_of_recruitment']" position="replace">
+					<field name="no_of_recruitment" string="Vacancy"/>
+				</xpath>
 				<xpath expr="//field[@name='user_id']" position="after">
 					<field name="template_id"/>
 					<field name="comp_template_id"/>
