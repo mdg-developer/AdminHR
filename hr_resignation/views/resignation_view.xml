@@ -72,7 +72,7 @@
                 </form>
             </field>
         </record>
-        <record model="ir.actions.act_window" id="view_employee_resignation">
+        <record model="ir.actions.act_window" id="view_employee_resignation_action">
             <field name="name">Employee Resignation</field>
             <field name="res_model">hr.resignation</field>
             <field name="view_mode">tree,form</field>
@@ -85,9 +85,13 @@
         <menuitem id="employee_resignation" name="Resignation"
                   groups="base.group_user"
                   web_icon="hr_resignation,static/description/resignation_web.png"
+                  action="view_employee_resignation_action"
                   sequence="21"/>
+
         <menuitem id="employee_resignation_request" parent="employee_resignation" name="Resignation Request"
-                  action="view_employee_resignation" groups="base.group_user" sequence="4"/>
+                  groups="base.group_user" sequence="4"/>
+        <menuitem id="hr_resignations" parent="employee_resignation_request" name="Resignation"
+                  action="view_employee_resignation_action" groups="base.group_user" sequence="1"/>
         <menuitem id="hr_reasons_request" parent="employee_resignation_request" name="Reasons"
                   action="view_hr_reasons" groups="base.group_user" sequence="5"/>
 
