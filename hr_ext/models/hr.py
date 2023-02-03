@@ -27,7 +27,7 @@ class HrJob(models.Model):
         else:
             name = self.search([('name', '=', values['name'])])
             if name:
-                raise ValidationError(_(" '%s'  already exists in Job Position !")%(self.name))
+                raise ValidationError(_(" '%s'  already exists in Job Position !")%(values['name']))
             elif values['name'] == '' or values['name'] is False:
                 raise ValidationError(_(" Invalid in Job Position !"))
 
