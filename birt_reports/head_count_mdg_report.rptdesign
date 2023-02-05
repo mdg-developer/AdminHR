@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.24" id="1">
-    <property name="createdBy">Eclipse BIRT Designer Version 4.13.0.v202301192028</property>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.10.0.v202204260816</property>
     <property name="units">in</property>
     <property name="theme">report_library.defaultTheme</property>
     <property name="iconFile">/templates/blank_report.gif</property>
@@ -34,7 +34,7 @@
         </scalar-parameter>
     </parameters>
     <data-sources>
-        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="4878"
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="7055"
  extends="report_library.Data Source"/>
     </data-sources>
     <data-sets>
@@ -164,6 +164,7 @@
                     </structure>
                 </list-property>
             </structure>
+            <property name="dataSource">Data Source</property>
             <list-property name="resultSet">
                 <structure>
                     <property name="position">1</property>
@@ -328,6 +329,7 @@ WHERE he.company_id=?]]></xml-property>
                     </structure>
                 </list-property>
             </structure>
+            <property name="dataSource">Data Source</property>
             <list-property name="resultSet">
                 <structure>
                     <property name="position">1</property>
