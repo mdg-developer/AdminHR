@@ -172,24 +172,22 @@ class fleet_vehicle(models.Model):
                 # vehicle.write({
                 #     'last_odometer': last_odometer
                 # })
+
     @api.model
     def update_expired_license_reminder(self):
-        #This method is called by a cron task 'ir_cron_vehicle_license_expired_action_reminder'
+        # This method is called by a cron task 'ir_cron_vehicle_license_expired_action_reminder'
         date_today = fields.Date.today()
-        outdated_days = date_today + relativedelta(days=+30)
+        outdated_date = date_today + relativedelta(days=+30)
+        # next_reminded_date = outdated_date
         nearly_expired_vehicles = self.search([('active', '=', True),
-                                              ('license_expired_date', '<', outdated_days),
-                                              ('license_expired_date', '>=', date_today)]
-                                             )
+                                               ('license_expired_date', '<', outdated_date),
+                                               ('license_expired_date', '>=', date_today)]
+                                              )
 
         if nearly_expired_vehicles:
-            #add schedule activity on each vehicle where their license will expired soon
-            for vehicle in nearly_expired_vehicles:
-                vehicle.activity_schedule(
-                    'fleet_ext.mail_act_fleet_license_to_renew', vehicle.license_expired_date,  note="License သက်တမ်းတိုးရန်",
-                )
+            expired_vehicles_list = [vehicle.name for vehicle in nearly_expired_vehicles]
 
-            #send message reminder on Administration/Access Right group users
+            # send message reminder on Administration/Access Right group users
             odoobot_id = self.env['ir.model.data'].xmlid_to_res_id("base.partner_root")
             self.env['mail.message'].create({
                 'author_id': odoobot_id,  # creator id
@@ -197,12 +195,19 @@ class fleet_vehicle(models.Model):
                 'message_type': 'comment',
                 'subtype_id': self.env.ref('mail.mt_comment').id,
                 'subject': 'သက်တမ်းတိုးရန်',
-                'body': "Vehicle Licenses will expired soon!",
+                'body': "Following Vehicle Licenses will expired soon! \n{}".format(expired_vehicles_list),
                 'channel_ids': [(4, self.env.ref(
                     'fleet_ext.channel_fleet_expired_reminder').id)],
                 'res_id': self.env.ref('fleet_ext.channel_fleet_expired_reminder').id,
             })
 
+        # if date_today == next_reminded_date:
+            # add schedule activity on each vehicle where their license will expired soon
+            for vehicle in nearly_expired_vehicles:
+                vehicle.activity_schedule(
+                    'fleet_ext.mail_act_fleet_license_to_renew', vehicle.license_expired_date,
+                    note="License သက်တမ်းတိုးရန်",
+                )
 
     class FleetVehicleCost(models.Model):
         _inherit = 'fleet.vehicle.cost'

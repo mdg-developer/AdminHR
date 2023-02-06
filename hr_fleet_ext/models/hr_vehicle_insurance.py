@@ -63,6 +63,8 @@ class VehicleInsurance(models.Model):
         )
 
         if nearly_insurance_expired_vehicles:
+            insurance_expired_vehicles_list = [vehicle.name for vehicle in nearly_insurance_expired_vehicles]
+
             # send message reminder on Administration/Access Right group users
             odoobot_id = self.env['ir.model.data'].xmlid_to_res_id("base.partner_root")
             self.env['mail.message'].create({
@@ -71,7 +73,7 @@ class VehicleInsurance(models.Model):
                 'message_type': 'comment',
                 'subtype_id': self.env.ref('mail.mt_comment').id,
                 'subject': 'သက်တမ်းတိုးရန်',
-                'body': "Vehicle Insurance Licenses will expired soon!",
+                'body': "Following Vehicle Insurance Licenses will expired soon! \n{}".format(insurance_expired_vehicles_list),
                 'channel_ids': [(4, self.env.ref(
                     'hr_fleet_ext.channel_fleet_insurance_expired_reminder').id)],
                 'res_id': self.env.ref('hr_fleet_ext.channel_fleet_insurance_expired_reminder').id,
