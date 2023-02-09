@@ -79,11 +79,13 @@ class HrLeaveAutoAllocation(models.Model):
                     'number_of_days': number_of_days,
                     'fiscal_year': fiscal_year.id,
                     'carry_leave': False,
+                    'state':'draft',
                 }
         leave_allocation = self.env['hr.leave.allocation'].sudo().create(values)
         if leave_allocation:
+            leave_allocation.action_confirm()
             leave_allocation.action_approve()
-            leave_allocation.action_validate()
+            #leave_allocation.action_validate()
     def run_existing_employee_leave_allocation(self,employee_ids,fiscal_year,upcoming_fiscal_year):
         domain = []
         allocation_obj = self.env['hr.leave.allocation'].sudo()
@@ -423,7 +425,7 @@ class HrLeaveAutoAllocation(models.Model):
                         emp_domain += [('department_id', 'in', auto.department_ids.ids)]
                     elif auto.allocate_on == 'position':
                         emp_domain += [('job_id', 'in', auto.position_ids.ids)]
-                emp_domain += [('id', 'in', [5138,5098])]
+                #emp_domain += [('id', 'in', [5138,5098])]
                 #emp_domain += [('id','in',[6830,10023])]5138
                 # import pdb
                 # pdb.set_trace()
