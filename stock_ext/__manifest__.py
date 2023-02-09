@@ -10,6 +10,7 @@ Stock
     """,
     'depends': ['stock', 'account'],
     'data': [
+            'views/stock_location_view_inherit.xml',
             'views/stock_picking_view.xml',
     ],    
     'installable': True,
