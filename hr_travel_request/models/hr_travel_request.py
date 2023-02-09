@@ -166,10 +166,12 @@ class TravelRequest(models.Model):
                                                             'request_date_to': get_local_datetime(tz, line.end_date).date(),
                                                             'number_of_days': no_of_days,
                                                             'travel_request_id': self.id,
+                                                            'state':'draft',
                                                             })
+#                 travel_leave.action_approve()
+#                 travel_leave.action_validate()
+                travel_leave.action_confirm()
                 travel_leave.action_approve()
-                travel_leave.action_validate()
-
 #             if self.travel_type_id and self.employee_id.address_home_id and self.actual_allowance_total:
 #                 company = self.employee_id.company_id
 #                 journal = self.env['account.journal'].search([('type', 'in', ('bank', 'cash')), ('company_id', '=', company.id)], limit=1)
