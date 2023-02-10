@@ -649,7 +649,8 @@ class PlanTripProduct(models.Model):
     def action_start(self):
         self.check_running_trip()
         self.trip_check_in()
-        last_odometer = self.vehicle_id.get_vehicle_odometer(self.vehicle_id)#self.vehicle_id.trip_odometer + self.vehicle_id.get_device_odometer()
+        #last_odometer = self.vehicle_id.get_vehicle_odometer(self.vehicle_id)#self.vehicle_id.trip_odometer + self.vehicle_id.get_device_odometer()
+        last_odometer=0
         avg_speed = 0#self.vehicle_id.get_device_avg_speed()
         #if avg_speed == False:
         #    avg_speed = self.vehicle_id.average_speed
@@ -961,7 +962,8 @@ class PlanTripProduct(models.Model):
     def action_end(self):
         self.check_end_trip_delay()
         last_odometer = self.vehicle_id.last_odometer
-        current_odometer = self.vehicle_id.get_vehicle_odometer(self.vehicle_id)#self.vehicle_id.trip_odometer + self.vehicle_id.get_device_odometer()
+        #current_odometer = self.vehicle_id.get_vehicle_odometer(self.vehicle_id)#self.vehicle_id.trip_odometer + self.vehicle_id.get_device_odometer()
+        current_odometer=0
         self.update_fuel_consumption_odometer(last_odometer, current_odometer)
         avg_speed = 0#self.vehicle_id.get_device_avg_speed()
         if self.from_datetime and self.to_datetime:
