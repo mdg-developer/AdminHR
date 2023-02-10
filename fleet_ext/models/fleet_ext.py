@@ -176,12 +176,11 @@ class fleet_vehicle(models.Model):
     @api.model
     def update_expired_license_reminder(self):
         # This method is called by a cron task 'ir_cron_vehicle_license_expired_action_reminder'
-        date_today = fields.Date.today()
-        outdated_date = date_today + relativedelta(days=+30)
-        # next_reminded_date = outdated_date
+        today = fields.Date.today()
+        outdated_date = today + relativedelta(days=+30)
         nearly_expired_vehicles = self.search([('active', '=', True),
                                                ('license_expired_date', '<', outdated_date),
-                                               ('license_expired_date', '>=', date_today)]
+                                               ('license_expired_date', '>=', today)]
                                               )
 
         if nearly_expired_vehicles:
@@ -201,7 +200,17 @@ class fleet_vehicle(models.Model):
                 'res_id': self.env.ref('fleet_ext.channel_fleet_expired_reminder').id,
             })
 
-        # if date_today == next_reminded_date:
+    @api.model
+    def update_expired_license_activity_reminder(self):
+        # This method is called by a cron task 'ir_cron_vehicle_license_expired_activity_action_reminder'
+        today = fields.Date.today()
+        outdated_date = today + relativedelta(days=+30)
+        nearly_expired_vehicles = self.search([('active', '=', True),
+                                               ('license_expired_date', '<', outdated_date),
+                                               ('license_expired_date', '>=', today)]
+                                              )
+
+        if nearly_expired_vehicles:
             # add schedule activity on each vehicle where their license will expired soon
             for vehicle in nearly_expired_vehicles:
                 vehicle.activity_schedule(
