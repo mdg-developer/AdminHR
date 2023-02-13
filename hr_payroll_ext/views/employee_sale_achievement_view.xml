@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record model="ir.ui.view" id="view_sale_achievement_tree">
+			<field name="name">sale.achievement.tree</field>
+			<field name="model">sale.achievement</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Sale Achievement Percentage">
+					<field name="year" />
+					<field name="month" />
+					<field name="employee_id" />
+					<field name="sale_percentage" />
+					<field name="company_id" />
+
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_sale_achievement_form">
+			<field name="name">sale.achievement.form</field>
+			<field name="model">sale.achievement</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Sale Achievement Percentage">
+					<sheet>
+					    <group>
+					        <group>
+								<field name="employee_id" required="True"/>
+								<field name="sale_percentage" />
+						    </group>
+							<group>
+								<field name="year" required="True"/>
+								<field name="month" required="True"/>
+								<field name="date_from" invisible="1"/>
+								<field name="date_to" invisible="1"/>
+								<field name="company_id" />
+							</group>
+					    </group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_work_from_home_tree">
+			<field name="name">work.from.home.tree</field>
+			<field name="model">work.from.home</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Work From Home Achievement">
+					<field name="year" />
+					<field name="month" />
+					<field name="employee_id" />
+					<field name="work_from_home_percentage" />
+					<field name="company_id" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_work_from_home_form">
+			<field name="name">work.from.home.form</field>
+			<field name="model">work.from.home</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Work From Home">
+					<sheet>
+					    <group>
+					        <group>
+								<field name="employee_id" required="True"/>
+								<field name="work_from_home_percentage" />
+						    </group>
+							<group>
+								<field name="year" required="True"/>
+								<field name="month" required="True"/>
+								<field name="date_from" invisible="1"/>
+								<field name="date_to" invisible="1"/>
+								<field name="company_id" />
+							</group>
+					    </group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_sale_contribution_tree">
+			<field name="name">sale.contribution.tree</field>
+			<field name="model">sale.contribution</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Sale Contribution">
+					<field name="year" />
+					<field name="month" />
+					<field name="employee_id" />
+					<field name="company_id" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="view_sale_contribution_form">
+			<field name="name">sale.contribution.form</field>
+			<field name="model">sale.contribution</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Sale Contribution">
+					<sheet>
+					    <group>
+					        <group>
+								<field name="employee_id" required="True"/>
+
+						    </group>
+							<group>
+								<field name="year" required="True"/>
+								<field name="month" required="True"/>
+								<field name="date_from" invisible="1"/>
+								<field name="date_to" invisible="1"/>
+								<field name="company_id" />
+							</group>
+					    </group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="open_view_sale_achievement">
+			<field name="name">Sale Achievement</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">sale.achievement</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_sale_achievement_tree" />
+		</record>
+
+		<record model="ir.actions.act_window" id="open_view_work_from_home">
+			<field name="name">Work From Home Achievement</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">work.from.home</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_work_from_home_tree" />
+		</record>
+
+		<record model="ir.actions.act_window" id="open_view_sale_contribution">
+			<field name="name">Sale Contribution</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">sale.contribution</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_sale_contribution_tree" />
+		</record>
+
+		<menuitem id="menu_sale_achievement" name="Sale Achievement" parent="hr_payroll.menu_hr_payroll_configuration"
+			action="open_view_sale_achievement" sequence="60" />
+		<menuitem id="menu_work_from_home" name="Work From Home Achievement" parent="hr_payroll.menu_hr_payroll_configuration"
+			action="open_view_work_from_home" sequence="59" />
+		<menuitem id="menu_sale_contribution" name="Sale Contribution" parent="hr_payroll.menu_hr_payroll_configuration"
+			action="open_view_sale_contribution" sequence="61" />
+
+	</data>
+</odoo>

@@ -1,3 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_draft_payslip,access_draft_payslip,model_draft_payslip,base.group_user,1,1,1,1
 access_compute_payslip,access_compute_payslip,model_compute_payslip,base.group_user,1,1,1,1
+access_sale_achievement,access_sale_achievement,model_sale_achievement,base.group_user,1,1,1,1
+access_work_from_home,access_work_from_home,model_work_from_home,base.group_user,1,1,1,1
+access_sale_contribution,access_sale_contribution,model_sale_contribution,base.group_user,1,1,1,1

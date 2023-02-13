@@ -49,7 +49,14 @@ class HrPayslip(models.Model):
     days_of_month = fields.Integer('Days of Month', compute='get_days_of_month', store=True)
     previous_income = fields.Float('Previous Income', compute='_compute_previous_amount', store=True)
     previous_tax_paid = fields.Float('Previous Tax Paid', compute='_compute_previous_amount', store=True)
-    remaining_months = fields.Integer('Remaining Months', compute='_compute_previous_amount', store=True)
+    attendance_day = fields.Float('Attendance Day', compute='_compute_previous_amount', store=True)
+    wfh_day = fields.Float('WFH Day', compute='_compute_previous_amount', store=True)
+    sale_achievement = fields.Float('Sale Achievement', compute='_compute_previous_amount', store=True)
+    sale_contribution  = fields.Float('Sale Contribution', compute='_compute_previous_amount', store=True)
+    wfh_achievement = fields.Float('WFH Achievement', compute='_compute_previous_amount', store=True)
+    travel_day = fields.Float('WFH Day', compute='_compute_previous_amount', store=True)
+    working_day = fields.Float('WFH Day', compute='_compute_previous_amount', store=True)
+    remaining_months = fields.Integer('Travel Day', compute='_compute_previous_amount', store=True)
     total_months = fields.Integer('Total Months', compute='_compute_previous_amount', store=True)
     sunday_unpaid = fields.Integer('Sunday Unpaid', compute='_compute_previous_amount', store=False)
     half_month_day = fields.Integer('Half Month Join', compute='_compute_previous_amount', store=False)
@@ -206,6 +213,8 @@ class HrPayslip(models.Model):
     @api.depends('employee_id', 'date_from', 'date_to')
     def _compute_previous_amount(self):
         for slip in self:
+            if not slip.employee_id:
+                return  True
             prev_income = 0#slip.employee_id.salary_total
             prev_tax_paid = 0#slip.employee_id.tax_paid
             remaining_months = 0
@@ -254,7 +263,92 @@ class HrPayslip(models.Model):
                 remaining_months = relativedelta(slip.date_to,slip.employee_id.resign_date).months
                 slip.total_months = relativedelta(slip.date_to,fiscal_year.date_from).months
                 slip.remaining_months = remaining_months
-            
+
+            employee = slip.employee_id
+            date_from = slip.date_from
+            date_to = slip.date_to
+            calendar = slip.employee_id.resource_calendar_id or slip.contract_id.resource_calendar_id
+            tz = timezone(calendar.tz)
+            start_time = (tz.localize(datetime(year=date_from.year, month=date_from.month, day=date_from.day),
+                                      is_dst=None)).astimezone(UTC)
+            end_time = (tz.localize(datetime(year=date_to.year, month=date_to.month, day=date_to.day),
+                                    is_dst=None)).astimezone(UTC) + timedelta(days=1)
+            beg_date = slip.date_from
+            wfh_count = travel_day = 0
+            while beg_date <= date_to:
+                start_time = (tz.localize(datetime(year=beg_date.year, month=beg_date.month, day=beg_date.day),
+                                          is_dst=None)).astimezone(UTC)
+                end_time = (tz.localize(datetime(year=beg_date.year, month=beg_date.month, day=beg_date.day),
+                                        is_dst=None)).astimezone(UTC) + timedelta(days=1)
+                attendances = self.env['hr.attendance'].search([('employee_id', '=', employee.id),
+                                                                ('check_in', '>=', start_time),
+                                                                ('check_in', '<', end_time), ('wfh', '=', True),
+                                                                ('state', 'in', ('approve', 'verify'))], order='check_in asc', limit=1)
+                for wfh_att in attendances:
+                    wfh_count += 1
+                beg_date = beg_date + timedelta(days=1)
+            slip.wfh_day = wfh_count
+            beg_date = slip.date_from
+            while beg_date <= date_to:
+                start_time = (tz.localize(datetime(year=beg_date.year, month=beg_date.month, day=beg_date.day),
+                                          is_dst=None)).astimezone(UTC)
+                end_time = (tz.localize(datetime(year=beg_date.year, month=beg_date.month, day=beg_date.day),
+                                        is_dst=None)).astimezone(UTC) + timedelta(days=1)
+                attendances = self.env['hr.attendance'].search([('employee_id', '=', employee.id),
+                                                                ('check_in', '>=', start_time),
+                                                                ('check_in', '<', end_time), ('travel', '=', True),
+                                                                ('state', 'in', ('approve', 'verify'))],
+                                                               order='check_in asc', limit=1)
+                for wfh_att in attendances:
+                    travel_day += 1
+                beg_date = beg_date + timedelta(days=1)
+            slip.travel_day = travel_day
+
+            beg_date = slip.date_from
+            working_day = 0
+            while beg_date <= date_to:
+                date_start = tz.localize((fields.Datetime.to_datetime(beg_date)), is_dst=True).astimezone(tz=UTC)
+                date_stop = tz.localize((datetime.combine(fields.Datetime.to_datetime(beg_date), datetime.max.time())),
+                                        is_dst=True).astimezone(tz=UTC)
+
+                dayofweek = beg_date.weekday()
+                domain = [('display_type', '!=', 'line_section'), ('calendar_id', '=', calendar.id),
+                          ('dayofweek', '=', str(dayofweek))]
+                working_hours = self.env['resource.calendar.attendance'].search(domain,limit=1)
+                public_holiday = self.env['public.holidays.line'].search([('date', '=', beg_date),
+                                                                          ('line_id.company_id', '=',
+                                                                           slip.employee_id.company_id.id)],
+                                                                         order='id desc', limit=1)
+
+                if not public_holiday:
+                    for working in working_hours:
+                        working_day += 1
+
+                beg_date = beg_date + timedelta(days=1)
+            slip.working_day = working_day
+            sale_achievement = self.env['sale.achievement'].search([('employee_id','=',slip.employee_id.id),('date_from','=',slip.date_from),('date_to','=',slip.date_to)],limit=1)
+            if sale_achievement:
+                slip.sale_achievement = sale_achievement.sale_percentage
+            else:
+                slip.sale_achievement = 0
+
+            wfh_achievement = self.env['work.from.home'].search(
+                [('employee_id', '=', slip.employee_id.id), ('date_from', '=', slip.date_from),
+                 ('date_to', '=', slip.date_to)], limit=1)
+            if wfh_achievement:
+                slip.wfh_achievement = wfh_achievement.work_from_home_percentage
+            else:
+                slip.wfh_achievement = 0
+
+            sale_contribution = self.env['sale.contribution'].search(
+                [('employee_id', '=', slip.employee_id.id), ('date_from', '=', slip.date_from),
+                 ('date_to', '=', slip.date_to)], limit=1)
+            if wfh_achievement:
+                slip.sale_contribution = True
+            else:
+                slip.sale_contribution = False
+
+
             print("sunday_unpaid>>>",sunday_unpaid)
 
     def _get_selection(self):
@@ -432,6 +526,38 @@ class HrPayslip(models.Model):
             res.append({'input_type_id': self.env.ref('hr_payroll_ext.other_input_type_insurance_deduction').id,
                         'insurance_line_ids': [(6, 0, insurance_ids.ids)],
                         'amount': insurance_amount})
+
+        #Allowance Custom
+        # allowance_obj = self.env['hr.allowance'].sudo()
+        # SW = allowance_obj.search([('employee_id', '=', employee.id),('code','=','SW'),
+        #                               ('effective_date', '<=', date_to),'|',
+        #                            ('end_date', '=', False),
+        #                            ('end_date', '>=', date_to)
+        #                               ],limit =1)
+        # sw_allowance = 0
+        # if SW:
+        #     sw_allowance = SW.amount
+        #
+        #     res.append({'input_type_id': self.env.ref('hr_payroll_ext.office_staff_sw').id,
+        #                 'amount': sw_allowance})
+        # else:
+        #     res.append({'input_type_id': self.env.ref('hr_payroll_ext.office_staff_sw').id,
+        #                 'amount': sw_allowance})
+        #
+        # CAW = allowance_obj.search([('employee_id', '=', employee.id),('code','=','CAW'),('effective_date', '<=', date_to),
+        #                             '|',
+        #                             ('end_date', '=', False),
+        #                             ('end_date', '>=', date_to)
+        #                            ], limit=1)
+        # caw_allowance = 0
+        # if CAW:
+        #     caw_allowance = CAW.amount
+        #     res.append({'input_type_id': self.env.ref('hr_payroll_ext.office_staff_car_allowance').id,
+        #                 'amount': caw_allowance})
+        # else:
+        #     res.append({'input_type_id': self.env.ref('hr_payroll_ext.office_staff_car_allowance').id,
+        #                 'amount': caw_allowance})
+
 
         # OT
         #duty_structs = self.env['hr.payroll.structure'].search([('name', 'in', ('ST05', 'ST06', 'ST07', 'ST08'))])
@@ -1192,7 +1318,7 @@ class HrPayslip(models.Model):
         last_month_slip = self.env['hr.payslip'].search([('date_to','=',last_month),('employee_id','=',employee.id),('state','=','done')],limit=1)
 
         if not last_month_slip:
-            if self.employee_id.joining_date.month != date_from.month and self.employee_id.joining_date.year != date_from.year:
+            if self.employee_id.joining_date and self.employee_id.joining_date.month != date_from.month and self.employee_id.joining_date.year != date_from.year:
                 raise ValidationError(_('%s Payroll not allowed skip month. Payslip month must be run incremental')% (employee.name))
 
         print("employee : ", employee.id)

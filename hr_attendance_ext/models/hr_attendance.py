@@ -41,6 +41,7 @@ class HrAttendance(models.Model):
     early_ot_hour = fields.Float(string='Early OT Hours', compute='_compute_work_hours', store=True)
     leave = fields.Boolean("Leave", default=False)
     travel = fields.Boolean("Travel", default=False)
+    wfh = fields.Boolean("WFH", default=False)
     plan_trip = fields.Boolean("Plan Trip", default=False)
     day_trip = fields.Boolean("Day Trip", default=False)
     resource_calendar_id = fields.Many2one('resource.calendar', string='Schedule', related='employee_id.resource_calendar_id', store=True)

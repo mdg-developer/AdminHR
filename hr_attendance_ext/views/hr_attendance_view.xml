@@ -16,6 +16,7 @@
 					<field name="state" readonly="1"/>
 					<field name="is_absent" />
 					<field name="leave" />
+					<field name="wfh" />
 					<field name="no_worked_day" />					
 					<field name="travel" />
 					<field name="plan_trip" />
