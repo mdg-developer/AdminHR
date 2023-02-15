@@ -176,5 +176,16 @@
             </field>
         </record>
 
+        <record id="fleet_vehicle_assignation_log_view_list_inherit" model="ir.ui.view">
+            <field name="name">fleet.vehicle.assignation.log.view.tree.inherit</field>
+            <field name="model">fleet.vehicle.assignation.log</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_assignation_log_view_list"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='driver_id']" position="replace">
+                    <field name="hr_driver_id"/>
+                </xpath>
+            </field>
+        </record>
+
     </data>
 </odoo>
