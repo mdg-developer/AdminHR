@@ -133,7 +133,7 @@
             <field name="model">fleet.vehicle</field>
             <field name="inherit_id" ref="fleet_insurance.view_fleet_vehicle_form_tracking_inherit"/>
             <field name="arch" type="xml">
-                <xpath expr="//button[@name='return_action_to_open_fleet_insurance']" position="before">
+                <xpath expr="//button[@name='show_current_localize']" position="before">
 					<button name="action_open_preventive_reminder" type="object" class="oe_stat_button" icon="fa-history" string="Tyre History" context="{'xml_id':'action_fleet_tyre_history'}">
 					</button>
                     <button name="action_open_accounting_config" type="object" class="oe_stat_button" icon="fa-book" string="Accounting Config" context="{'xml_id':'open_view_fleet_accounting_config_form'}">
