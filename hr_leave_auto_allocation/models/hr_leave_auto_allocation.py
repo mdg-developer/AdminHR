@@ -21,7 +21,9 @@ class HolidaysAllocation(models.Model):
         ], string='Status', readonly=True, tracking=True, copy=False, default='confirm')
     fiscal_year = fields.Many2one('account.fiscal.year', string='Fiscal Year', readonly=True)
     carry_leave = fields.Boolean(string='Carry Leave?', default=False, readonly=True)
-
+    joining_date = fields.Date(string="Joining Date",related='employee_id.joining_date',readonly=True)
+    position = fields.Char(string="Position",related='employee_id.job_id.name',readonly=True)
+    branch_id = fields.Many2one(string="Branch",related='employee_id.branch_id',readonly=True)
 
 class HrLeaveAutoAllocation(models.Model):
     _name = 'hr.leave.auto.allocation'
