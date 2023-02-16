@@ -102,7 +102,8 @@ class InsuranceLine(models.Model):
     payslip_input_id = fields.Many2one('hr.payslip.input')
 
 class ClaimsInformation(models.Model):    
-    _name = 'hr.claims'    
+    _name = 'hr.claims'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Claims'    
     
     insurance_type_id = fields.Many2one('insurance.type', string='Insurance Type', required=True)

@@ -26,18 +26,24 @@
 				<form string="Claims">
 					<sheet>
 						<group>
-							<field name="insurance_type_id" />
-							<field name="employee_id" />
-							<field name="is_readonly" invisible="1" />
-							<field name="insurance_ids" widget="many2many_tags" attrs="{'readonly': [('is_readonly','=',True)]}"/>
-							<field name="date" />
-							<field name="description" />
-							<field name="claim_amount" />
-							<field name="coverage_amount" />
-							<field name="balance" />
-							<field name="attached_file" />
+							<field name="insurance_type_id"/>
+							<field name="employee_id"/>
+							<field name="is_readonly" invisible="1"/>
+							<field name="insurance_ids" widget="many2many_tags"
+								   attrs="{'readonly': [('is_readonly','=',True)]}"/>
+							<field name="date"/>
+							<field name="description"/>
+							<field name="claim_amount"/>
+							<field name="coverage_amount"/>
+							<field name="balance"/>
+							<field name="attached_file"/>
 						</group>
 					</sheet>
+					<div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers"/>
+						<field name="activity_ids" widget="mail_activity"/>
+						<field name="message_ids" widget="mail_thread" options="{&quot;thread_level&quot;: 1}"/>
+					</div>
 				</form>
 			</field>
 		</record>
