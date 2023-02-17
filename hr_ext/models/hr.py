@@ -11,13 +11,6 @@ class HrJob(models.Model):
 
     name = fields.Char(string='Job Position', required=False, help="Job Position")
 
-    # @api.onchange('name')
-    # def _onchange_name(self):
-    #     if self.name:
-    #         name = self.search([('name', '=', self.name)])
-    #         if name:
-    #             raise ValidationError(_(" '%s'  already exists in Job Position !")%(self.name))
-
     @api.model
     def create(self, values):
         name = self.search([('name', '=', values['name'])])
@@ -36,14 +29,6 @@ class HrJob(models.Model):
                 total_emp = total_emp + line.total_employee
             job.total_employee = total_emp
 
-    # @api.depends('job_line.new_employee')
-    # def compute_total_new_employee(self):
-    #     for job in self:
-    #         total_new_emp = 0
-    #         for line in job.job_line:
-    #             total_new_emp = total_new_emp + line.new_employee
-    #         job.no_of_recruitment = total_new_emp
-
     @api.depends('total_employee', 'current_employee')
     def compute_total_new_employee(self):
         for rec in self:
@@ -54,22 +39,10 @@ class HrJob(models.Model):
     @api.depends('job_line.current_employee')
     def compute_current_employee(self):
         for job in self:
-            total_current_emp = 0
             current_employee = self.env['hr.employee'].search_count([('company_id', '=', self.env.company.id),
-                                                                     ('resign_date', '=', False),
+                                                                     ('active', '=', True),
                                                                      ('job_id', '=', job.id)])
 
-            # for line in job.job_line:
-            #     # current_employee = self.env['hr.employee'].search_count([('company_id', '=',line.company_id.id),
-            #     #                                                         ('branch_id', '=', line.branch_id.id),
-            #     #                                                         ('department_id', '=', line.department_id.id),
-            #     #                                                         ('resign_date','=',False),
-            #     #                                                         ('job_id', '=', line.job_id.id)])
-            #     current_employee = self.env['hr.employee'].search_count([('company_id', '=', line.company_id.id),
-            #                                                              ('resign_date', '=', False),
-            #                                                              ('job_id', '=', line.job_id.id)])
-            # total_current_emp += current_employee
-            # total_current_emp = total_current_emp + current_employee
             job.current_employee = current_employee
 
 
@@ -101,7 +74,6 @@ class HrJob(models.Model):
 
 
     total_employee  = fields.Integer(string='Expected Total Employee',compute='compute_total_employee')
-    #total_employee  = fields.Integer(string='Expected Total Employee')
     new_employee = fields.Integer(string='Expected New Employee')
     current_employee = fields.Integer(string='Current Employee',compute='compute_current_employee')
     job_grade_id = fields.Many2one('job.grade', string='Job Grade')
@@ -127,49 +99,28 @@ class SkillLine(models.Model):
     skill_level_id = fields.Many2one('hr.skill.level', required=True)
     skill_type_id = fields.Many2one('hr.skill.type', required=True)
     level_progress = fields.Integer(related='skill_level_id.level_progress')
-#     skill_type_id = fields.Many2one('hr.skill.type')
-#     name = fields.Char(required=True)
-#     level_progress = fields.Integer(string="Progress", help="Progress from zero knowledge (0%) to fully mastered (100%).")
-#
-#     skill  = fields.Char('Skill')
-#     level  = fields.Char('Level')
-#     point  = fields.Float('Point')
 
 
 class JobLine(models.Model):
+    _description = 'Job Line'
     _name = 'job.line'
     _rec_name = 'job_id'
 
     @api.depends('company_id', 'branch_id', 'department_id', 'job_id')
     def _get_current_employee(self):
         for line in self:
-            current_employee = 0
-            if line.job_id and line.job_id:
-                current_employee = self.env['hr.employee'].search_count ([('company_id', '=', self.env.company.id),
-                                                                        ('branch_id', '=', line.branch_id.id),
-                                                                        ('job_id', '=', line.job_id.id)])
+            current_employee = self.env['hr.employee'].search_count([('company_id', '=', self.env.company.id),
+                                                                     ('active', '=', True),
+                                                                     ('job_id', '=', line.job_id.id),
+                                                                     ('branch_id', '=', line.branch_id.id)])
 
             line.current_employee = current_employee
-            # if line.company_id and line.job_id:
-            #     employee = self.env['hr.employee'].search_count([('company_id', '=',line.company_id.id),('job_id', '=', line.job_id.id)])
-            #     line.current_employee = employee
-#                 if employee:
-#                     line.current_employee = employee
-#                 else:
-#                     line.current_employee = 0
 
     @api.depends('total_employee', 'current_employee')
     def _get_new_employee(self):
         for line in self:
             line.new_employee = line.total_employee - line.current_employee
             line.expected_new_employee = line.new_employee
-#             line.expected_new_employee = line.new_employee
-#             if line.total_employee >= line.current_employee:
-#                 line.new_employee = line.total_employee - line.current_employee
-#                 line.expected_new_employee = line.new_employee
-#             else:
-#                 line.new_employee = 0
-#                 line.expected_new_employee = line.new_employee
 
     @api.depends('normal_employee', 'urgent_employee', 'current_employee')
     def _get_total_employee(self):
@@ -177,9 +128,8 @@ class JobLine(models.Model):
             line.total_employee = line.normal_employee + line.urgent_employee + line.current_employee
 
 
-
+    name = fields.Text(string='Description')
     job_id = fields.Many2one('hr.job', string='Job', index=True, required=True, ondelete='cascade')
-
     company_id = fields.Many2one('res.company', string='Company')
     branch_id = fields.Many2one('res.branch', string='Branch')
     department_id = fields.Many2one('hr.department', string='Department')
@@ -231,17 +181,6 @@ class JobLine(models.Model):
             if len(text) <1 or len(text) > 8000:
                 raise ValidationError('Minimum must be 1 characters and Maximum 8000')
 
-
-
-
-
-
-    # @api.depends('normal_employee', 'urgent_employee', 'current_employee')
-    # def _get_total_employee(self):
-    #     for line in self:
-    #         line.total_employee = line.normal_employee + line.urgent_employee + line.current_employee
-
-
     def write(self, vals):
         old_job_id = old_manager_id = False
         employee_obj = self.env['hr.employee'].sudo()
@@ -266,22 +205,9 @@ class JobLine(models.Model):
                                 [('company_id', '=', company_id), ('branch_id', '=', branch_id),
                                  ('job_id', '=', res.upper_position.id)],limit=1)
 
-                        # if emp_direct_mng :
-                        #     employee.write({'parent_id': emp_direct_mng,'manager_job_id': job_line.upper_position.id})
                             if emp_direct_mng:
                                 employee.write(
                                     {'manager_job_id': res.upper_position.id, 'parent_id': emp_direct_mng.id})
-                                # job_line = job_line_obj.sudo().search(
-                                #     [('job_id', '=', res.job_id.id), ('company_id', '=', company_id),
-                                #      ('branch_id', '=', branch_id), ('department_id', '=', res.department_id.id)], limit=1)
-                                # if job_line and job_line.upper_position:
-                                #     direct_mng = employee_obj.sudo().search(
-                                #         [('company_id', '=', job_line.company_id.id),
-                                #          ('branch_id', '=', job_line.branch_id.id),
-                                #          ('job_id', '=', job_line.upper_position.id)], limit=1)
-                                #     if direct_mng:
-                                #         employee.write({'manager_job_id': job_line.upper_position.id, 'parent_id': direct_mng.id})
-
 
 class HrEmploymentStatus(models.Model):
     _name = "employment.new.status"

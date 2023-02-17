@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
-    <property name="createdBy">Eclipse BIRT Designer Version 4.10.0.v202204260816</property>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.24" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.13.0.v202301192028</property>
     <list-property name="userProperties">
         <structure>
             <property name="name">Data Cube.Data Set.x</property>
@@ -48,8 +48,29 @@
         </scalar-parameter>
     </parameters>
     <data-sources>
-        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="8191"
- extends="report_library.Data Source"/>
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="4878">
+            <property name="newHandlerOnEachEvent">true</property>
+            <list-property name="privateDriverProperties">
+                <ex-property>
+                    <name>metadataBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledMetadataBidiFormatStr</name>
+                </ex-property>
+                <ex-property>
+                    <name>contentBidiFormatStr</name>
+                    <value>ILYNN</value>
+                </ex-property>
+                <ex-property>
+                    <name>disabledContentBidiFormatStr</name>
+                </ex-property>
+            </list-property>
+            <property name="odaDriverClass">org.postgresql.Driver</property>
+            <property name="odaURL">jdbc:postgresql://localhost:5432/MDG_HR_Live</property>
+            <property name="odaUser">odoo</property>
+            <encrypted-property name="odaPassword" encryptionID="base64">amFjazEyMyQ=</encrypted-property>
+        </oda-data-source>
     </data-sources>
     <data-sets>
         <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="Data Set" id="4704">
@@ -107,6 +128,12 @@
                     <property name="analysis">measure</property>
                     <text-property name="displayName">x_rejected</text-property>
                     <text-property name="heading">x_rejected</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">x_offer_rejected</property>
+                    <property name="analysis">measure</property>
+                    <text-property name="displayName">x_offer_rejected</text-property>
+                    <text-property name="heading">x_offer_rejected</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">x_send_to_hod</property>
@@ -230,57 +257,61 @@
                     </structure>
                     <structure>
                         <property name="position">10</property>
-                        <property name="name">x_send_to_hod</property>
+                        <property name="name">x_offer_rejected</property>
                         <property name="dataType">decimal</property>
                     </structure>
                     <structure>
                         <property name="position">11</property>
-                        <property name="name">x_interview</property>
+                        <property name="name">x_send_to_hod</property>
                         <property name="dataType">decimal</property>
                     </structure>
                     <structure>
                         <property name="position">12</property>
-                        <property name="name">x_hired</property>
+                        <property name="name">x_interview</property>
                         <property name="dataType">decimal</property>
                     </structure>
                     <structure>
                         <property name="position">13</property>
+                        <property name="name">x_hired</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">14</property>
                         <property name="name">x_send_offer_date</property>
                         <property name="dataType">date</property>
                     </structure>
                     <structure>
-                        <property name="position">14</property>
+                        <property name="position">15</property>
                         <property name="name">x_joining_date</property>
                         <property name="dataType">date</property>
                     </structure>
                     <structure>
-                        <property name="position">15</property>
+                        <property name="position">16</property>
                         <property name="name">x_candidate_name</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">16</property>
+                        <property name="position">17</property>
                         <property name="name">x_no_of_placement</property>
                         <property name="dataType">decimal</property>
                     </structure>
                     <structure>
-                        <property name="position">17</property>
+                        <property name="position">18</property>
                         <property name="name">x_notes</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">18</property>
+                        <property name="position">19</property>
                         <property name="name">x_name</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">19</property>
+                        <property name="position">20</property>
                         <property name="name">x_total_app</property>
                         <property name="dataType">decimal</property>
                     </structure>
                 </list-property>
             </structure>
-            <property name="dataSource">Data Source</property>
             <list-property name="resultSet">
                 <structure>
                     <property name="position">1</property>
@@ -347,69 +378,76 @@
                 </structure>
                 <structure>
                     <property name="position">10</property>
+                    <property name="name">x_offer_rejected</property>
+                    <property name="nativeName">x_offer_rejected</property>
+                    <property name="dataType">decimal</property>
+                    <property name="nativeDataType">-5</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
                     <property name="name">x_send_to_hod</property>
                     <property name="nativeName">x_send_to_hod</property>
                     <property name="dataType">decimal</property>
                     <property name="nativeDataType">-5</property>
                 </structure>
                 <structure>
-                    <property name="position">11</property>
+                    <property name="position">12</property>
                     <property name="name">x_interview</property>
                     <property name="nativeName">x_interview</property>
                     <property name="dataType">decimal</property>
                     <property name="nativeDataType">-5</property>
                 </structure>
                 <structure>
-                    <property name="position">12</property>
+                    <property name="position">13</property>
                     <property name="name">x_hired</property>
                     <property name="nativeName">x_hired</property>
                     <property name="dataType">decimal</property>
                     <property name="nativeDataType">-5</property>
                 </structure>
                 <structure>
-                    <property name="position">13</property>
+                    <property name="position">14</property>
                     <property name="name">x_send_offer_date</property>
                     <property name="nativeName">x_send_offer_date</property>
                     <property name="dataType">date</property>
                     <property name="nativeDataType">91</property>
                 </structure>
                 <structure>
-                    <property name="position">14</property>
+                    <property name="position">15</property>
                     <property name="name">x_joining_date</property>
                     <property name="nativeName">x_joining_date</property>
                     <property name="dataType">date</property>
                     <property name="nativeDataType">91</property>
                 </structure>
                 <structure>
-                    <property name="position">15</property>
+                    <property name="position">16</property>
                     <property name="name">x_candidate_name</property>
                     <property name="nativeName">x_candidate_name</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">16</property>
+                    <property name="position">17</property>
                     <property name="name">x_no_of_placement</property>
                     <property name="nativeName">x_no_of_placement</property>
                     <property name="dataType">decimal</property>
                     <property name="nativeDataType">-5</property>
                 </structure>
                 <structure>
-                    <property name="position">17</property>
+                    <property name="position">18</property>
                     <property name="name">x_notes</property>
                     <property name="nativeName">x_notes</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">18</property>
+                    <property name="position">19</property>
                     <property name="name">x_name</property>
                     <property name="nativeName">x_name</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">19</property>
+                    <property name="position">20</property>
                     <property name="name">x_total_app</property>
                     <property name="nativeName">x_total_app</property>
                     <property name="dataType">decimal</property>
@@ -428,8 +466,11 @@ hap.requisition_date as x_requisition_date,
 where hrt.x_studio_cv_screening_date = hap.x_studio_cv_screening_date) x_screened,
 (select count(*) from hr_applicant hrap
  left join hr_recruitment_stage hrse ON hrse.id = hrap.stage_id
- where hrse.id = hrap.id
+ where hrap.id = hap.id
 and hrse.name in ('Rejected After Interview', 'Offer Rejected')) x_rejected,
+(select count(*) from hr_applicant hrap
+ left join hr_recruitment_stage hrse ON hrse.id = hrap.stage_id
+ where hrap.id = hap.id and hrse.name in ('Offer Rejected')) x_offer_rejected,
 (select count(*) from hr_applicant hrap
 where hrap.date_of_send = hap.date_of_send) x_send_to_hod,
 (select count(*) from hr_applicant hapt
@@ -464,7 +505,7 @@ WHERE hap.company_id = ?
 GROUP BY rc.name, rb.name, he.work_location,
 hd.name, hdp.name, hj.name, hap.requisition_date, he.joining_date,
 hap.offer_date, hap.partner_id, hap.description, hap.x_studio_cv_screening_date,
-hap.date_of_send, hap.final_interview, hj.id, us.name
+hap.date_of_send, hap.final_interview, hj.id, us.name,hap.id
 
 ]]></xml-property>
             <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
@@ -550,7 +591,6 @@ hap.date_of_send, hap.final_interview, hj.id, us.name
                     </structure>
                 </list-property>
             </structure>
-            <property name="dataSource">Data Source</property>
             <list-property name="resultSet">
                 <structure>
                     <property name="position">1</property>
@@ -886,6 +926,19 @@ order by name;]]></xml-property>
                         </tabular-hierarchy>
                     </property>
                 </tabular-dimension>
+                <tabular-dimension name="Offer Rejected" id="8200">
+                    <property name="defaultHierarchy">NewTabularHierarchy6</property>
+                    <property name="hierarchies">
+                        <tabular-hierarchy name="NewTabularHierarchy6" id="8201">
+                            <property name="levels">
+                                <tabular-level name="x_offer_rejected" id="8202">
+                                    <property name="dataType">decimal</property>
+                                    <property name="columnName">x_offer_rejected</property>
+                                </tabular-level>
+                            </property>
+                        </tabular-hierarchy>
+                    </property>
+                </tabular-dimension>
             </property>
             <property name="measureGroups">
                 <tabular-measure-group name="Summary Field" id="6997">
@@ -932,7 +985,7 @@ order by name;]]></xml-property>
                             <property name="borderBottomWidth">thin</property>
                             <property name="borderRightStyle">solid</property>
                             <property name="borderRightWidth">thin</property>
-                            <property name="height">0.5208333333333334in</property>
+                            <property name="height">0.875in</property>
                             <property name="content">
                                 <data id="8140">
                                     <property name="resultSetColumn">x_total_app_Notes/x_notes_name/x_name</property>
@@ -1049,6 +1102,7 @@ order by name;]]></xml-property>
                                                 <data name="x_department1" id="8039">
                                                     <property name="resultSetColumn">x_department</property>
                                                 </data>
+                                                <data id="8192"/>
                                             </property>
                                             <property name="borderTopStyle">solid</property>
                                             <property name="borderTopWidth">thin</property>
@@ -1148,6 +1202,31 @@ order by name;]]></xml-property>
                                             <property name="content">
                                                 <data name="x_rejected1" id="8064">
                                                     <property name="resultSetColumn">x_rejected</property>
+                                                </data>
+                                            </property>
+                                            <property name="borderTopStyle">solid</property>
+                                            <property name="borderTopWidth">thin</property>
+                                            <property name="borderLeftStyle">solid</property>
+                                            <property name="borderLeftWidth">thin</property>
+                                            <property name="borderBottomStyle">solid</property>
+                                            <property name="borderBottomWidth">thin</property>
+                                            <property name="borderRightStyle">solid</property>
+                                            <property name="borderRightWidth">thin</property>
+                                        </extended-item>
+                                    </property>
+                                </extended-item>
+                            </property>
+                        </extended-item>
+                        <extended-item extensionName="DimensionView" id="8213">
+                            <property name="dimension">Offer Rejected</property>
+                            <property name="levels">
+                                <extended-item extensionName="LevelView" name="NewLevel View" id="8214">
+                                    <property name="level">Offer Rejected/x_offer_rejected</property>
+                                    <property name="member">
+                                        <extended-item extensionName="CrosstabCell" id="8215">
+                                            <property name="content">
+                                                <data name="x_offer_rejected" id="8221">
+                                                    <property name="resultSetColumn">x_offer_rejected</property>
                                                 </data>
                                             </property>
                                             <property name="borderTopStyle">solid</property>
@@ -1392,6 +1471,7 @@ order by name;]]></xml-property>
                 <extended-item extensionName="CrosstabCell" id="8088"/>
                 <extended-item extensionName="CrosstabCell" id="8089"/>
                 <extended-item extensionName="CrosstabCell" id="8090"/>
+                <extended-item extensionName="CrosstabCell" id="8220"/>
                 <extended-item extensionName="CrosstabCell" id="8091"/>
                 <extended-item extensionName="CrosstabCell" id="8092"/>
                 <extended-item extensionName="CrosstabCell" id="8115"/>
@@ -1406,6 +1486,7 @@ order by name;]]></xml-property>
                 <extended-item extensionName="CrosstabCell" id="8103"/>
                 <extended-item extensionName="CrosstabCell" id="8104"/>
                 <extended-item extensionName="CrosstabCell" id="8105"/>
+                <extended-item extensionName="CrosstabCell" id="8219"/>
                 <extended-item extensionName="CrosstabCell" id="8106"/>
                 <extended-item extensionName="CrosstabCell" id="8107"/>
                 <extended-item extensionName="CrosstabCell" id="8114"/>
@@ -1420,44 +1501,18 @@ order by name;]]></xml-property>
                 <extended-item extensionName="CrosstabCell" id="8148"/>
                 <extended-item extensionName="CrosstabCell" id="8149"/>
                 <extended-item extensionName="CrosstabCell" id="8150"/>
+                <extended-item extensionName="CrosstabCell" id="8218"/>
                 <extended-item extensionName="CrosstabCell" id="8151"/>
                 <extended-item extensionName="CrosstabCell" id="8152"/>
                 <extended-item extensionName="CrosstabCell" id="8153"/>
                 <extended-item extensionName="CrosstabCell" id="8154"/>
                 <extended-item extensionName="CrosstabCell" id="8155"/>
                 <extended-item extensionName="CrosstabCell" id="8157"/>
-                <extended-item extensionName="CrosstabCell" id="8176"/>
-                <extended-item extensionName="CrosstabCell" id="8177"/>
-                <extended-item extensionName="CrosstabCell" id="8178"/>
-                <extended-item extensionName="CrosstabCell" id="8179"/>
-                <extended-item extensionName="CrosstabCell" id="8180"/>
-                <extended-item extensionName="CrosstabCell" id="8181"/>
-                <extended-item extensionName="CrosstabCell" id="8182"/>
-                <extended-item extensionName="CrosstabCell" id="8183"/>
-                <extended-item extensionName="CrosstabCell" id="8184"/>
-                <extended-item extensionName="CrosstabCell" id="8185"/>
-                <extended-item extensionName="CrosstabCell" id="8186"/>
-                <extended-item extensionName="CrosstabCell" id="8187"/>
-                <extended-item extensionName="CrosstabCell" id="8188"/>
-                <extended-item extensionName="CrosstabCell" id="8189">
-                    <property name="content">
-                        <label id="8190">
-                            <text-property name="text">x_name</text-property>
-                        </label>
-                    </property>
-                    <property name="borderTopStyle">solid</property>
-                    <property name="borderTopWidth">thin</property>
-                    <property name="borderLeftStyle">solid</property>
-                    <property name="borderLeftWidth">thin</property>
-                    <property name="borderBottomStyle">solid</property>
-                    <property name="borderBottomWidth">thin</property>
-                    <property name="borderRightStyle">solid</property>
-                    <property name="borderRightWidth">thin</property>
-                </extended-item>
                 <extended-item extensionName="CrosstabCell" id="8019">
                     <property name="content">
                         <label id="8158">
-                            <text-property name="text">x_company</text-property>
+                            <property name="textAlign">center</property>
+                            <text-property name="text">Company</text-property>
                         </label>
                     </property>
                     <property name="borderTopStyle">solid</property>
@@ -1472,7 +1527,8 @@ order by name;]]></xml-property>
                 <extended-item extensionName="CrosstabCell" id="8028">
                     <property name="content">
                         <label id="8159">
-                            <text-property name="text">x_branch</text-property>
+                            <property name="textAlign">center</property>
+                            <text-property name="text">Branch</text-property>
                         </label>
                     </property>
                     <property name="borderTopStyle">solid</property>
@@ -1487,7 +1543,8 @@ order by name;]]></xml-property>
                 <extended-item extensionName="CrosstabCell" id="8033">
                     <property name="content">
                         <label id="8160">
-                            <text-property name="text">x_location</text-property>
+                            <property name="textAlign">center</property>
+                            <text-property name="text">Location</text-property>
                         </label>
                     </property>
                     <property name="borderTopStyle">solid</property>
@@ -1502,7 +1559,8 @@ order by name;]]></xml-property>
                 <extended-item extensionName="CrosstabCell" id="8038">
                     <property name="content">
                         <label id="8161">
-                            <text-property name="text">x_department</text-property>
+                            <property name="textAlign">center</property>
+                            <text-property name="text">Department</text-property>
                         </label>
                     </property>
                     <property name="borderTopStyle">solid</property>
@@ -1517,7 +1575,8 @@ order by name;]]></xml-property>
                 <extended-item extensionName="CrosstabCell" id="8043">
                     <property name="content">
                         <label id="8162">
-                            <text-property name="text">x_section</text-property>
+                            <property name="textAlign">center</property>
+                            <text-property name="text">Section</text-property>
                         </label>
                     </property>
                     <property name="borderTopStyle">solid</property>
@@ -1532,7 +1591,8 @@ order by name;]]></xml-property>
                 <extended-item extensionName="CrosstabCell" id="8048">
                     <property name="content">
                         <label id="8163">
-                            <text-property name="text">x_position</text-property>
+                            <property name="textAlign">center</property>
+                            <text-property name="text">Postion</text-property>
                         </label>
                     </property>
                     <property name="borderTopStyle">solid</property>
@@ -1547,7 +1607,8 @@ order by name;]]></xml-property>
                 <extended-item extensionName="CrosstabCell" id="8058">
                     <property name="content">
                         <label id="8164">
-                            <text-property name="text">x_screened</text-property>
+                            <property name="textAlign">center</property>
+                            <text-property name="text">Screened</text-property>
                         </label>
                     </property>
                     <property name="borderTopStyle">solid</property>
@@ -1562,7 +1623,24 @@ order by name;]]></xml-property>
                 <extended-item extensionName="CrosstabCell" id="8063">
                     <property name="content">
                         <label id="8165">
-                            <text-property name="text">x_rejected</text-property>
+                            <property name="textAlign">center</property>
+                            <text-property name="text">Rejected</text-property>
+                        </label>
+                    </property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                </extended-item>
+                <extended-item extensionName="CrosstabCell" id="8216">
+                    <property name="content">
+                        <label id="8222">
+                            <property name="textAlign">center</property>
+                            <text-property name="text">Offer Rejected</text-property>
                         </label>
                     </property>
                     <property name="borderTopStyle">solid</property>
@@ -1577,7 +1655,8 @@ order by name;]]></xml-property>
                 <extended-item extensionName="CrosstabCell" id="8068">
                     <property name="content">
                         <label id="8166">
-                            <text-property name="text">x_send_to_hod</text-property>
+                            <property name="textAlign">center</property>
+                            <text-property name="text">Send to HOD</text-property>
                         </label>
                     </property>
                     <property name="borderTopStyle">solid</property>
@@ -1592,7 +1671,8 @@ order by name;]]></xml-property>
                 <extended-item extensionName="CrosstabCell" id="8073">
                     <property name="content">
                         <label id="8167">
-                            <text-property name="text">x_interview</text-property>
+                            <property name="textAlign">center</property>
+                            <text-property name="text">Interview</text-property>
                         </label>
                     </property>
                     <property name="borderTopStyle">solid</property>
@@ -1607,7 +1687,8 @@ order by name;]]></xml-property>
                 <extended-item extensionName="CrosstabCell" id="8078">
                     <property name="content">
                         <label id="8168">
-                            <text-property name="text">x_hired</text-property>
+                            <property name="textAlign">center</property>
+                            <text-property name="text">Hired</text-property>
                         </label>
                     </property>
                     <property name="borderTopStyle">solid</property>
@@ -1622,7 +1703,8 @@ order by name;]]></xml-property>
                 <extended-item extensionName="CrosstabCell" id="8113">
                     <property name="content">
                         <label id="8169">
-                            <text-property name="text">x_candidate_name</text-property>
+                            <property name="textAlign">center</property>
+                            <text-property name="text">Candidate Name</text-property>
                         </label>
                     </property>
                     <property name="borderTopStyle">solid</property>
@@ -1637,7 +1719,8 @@ order by name;]]></xml-property>
                 <extended-item extensionName="CrosstabCell" id="8120">
                     <property name="content">
                         <label id="8170">
-                            <text-property name="text">x_no_of_placement</text-property>
+                            <property name="textAlign">center</property>
+                            <text-property name="text">No of Placement</text-property>
                         </label>
                     </property>
                     <property name="borderTopStyle">solid</property>
@@ -1652,7 +1735,8 @@ order by name;]]></xml-property>
                 <extended-item extensionName="CrosstabCell" id="8127">
                     <property name="content">
                         <label id="8171">
-                            <text-property name="text">x_notes</text-property>
+                            <property name="textAlign">center</property>
+                            <text-property name="text">Notes</text-property>
                         </label>
                     </property>
                     <property name="borderTopStyle">solid</property>
@@ -1665,6 +1749,7 @@ order by name;]]></xml-property>
                     <property name="borderRightWidth">thin</property>
                 </extended-item>
             </property>
+            <property name="hideMeasureHeader">true</property>
             <list-property name="boundDataColumns">
                 <structure>
                     <property name="name">x_company</property>
@@ -1785,6 +1870,11 @@ order by name;]]></xml-property>
                         <value>name/x_name</value>
                     </simple-property-list>
                     <property name="aggregateFunction">SUM</property>
+                </structure>
+                <structure>
+                    <property name="name">x_offer_rejected</property>
+                    <expression name="expression">dimension["Offer Rejected"]["x_offer_rejected"]</expression>
+                    <property name="dataType">decimal</property>
                 </structure>
             </list-property>
         </extended-item>
