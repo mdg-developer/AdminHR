@@ -260,6 +260,8 @@
 			<field name="arch" type="xml">
 				<tree string="Plan Trip (With Product)">
 					<field name="code" />
+					<field name="driver_id"/>
+					<field name="branch_id"/>
 					<field name="vehicle_id" />
 					<field name="from_datetime" />
 					<field name="to_datetime" />
