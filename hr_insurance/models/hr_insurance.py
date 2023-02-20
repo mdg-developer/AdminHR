@@ -40,7 +40,7 @@ class Insurance(models.Model):
     total_amount = fields.Float(string="Total Amount", store=True, readonly=True, compute='_compute_insurance_amount', help="Total loan amount")
     balance_amount = fields.Float(string="Balance Amount", store=True, compute='_compute_insurance_amount', help="Balance amount")
     total_paid_amount = fields.Float(string="Total Paid Amount", store=True, compute='_compute_insurance_amount', help="Total paid amount")
-    
+
     @api.constrains('effective_date', 'expire_date', 'installment')
     def check_valid_date_range(self):
         for record in self:
@@ -123,7 +123,9 @@ class ClaimsInformation(models.Model):
         string='Insurances'
     )
     is_readonly = fields.Boolean(string='Is readonly?', default=False)
-    
+    fleet_insurance_type_id = fields.Many2one('fleet.insurance.type', string='Insurance Type', required=True)
+    fleet_vehicle_insurance_id = fields.Many2one('fleet.vehicle.insurance', string='Insurance',required=True)
+
     @api.depends('claim_amount')
     def compute_balance(self):
         for rec in self:

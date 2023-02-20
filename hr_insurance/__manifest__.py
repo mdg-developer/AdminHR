@@ -9,7 +9,7 @@
 
 Insurance
     """,
-    'depends': ['base','hr', 'hr_ext'],
+    'depends': ['base','hr', 'hr_ext','fleet_insurance','hr_fleet_ext'],
     'data': [
             'data/ir_sequence_data.xml',
             'security/ir.model.access.csv',

@@ -26,11 +26,13 @@
 				<form string="Claims">
 					<sheet>
 						<group>
-							<field name="insurance_type_id"/>
+							<field name="insurance_type_id" invisible="1"/>
+							<field name="fleet_insurance_type_id"/>
 							<field name="employee_id"/>
+							<field name="fleet_vehicle_insurance_id"/>
 							<field name="is_readonly" invisible="1"/>
 							<field name="insurance_ids" widget="many2many_tags"
-								   attrs="{'readonly': [('is_readonly','=',True)]}"/>
+								   attrs="{'readonly': [('is_readonly','=',True)]}" invisible="1"/>
 							<field name="date"/>
 							<field name="description"/>
 							<field name="claim_amount"/>
