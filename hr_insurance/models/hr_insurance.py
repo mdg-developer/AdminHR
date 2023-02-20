@@ -126,18 +126,23 @@ class ClaimsInformation(models.Model):
     fleet_insurance_type_id = fields.Many2one('fleet.insurance.type', string='Insurance Type', required=True)
     fleet_vehicle_insurance_id = fields.Many2one('fleet.vehicle.insurance', string='Insurance',required=True)
 
-    @api.depends('claim_amount')
+    # @api.depends('claim_amount')
+    # def compute_balance(self):
+    #     for rec in self:
+    #         claim_objs = self.env['hr.claims'].search([('employee_id', '=', rec.employee_id.id),
+    #                                                     ('insurance_id', '=', rec.insurance_id.id)])
+    #         if claim_objs:
+    #             total_claim_amount = 0.0
+    #             for claim in claim_objs:
+    #                 total_claim_amount += claim.claim_amount
+    #             self.balance = self.coverage_amount - total_claim_amount
+    #         else:
+    #             self.balance = self.coverage_amount - self.claim_amount
+    @api.depends('claim_amount','coverage_amount')
     def compute_balance(self):
         for rec in self:
-            claim_objs = self.env['hr.claims'].search([('employee_id', '=', rec.employee_id.id),
-                                                        ('insurance_id', '=', rec.insurance_id.id)])
-            if claim_objs:
-                total_claim_amount = 0.0
-                for claim in claim_objs:
-                    total_claim_amount += claim.claim_amount
-                self.balance = self.coverage_amount - total_claim_amount 
-            else:
-                self.balance = self.coverage_amount - self.claim_amount
+            self.balance = self.coverage_amount - self.claim_amount
+
 
     @api.model
     def create(self, vals):
