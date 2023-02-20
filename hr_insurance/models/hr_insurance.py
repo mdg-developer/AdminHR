@@ -40,7 +40,7 @@ class Insurance(models.Model):
     total_amount = fields.Float(string="Total Amount", store=True, readonly=True, compute='_compute_insurance_amount', help="Total loan amount")
     balance_amount = fields.Float(string="Balance Amount", store=True, compute='_compute_insurance_amount', help="Balance amount")
     total_paid_amount = fields.Float(string="Total Paid Amount", store=True, compute='_compute_insurance_amount', help="Total paid amount")
-    
+
     @api.constrains('effective_date', 'expire_date', 'installment')
     def check_valid_date_range(self):
         for record in self:
@@ -106,7 +106,7 @@ class ClaimsInformation(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Claims'    
     
-    insurance_type_id = fields.Many2one('insurance.type', string='Insurance Type', required=True)
+    insurance_type_id = fields.Many2one('insurance.type', string='Insurance Type')
     name = fields.Char(string='Name', default='New')
     employee_id = fields.Many2one('hr.employee',string='Employee Name')
     insurance_id = fields.Many2one('hr.insurance', string='Insurance ID')
@@ -123,19 +123,26 @@ class ClaimsInformation(models.Model):
         string='Insurances'
     )
     is_readonly = fields.Boolean(string='Is readonly?', default=False)
-    
-    @api.depends('claim_amount')
+    fleet_insurance_type_id = fields.Many2one('fleet.insurance.type', string='Insurance Type', required=True)
+    fleet_vehicle_insurance_id = fields.Many2one('fleet.vehicle.insurance', string='Insurance',required=True)
+
+    # @api.depends('claim_amount')
+    # def compute_balance(self):
+    #     for rec in self:
+    #         claim_objs = self.env['hr.claims'].search([('employee_id', '=', rec.employee_id.id),
+    #                                                     ('insurance_id', '=', rec.insurance_id.id)])
+    #         if claim_objs:
+    #             total_claim_amount = 0.0
+    #             for claim in claim_objs:
+    #                 total_claim_amount += claim.claim_amount
+    #             self.balance = self.coverage_amount - total_claim_amount
+    #         else:
+    #             self.balance = self.coverage_amount - self.claim_amount
+    @api.depends('claim_amount','coverage_amount')
     def compute_balance(self):
         for rec in self:
-            claim_objs = self.env['hr.claims'].search([('employee_id', '=', rec.employee_id.id),
-                                                        ('insurance_id', '=', rec.insurance_id.id)])
-            if claim_objs:
-                total_claim_amount = 0.0
-                for claim in claim_objs:
-                    total_claim_amount += claim.claim_amount
-                self.balance = self.coverage_amount - total_claim_amount 
-            else:
-                self.balance = self.coverage_amount - self.claim_amount
+            self.balance = self.coverage_amount - self.claim_amount
+
 
     @api.model
     def create(self, vals):
