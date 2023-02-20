@@ -106,7 +106,7 @@ class ClaimsInformation(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Claims'    
     
-    insurance_type_id = fields.Many2one('insurance.type', string='Insurance Type', required=True)
+    insurance_type_id = fields.Many2one('insurance.type', string='Insurance Type')
     name = fields.Char(string='Name', default='New')
     employee_id = fields.Many2one('hr.employee',string='Employee Name')
     insurance_id = fields.Many2one('hr.insurance', string='Insurance ID')
