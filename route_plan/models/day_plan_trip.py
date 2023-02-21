@@ -922,10 +922,12 @@ class DayPlanTrip(models.Model):
 
     def action_end(self):
         self.check_end_trip_delay()
-        last_odometer = self.vehicle_id.last_odometer
-        current_odometer = self.vehicle_id.get_vehicle_odometer(self.vehicle_id)#self.vehicle_id.trip_odometer + self.vehicle_id.get_device_odometer()
-        self.update_fuel_consumption_odometer(last_odometer,current_odometer)
-        avg_speed = 0#self.vehicle_id.get_device_avg_speed()
+        # last_odometer = self.vehicle_id.last_odometer
+        # current_odometer = self.vehicle_id.get_vehicle_odometer(self.vehicle_id)
+        #self.vehicle_id.trip_odometer + self.vehicle_id.get_device_odometer()
+        # self.update_fuel_consumption_odometer(last_odometer,current_odometer)
+        avg_speed = 0
+        #self.vehicle_id.get_device_avg_speed()
         if self.from_datetime and self.to_datetime:
             if self.from_datetime > self.to_datetime:
                 raise ValidationError("To Datetime should be greater than or equal to From Datetime.")
