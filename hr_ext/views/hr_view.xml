@@ -70,9 +70,8 @@
                             <field name="job_line">
                                 <tree editable="bottom">
                                     <field name="company_id"/>
-                                    <field name="branch_id" domain="[('company_id', '=', company_id)]"/>
-                                    <field name="department_id"
-                                           domain="[('company_id', '=', company_id), ('branch_id', '=', branch_id)]"/>
+                                    <field name="branch_id"/>
+                                    <field name="department_id"/>
                                     <field name="upper_position"/>
                                     <field name="total_employee"/>
                                     <field name="current_employee"/>
@@ -84,15 +83,14 @@
                                     <group>
                                         <group>
                                             <field name="job_id"/>
-                                            <field name="branch_id" domain="[('company_id', '=', company_id)]"/>
+                                            <field name="branch_id"/>
                                             <field name="total_employee"/>
                                             <field name="new_employee"/>
                                             <field name="upper_position"/>
                                         </group>
                                         <group>
                                             <field name="company_id"/>
-                                            <field name="department_id"
-                                                   domain="[('company_id', '=', company_id), ('branch_id', '=', branch_id)]"/>
+                                            <field name="department_id"/>
                                             <field name="current_employee"/>
                                         </group>
                                     </group>

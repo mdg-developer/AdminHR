@@ -39,7 +39,7 @@
 							<field name="total_employee"/>
 							<field name="current_employee"/>
 							<field name="new_employee"/>
-							<field name="job_requirment"/>
+							<field name="job_requirement"/>
 						</group>
 				    </group>
 				</sheet>
