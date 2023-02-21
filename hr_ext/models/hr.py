@@ -44,17 +44,6 @@ class HrJob(models.Model):
                                                                      ('resign_date', '=', False),
                                                                      ('job_id', '=', job.id)])
 
-            # for line in job.job_line:
-            #     # current_employee = self.env['hr.employee'].search_count([('company_id', '=',line.company_id.id),
-            #     #                                                         ('branch_id', '=', line.branch_id.id),
-            #     #                                                         ('department_id', '=', line.department_id.id),
-            #     #                                                         ('resign_date','=',False),
-            #     #                                                         ('job_id', '=', line.job_id.id)])
-            #     current_employee = self.env['hr.employee'].search_count([('company_id', '=', line.company_id.id),
-            #                                                              ('resign_date', '=', False),
-            #                                                              ('job_id', '=', line.job_id.id)])
-            # total_current_emp += current_employee
-            # total_current_emp = total_current_emp + current_employee
             job.current_employee = current_employee
 
     def _compute_benefit_ids(self):
@@ -216,16 +205,6 @@ class JobLine(models.Model):
                             if emp_direct_mng:
                                 employee.write(
                                     {'manager_job_id': res.upper_position.id, 'parent_id': emp_direct_mng.id})
-                                # job_line = job_line_obj.sudo().search(
-                                #     [('job_id', '=', res.job_id.id), ('company_id', '=', company_id),
-                                #      ('branch_id', '=', branch_id), ('department_id', '=', res.department_id.id)], limit=1)
-                                # if job_line and job_line.upper_position:
-                                #     direct_mng = employee_obj.sudo().search(
-                                #         [('company_id', '=', job_line.company_id.id),
-                                #          ('branch_id', '=', job_line.branch_id.id),
-                                #          ('job_id', '=', job_line.upper_position.id)], limit=1)
-                                #     if direct_mng:
-                                #         employee.write({'manager_job_id': job_line.upper_position.id, 'parent_id': direct_mng.id})
 
 
 class HrEmploymentStatus(models.Model):
@@ -246,6 +225,7 @@ class Applicant(models.Model):
     _inherit = "hr.applicant"
     _description = "Applicant"
 
+    job_line_id = fields.Many2one('job.line', string='Applied Job',domain="[('company_id', '=', company_id),('branch_id', '=', branch_id),('department_id','=',department_id)]")
     date_of_birth = fields.Date('Date Of Birth')
     nrc = fields.Char('NRC')
     qualification = fields.Char('Qualification')
