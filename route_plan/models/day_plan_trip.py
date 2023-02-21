@@ -117,12 +117,14 @@ class DayPlanTrip(models.Model):
     engine_oil_points = fields.Float(string='Engine Oil Points', compute='compute_tyre_and_engine_oil_points')
     tyre_engine_oil_move_id = fields.Many2one('account.move', string='Accounting Entry for Tyre & Engine Oil Points')    
     traccar_uniqueID = fields.Char(string = 'Trace Car UniqueID', related = 'vehicle_id.traccar_uniqueID')
+
     def get_tracksolid_token_parameter(self):
         parameter_token = self.env['ir.config_parameter'].sudo().get_param('track.solid_token')
         data = {}            
         if parameter_token:
             data['accessToken'] = parameter_token
             return data
+
     def get_tracksolid_token(self):
         url = "https://hk-open.tracksolidpro.com/route/rest"
         #url = "http://open.10000track.com/route/rest"
@@ -170,6 +172,7 @@ class DayPlanTrip(models.Model):
             parameter_token = self.env['ir.config_parameter'].sudo().get_param('track.solid_token')
             data['accessToken'] = parameter_token
             return data    
+
     def show_current_localize(self):
         #token = self.get_tracksolid_token()
         token = self.get_tracksolid_token_parameter()
@@ -260,20 +263,7 @@ class DayPlanTrip(models.Model):
 
                 if not self.user_has_groups('route_plan.group_allowed_endtrip'):
                     raise ValidationError(_("You don't have access right for end trip as trip over delay 2 days !. Please contact your Manager."))
-    #manual_fp_datetime = fields.Datetime(string='Manual FP Datetime')
 
-    # @api.constrains('from_datetime', 'to_datetime')
-   
-    # def check_datetime(self):
-    #     # import pdb
-    #     # pdb.set_trace()
-    #     if self.from_datetime and self.to_datetime:
-    #         if self.from_datetime > self.to_datetime:
-    #             raise ValidationError("To Datetime should be greater than or equal to From Datetime.")
-    #         if self.to_datetime > datetime.now().replace(microsecond=0):
-    #             raise ValidationError("You can't save Plan Trip for this time.")
-            
-    
     @api.depends('vehicle_id.tyre_points_per_km', 'vehicle_id.engine_points_per_km')
     def compute_tyre_and_engine_oil_points(self):
         for trip in self:
@@ -518,13 +508,7 @@ class DayPlanTrip(models.Model):
                             if att.check_in <= self.to_datetime:
                                 att.write({'remark':remark,'day_trip':True})
                     self.spare2_id.write({'day_trip_id':False})
-#                         else:
-#                             if check_out <= trip_end_time:    
-#                                 value = {'employee_id': self.spare2_id.id, 'check_in': self.to_datetime,'day_trip':True}
-#                             else:
-#                                 value = {'employee_id': self.spare2_id.id, 'check_in':check_in.strftime(DT), 'check_out': self.to_datetime,'day_trip':True,'missed':True}
-#                             att_id = self.env['hr.attendance'].sudo().with_context(ctx).create(value) 
-    
+
     def get_start_end_date(self,today_date):
         tz = timezone('Asia/Yangon')
         date_start = tz.localize((fields.Datetime.to_datetime(today_date)), is_dst=True).astimezone(tz=UTC)
@@ -576,14 +560,6 @@ class DayPlanTrip(models.Model):
                                                                order='check_in desc', limit=1)
                 if att:
                     att.write({'day_trip':True,'remark':remark})
-#                 if not att:                    
-#                     value = {'employee_id': self.spare2_id.id, 'check_in': self.from_datetime,'day_trip':True,'missed':True}
-#                     att_id = self.env['hr.attendance'].sudo().with_context(ctx).create(value) 
-#                 else:
-#                     if att.check_in >= self.from_datetime:
-#                         att.write({'day_trip':True})
-#                     else:
-#                         att.write({'check_in':self.from_datetime,'day_trip':True})
 
     def check_running_trip(self):
         old_from_date = self.from_datetime + timedelta(hours=+6, minutes=+30)
@@ -622,10 +598,12 @@ class DayPlanTrip(models.Model):
 
     def action_start(self):
         self.check_running_trip()
-        running_trips = self.env['day.plan.trip'].sudo().search([('state', '=', 'running'),
+        running_trips = self.search([('state', '=', 'running'),
                                                         ('vehicle_id', '=', self.vehicle_id.id)])
-        last_odometer = self.vehicle_id.get_vehicle_odometer(self.vehicle_id)#self.vehicle_id.trip_odometer + self.vehicle_id.get_device_odometer()
-        avg_speed = 0#self.vehicle_id.get_device_avg_speed()
+        # last_odometer = self.vehicle_id.get_vehicle_odometer(self.vehicle_id)
+        #self.vehicle_id.trip_odometer + self.vehicle_id.get_device_odometer()
+        avg_speed = 0
+        #self.vehicle_id.get_device_avg_speed()
         #if avg_speed == False:
         #    avg_speed = self.vehicle_id.average_speed
         self.trip_check_in()
@@ -636,7 +614,8 @@ class DayPlanTrip(models.Model):
         else:
             self.write({
                 'state': 'running',
-                'odometer': self.vehicle_id.trip_odometer,#self.vehicle_id.last_odometer,#self.vehicle_id.trip_odometer,
+                'odometer': self.vehicle_id.trip_odometer,
+                #self.vehicle_id.last_odometer,#self.vehicle_id.trip_odometer,
                 # 'from_datetime': datetime.now(),
                 'average_speed': avg_speed,
                 })
