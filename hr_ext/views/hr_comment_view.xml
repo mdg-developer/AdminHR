@@ -1,0 +1,16 @@
+<odoo>
+	<data>
+    	<record model="ir.actions.act_window" id="action_hr_comment">
+		<field name="name">Hr Comment</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">hr.comment.status</field>
+		<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+              <field name="name" string="Comment"/>
+            </field>
+		</record>
+
+		<menuitem id="hr_comment_menu" name="Hr Comment" parent="hr_recruitment.menu_hr_recruitment_configuration"
+		action="action_hr_comment" sequence="10" />
+    </data>
+</odoo>

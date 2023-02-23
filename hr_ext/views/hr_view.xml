@@ -244,7 +244,7 @@
                     <field name="current_company"/>
                     <field name="current_position"/>
                     <field name="current_salary"/>
-                    <field name="employment_status"/>
+                    <field name="hr_comment"/>
                     <field name="cv_attached" invisible="1"/>
                     <field name="withdraw" invisible="1"/>
                 </xpath>

@@ -54,7 +54,8 @@ Job Position Customization
             'report/hr_extend_probation_templates.xml',
             'views/res_partner_view.xml',
             'views/hr_reasons_view.xml',
-    ],    
+            'views/hr_comment_view.xml',
+    ],
     'installable': True,
     'auto_install': False,
 }

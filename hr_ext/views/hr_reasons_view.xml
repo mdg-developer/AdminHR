@@ -3,14 +3,11 @@
     	<record model="ir.actions.act_window" id="action_hr_reasons">
 		<field name="name">Hr Reasons</field>
 		<field name="type">ir.actions.act_window</field>
-		<field name="res_model">hr.reasons</field>
+		<field name="res_model">hr.reasons.status</field>
 		<field name="view_mode">tree,form</field>
 			<field name="help" type="html">
               <field name="name" string="Reasons"/>
             </field>
 		</record>
-
-		<menuitem id="menu_hr_reasons" name="Hr Reason" parent="hr_recruitment.menu_hr_recruitment_configuration"
-		action="action_hr_reasons" sequence="10" />
     </data>
 </odoo>
