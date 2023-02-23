@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
-    <property name="createdBy">Eclipse BIRT Designer Version 4.10.0.v202204260816</property>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.24" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.13.0.v202301192028</property>
     <list-property name="propertyBindings">
         <structure>
             <property name="name">queryText</property>
@@ -76,7 +76,7 @@
         </scalar-parameter>
     </parameters>
     <data-sources>
-        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="7523"
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="7055"
  extends="report_library.Data Source"/>
     </data-sources>
     <data-sets>
@@ -440,7 +440,6 @@
                     </structure>
                 </list-property>
             </structure>
-            <property name="dataSource">Data Source</property>
             <list-property name="resultSet">
                 <structure>
                     <property name="position">1</property>
@@ -677,10 +676,10 @@ and hrse.name in ('Rejected After Interview', 'Offer Rejected')) x_rejected,
 ha.send_offer,
 ha.offer_date,
 he.joining_date,
-(select STRING_AGG(use.name, ', ') from hr_applicant hrap
+(select use.name from hr_applicant hrap
  left join utm_source use ON use.id = hrap.source_id
 left join hr_job job ON job.id = hrap.job_id
-where job.id = hj.id) x_source_by,
+where hrap.id = ha.id) x_source_by,
 ha.description
 from hr_applicant ha
 left join hr_employee he on (ha.emp_id = he.id )
@@ -777,7 +776,6 @@ and ha.company_id = ?]]></xml-property>
                     </structure>
                 </list-property>
             </structure>
-            <property name="dataSource">Data Source</property>
             <list-property name="resultSet">
                 <structure>
                     <property name="position">1</property>
