@@ -48,13 +48,13 @@
 	</record>
 		
 	<record model="ir.actions.act_window" id="action_hr_job_position_detail">
-		<field name="name">Job Position Detail</field>
+		<field name="name">Job Description</field>
 		<field name="type">ir.actions.act_window</field>
 		<field name="res_model">job.line</field>
 		<field name="view_mode">tree,form</field>
 	</record>
 
-	<menuitem id="menu_hr_job_position_detail" name="Job Position Detail" parent="hr_recruitment.menu_hr_recruitment_configuration"
+	<menuitem id="menu_hr_job_position_detail" name="Job Description" parent="hr_recruitment.menu_hr_recruitment_configuration"
 		action="action_hr_job_position_detail" sequence="4" />
 
 </odoo>
