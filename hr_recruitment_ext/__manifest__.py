@@ -9,9 +9,9 @@
 
 Public Holidays
     """,
-    'depends': ['base','hr'],
+    'depends': ['base', 'hr', 'hr_recruitment'],
     'data': [
-        'views/hr_views_job.xml'
+        'views/hr_job_view.xml'
     ],
     'installable': True,
     'auto_install': False,

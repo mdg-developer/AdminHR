@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-    <record model="ir.actions.act_window" id="action_hr_job">
+    <record model="ir.actions.act_window" id="hr_recruitment.action_hr_job">
         <field name="name">Job Positions</field>
         <field name="res_model">hr.job</field>
         <field name="view_mode">kanban,form,tree</field>
@@ -14,3 +15,5 @@
         </field>
     </record>
 </odoo>
+
+
