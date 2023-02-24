@@ -76,7 +76,7 @@
         </scalar-parameter>
     </parameters>
     <data-sources>
-        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="7055"
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="7523"
  extends="report_library.Data Source"/>
     </data-sources>
     <data-sets>
@@ -440,6 +440,7 @@
                     </structure>
                 </list-property>
             </structure>
+            <property name="dataSource">Data Source</property>
             <list-property name="resultSet">
                 <structure>
                     <property name="position">1</property>
@@ -776,6 +777,7 @@ and ha.company_id = ?]]></xml-property>
                     </structure>
                 </list-property>
             </structure>
+            <property name="dataSource">Data Source</property>
             <list-property name="resultSet">
                 <structure>
                     <property name="position">1</property>
