@@ -222,9 +222,9 @@ class HrReasons(models.Model):
 
 class HrComment(models.Model):
     _name = "hr.comment.status"
-    _description = "Hr Comment"
+    _description = "HR Comments"
 
-    name = fields.Char('Hr Comment')
+    name = fields.Char('HR Comments')
 
 class Applicant(models.Model):
     _inherit = "hr.applicant"
@@ -279,7 +279,7 @@ class Applicant(models.Model):
     branch_id = fields.Many2one('res.branch', string='Branch')
     replace_for = fields.Boolean(string='Replace For?', default=False)
     reason_for = fields.Many2one('hr.reasons.status')
-    hr_comment = fields.Many2one('hr.comment.status')
+    hr_comment = fields.Many2one('hr.comment.status',string="HR Comments")
 
     def create_employee_from_applicant(self):
         """ Create an hr.employee from the hr.applicants """
