@@ -248,6 +248,7 @@ class Applicant(models.Model):
     cv_attached = fields.Char('CV Attached')
     hod_name = fields.Char('HOD Name')
     withdraw = fields.Char('Withdraw')
+    is_blacklist = fields.Boolean('Black List')
 
     @api.model
     def _default_nrc_type(self):
