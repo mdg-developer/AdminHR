@@ -565,8 +565,8 @@ class DayPlanTrip(models.Model):
         old_from_date = self.from_datetime + timedelta(hours=+6, minutes=+30)
         today_date = datetime.now() + timedelta(hours=+6, minutes=+30)
 
-        if old_from_date.date() != today_date.date():
-            raise ValidationError("You can't start trip from datetime must be today date. Not allowed back date or future date")
+        # if old_from_date.date() != today_date.date():
+        #     raise ValidationError("You can't start trip from datetime must be today date. Not allowed back date or future date")
 
         if self.driver_id:
             if self.driver_id.day_trip_id and self.driver_id.day_trip_id.state == 'running':
