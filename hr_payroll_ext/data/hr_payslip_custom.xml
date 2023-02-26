@@ -102,13 +102,13 @@ result = contract.attendance_allowance
             </field>
         </record>
 
-        <record id="input_type_Meal_allowance" model="hr.payslip.input.type">
+        <record id="input_type_Meal_allowance1" model="hr.payslip.input.type">
             <field name="name">Meal Allowance</field>
             <field name="code">Meal</field>
             <field name="country_id" eval="False"/>
         </record>
 
-        <record id="office_staff_meal_allowance" model="hr.salary.rule">
+        <record id="office_staff_meal_allowance1" model="hr.salary.rule">
             <field name="name">Meal Allowance</field>
             <field name="code">Meal</field>
             <field name="category_id" ref="hr_payroll.ALW"/>
@@ -156,6 +156,23 @@ result = contract.traveling_allowance * payslip.travel_day or 0
             </field>
         </record>
 
+        <record id="office_staff_new_unpaid_leave" model="hr.salary.rule">
+            <field name="name">Unpaid Leave Deduction</field>
+            <field name="code">D03</field>
+            <field name="category_id" ref="hr_payroll_ext.LDED"/>
+            <field name="struct_id" ref="hr_payroll_ext.structure_office_staff_new"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+unpaid_leave = worked_days.LEAVE90 and worked_days.LEAVE90.number_of_days or 0
+calendar_days = payslip.days_of_month
+if unpaid_leave:
+    result = ((contract.wage / calendar_days) * unpaid_leave)
+else:
+    result = 0
+            </field>
+        </record>
+
          <record id="office_staff_car_deduction" model="hr.salary.rule">
             <field name="name">>Car Accommodation Deduction</field>
             <field name="code">CAD</field>
@@ -176,7 +193,7 @@ result = inputs.CAD and inputs.CAD.amount
             <field name="condition_select">none</field>
             <field name="amount_select">code</field>
             <field name="amount_python_compute">
-if payslip.sale_achievement:
+if payslip.sale_contribution:
     result = contract.wage * 0.30
 else:
     result = 0

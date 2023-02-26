@@ -52,7 +52,7 @@ class HrPayslip(models.Model):
     attendance_day = fields.Float('Attendance Day', compute='_compute_previous_amount', store=True)
     wfh_day = fields.Float('WFH Day', compute='_compute_previous_amount', store=True)
     sale_achievement = fields.Float('Sale Achievement', compute='_compute_previous_amount', store=True)
-    sale_contribution  = fields.Float('Sale Contribution', compute='_compute_previous_amount', store=True)
+    sale_contribution = fields.Boolean('Sale Contribution', compute='_compute_previous_amount', store=True)
     wfh_achievement = fields.Float('WFH Achievement', compute='_compute_previous_amount', store=True)
     travel_day = fields.Float('WFH Day', compute='_compute_previous_amount', store=True)
     working_day = fields.Float('WFH Day', compute='_compute_previous_amount', store=True)
@@ -951,47 +951,39 @@ class HrPayslip(models.Model):
 
     def _get_worked_day_lines(self):
         res = super(HrPayslip, self)._get_worked_day_lines()
-        leave_entry_type = self.struct_id.unpaid_work_entry_type_ids.filtered(lambda x: x.name == 'Unpaid')
-        if leave_entry_type:
-            res.append({
-                'sequence': leave_entry_type.sequence,
-                'work_entry_type_id': leave_entry_type.id,
-                'number_of_days': 0,
-                'number_of_hours': 0,
-                'amount': 0.0
-            })
-            leave_entry_type = self.struct_id.unpaid_work_entry_type_ids.filtered(lambda x: x.name == 'Home Working')
-            if leave_entry_type:
-                res.append({
-                    'sequence': leave_entry_type.sequence,
-                    'work_entry_type_id': leave_entry_type.id,
-                    'number_of_days': 0,
-                    'number_of_hours': 0,
-                    'amount': 0.0
-                })
-        for unpaid_line in res:
-            if unpaid_line['work_entry_type_id'] == 5:
-                unpaid_day = self._get_unpaid_count()
-                print("unpaid_line>>>",unpaid_line)
-                print("unpaid_line>>>",unpaid_line['work_entry_type_id'])
-                print("unpaid_line>>>",unpaid_line['number_of_days'])
-                print("before unpaid_day>>>>>>>>>>>>>>",unpaid_day)
-                unpaid_line['number_of_days'] = unpaid_day
-                if unpaid_day > float(unpaid_line['number_of_days']):
-                    unpaid_day = unpaid_day - float(unpaid_line['number_of_days'])
-                if unpaid_day > 0:
-                    print("before sunday_unpaid>>>>>>>>>>>>>>",self.sunday_unpaid)
-                    print("unpaid_day>>>>>>>>>>>>>>",unpaid_day)
-                    self.sunday_unpaid = unpaid_day
-                    # leave_entry_type = self.struct_id.unpaid_work_entry_type_ids.filtered(lambda x: x.name == 'Unpaid')
-                    # if leave_entry_type:
-                    #     res.append({
-                    #         'sequence': leave_entry_type.sequence,
-                    #         'work_entry_type_id': leave_entry_type.id,
-                    #         'number_of_days': 0,
-                    #         'number_of_hours': 0,
-                    #         'amount': 0.0
-                    #     })
+        # leave_entry_type = self.struct_id.unpaid_work_entry_type_ids.filtered(lambda x: x.name == 'Unpaid')
+        # if leave_entry_type:
+        #     res.append({
+        #         'sequence': leave_entry_type.sequence,
+        #         'work_entry_type_id': leave_entry_type.id,
+        #         'number_of_days': 0,
+        #         'number_of_hours': 0,
+        #         'amount': 0.0
+        #     })
+        #     leave_entry_type = self.struct_id.unpaid_work_entry_type_ids.filtered(lambda x: x.name == 'Home Working')
+        #     if leave_entry_type:
+        #         res.append({
+        #             'sequence': leave_entry_type.sequence,
+        #             'work_entry_type_id': leave_entry_type.id,
+        #             'number_of_days': 0,
+        #             'number_of_hours': 0,
+        #             'amount': 0.0
+        #         })
+        # for unpaid_line in res:
+        #     if unpaid_line['work_entry_type_id'] == 5:
+        #         unpaid_day = self._get_unpaid_count()
+        #         print("unpaid_line>>>",unpaid_line)
+        #         print("unpaid_line>>>",unpaid_line['work_entry_type_id'])
+        #         print("unpaid_line>>>",unpaid_line['number_of_days'])
+        #         print("before unpaid_day>>>>>>>>>>>>>>",unpaid_day)
+        #         unpaid_line['number_of_days'] = unpaid_day
+        #         if unpaid_day > float(unpaid_line['number_of_days']):
+        #             unpaid_day = unpaid_day - float(unpaid_line['number_of_days'])
+        #         if unpaid_day > 0:
+        #             print("before sunday_unpaid>>>>>>>>>>>>>>",self.sunday_unpaid)
+        #             print("unpaid_day>>>>>>>>>>>>>>",unpaid_day)
+        #             self.sunday_unpaid = unpaid_day
+
                     
         #duty_structs = self.env['hr.payroll.structure'].search([('name', 'in', ('ST05', 'ST06', 'ST07'))])
         duty_structs = self.env['hr.payroll.structure'].search([('shift', '=', True)]) 
