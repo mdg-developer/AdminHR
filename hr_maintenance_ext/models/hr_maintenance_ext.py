@@ -291,7 +291,10 @@ class MaintenanceRequest(models.Model):
 
     def button_start(self):
         self.state = 'start'
-        # self.start_date = datetime.now()
+
+        sq_obj = self.env['stock.quant'].sudo().search([('product_id','=',self.warehouse_ids.product_id.id),('location_id','=',self.warehouse_ids.location_id.id)])
+        sq_obj.sudo().write({'quantity': sq_obj.quantity - self.warehouse_ids.qty})
+
 
     def button_repropose(self):
         self.state = 'reproposed'
@@ -520,6 +523,9 @@ class WarehouseIssue(models.Model):
     qty = fields.Float(string='Quantity')
     product_id = fields.Many2one('product.product', string='Product')
     cost = fields.Float(string='Cost', related='product_id.standard_price')
+
+
+
     
 class MaintenanceProduct(models.Model):
     _name = 'maintenance.product'
@@ -640,3 +646,6 @@ class StockMove(models.Model):
     _description = 'Stock Move'
 
     maintenance_line_id = fields.Many2one('warehouse.issue')
+
+class StockQuant(models.Model):
+    _inherit = "stock.quant"
