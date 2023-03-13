@@ -243,7 +243,7 @@ class Applicant(models.Model):
     current_salary = fields.Integer('Current Salary')
     final_interview = fields.Date('Final Interview Date')
     date_of_send = fields.Date('Date Of Send To HOD')
-    hr_received_date = fields.Date('Hr Received Date')
+    hr_received_date = fields.Date('HR Received Date')
     employment_status = fields.Many2one('employment.new.status')
     cv_attached = fields.Char('CV Attached')
     hod_name = fields.Char('HOD Name')
