@@ -138,6 +138,17 @@
             </field>
         </record>
 
+        <record id="hr_job_view_kanban_inherit" model="ir.ui.view">
+            <field name="name">hr.job.kanban.inherit</field>
+            <field name="model">hr.job</field>
+            <field name="inherit_id" ref="hr.hr_job_view_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='expected_employees']" position="replace">
+                    <field name="no_of_recruitment"/>
+                </xpath>
+            </field>
+        </record>
+
         <record id="hr_department_form_inherit" model="ir.ui.view">
             <field name="name">hr.department.form.inherit</field>
             <field name="model">hr.department</field>
