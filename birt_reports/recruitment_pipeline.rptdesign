@@ -1720,7 +1720,7 @@ order by name;]]></xml-property>
                     <property name="content">
                         <label id="8170">
                             <property name="textAlign">center</property>
-                            <text-property name="text">No of Placement</text-property>
+                            <text-property name="text">No. of Placement</text-property>
                         </label>
                     </property>
                     <property name="borderTopStyle">solid</property>
