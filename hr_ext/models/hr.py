@@ -107,9 +107,9 @@ class JobLine(models.Model):
     def _get_current_employee(self):
         for line in self:
             current_employee = self.env['hr.employee'].search([('company_id', '=', self.env.company.id),
-                                                                         ('branch_id', '=', line.branch_id.id),
-                                                                         ('job_id', '=', line.job_id.id),
-                                                                         ('department_id','=',line.department_id.id)])
+                                                               ('branch_id', '=', line.branch_id.id),
+                                                               ('job_id', '=', line.job_id.id),
+                                                               ('department_id', '=', line.department_id.id)])
             line.current_employee = len(current_employee.ids)
 
     @api.depends('total_employee', 'current_employee')
@@ -125,8 +125,9 @@ class JobLine(models.Model):
 
     job_id = fields.Many2one('hr.job', string='Job', index=True, required=True, ondelete='cascade')
     company_id = fields.Many2one('res.company', string='Company')
-    branch_id = fields.Many2one('res.branch', string='Branch',domain="[('company_id', '=', company_id)]")
-    department_id = fields.Many2one('hr.department', string='Department',domain="[('company_id', '=', company_id), ('branch_id', '=', branch_id)]")
+    branch_id = fields.Many2one('res.branch', string='Branch', domain="[('company_id', '=', company_id)]")
+    department_id = fields.Many2one('hr.department', string='Department',
+                                    domain="[('company_id', '=', company_id), ('branch_id', '=', branch_id)]")
     total_employee = fields.Integer(compute='_get_total_employee', string='Expected Total Employee', store=True)
     current_employee = fields.Integer(compute='_get_current_employee', string='Current Employee', readonly=True,
                                       store=True)
@@ -189,7 +190,6 @@ class JobLine(models.Model):
 
             job_emp_ids = employee_obj.sudo().search(
                 [('company_id', '=', company_id), ('branch_id', '=', branch_id), ('job_id', '=', old_job_id)])
-            result = super(JobLine, self).write(vals)
             res = self.browse([rec.id])
 
             if old_upper_position_id != res.upper_position.id:
@@ -206,6 +206,31 @@ class JobLine(models.Model):
                                 employee.write(
                                     {'manager_job_id': res.upper_position.id, 'parent_id': emp_direct_mng.id})
 
+        # Check if the same Job Line existed
+        if vals.get('company_id') or vals.get('branch_id') or vals.get('department_id') or vals.get('upper_position'):
+            line_id = self.env['job.line'].search(
+                [('company_id', '=', vals.get('company_id') or self.company_id.id),
+                 ('branch_id', '=', vals.get('branch_id') or self.branch_id.id),
+                 ('department_id', '=', vals.get('department_id') or self.department_id.id),
+                 ('upper_position', '=', vals.get('upper_position') or self.upper_position.id)])
+            if line_id:
+                raise ValidationError(
+                    _('Job Line can’t create because Company, Branch, Department, Upper Position are same!'))
+
+        return super(JobLine, self).write(vals)
+
+    @api.model
+    def create(self, vals):
+        # Check if the same Job Line existed
+        line_id = self.env['job.line'].search(
+            [('company_id', '=', vals['company_id']), ('branch_id', '=', vals['branch_id']),
+             ('department_id', '=', vals['department_id']), ('upper_position', '=', vals['upper_position'])])
+        if line_id:
+            raise ValidationError(_('Job Line can’t create because Company, Branch, Department, Upper Position  are '
+                                    'same!'))
+
+        return super(JobLine, self).create(vals)
+
 
 class HrEmploymentStatus(models.Model):
     _name = "employment.new.status"
@@ -220,17 +245,20 @@ class HrReasons(models.Model):
 
     name = fields.Char('Reasons')
 
+
 class HrComment(models.Model):
     _name = "hr.comment.status"
     _description = "HR Comments"
 
     name = fields.Char('HR Comments')
 
+
 class Applicant(models.Model):
     _inherit = "hr.applicant"
     _description = "Applicant"
 
-    job_line_id = fields.Many2one('job.line', string='Applied Job',domain="[('company_id', '=', company_id),('branch_id', '=', branch_id),('department_id','=',department_id)]")
+    job_line_id = fields.Many2one('job.line', string='Applied Job',
+                                  domain="[('company_id', '=', company_id),('branch_id', '=', branch_id),('department_id','=',department_id)]")
     date_of_birth = fields.Date('Date Of Birth')
     nrc = fields.Char('NRC')
     qualification = fields.Char('Qualification')
@@ -280,7 +308,7 @@ class Applicant(models.Model):
     branch_id = fields.Many2one('res.branch', string='Branch')
     replace_for = fields.Boolean(string='Replace For?', default=False)
     reason_for = fields.Many2one('hr.reasons.status')
-    hr_comment = fields.Many2one('hr.comment.status',string="HR Comments")
+    hr_comment = fields.Many2one('hr.comment.status', string="HR Comments")
 
     def create_employee_from_applicant(self):
         """ Create an hr.employee from the hr.applicants """
