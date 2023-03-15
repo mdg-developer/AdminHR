@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data>
-        <menuitem name="License Type" id="menu_employee_license_type" sequence="-2"
-                  action="open_employee_license_type_form"
-				  parent="hr.menu_human_resources_configuration"/>
 
         <record model="ir.ui.view" id="view_employee_license_type_tree">
 			<field name="name">view.employee_license.type.tree</field>
@@ -42,5 +39,8 @@
               </p>
             </field>
         </record>
+		<menuitem name="License Type" id="menu_employee_license_type" sequence="-2"
+                  action="open_employee_license_type_form"
+				  parent="hr.menu_human_resources_configuration"/>
     </data>
 </odoo>
