@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <menuitem name="License Type" id="menu_employee_license_type" sequence="-2"
+                  action="open_employee_license_type_form"
+				  parent="hr.menu_human_resources_configuration"/>
+
+        <record model="ir.ui.view" id="view_employee_license_type_tree">
+			<field name="name">view.employee_license.type.tree</field>
+			<field name="model">employee.license.type</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="License Type">
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+        		<record model="ir.ui.view" id="view_employee_license_type_form">
+			<field name="name">view.employee.license.type.form</field>
+			<field name="model">employee.license.type</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="">
+					<sheet>
+					    <group>
+					       <group>
+								<field name="name" />
+							</group>
+					    </group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+        <record model="ir.actions.act_window" id="open_employee_license_type_form">
+			<field name="name">License Type</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">employee.license.type</field>
+			<field name="view_mode">tree,form</field>
+			<field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Create Your First License Type
+              </p>
+            </field>
+        </record>
+    </data>
+</odoo>

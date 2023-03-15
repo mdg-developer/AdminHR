@@ -41,6 +41,7 @@
                     </group>
                     <group name="driving" string="Driving">
                         <field name="driving_license"/>
+                        <field name="license_type_id"/>
                         <field name="dl_expired_date"/>
                     </group>
                 </xpath>
