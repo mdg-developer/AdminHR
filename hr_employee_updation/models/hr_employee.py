@@ -80,9 +80,10 @@ class HrEmployee(models.Model):
                     self.env['mail.mail'].sudo().create(main_content).send()
 
     personal_mobile = fields.Char(string='Mobile', related='address_home_id.mobile', store=True,
-                  help="Personal mobile number of the employee")
-    #joining_date = fields.Date(string='Joining Date', help="Employee joining date computed from the contract start date",compute='compute_joining', store=True)
-    joining_date = fields.Date(string='Joining Date', help="Employee joining date computed from the contract start date",store=True)
+                                  help="Personal mobile number of the employee")
+    # joining_date = fields.Date(string='Joining Date', help="Employee joining date computed from the contract start date",compute='compute_joining', store=True)
+    joining_date = fields.Date(string='Joining Date',
+                               help="Employee joining date computed from the contract start date", store=True)
     id_expiry_date = fields.Date(string='Expiry Date', help='Expiry date of Identification ID')
     passport_expiry_date = fields.Date(string='Expiry Date', help='Expiry date of Passport ID')
     driving_license = fields.Char('Driving License')
@@ -93,14 +94,15 @@ class HrEmployee(models.Model):
                                               string="Attachment",
                                               help='You can attach the copy of Passport')
     fam_ids = fields.One2many('hr.employee.family', 'employee_id', string='Family', help='Family Information')
+    license_type_id = fields.Many2one('employee.license.type', string='License Type')
 
-#     @api.depends('contract_id')
-#     def compute_joining(self):
-#         if self.contract_id:
-#             date = min(self.contract_id.mapped('date_start'))
-#             self.joining_date = date
-#         else:
-#             self.joining_date = False
+    #     @api.depends('contract_id')
+    #     def compute_joining(self):
+    #         if self.contract_id:
+    #             date = min(self.contract_id.mapped('date_start'))
+    #             self.joining_date = date
+    #         else:
+    #             self.joining_date = False
 
     @api.onchange('spouse_complete_name', 'spouse_birthdate')
     def onchange_spouse(self):
@@ -124,3 +126,10 @@ class EmployeeRelationInfo(models.Model):
     _name = 'hr.employee.relation'
 
     name = fields.Char(string="Relationship", help="Relationship with thw employee")
+
+
+class EmployeeLicenseType(models.Model):
+    _name = 'employee.license.type'
+    _description = 'Employee License Type'
+
+    name = fields.Char(string='License Type')
