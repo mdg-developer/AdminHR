@@ -42,6 +42,7 @@ class TravelRequest(models.Model):
     start_date = fields.Date(string='Start Date', required=True, copy=False,context="{'readonly_by_pass': True}")
     end_date = fields.Date(string='End Date', required=True, copy=False)
     duration = fields.Float(string='Duration (days)', compute='compute_duration')
+    attachment = fields.Binary(string="Attachment")
     city_from = fields.Char(string='From')
     city_to = fields.Char(string='To')
     travel_line = fields.One2many('travel.request.line', 'request_id', string='Travel')
