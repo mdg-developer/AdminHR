@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
-    <property name="createdBy">Eclipse BIRT Designer Version 4.10.0.v202204260816</property>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.24" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.13.0.v202301192028</property>
     <property name="units">in</property>
     <property name="iconFile">/templates/blank_report.gif</property>
     <property name="bidiLayoutOrientation">ltr</property>
@@ -15,14 +15,14 @@
         <scalar-parameter name="company_id" id="4875">
             <text-property name="promptText">Company</text-property>
             <property name="valueType">dynamic</property>
-            <property name="isRequired">true</property>
+            <property name="isRequired">false</property>
             <property name="dataSetName">company</property>
             <expression name="valueExpr" type="javascript">dataSetRow["id"]</expression>
             <expression name="labelExpr" type="javascript">dataSetRow["name"]</expression>
             <property name="dataType">integer</property>
             <property name="distinct">true</property>
             <list-property name="selectionList"/>
-            <property name="paramType">simple</property>
+            <property name="paramType">multi-value</property>
             <property name="controlType">list-box</property>
             <property name="mustMatch">true</property>
             <property name="fixedOrder">true</property>
@@ -60,7 +60,7 @@
         </scalar-parameter>
     </parameters>
     <data-sources>
-        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="4878"
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="4879"
  extends="report_library.Data Source"/>
     </data-sources>
     <data-sets>
@@ -100,16 +100,6 @@
                     <property name="isInput">true</property>
                     <property name="isOutput">false</property>
                 </structure>
-                <structure>
-                    <property name="name">company_id</property>
-                    <property name="paramName">company_id</property>
-                    <property name="nativeName"></property>
-                    <property name="dataType">integer</property>
-                    <property name="nativeDataType">4</property>
-                    <property name="position">3</property>
-                    <property name="isInput">true</property>
-                    <property name="isOutput">false</property>
-                </structure>
             </list-property>
             <structure name="cachedMetaData">
                 <list-property name="resultSet">
@@ -125,7 +115,13 @@
                     </structure>
                 </list-property>
             </structure>
-            <property name="dataSource">Data Source</property>
+            <method name="beforeOpen"><![CDATA[if (params["company_id"].value == null || params["company_id"].value[0] == null){    
+   this.queryText =this.queryText.replace("--$company$", "")
+}
+else
+{    
+   this.queryText =this.queryText.replace("--$company$", "and he.company_id in ("+ params["company_id"].value.join(",")+")")
+}]]></method>
             <list-property name="resultSet">
                 <structure>
                     <property name="position">1</property>
@@ -151,7 +147,7 @@ inner join hr_recruitment_stage stage on (hp.stage_id = stage.id)
 where he.joining_date between ? and ?
 and he.active=true
 and stage.name='Contract Signed'
-and he.company_id=?
+--$company$
 group by us.name]]></xml-property>
             <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
@@ -236,7 +232,6 @@ group by us.name]]></xml-property>
                     </structure>
                 </list-property>
             </structure>
-            <property name="dataSource">Data Source</property>
             <list-property name="resultSet">
                 <structure>
                     <property name="position">1</property>
