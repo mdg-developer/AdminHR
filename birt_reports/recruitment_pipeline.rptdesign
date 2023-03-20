@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.24" id="1">
-    <property name="createdBy">Eclipse BIRT Designer Version 4.13.0.v202301192028</property>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.10.0.v202204260816</property>
     <list-property name="userProperties">
         <structure>
             <property name="name">Data Cube.Data Set.x</property>
@@ -48,7 +48,7 @@
         </scalar-parameter>
     </parameters>
     <data-sources>
-        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="8224"
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="8225"
  extends="report_library.Data Source"/>
     </data-sources>
     <data-sets>
@@ -291,6 +291,7 @@
                     </structure>
                 </list-property>
             </structure>
+            <property name="dataSource">Data Source</property>
             <list-property name="resultSet">
                 <structure>
                     <property name="position">1</property>
@@ -570,6 +571,7 @@ hap.date_of_send, hap.final_interview, hj.id, us.name,hap.id
                     </structure>
                 </list-property>
             </structure>
+            <property name="dataSource">Data Source</property>
             <list-property name="resultSet">
                 <structure>
                     <property name="position">1</property>
