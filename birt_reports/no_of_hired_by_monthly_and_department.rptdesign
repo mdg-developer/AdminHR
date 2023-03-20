@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
-    <property name="createdBy">Eclipse BIRT Designer Version 4.10.0.v202204260816</property>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.24" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.10.0.v202206011605</property>
     <list-property name="userProperties">
         <structure>
             <property name="name">Data Cube.Data Set.x</property>
@@ -31,7 +31,7 @@
             <text-property name="promptText">Company</text-property>
             <property name="valueType">dynamic</property>
             <property name="dataSetName">company</property>
-            <expression name="valueExpr" type="javascript">dataSetRow["name"]</expression>
+            <expression name="valueExpr" type="javascript">dataSetRow["id"]</expression>
             <expression name="labelExpr" type="javascript">dataSetRow["name"]</expression>
             <property name="dataType">string</property>
             <property name="distinct">true</property>
@@ -75,7 +75,7 @@
         </scalar-parameter>
     </parameters>
     <data-sources>
-        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="5451"
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="5452"
  extends="report_library.Data Source"/>
     </data-sources>
     <data-sets>
@@ -163,7 +163,6 @@
                     </structure>
                 </list-property>
             </structure>
-            <property name="dataSource">Data Source</property>
             <list-property name="resultSet">
                 <structure>
                     <property name="position">1</property>
@@ -201,7 +200,7 @@
                     <property name="nativeDataType">-5</property>
                 </structure>
             </list-property>
-            <xml-property name="queryText"><![CDATA[SELECT hd.name as job_position,
+            <xml-property name="queryText"><![CDATA[SELECT hd.main_dp_name as job_position,
 	ROW_NUMBER() OVER(
     ORDER BY CONCAT(TO_CHAR(hr.joining_date, 'Month'), TO_CHAR(hr.joining_date, 'YYYY')) ASC
 	) seq,
@@ -218,9 +217,8 @@ LEFT JOIN hr_department hd on hd.parent_id = hdp.id
 WHERE hd.name IS NOT NULL AND hr.active=true
 AND hr.joining_date BETWEEN ? and ?
 AND hr.active=true
-GROUP BY hd.name,
-CONCAT(TO_CHAR(hr.joining_date, 'Month'), TO_CHAR(hr.joining_date, 'YYYY'))
-]]></xml-property>
+GROUP BY hd.main_dp_name,
+CONCAT(TO_CHAR(hr.joining_date, 'Month'), TO_CHAR(hr.joining_date, 'YYYY'))]]></xml-property>
             <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">
   <Version>2.0</Version>
@@ -368,7 +366,6 @@ CONCAT(TO_CHAR(hr.joining_date, 'Month'), TO_CHAR(hr.joining_date, 'YYYY'))
                     </structure>
                 </list-property>
             </structure>
-            <property name="dataSource">Data Source</property>
             <list-property name="resultSet">
                 <structure>
                     <property name="position">1</property>
@@ -472,7 +469,6 @@ order by login]]></xml-property>
                     </structure>
                 </list-property>
             </structure>
-            <property name="dataSource">Data Source</property>
             <list-property name="resultSet">
                 <structure>
                     <property name="position">1</property>
