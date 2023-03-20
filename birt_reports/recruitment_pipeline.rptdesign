@@ -28,7 +28,7 @@
         </structure>
     </list-property>
     <parameters>
-        <scalar-parameter name="company_id1" id="5074">
+        <scalar-parameter name="company_id" id="5074">
             <text-property name="promptText">Company</text-property>
             <property name="valueType">dynamic</property>
             <property name="isRequired">true</property>
@@ -48,29 +48,8 @@
         </scalar-parameter>
     </parameters>
     <data-sources>
-        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="4878">
-            <property name="newHandlerOnEachEvent">true</property>
-            <list-property name="privateDriverProperties">
-                <ex-property>
-                    <name>metadataBidiFormatStr</name>
-                    <value>ILYNN</value>
-                </ex-property>
-                <ex-property>
-                    <name>disabledMetadataBidiFormatStr</name>
-                </ex-property>
-                <ex-property>
-                    <name>contentBidiFormatStr</name>
-                    <value>ILYNN</value>
-                </ex-property>
-                <ex-property>
-                    <name>disabledContentBidiFormatStr</name>
-                </ex-property>
-            </list-property>
-            <property name="odaDriverClass">org.postgresql.Driver</property>
-            <property name="odaURL">jdbc:postgresql://localhost:5432/MDG_HR_Live</property>
-            <property name="odaUser">odoo</property>
-            <encrypted-property name="odaPassword" encryptionID="base64">amFjazEyMyQ=</encrypted-property>
-        </oda-data-source>
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="8224"
+ extends="report_library.Data Source"/>
     </data-sources>
     <data-sets>
         <oda-data-set extensionID="org.eclipse.birt.report.data.oda.jdbc.JdbcSelectDataSet" name="Data Set" id="4704">
@@ -199,7 +178,7 @@
             <list-property name="parameters">
                 <structure>
                     <property name="name">company_id</property>
-                    <property name="paramName">company_id1</property>
+                    <property name="paramName">company_id</property>
                     <property name="nativeName"></property>
                     <property name="dataType">integer</property>
                     <property name="nativeDataType">4</property>
