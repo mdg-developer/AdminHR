@@ -394,7 +394,7 @@ class Employee(models.Model):
 
     def name_get(self):
         self.browse(self.ids).sudo().read(['name', 'barcode'])
-        return [(emp.id, '%s%s' % (emp.barcode and '[%s] ' % emp.barcode or '', emp.name)) for emp in self]
+        return [(emp.id, '%s' % emp.name) for emp in self]
 
     @api.model
     def _name_search(self, name, args=None, operator='ilike', limit=100, name_get_uid=None):
