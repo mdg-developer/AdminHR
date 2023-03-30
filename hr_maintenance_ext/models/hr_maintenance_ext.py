@@ -1,32 +1,36 @@
-from odoo import fields, models,api, _
+from odoo import fields, models, api, _
 from datetime import date, datetime, timedelta
 from odoo.exceptions import ValidationError
 from odoo.tools import format_datetime, DEFAULT_SERVER_DATETIME_FORMAT as DT_FORMAT
 from pytz import timezone, UTC
+
 
 def get_utc_datetime(tz, local_dt_str):
     local_datetime = datetime.strptime(local_dt_str, DT_FORMAT)
     utc_datetime = tz.localize(local_datetime.replace(tzinfo=None), is_dst=True).astimezone(tz=UTC)
     return utc_datetime.strftime(DT_FORMAT)
 
-class MaintenanceRequest(models.Model):    
-    _inherit = 'maintenance.request'    
+
+class MaintenanceRequest(models.Model):
+    _inherit = 'maintenance.request'
     _description = 'Maintenance'
-    
+
     # def get_default_user(self):
     #     if self.maintenance_team_id:
     #         user = self.maintenance_team_id.member_ids[0]
     #         return user.id
     #     else:
     #         return False
-    
+
     name = fields.Char(string='Name', required=False)
-    login_user = fields.Many2one('res.users', string='Login User', default=lambda self:self.env.user)
+    login_user = fields.Many2one('res.users', string='Login User', default=lambda self: self.env.user)
     code = fields.Char(string='Code')
     branch_id = fields.Many2one('res.branch', string='Branch', domain="[('company_id', '=', company_id)]")
     vehicle_id = fields.Many2one('fleet.vehicle', 'Vehicle')
-    driver_id = fields.Many2one('hr.employee', string='Driver', related='vehicle_id.hr_driver_id', readonly=False, store=True)
-    maintenance_team_id = fields.Many2one('maintenance.team', string='Team', required=False, default=False, check_company=True, domain="[('company_id', '=', company_id)]")
+    driver_id = fields.Many2one('hr.employee', string='Driver', related='vehicle_id.hr_driver_id', readonly=False,
+                                store=True)
+    maintenance_team_id = fields.Many2one('maintenance.team', string='Team', required=False, default=False,
+                                          check_company=True, domain="[('company_id', '=', company_id)]")
     user_id = fields.Many2one('res.users', string='Technician', tracking=True, default=False)
     plan_duration = fields.Float(string='Planned Duration')
     actual_duration = fields.Float(string='Actual Duration')
@@ -48,31 +52,36 @@ class MaintenanceRequest(models.Model):
     location_id = fields.Many2one('stock.location', string='Location')
     qty = fields.Float(string='Quantity')
     product_id = fields.Many2one('product.product', string='Product')
-    start_date = fields.Datetime('Start Datetime', help="Date the maintenance team plans the maintenance.  It should not differ much from the Request Date. ")
+    start_date = fields.Datetime('Start Datetime',
+                                 help="Date the maintenance team plans the maintenance.  It should not differ much from the Request Date. ")
     end_date = fields.Datetime('End Datetime')
     purchase_line = fields.One2many('purchase.order', 'line_id', string='Maintenance Lines', copy=True, auto_join=True)
-    category_id = fields.Many2one('maintenance.equipment.category', related='equipment_id.category_id', string='Product Category', store=True, readonly=True)
+    category_id = fields.Many2one('maintenance.equipment.category', related='equipment_id.category_id',
+                                  string='Product Category', store=True, readonly=True)
     warehouse_ids = fields.One2many('warehouse.issue', 'line_id', string='Warehouse Lines', copy=True, auto_join=True)
-    maintenance_product_ids = fields.One2many('maintenance.product', 'line_id', string='Maintenance Product', copy=True, auto_join=True)
+    maintenance_product_ids = fields.One2many('maintenance.product', 'line_id', string='Maintenance Product', copy=True,
+                                              auto_join=True)
     state = fields.Selection([
-                                ('propose', 'Propose'),
-                                ('draft', 'Draft'),
-                                ('submit', 'Submitted'),
-                                ('approved', 'Approved'),
-                                ('start', 'Start'),
-                                ('reproposed', 'Re-Propose'),
-                                ('resubmitted', 'Resubmitted'),
-                                ('approve', 'Approved Again'),
-                                ('qc', 'QC'),
-                                ('done', 'Done'),
-                                ('reject', 'Rejected')
-                            ], string='Status', readonly=True, index=True, copy=False, default='propose', tracking=True)
+        ('propose', 'Propose'),
+        ('draft', 'Draft'),
+        ('submit', 'Submitted'),
+        ('approved', 'Approved'),
+        ('start', 'Start'),
+        ('reproposed', 'Re-Propose'),
+        ('resubmitted', 'Resubmitted'),
+        ('approve', 'Approved Again'),
+        ('qc', 'QC'),
+        ('done', 'Done'),
+        ('reject', 'Rejected')
+    ], string='Status', readonly=True, index=True, copy=False, default='propose', tracking=True)
     is_branch_manager = fields.Boolean(string='Is Branch Manager?', default=False)
     spare1_id = fields.Many2one('hr.employee', string='Spare 1')
     spare2_id = fields.Many2one('hr.employee', string='Spare 2')
     total_service_cost = fields.Float(string='Total Service Cost', compute='_compute_total_service_cost')
-    maintenance_type = fields.Selection([('corrective', 'Corrective'), ('preventive', 'Preventive'),('operation','Operation')],
-                                        string='Maintenance Type', default="corrective")
+    maintenance_type = fields.Selection(
+        [('corrective', 'Corrective'), ('preventive', 'Preventive'), ('operation', 'Operation')],
+        string='Maintenance Type', default="corrective")
+
     def name_get(self):
         result = []
         for req in self:
@@ -88,7 +97,7 @@ class MaintenanceRequest(models.Model):
             else:
                 self.company_id = self.env.company
             self.spare1_id = self.vehicle_id.spare_id
-    
+
     @api.depends('purchase_line')
     def _compute_total_service_cost(self):
         for rec in self:
@@ -96,10 +105,10 @@ class MaintenanceRequest(models.Model):
             for line in rec.purchase_line:
                 total_cost += line.amount_total
             rec.total_service_cost = total_cost
-        
+
     @api.depends('start_date', 'end_date')
     def compute_duration(self):
-        for record in self: 
+        for record in self:
             days = 0
             hours = 0
             if record.start_date and record.end_date:
@@ -115,7 +124,7 @@ class MaintenanceRequest(models.Model):
                 hours = time_diff.seconds / 3600
             record.duration_days = days
             record.duration_hrs = hours
-    
+
     @api.onchange('start_date', 'end_date')
     @api.constrains('start_date', 'end_date')
     def check_date_valid(self):
@@ -124,46 +133,48 @@ class MaintenanceRequest(models.Model):
                 raise ValidationError(_('Start date must be less than end date.'))
 
     def button_submit(self):
-        self.state='submit'
+        self.state = 'submit'
         if self.driver_id:
             one_signal_values = {'employee_id': self.driver_id.branch_id.manager_id.id,
-                            'contents': _('Maintenance Request: %s submitted maintenance request %s.') % (self.driver_id.name, self.code),
-                            'headings': _('WB B2B : Maintenance Request Submitted')}
+                                 'contents': _('Maintenance Request: %s submitted maintenance request %s.') % (
+                                 self.driver_id.name, self.code),
+                                 'headings': _('WB B2B : Maintenance Request Submitted')}
             self.env['one.signal.notification.message'].create(one_signal_values)
 
     def button_confirm(self):
-        self.state='approve'
+        self.state = 'approve'
         if self.warehouse_ids:
             for line in self.warehouse_ids:
                 same_picking = self.env['stock.picking'].search([('maintenance_request_id', '=', self.id),
-                                                                ('location_id', '=', line.location_id.id)
-                                                            ])
+                                                                 ('location_id', '=', line.location_id.id)
+                                                                 ])
                 if same_picking:
                     vals = {
-                                'picking_id': same_picking.id,
-                                'picking_type_id': same_picking.picking_type_id.id,
-                                'company_id': same_picking.location_id.company_id.id,
-                                'name': line.product_id.name,
-                                'product_id': line.product_id.id,
-                                'product_uom': line.product_id.uom_id.id,
-                                'location_id': same_picking.location_id.id,
-                                'location_dest_id': same_picking.location_dest_id.id,
-                                'product_uom_qty': line.qty,
-                                'maintenance_line_id': line.id
-                            }
+                        'picking_id': same_picking.id,
+                        'picking_type_id': same_picking.picking_type_id.id,
+                        'company_id': same_picking.location_id.company_id.id,
+                        'name': line.product_id.name,
+                        'product_id': line.product_id.id,
+                        'product_uom': line.product_id.uom_id.id,
+                        'location_id': same_picking.location_id.id,
+                        'location_dest_id': same_picking.location_dest_id.id,
+                        'product_uom_qty': line.qty,
+                        'maintenance_line_id': line.id
+                    }
                     stock_move = self.env['stock.move'].create(vals)
                     same_picking.write({
-                            'move_lines': [(4, stock_move.id)]
-                        })
+                        'move_lines': [(4, stock_move.id)]
+                    })
                 else:
                     if line.location_id:
                         picking_type = self.env['stock.picking.type'].search([
-                                        ('company_id', '=', line.location_id.company_id.id),
-                                        ('code', '=', 'outgoing'),
-                                        ('default_location_src_id', 'in', [line.location_id.id, line.location_id.location_id.id])], limit=1)
+                            ('company_id', '=', line.location_id.company_id.id),
+                            ('code', '=', 'outgoing'),
+                            ('default_location_src_id', 'in', [line.location_id.id, line.location_id.location_id.id])],
+                            limit=1)
                         print("picking type : ", picking_type)
                         customer_location = self.env['stock.location'].search([
-                                            ('usage', '=', 'customer')])
+                            ('usage', '=', 'customer')])
                         vals = {
                             'state': 'draft',
                             'partner_id': line.location_id.company_id.partner_id.id,
@@ -193,48 +204,51 @@ class MaintenanceRequest(models.Model):
                             })
         if self.driver_id:
             one_signal_values = {'employee_id': self.driver_id.id,
-                                'contents': _('Maintenance Request: %s approved maintenance request %s.') % (self.driver_id.branch_id.manager_id.name, self.code),
-                                'headings': _('WB B2B : Maintenance Request Approved')}
+                                 'contents': _('Maintenance Request: %s approved maintenance request %s.') % (
+                                 self.driver_id.branch_id.manager_id.name, self.code),
+                                 'headings': _('WB B2B : Maintenance Request Approved')}
             self.env['one.signal.notification.message'].create(one_signal_values)
         if self.vehicle_id:
             one_signal_values = {'employee_id': self.vehicle_id.incharge_id.id,
-                                'contents': _('Maintenance Request: %s approved maintenance request %s.') % (self.driver_id.branch_id.manager_id.name, self.code),
-                                'headings': _('WB B2B : Maintenance Request Approved')}
+                                 'contents': _('Maintenance Request: %s approved maintenance request %s.') % (
+                                 self.driver_id.branch_id.manager_id.name, self.code),
+                                 'headings': _('WB B2B : Maintenance Request Approved')}
             self.env['one.signal.notification.message'].create(one_signal_values)
-        
+
     def button_approve(self):
-        self.state='approved'
+        self.state = 'approved'
         if self.warehouse_ids:
             for line in self.warehouse_ids:
                 same_picking = self.env['stock.picking'].search([('maintenance_request_id', '=', self.id),
-                                                                ('location_id', '=', line.location_id.id)
-                                                            ])
+                                                                 ('location_id', '=', line.location_id.id)
+                                                                 ])
                 if same_picking:
                     vals = {
-                                'picking_id': same_picking.id,
-                                'picking_type_id': same_picking.picking_type_id.id,
-                                'company_id': same_picking.location_id.company_id.id,
-                                'name': line.product_id.name,
-                                'product_id': line.product_id.id,
-                                'product_uom': line.product_id.uom_id.id,
-                                'location_id': same_picking.location_id.id,
-                                'location_dest_id': same_picking.location_dest_id.id,
-                                'product_uom_qty': line.qty,
-                                'maintenance_line_id': line.id
-                            }
+                        'picking_id': same_picking.id,
+                        'picking_type_id': same_picking.picking_type_id.id,
+                        'company_id': same_picking.location_id.company_id.id,
+                        'name': line.product_id.name,
+                        'product_id': line.product_id.id,
+                        'product_uom': line.product_id.uom_id.id,
+                        'location_id': same_picking.location_id.id,
+                        'location_dest_id': same_picking.location_dest_id.id,
+                        'product_uom_qty': line.qty,
+                        'maintenance_line_id': line.id
+                    }
                     stock_move = self.env['stock.move'].create(vals)
                     same_picking.write({
-                            'move_lines': [(4, stock_move.id)]
-                        })
+                        'move_lines': [(4, stock_move.id)]
+                    })
                 else:
                     if line.location_id:
                         picking_type = self.env['stock.picking.type'].search([
-                                        ('company_id', '=', line.location_id.company_id.id),
-                                        ('code', '=', 'outgoing'),
-                                        ('default_location_src_id', 'in', [line.location_id.id, line.location_id.location_id.id])], limit=1)
+                            ('company_id', '=', line.location_id.company_id.id),
+                            ('code', '=', 'outgoing'),
+                            ('default_location_src_id', 'in', [line.location_id.id, line.location_id.location_id.id])],
+                            limit=1)
                         print("picking type : ", picking_type)
                         customer_location = self.env['stock.location'].search([
-                                            ('usage', '=', 'customer')])
+                            ('usage', '=', 'customer')])
                         vals = {
                             'state': 'draft',
                             'partner_id': line.location_id.company_id.partner_id.id,
@@ -262,16 +276,18 @@ class MaintenanceRequest(models.Model):
                                     'maintenance_line_id': line.id
                                 })]
                             })
-                            
+
         if self.driver_id:
             one_signal_values = {'employee_id': self.driver_id.id,
-                                'contents': _('Maintenance Request: %s approved maintenance request %s.') % (self.driver_id.branch_id.manager_id.name, self.code),
-                                'headings': _('WB B2B : Maintenance Request Approved')}
+                                 'contents': _('Maintenance Request: %s approved maintenance request %s.') % (
+                                 self.driver_id.branch_id.manager_id.name, self.code),
+                                 'headings': _('WB B2B : Maintenance Request Approved')}
             self.env['one.signal.notification.message'].create(one_signal_values)
         if self.vehicle_id:
             one_signal_values = {'employee_id': self.vehicle_id.incharge_id.id,
-                                'contents': _('Maintenance Request: %s approved maintenance request %s.') % (self.driver_id.branch_id.manager_id.name, self.code),
-                                'headings': _('WB B2B : Maintenance Request Approved')}
+                                 'contents': _('Maintenance Request: %s approved maintenance request %s.') % (
+                                 self.driver_id.branch_id.manager_id.name, self.code),
+                                 'headings': _('WB B2B : Maintenance Request Approved')}
             self.env['one.signal.notification.message'].create(one_signal_values)
         # one_signal_values = {'employee_id': self.employee_id.id,
         #                     'contents': _('Maintenance Request: %s .') % self.equipment_id.name,
@@ -285,46 +301,44 @@ class MaintenanceRequest(models.Model):
 
     def button_set_to_draft(self):
         self.state = 'propose'
-    
+
     # def button_set_to_repropose(self):
     #     self.state = 'reproposed'
 
     def button_start(self):
         self.state = 'start'
-
-        sq_obj = self.env['stock.quant'].sudo().search([('product_id','=',self.warehouse_ids.product_id.id),('location_id','=',self.warehouse_ids.location_id.id)])
-        sq_obj.sudo().write({'quantity': sq_obj.quantity - self.warehouse_ids.qty})
-
+        # self.start_date = datetime.now()
 
     def button_repropose(self):
         self.state = 'reproposed'
 
     def button_resubmitted(self):
-        self.state='resubmitted'
+        self.state = 'resubmitted'
         if self.driver_id:
             one_signal_values = {'employee_id': self.driver_id.branch_id.manager_id.id,
-                            'contents': _('Maintenance Request: %s resubmitted maintenance request %s.') % (self.driver_id.name, self.code),
-                            'headings': _('WB B2B : Maintenance Request Resubmitted')}
+                                 'contents': _('Maintenance Request: %s resubmitted maintenance request %s.') % (
+                                 self.driver_id.name, self.code),
+                                 'headings': _('WB B2B : Maintenance Request Resubmitted')}
             self.env['one.signal.notification.message'].create(one_signal_values)
-    
+
     def button_qc(self):
-        self.state='qc'
-    
+        self.state = 'qc'
+
     def button_done(self):
-        self.state='done'
+        self.state = 'done'
         # self.end_date = datetime.now()
-                   
+
     @api.onchange('maintenance_team_id')
-    def _onchange_user_id(self):        
+    def _onchange_user_id(self):
         user_list = []
-        user = self.env['maintenance.team'].search([('member_ids', 'in', self.env.uid)], limit=1).id       
+        user = self.env['maintenance.team'].search([('member_ids', 'in', self.env.uid)], limit=1).id
         if self.maintenance_team_id.member_ids:
             for team in self.maintenance_team_id.member_ids:
                 user_list.append(team.id)
             return {'domain': {'user_id': [('id', 'in', tuple(user_list))]}}
         else:
             return []
-        
+
     @api.onchange('maintenance_team_id')
     def onchange_maintenance_team_id(self):
         if self.maintenance_team_id:
@@ -334,29 +348,30 @@ class MaintenanceRequest(models.Model):
     @api.model
     def create(self, vals):
         if 'company_id' in vals:
-            code = self.env['ir.sequence'].with_context(force_company=vals['company_id']).next_by_code('maintenance.request.code')
+            code = self.env['ir.sequence'].with_context(force_company=vals['company_id']).next_by_code(
+                'maintenance.request.code')
             vals['code'] = code
         else:
             code = self.env['ir.sequence'].next_by_code('maintenance.request.code')
             vals['code'] = code
-        
+
         if not self._context.get('from_web_view'):
-            if vals.get('driver_id') :
+            if vals.get('driver_id'):
                 employee = self.env['hr.employee'].browse(vals['driver_id'])
                 if employee:
                     vals['company_id'] = employee.company_id.id or False
                     vals['branch_id'] = employee.branch_id.id or False
                     calendar = employee.contract_id and employee.contract_id.resource_calendar_id or employee.resource_calendar_id
                     tz = timezone(calendar.tz or 'Asia/Yangon')
-                    
+
                     if vals.get('start_date'):
                         vals['start_date'] = get_utc_datetime(tz, vals.get('start_date'))
-                        
+
                     if vals.get('end_date'):
                         vals['end_date'] = get_utc_datetime(tz, vals.get('end_date'))
-            
+
         return super(MaintenanceRequest, self).create(vals)
-    
+
     def send_one_signal_notification(self):
         vehicles = self.env['fleet.vehicle'].sudo().search([])
         if vehicles:
@@ -365,29 +380,32 @@ class MaintenanceRequest(models.Model):
                 if reminders:
                     for reminder in reminders:
                         if reminder.next_odometer == vehicle.trip_odometer:
-                            if vehicle.hr_driver_id:            
+                            if vehicle.hr_driver_id:
                                 one_signal_values = {'employee_id': vehicle.hr_driver_id.id,
-                                                    'contents': _('%s need to make on %s.') % (reminder.name, reminder.next_odometer),
-                                                    'headings': _('WB B2B : PREVENTIVE REMINDER')}
+                                                     'contents': _('%s need to make on %s.') % (
+                                                     reminder.name, reminder.next_odometer),
+                                                     'headings': _('WB B2B : PREVENTIVE REMINDER')}
                                 self.env['one.signal.notification.message'].create(one_signal_values)
-                            if vehicle.incharge_id:            
+                            if vehicle.incharge_id:
                                 one_signal_values = {'employee_id': vehicle.incharge_id.id,
-                                                    'contents': _('%s need to make on %s.') % (reminder.name, reminder.next_odometer),
-                                                    'headings': _('WB B2B : PREVENTIVE REMINDER')}
+                                                     'contents': _('%s need to make on %s.') % (
+                                                     reminder.name, reminder.next_odometer),
+                                                     'headings': _('WB B2B : PREVENTIVE REMINDER')}
                                 self.env['one.signal.notification.message'].create(one_signal_values)
-                            if vehicle.hr_manager_id:            
+                            if vehicle.hr_manager_id:
                                 one_signal_values = {'employee_id': vehicle.hr_manager_id.id,
-                                                    'contents': _('%s need to make on %s.') % (reminder.name, reminder.next_odometer),
-                                                    'headings': _('WB B2B : PREVENTIVE REMINDER')}
+                                                     'contents': _('%s need to make on %s.') % (
+                                                     reminder.name, reminder.next_odometer),
+                                                     'headings': _('WB B2B : PREVENTIVE REMINDER')}
                                 self.env['one.signal.notification.message'].create(one_signal_values)
 
 
+class Purchase(models.Model):
+    _inherit = 'purchase.order'
 
-class Purchase(models.Model):    
-    _inherit = 'purchase.order'    
-    
-    line_id = fields.Many2one('maintenance.request', string='Purchase Show Reference', required=False, ondelete='cascade', index=True, copy=False, auto_join=True)
-    vehicle_id = fields.Many2one('fleet.vehicle', string='Vehicle',required=False, store=True)
+    line_id = fields.Many2one('maintenance.request', string='Purchase Show Reference', required=False,
+                              ondelete='cascade', index=True, copy=False, auto_join=True)
+    vehicle_id = fields.Many2one('fleet.vehicle', string='Vehicle', required=False, store=True)
 
     def button_confirm(self):
         if self.order_line and self.line_id or self.vehicle_id:
@@ -400,21 +418,21 @@ class Purchase(models.Model):
                     line.account_analytic_id = branch_id.analytic_account_id
                 if vehicle_id:
                     vehicle_license_tag = analytic_tag_obj.sudo().search([('name', '=', vehicle_id.license_plate),
-                                                                        ('branch_id', '=', branch_id.id),
-                                                                        ('company_id', '=', self.company_id.id)])
+                                                                          ('branch_id', '=', branch_id.id),
+                                                                          ('company_id', '=', self.company_id.id)])
                     if vehicle_license_tag:
                         analyst_list.append(vehicle_license_tag)
                     for tag in vehicle_id.tag_ids:
                         analytic_tag = analytic_tag_obj.sudo().search([('name', '=', tag.name),
-                                                                    ('company_id', '=', self.company_id.id),
-                                                                    ('branch_id', '=', branch_id.id)])
+                                                                       ('company_id', '=', self.company_id.id),
+                                                                       ('branch_id', '=', branch_id.id)])
                         if analytic_tag:
                             analyst_list.append(analytic_tag)
                     line.analytic_tag_ids = [(6, 0, [x.id for x in analyst_list])]
         return super(Purchase, self).button_confirm()
 
     def action_view_invoice(self):
-        
+
         action = self.env.ref('account.action_move_in_invoice_type')
         result = action.read()[0]
         create_bill = self.env.context.get('create_bill', False)
@@ -424,7 +442,7 @@ class Purchase(models.Model):
             'default_purchase_id': self.id,
             'default_partner_id': self.partner_id.id,
         }
-        
+
         self.sudo()._read(['invoice_ids'])
         if len(self.invoice_ids) > 1 and not create_bill:
             result['domain'] = "[('id', 'in', " + str(self.invoice_ids.ids) + ")]"
@@ -432,7 +450,7 @@ class Purchase(models.Model):
             res = self.env.ref('account.view_move_form', False)
             form_view = [(res and res.id or False, 'form')]
             if 'views' in result:
-                result['views'] = form_view + [(state,view) for state,view in action['views'] if view != 'form']
+                result['views'] = form_view + [(state, view) for state, view in action['views'] if view != 'form']
             else:
                 result['views'] = form_view
             if not create_bill:
@@ -442,7 +460,7 @@ class Purchase(models.Model):
         result['context']['default_source_doc'] = self.line_id.code
         result['context']['default_loan_ref'] = self.loan_id.name
         return result
-    
+
     @api.constrains('order_line')
     def _constrains_order_line(self):
         if self.order_line and self.line_id or self.vehicle_id:
@@ -455,14 +473,14 @@ class Purchase(models.Model):
                     line.account_analytic_id = branch_id.analytic_account_id
                 if vehicle_id:
                     vehicle_license_tag = analytic_tag_obj.sudo().search([('name', '=', vehicle_id.license_plate),
-                                                                        ('branch_id', '=', branch_id.id),
-                                                                        ('company_id', '=', self.company_id.id)])
+                                                                          ('branch_id', '=', branch_id.id),
+                                                                          ('company_id', '=', self.company_id.id)])
                     if vehicle_license_tag:
                         analyst_list.append(vehicle_license_tag)
                     for tag in vehicle_id.tag_ids:
                         analytic_tag = analytic_tag_obj.sudo().search([('name', '=', tag.name),
-                                                                    ('company_id', '=', self.company_id.id),
-                                                                    ('branch_id', '=', branch_id.id)])
+                                                                       ('company_id', '=', self.company_id.id),
+                                                                       ('branch_id', '=', branch_id.id)])
                         if analytic_tag:
                             analyst_list.append(analytic_tag)
                     line.analytic_tag_ids = [(6, 0, [x.id for x in analyst_list])]
@@ -487,7 +505,7 @@ class PurchaseOrderLine(models.Model):
 
     #     analyst_list = []
     #     if self.order_id.line_id.vehicle_id:
-    #         company_id = self.order_id.line_id.vehicle_id.company_id 
+    #         company_id = self.order_id.line_id.vehicle_id.company_id
     #         branch_id = self.order_id.line_id.vehicle_id.branch_id
     #         for tag in self.order_id.line_id.vehicle_id.tag_ids:
     #             analytic_tag = self.env['account.analytic.tag'].sudo().search([('name', '=', tag.name),
@@ -517,7 +535,8 @@ class WarehouseIssue(models.Model):
     _name = 'warehouse.issue'
     _description = 'Warehouse Issue'
 
-    line_id = fields.Many2one('maintenance.request', string='Maintenance Request ID', required=False, ondelete='cascade', index=True, copy=False)
+    line_id = fields.Many2one('maintenance.request', string='Maintenance Request ID', required=False,
+                              ondelete='cascade', index=True, copy=False)
     company_id = fields.Many2one('res.company', string='Company', related='line_id.company_id')
     location_id = fields.Many2one('stock.location', string='Location')
     qty = fields.Float(string='Quantity')
@@ -525,46 +544,51 @@ class WarehouseIssue(models.Model):
     cost = fields.Float(string='Cost', related='product_id.standard_price')
 
 
-
-    
 class MaintenanceProduct(models.Model):
     _name = 'maintenance.product'
     _description = 'Maintenance Product'
 
-    category_id = fields.Many2one('product.category', string='Product Category', domain="['|',('maintenance', '=', True),('preventive','=', True)]")
+    category_id = fields.Many2one('product.category', string='Product Category',
+                                  domain="['|',('maintenance', '=', True),('preventive','=', True)]")
     product_id = fields.Many2one('product.product', string='Product')
     type = fields.Selection([('repair', 'Repair'), ('new', 'New')], string='Type')
     qty = fields.Float(string='Quantity')
-    line_id = fields.Many2one('maintenance.request', string='Maintenance Request ID', required=False, ondelete='cascade', index=True, copy=False)
+    line_id = fields.Many2one('maintenance.request', string='Maintenance Request ID', required=False,
+                              ondelete='cascade', index=True, copy=False)
     company_id = fields.Many2one('res.company', string='Company', related='line_id.company_id')
 
     @api.onchange('category_id')
     def onchange_product_category(self):
         domain = {}
         if not self.category_id:
-            domain['product_id'] = ['|', ('product_tmpl_id.company_id', '=', False), ('product_tmpl_id.company_id', '=', self.line_id.company_id.id)]
+            domain['product_id'] = ['|', ('product_tmpl_id.company_id', '=', False),
+                                    ('product_tmpl_id.company_id', '=', self.line_id.company_id.id)]
         else:
-            domain['product_id'] = [('product_tmpl_id.categ_id', '=', self.category_id.id), '|', ('product_tmpl_id.company_id', '=', False), ('product_tmpl_id.company_id', '=', self.line_id.company_id.id)]
+            domain['product_id'] = [('product_tmpl_id.categ_id', '=', self.category_id.id), '|',
+                                    ('product_tmpl_id.company_id', '=', False),
+                                    ('product_tmpl_id.company_id', '=', self.line_id.company_id.id)]
         return {'domain': domain}
+
 
 class Fleet(models.Model):
     _inherit = 'fleet.vehicle'
 
-    branch_id  = fields.Many2one('res.branch', string='Branch', domain="[('company_id', '=', company_id)]")
-    incharge_id = fields.Many2one('hr.employee', string="Incharge", required=True, domain="[('company_id', '=', company_id), ('branch_id', '=', branch_id)]")
-    spare_id = fields.Many2one('hr.employee', string="Spare", domain="[('company_id', '=', company_id), ('branch_id', '=', branch_id)]")
+    branch_id = fields.Many2one('res.branch', string='Branch', domain="[('company_id', '=', company_id)]")
+    incharge_id = fields.Many2one('hr.employee', string="Incharge", required=True,
+                                  domain="[('company_id', '=', company_id), ('branch_id', '=', branch_id)]")
+    spare_id = fields.Many2one('hr.employee', string="Spare",
+                               domain="[('company_id', '=', company_id), ('branch_id', '=', branch_id)]")
     maintenance_count = fields.Integer(compute="_compute_maintenance_count", string='Maintenance')
-     
+
     def _compute_maintenance_count(self):
- 
         self.maintenance_count = self.env['maintenance.request'].search_count([('vehicle_id', '=', self.id)])
-        
+
 
 class FleetServiceType(models.Model):
     _name = 'maintenance.type'
     _description = 'Maintenance Type'
 
-    name = fields.Char(required=True, translate=True)  
+    name = fields.Char(required=True, translate=True)
 
 
 class MaintenanceTeam(models.Model):
@@ -573,7 +597,7 @@ class MaintenanceTeam(models.Model):
 
     contact_no = fields.Char(string='Contact No')
     address = fields.Char(string='Address')
-    partner_id = fields.Many2one('res.partner',string='Partner')
+    partner_id = fields.Many2one('res.partner', string='Partner')
 
     def name_get(self):
         result = []
@@ -596,7 +620,7 @@ class StockPicking(models.Model):
     maintenance_request_id = fields.Many2one('maintenance.request', string='Maintenance Request')
 
     # def button_validate(self):
-    #     res = super(StockPicking, self).button_validate()        
+    #     res = super(StockPicking, self).button_validate()
     #     invoice_obj = self.env['account.move']
     #     misc_journal = self.env['account.journal'].search([('company_id', '=', self.company_id.id), ('short_code', '=', 'MISC')], limit=1)
     #     print("####", misc_journal.id)
@@ -608,10 +632,10 @@ class StockPicking(models.Model):
     #         'journal_id' : misc_journal.id,
     #     }
     #     debit_account = product_id.property_account_expense_id
-    #     credit_account = 
-        
+    #     credit_account =
+
     #     line_ids = []
-    #     if debit_account: 
+    #     if debit_account:
     #         debit = driver_amount if driver_amount > 0.0 else 0.0
     #         credit = -driver_amount if driver_amount < 0.0 else 0.0
     #         debit_line = {
@@ -637,15 +661,13 @@ class StockPicking(models.Model):
     #         line_ids.append(credit_line)
 
     #     move_dict['line_ids'] = [(0, 0, line_vals) for line_vals in line_ids]
-    #     move = self.env['account.move'].create(move_dict)      
-    #     self.write({'move_id': move.id})  
+    #     move = self.env['account.move'].create(move_dict)
+    #     self.write({'move_id': move.id})
     #     return res
+
 
 class StockMove(models.Model):
     _inherit = 'stock.move'
     _description = 'Stock Move'
 
     maintenance_line_id = fields.Many2one('warehouse.issue')
-
-class StockQuant(models.Model):
-    _inherit = "stock.quant"
