@@ -235,6 +235,7 @@
 									<tree editable="bottom">
 										<field name="line_id" invisible="1" />
 										<field name="company_id" invisible="1" />
+										<field name="do_number" readonly="1"/>
 										<field name="product_id" domain="[('product_tmpl_id.categ_id.maintenance', '=', True), '|', ('product_tmpl_id.company_id', '=', False), ('product_tmpl_id.company_id', '=', company_id)]" />
 										<field name='location_id' domain="[('company_id', '=', company_id)]" />
 										<field name="cost" widget="monetary"/>

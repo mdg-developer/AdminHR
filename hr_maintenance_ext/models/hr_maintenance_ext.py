@@ -1,6 +1,6 @@
 from odoo import fields, models, api, _
 from datetime import date, datetime, timedelta
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, UserError
 from odoo.tools import format_datetime, DEFAULT_SERVER_DATETIME_FORMAT as DT_FORMAT
 from pytz import timezone, UTC
 
@@ -74,6 +74,7 @@ class MaintenanceRequest(models.Model):
         ('done', 'Done'),
         ('reject', 'Rejected')
     ], string='Status', readonly=True, index=True, copy=False, default='propose', tracking=True)
+
     is_branch_manager = fields.Boolean(string='Is Branch Manager?', default=False)
     spare1_id = fields.Many2one('hr.employee', string='Spare 1')
     spare2_id = fields.Many2one('hr.employee', string='Spare 2')
@@ -137,7 +138,7 @@ class MaintenanceRequest(models.Model):
         if self.driver_id:
             one_signal_values = {'employee_id': self.driver_id.branch_id.manager_id.id,
                                  'contents': _('Maintenance Request: %s submitted maintenance request %s.') % (
-                                 self.driver_id.name, self.code),
+                                     self.driver_id.name, self.code),
                                  'headings': _('WB B2B : Maintenance Request Submitted')}
             self.env['one.signal.notification.message'].create(one_signal_values)
 
@@ -205,13 +206,13 @@ class MaintenanceRequest(models.Model):
         if self.driver_id:
             one_signal_values = {'employee_id': self.driver_id.id,
                                  'contents': _('Maintenance Request: %s approved maintenance request %s.') % (
-                                 self.driver_id.branch_id.manager_id.name, self.code),
+                                     self.driver_id.branch_id.manager_id.name, self.code),
                                  'headings': _('WB B2B : Maintenance Request Approved')}
             self.env['one.signal.notification.message'].create(one_signal_values)
         if self.vehicle_id:
             one_signal_values = {'employee_id': self.vehicle_id.incharge_id.id,
                                  'contents': _('Maintenance Request: %s approved maintenance request %s.') % (
-                                 self.driver_id.branch_id.manager_id.name, self.code),
+                                     self.driver_id.branch_id.manager_id.name, self.code),
                                  'headings': _('WB B2B : Maintenance Request Approved')}
             self.env['one.signal.notification.message'].create(one_signal_values)
 
@@ -277,16 +278,21 @@ class MaintenanceRequest(models.Model):
                                 })]
                             })
 
+                stock_picking = self.env['stock.picking'].search([('maintenance_request_id', '=', self.id)])
+                print('stock_picking', stock_picking)
+                if stock_picking:
+                    line.do_number = stock_picking.id
+
         if self.driver_id:
             one_signal_values = {'employee_id': self.driver_id.id,
                                  'contents': _('Maintenance Request: %s approved maintenance request %s.') % (
-                                 self.driver_id.branch_id.manager_id.name, self.code),
+                                     self.driver_id.branch_id.manager_id.name, self.code),
                                  'headings': _('WB B2B : Maintenance Request Approved')}
             self.env['one.signal.notification.message'].create(one_signal_values)
         if self.vehicle_id:
             one_signal_values = {'employee_id': self.vehicle_id.incharge_id.id,
                                  'contents': _('Maintenance Request: %s approved maintenance request %s.') % (
-                                 self.driver_id.branch_id.manager_id.name, self.code),
+                                     self.driver_id.branch_id.manager_id.name, self.code),
                                  'headings': _('WB B2B : Maintenance Request Approved')}
             self.env['one.signal.notification.message'].create(one_signal_values)
         # one_signal_values = {'employee_id': self.employee_id.id,
@@ -306,8 +312,15 @@ class MaintenanceRequest(models.Model):
     #     self.state = 'reproposed'
 
     def button_start(self):
-        self.state = 'start'
         # self.start_date = datetime.now()
+        stock_picking = self.env['stock.picking'].search([('maintenance_request_id', '=', self.id)])
+        print('stock_picking', stock_picking)
+        if stock_picking:
+            if stock_picking.state == 'done':
+                self.state = 'start'
+            else:
+                raise UserError(_("You Must Done Your Delivery Order State Done First!"))
+
 
     def button_repropose(self):
         self.state = 'reproposed'
@@ -317,7 +330,7 @@ class MaintenanceRequest(models.Model):
         if self.driver_id:
             one_signal_values = {'employee_id': self.driver_id.branch_id.manager_id.id,
                                  'contents': _('Maintenance Request: %s resubmitted maintenance request %s.') % (
-                                 self.driver_id.name, self.code),
+                                     self.driver_id.name, self.code),
                                  'headings': _('WB B2B : Maintenance Request Resubmitted')}
             self.env['one.signal.notification.message'].create(one_signal_values)
 
@@ -383,19 +396,19 @@ class MaintenanceRequest(models.Model):
                             if vehicle.hr_driver_id:
                                 one_signal_values = {'employee_id': vehicle.hr_driver_id.id,
                                                      'contents': _('%s need to make on %s.') % (
-                                                     reminder.name, reminder.next_odometer),
+                                                         reminder.name, reminder.next_odometer),
                                                      'headings': _('WB B2B : PREVENTIVE REMINDER')}
                                 self.env['one.signal.notification.message'].create(one_signal_values)
                             if vehicle.incharge_id:
                                 one_signal_values = {'employee_id': vehicle.incharge_id.id,
                                                      'contents': _('%s need to make on %s.') % (
-                                                     reminder.name, reminder.next_odometer),
+                                                         reminder.name, reminder.next_odometer),
                                                      'headings': _('WB B2B : PREVENTIVE REMINDER')}
                                 self.env['one.signal.notification.message'].create(one_signal_values)
                             if vehicle.hr_manager_id:
                                 one_signal_values = {'employee_id': vehicle.hr_manager_id.id,
                                                      'contents': _('%s need to make on %s.') % (
-                                                     reminder.name, reminder.next_odometer),
+                                                         reminder.name, reminder.next_odometer),
                                                      'headings': _('WB B2B : PREVENTIVE REMINDER')}
                                 self.env['one.signal.notification.message'].create(one_signal_values)
 
@@ -540,6 +553,7 @@ class WarehouseIssue(models.Model):
     company_id = fields.Many2one('res.company', string='Company', related='line_id.company_id')
     location_id = fields.Many2one('stock.location', string='Location')
     qty = fields.Float(string='Quantity')
+    do_number = fields.Many2one('stock.picking', string='DO Number')
     product_id = fields.Many2one('product.product', string='Product')
     cost = fields.Float(string='Cost', related='product_id.standard_price')
 
