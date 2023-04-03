@@ -18,7 +18,7 @@ class EmployeeNrc(models.Model):
     nrc_prefix = fields.Many2one("res.nrc.prefix", string='Prefix')
     nrc_type = fields.Many2one("res.nrc.type", string='Type', default=_default_nrc_type)
     nrc_number = fields.Char('NRC Entry', size=6)
-    nrc = fields.Char(string='NRC', store=True)
+    nrc = fields.Char(string='NRC', compute='_compute_nrc_number', store=True)
 
     @api.onchange('nrc_region_code')
     def _onchange_nrc_region_code(self):
@@ -26,10 +26,10 @@ class EmployeeNrc(models.Model):
             if self.nrc_region_code != self.nrc_prefix.nrc_region:
                 self.nrc_prefix = False
 
-    @api.onchange('nrc_region_code', 'nrc_region_code', 'nrc_type', 'nrc_number')
-    def _onchange_nrc_number(self):
+    @api.depends('nrc_region_code', 'nrc_prefix', 'nrc_type', 'nrc_number')
+    def _compute_nrc_number(self):
         if self.nrc_region_code and self.nrc_prefix and self.nrc_type and self.nrc_number:
-            self.nrc = self.nrc_region_code.name + '/' + self.nrc_prefix.name + '(' + self.nrc_type.name + ')' + str(self.nrc_number)
+            self.nrc = f"{self.nrc_region_code.name}/{self.nrc_prefix.name}({self.nrc_type.name}){self.nrc_number}"
 
     @api.model
     def create(self, val):
