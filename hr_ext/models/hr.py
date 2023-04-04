@@ -103,14 +103,22 @@ class JobLine(models.Model):
     _name = 'job.line'
     _rec_name = 'job_id'
 
-    @api.depends('department_id')
+    @api.depends('company_id', 'branch_id', 'department_id', 'job_id')
     def _get_current_employee(self):
         for line in self:
-            current_employee = self.env['hr.employee'].search([('company_id', '=', self.env.company.id),
-                                                               ('branch_id', '=', line.branch_id.id),
-                                                               ('job_id', '=', line.job_id.id),
-                                                               ('department_id', '=', line.department_id.id)])
-            line.current_employee = len(current_employee.ids)
+            emp_count = 0
+            # Get all the employees who are under the same company, branch and job position
+            employees = self.env['hr.employee'].search([('company_id', '=', line.company_id.id),
+                                                        ('branch_id', '=', line.branch_id.id),
+                                                        ('job_id', '=', line.job_id.id),
+                                                        ('active', '=', True)])
+
+            for emp in employees:
+                # Get the total number of employees who are in the same main department
+                if line.department_id.main_dp_name == emp.department_id.main_dp_name:
+                    emp_count += 1
+
+            line.current_employee = emp_count
 
     @api.depends('total_employee', 'current_employee')
     def _get_new_employee(self):
@@ -128,10 +136,9 @@ class JobLine(models.Model):
     branch_id = fields.Many2one('res.branch', string='Branch', domain="[('company_id', '=', company_id)]")
     department_id = fields.Many2one('hr.department', string='Department',
                                     domain="[('company_id', '=', company_id), ('branch_id', '=', branch_id)]")
-    total_employee = fields.Integer(compute='_get_total_employee', string='Expected Total Employee', store=True)
-    current_employee = fields.Integer(compute='_get_current_employee', string='Current Employee', readonly=True,
-                                      store=True)
-    new_employee = fields.Integer(compute='_get_new_employee', string='Expected New Employee', readonly=True)
+    total_employee = fields.Integer(compute='_get_total_employee', string='Expected Total Employee', readonly=True)
+    current_employee = fields.Integer(compute='_get_current_employee', string='Current Employee', readonly=True)
+    new_employee = fields.Integer(compute='_get_new_employee', string='Expected New Employee')
     expected_new_employee = fields.Integer(string='New Employee')
     upper_position = fields.Many2one('hr.job', string='Upper Position', stored=True)
     normal_employee = fields.Integer(string='Normal Employee', stored=True)

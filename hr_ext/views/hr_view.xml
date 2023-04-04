@@ -188,6 +188,9 @@
             <field name="model">hr.department</field>
             <field name="inherit_id" ref="hr.view_department_tree"/>
             <field name="arch" type="xml">
+                <field name="display_name" position="replace">
+                    <field name="complete_name"/>
+                </field>
                 <field name="manager_id" position="after">
                     <field name="job_id"/>
                     <field name="branch_id"/>
