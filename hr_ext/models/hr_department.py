@@ -3,9 +3,9 @@ from odoo import fields, models, api, _
 
 class Department(models.Model):
     _inherit = 'hr.department'
-    _rec_name = 'main_dp_name'
+    _rec_name = 'parent_name'
 
-    main_dp_name = fields.Char('Main Department Name', store=True, compute='_compute_main_dp_name')
+    parent_name = fields.Char('Parent Department', store=True, compute='_compute_parent_name')
     employee_ids = fields.One2many('hr.employee', 'department_id', string='Employees')
     branch_id = fields.Many2one('res.branch', string='Branch')
     job_id = fields.Many2one('hr.job', string='Job Position')
@@ -166,15 +166,17 @@ class Department(models.Model):
                                      'approve_manager': approve_manager_id.id})
 
     @api.depends('name')
-    def _compute_main_dp_name(self):
+    def _compute_parent_name(self):
         for department in self:
             if not department.parent_id:
-                department.main_dp_name = department.name
+                department.parent_name = department.name
                 continue
             for parent in department.parent_id:
                 if not parent.parent_id:
-                    department.main_dp_name = parent.name
+                    department.parent_name = parent.name
                     continue
                 for main in parent.parent_id:
-                    department.main_dp_name = main.name
+                    department.parent_name = main.name
+
+
 
