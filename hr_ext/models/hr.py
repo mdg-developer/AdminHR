@@ -305,9 +305,9 @@ class Applicant(models.Model):
             self.nrc = self.nrc_region_code.name + '/' + self.nrc_prefix.name + '(' + self.nrc_type.name + ')' + str(
                 self.nrc_number)
 
-    nrc_region_code = fields.Many2one("res.nrc.region", string='Region', default=_default_nrc_region_code)
+    nrc_region_code = fields.Many2one("res.nrc.region", string='Region')
     nrc_prefix = fields.Many2one("res.nrc.prefix", string='Prefix')
-    nrc_type = fields.Many2one("res.nrc.type", string='Type', default=_default_nrc_type)
+    nrc_type = fields.Many2one("res.nrc.type", string='Type')
     nrc_number = fields.Char('NRC Entry', size=6)
     requisition_date = fields.Date(string="Requisition Date")
     job_announcement_date = fields.Date(string="Job Announcement Date")

@@ -14,9 +14,9 @@ class EmployeeNrc(models.Model):
     def _default_nrc_region_code(self):
         return self.env['res.nrc.region'].search([('name', '=', '12')]).id
     
-    nrc_region_code = fields.Many2one("res.nrc.region", string='Region', default=_default_nrc_region_code)
+    nrc_region_code = fields.Many2one("res.nrc.region", string='Region')
     nrc_prefix = fields.Many2one("res.nrc.prefix", string='Prefix')
-    nrc_type = fields.Many2one("res.nrc.type", string='Type', default=_default_nrc_type)
+    nrc_type = fields.Many2one("res.nrc.type", string='Type')
     nrc_number = fields.Char('NRC Entry', size=6)
     nrc = fields.Char(string='NRC', compute='_compute_nrc_number', store=True)
 
