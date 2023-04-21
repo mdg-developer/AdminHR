@@ -2,6 +2,64 @@ from odoo import api, fields, models, _
 from datetime import timedelta
 
 
+class InherHrAttendanceRaw(models.Model):
+    _inherit = "hr.attendance.raw"
+    _description = "Attendance"
+
+    time= fields.Float(string="Time",compute="_compute_time_sep",readonly=True)
+    @api.depends('attendance_datetime', 'time')
+    def _compute_time_sep(self):
+        for times in self:
+            hours=times.attendance_datetime.hour
+            min=times.attendance_datetime.minute
+            total=f"{hours}.{min}"
+            output=float(total)
+            if hours==False and min==False:
+                pass
+            times.time=output
+
+class InherHrAttendance(models.Model):
+    _inherit = "hr.attendance"
+    _description = "Attendance"
+
+    time_in= fields.Float(string="Time In",compute="_compute_time_in",readonly=True)
+    time_off= fields.Float(string="Time Out",compute="_compute_time_off",readonly=False)
+
+    @api.depends('check_in', 'time_in')
+    def _compute_time_in(self):
+        for times in self:
+            hours=times.check_in.hour
+            min=times.check_in.minute
+            total=f"{hours}.{min}"
+            output=float(total)
+            times.time_in=output
+    
+    @api.depends('check_out', 'time_in')
+    def _compute_time_off(self):
+        for times in self:
+            if times.check_out==False:
+                hours=0
+                min=0
+                total=f"{hours}.{min}"
+                output=float(total)
+                times.time_off=output
+            else:
+                hours=times.check_out.hour
+                min=times.check_out.minute
+                total=f"{hours}.{min}"
+                output=float(total)
+                times.time_off=output
+
+            
+        # for attendance in self:
+        #     if attendance.check_out:
+        #         delta = attendance.check_out - attendance.check_in
+        #         attendance.worked_hours = delta.total_seconds() / 3600.0
+        #     else:
+        #         attendance.worked_hours = False
+   # worked_hours = fields.Float(string='Worked Hours', compute='_compute_worked_hours', store=True, readonly=True)
+
+
 class EmployeeTransfer(models.Model):    
     _name = 'hr.transfer'
     _description = 'Transfers'
