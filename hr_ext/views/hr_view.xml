@@ -189,11 +189,14 @@
             <field name="inherit_id" ref="hr.view_department_tree"/>
             <field name="arch" type="xml">
                 <field name="display_name" position="replace">
-                    <field name="complete_name"/>
+                    <field name="parent_name" string="Name"/>
                 </field>
                 <field name="manager_id" position="after">
                     <field name="job_id"/>
                     <field name="branch_id"/>
+                </field>
+                <field name="parent_id" position="replace">
+                    <field name="complete_name" string="Complete Name"/>
                 </field>
             </field>
         </record>
