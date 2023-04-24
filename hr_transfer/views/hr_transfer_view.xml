@@ -7,11 +7,11 @@
         <field name="inherit_id" ref="hr_attendance_raw.view_hr_attendance_tree" />
         <field name="arch" type="xml">
 			<xpath expr="//field[@name='attendance_datetime']" position="replace" >
-				<field name="attendance_datetime" widget="date"/>
+				<field name="attendance_datetime" widget="date" string="Date"/>
 				</xpath>
 
 			<xpath expr="//field[@name='attendance_datetime']" position="after" >
-                <field name="time" widget="float_time"/>
+                <field name="time" widget="float_time" string="Time"/>
 				</xpath>
 		</field>
 		</record>
@@ -22,18 +22,18 @@
         <field name="inherit_id" ref="hr_attendance.view_attendance_tree" />
         <field name="arch" type="xml">
 				<xpath expr="//field[@name='check_in']" position="replace" >
-				<field name="check_in" widget="date"/>
+				<field name="check_in" widget="date" string="Check In Date"/>
 				</xpath>
 
 				<xpath expr="//field[@name='check_out']" position="replace" >
-				<field name="check_out" widget="date"/>
+				<field name="check_out" widget="date" string="Check Out Date"/>
 				</xpath>
                
 				<xpath expr="//field[@name='check_in']" position="after" >
-                <field name="time_in" widget="float_time"/>
+                <field name="time_in" widget="float_time" string="Check In Time"/>
 				</xpath>
 				<xpath expr="//field[@name='check_out']" position="after" >
-                <field name="time_off" widget="float_time"/>
+                <field name="time_off" widget="float_time" string="Check Out Time"/>
 				</xpath>
 
                
