@@ -115,7 +115,7 @@ class JobLine(models.Model):
 
             for emp in employees:
                 # Get the total number of employees who are in the same main department
-                if line.department_id.main_dp_name == emp.department_id.main_dp_name:
+                if line.department_id.parent_name == emp.department_id.parent_name:
                     emp_count += 1
 
             line.current_employee = emp_count
