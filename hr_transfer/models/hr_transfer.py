@@ -22,7 +22,7 @@ class InherHrAttendance(models.Model):
     _inherit = "hr.attendance"
     _description = "Attendance"
 
-    time_in= fields.Float(string="Time In",compute="_compute_time_in",readonly=True)
+    time_in= fields.Float(string="Time In",compute="_compute_time_in",readonly=False)
     time_off= fields.Float(string="Time Out",compute="_compute_time_off",readonly=False)
 
     @api.depends('check_in', 'time_in')
@@ -34,7 +34,7 @@ class InherHrAttendance(models.Model):
             output=float(total)
             times.time_in=output
     
-    @api.depends('check_out', 'time_in')
+    @api.depends('check_out', 'time_off')
     def _compute_time_off(self):
         for times in self:
             if times.check_out==False:
