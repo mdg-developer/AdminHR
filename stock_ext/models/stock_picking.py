@@ -77,3 +77,10 @@ class Orderpoint(models.Model):
     reorder_qty = fields.Float('Minimum Quantity', digits='Product Unit of Measure', required=True)
     product_min_qty = fields.Float(string="Reorder Quantity")
 
+
+class StockMove(models.Model):
+    _inherit = "stock.move"
+    _description = "Stock Move Inherit"
+
+    vehicle_id = fields.Many2one('fleet.vehicle', string='Vehicle')
+
