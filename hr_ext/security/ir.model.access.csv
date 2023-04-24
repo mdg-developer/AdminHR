@@ -15,5 +15,5 @@ access_hr_fiscal_year_user,access_hr_fiscal_year_user,model_hr_fiscal_year,hr.gr
 access_employment_new_status,access_employment_new_status,model_employment_new_status,hr.group_hr_user,1,1,1,1
 access_hr_reasons,model_hr_reasons,model_hr_reasons_status,hr.group_hr_user,1,1,1,1
 access_hr_comment,model_hr_comment,model_hr_comment_status,hr.group_hr_user,1,1,1,1
-access_hr_section,model_hr_section,model_hr_section,hr.group_hr_user,1,1,1,1
-access_hr_team,model_hr_team,model_hr_team,hr.group_hr_user,1,1,1,1
+access_hr_section,access_hr_section,model_hr_employee_section,hr.group_hr_user,1,1,1,1
+access_hr_team,access_hr_team,model_hr_employee_team,hr.group_hr_user,1,1,1,1

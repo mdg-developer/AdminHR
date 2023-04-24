@@ -180,7 +180,7 @@ class Department(models.Model):
 
 
 class HrSection(models.Model):
-    _name = "hr.section"
+    _name = "hr.employee.section"
     _description = "HR Sections"
     _rec_name = "name"
 
@@ -189,11 +189,11 @@ class HrSection(models.Model):
 
 
 class HrTeam(models.Model):
-    _name = "hr.team"
+    _name = "hr.employee.team"
     _description = "HR Teams"
     _rec_name = "name"
 
     name = fields.Char(string="Team Name")
-    section_id = fields.Many2one('hr.section', "Parent Section")
+    section_id = fields.Many2one('hr.employee.section', "Parent Section")
     department_id = fields.Many2one('hr.department', "Parent Department", related='section_id.department_id', readonly=True)
 
