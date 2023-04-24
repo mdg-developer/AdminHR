@@ -39,6 +39,10 @@
                         <field name="resource_calendar_id"/>
                     </group>
                 </xpath> -->
+                <field name="company_id" position="after">
+                    <field name="section_id" string="Section"/>
+                    <field name="team_id" string="Team"/>
+                </field>
                 <xpath expr="//field[@name='mobile_phone']" position="attributes">
                     <attribute name="required">1</attribute>
                 </xpath>
@@ -310,6 +314,5 @@
                 </xpath>
             </field>
         </record>
-
     </data>
 </odoo>

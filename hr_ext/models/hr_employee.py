@@ -54,6 +54,8 @@ class EmployeeJobBenefitLine(models.Model):
 class Employee(models.Model):
     _inherit = 'hr.employee'
 
+    section_id = fields.Many2one('hr.section', 'Section Name')
+    team_id = fields.Many2one('hr.team', 'team Name')
     ssb_no = fields.Char('SSB No')
     ssb_issue_date = fields.Date('SSB Card Issue Date')
     ssb_temporary_card = fields.Selection([

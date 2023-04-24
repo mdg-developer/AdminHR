@@ -179,4 +179,21 @@ class Department(models.Model):
                     department.parent_name = main.name
 
 
+class HrSection(models.Model):
+    _name = "hr.section"
+    _description = "HR Sections"
+    _rec_name = "name"
+
+    name = fields.Char(string="Section Name")
+    department_id = fields.Many2one('hr.department', "Parent Department")
+
+
+class HrTeam(models.Model):
+    _name = "hr.team"
+    _description = "HR Teams"
+    _rec_name = "name"
+
+    name = fields.Char(string="Team Name")
+    section_id = fields.Many2one('hr.section', "Parent Section")
+    department_id = fields.Many2one('hr.department', "Parent Department", related='section_id.department_id', readonly=True)
 

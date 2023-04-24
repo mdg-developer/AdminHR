@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_employee_section" model="ir.actions.act_window">
+            <field name="name">Sections</field>
+            <field name="res_model">hr.section</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="view_hr_section_form" model="ir.ui.view">
+            <field name="name">hr.section.form</field>
+            <field name="model">hr.section</field>
+            <field name="arch" type="xml">
+                <form string="Sections">
+                    <sheet>
+                        <group col="4">
+                            <field name="name"/>
+                            <field name="department_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_hr_section_tree" model="ir.ui.view">
+            <field name="name">hr.section.tree</field>
+            <field name="model">hr.section</field>
+            <field name="arch" type="xml">
+                <tree string="Sections">
+                    <field name="name"/>
+                    <field name="department_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_employee_team" model="ir.actions.act_window">
+            <field name="name">Teams</field>
+            <field name="res_model">hr.team</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="view_hr_teams_form" model="ir.ui.view">
+            <field name="name">hr.team.form</field>
+            <field name="model">hr.team</field>
+            <field name="arch" type="xml">
+                <form string="Teams">
+                    <sheet>
+                        <group col="4">
+                            <field name="name"/>
+                            <field name="section_id"/>
+                            <field name="department_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_hr_team_tree" model="ir.ui.view">
+            <field name="name">hr.team.tree</field>
+            <field name="model">hr.team</field>
+            <field name="arch" type="xml">
+                <tree string="Teams">
+                    <field name="name"/>
+                    <field name="section_id"/>
+                    <field name="department_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <menuitem id="menu_employee_section"
+                  name="Sections"
+                  parent="hr.menu_human_resources_configuration"
+                  action="action_employee_section"
+                  sequence="2"
+        />
+
+        <menuitem id="menu_employee_team"
+                  name="Teams"
+                  parent="hr.menu_human_resources_configuration"
+                  action="action_employee_team"
+                  sequence="3"
+        />
+
+    </data>
+</odoo>
