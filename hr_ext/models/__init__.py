@@ -4,7 +4,6 @@ from . import hr_leave_type
 from . import hr_employee
 from . import res_branch
 from . import res_company
-from . import hr_department
 from . import product
 from . import hr_pocket_expense
 from . import hr_travel_expense

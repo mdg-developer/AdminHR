@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_department_form" model="ir.ui.view">
+            <field name="name">hr.department.form.inherit</field>
+            <field name="model">hr.department</field>
+            <field name="inherit_id" ref="hr.view_department_form"/>
+            <field name="arch" type="xml">
+                <field name="company_id" position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </field>
+                <field name="parent_id" position="replace">
+                    <field name="branch_id" domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]"/>
+                </field>
+                <field name="manager_id" position="attributes">
+                   <attribute name="domain">[('job_id', '=', job_id), ('department_id', '=', active_id)]</attribute>
+                   <attribute name="required">1</attribute>
+                </field>
+                <field name="company_id" position="after">
+                    <field name="job_id"/>
+                    <field name="analytic_tag_id"
+                           domain="[('company_id', '=', company_id)]"
+                           />
+                    <field name="approve_manager"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_department_tree" model="ir.ui.view">
+            <field name="name">hr.department.tree.inherit</field>
+            <field name="model">hr.department</field>
+            <field name="inherit_id" ref="hr.view_department_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='display_name']" position="replace">
+                    <field name="name"/>
+                </xpath>
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="branch_id"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
