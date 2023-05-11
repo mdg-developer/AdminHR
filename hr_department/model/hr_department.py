@@ -6,6 +6,7 @@ class Department(models.Model):
 
     employee_ids = fields.One2many('hr.employee', 'department_id', string='Employees')
     branch_id = fields.Many2one('res.branch', string='Branch')
+    company_id = fields.Many2one('res.company', string='Company', related='branch_id.company_id', readonly=True)
     job_id = fields.Many2one('hr.job', string='Job Position')
     analytic_tag_id = fields.Many2one('account.analytic.tag', string='Analytic Tag')
     approve_manager = fields.Many2one('hr.employee', string='Approve Manager')

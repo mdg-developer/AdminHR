@@ -12,6 +12,7 @@ Branches
     'depends': ['base','base_setup','portal'],
     'data': [
             'security/ir.model.access.csv',
+            'security/res_branch_security.xml',
             'views/res_branch_view.xml',
     ],    
     'installable': True,
