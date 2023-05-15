@@ -107,16 +107,12 @@ class JobLine(models.Model):
     def _get_current_employee(self):
         for line in self:
             emp_count = 0
-            # Get all the employees who are under the same company, branch and job position
+            # Get all the employees who are under the same company, branch, department and job position
             employees = self.env['hr.employee'].search([('company_id', '=', line.company_id.id),
                                                         ('branch_id', '=', line.branch_id.id),
+                                                        ('department_id', '=', line.department_id.id),
                                                         ('job_id', '=', line.job_id.id),
                                                         ('active', '=', True)])
-
-            for emp in employees:
-                # Get the total number of employees who are in the same main department
-                if line.department_id.parent_name == emp.department_id.parent_name:
-                    emp_count += 1
 
             line.current_employee = emp_count
 
