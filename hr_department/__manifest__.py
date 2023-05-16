@@ -3,7 +3,7 @@
     'name': "Hr Department Ext Module",
 
     'description': """
-        Hr Department Ext Module
+        Hr Department, Sections and Teams
     """,
 
     'category': 'hr.department',
@@ -12,6 +12,6 @@
     'data': [
         'security/ir.model.access.csv',
         'views/hr_section_team_view.xml',
-        'views/view_department_form.xml',
+        'views/view_hr_department.xml',
     ],
 }

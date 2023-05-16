@@ -11,7 +11,6 @@
                 </field>
                 <field name="manager_id" position="attributes">
                    <attribute name="domain">[('job_id', '=', job_id), ('department_id', '=', active_id)]</attribute>
-                   <attribute name="required">1</attribute>
                 </field>
                 <field name="company_id" position="after">
                     <field name="job_id"/>
@@ -28,12 +27,15 @@
             <field name="model">hr.department</field>
             <field name="inherit_id" ref="hr.view_department_tree"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='display_name']" position="replace">
+                <field name='display_name' position="replace">
                     <field name="name"/>
-                </xpath>
-                <xpath expr="//field[@name='company_id']" position="after">
+                </field>
+                <field name='company_id' position="after">
                     <field name="branch_id"/>
-                </xpath>
+                </field>
+                <field name='parent_id' position="replace">
+
+                </field>
             </field>
         </record>
     </data>

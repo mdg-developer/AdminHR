@@ -31,6 +31,8 @@
                 <tree string="Sections">
                     <field name="name"/>
                     <field name="department_id"/>
+                    <field name="branch_id"/>
+                    <field name="company_id"/>
                 </tree>
             </field>
         </record>
@@ -67,6 +69,8 @@
                     <field name="name"/>
                     <field name="section_id"/>
                     <field name="department_id"/>
+                    <field name="branch_id"/>
+                    <field name="company_id"/>
                 </tree>
             </field>
         </record>
