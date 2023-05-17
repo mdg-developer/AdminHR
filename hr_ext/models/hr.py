@@ -9,8 +9,6 @@ class HrJob(models.Model):
     _inherit = 'hr.job'
     _description = 'Job Position'
 
-    name = fields.Char(string='Job Position', required=False, help="Job Position")
-
     @api.model
     def create(self, values):
         name = self.search([('name', '=', values['name'])])
@@ -26,11 +24,11 @@ class HrJob(models.Model):
         for job in self:
             total_emp = 0
             for line in job.job_line:
-                total_emp = total_emp + line.total_employee
+                total_emp += line.total_employee
             job.total_employee = total_emp
 
     @api.depends('total_employee', 'current_employee')
-    def compute_total_new_employee(self):
+    def compute_vacancy(self):
         for rec in self:
             rec.no_of_recruitment = 0
             if rec.total_employee >= rec.current_employee:
@@ -40,11 +38,9 @@ class HrJob(models.Model):
     def compute_current_employee(self):
         for job in self:
             total_current_emp = 0
-            current_employee = self.env['hr.employee'].search_count([('company_id', '=', self.env.company.id),
-                                                                     ('resign_date', '=', False),
-                                                                     ('job_id', '=', job.id)])
-
-            job.current_employee = current_employee
+            for line in job.job_line:
+                total_current_emp += line.current_employee
+            job.current_employee = total_current_emp
 
     def _compute_benefit_ids(self):
         benefits = self.env['hr.job.benefit'].search([('job_id', '=', self.id)])
@@ -69,16 +65,17 @@ class HrJob(models.Model):
                 if new_emp < 0:
                     raise ValidationError(_('Expected New Employee is Less Than Zero.'))
 
-    total_employee = fields.Integer(string='Expected Total Employee', compute='compute_total_employee')
-
-    new_employee = fields.Integer(string='Expected New Employee')
+    name = fields.Char(string='Job Position', required=False, help="Job Position")
     current_employee = fields.Integer(string='Current Employee', compute='compute_current_employee')
+    total_employee = fields.Integer(string='Expected Total Employee',
+                                    help='Total number of new employees expect to recruit and current employees',
+                                    compute='compute_total_employee')
+    no_of_recruitment = fields.Integer(string='Expected New Employees', copy=False,
+                                       help='Number of new employees you expect to recruit.',
+                                       compute='compute_vacancy')
     job_grade_id = fields.Many2one('job.grade', string='Job Grade')
     skill_line = fields.One2many('skill.line', 'job_id', string='Skill')
     job_line = fields.One2many('job.line', 'job_id', string='Job')
-    no_of_recruitment = fields.Integer(string='Expected New Employees', copy=False,
-                                       help='Number of new employees you expect to recruit.',
-                                       compute='compute_total_new_employee')
     appraisal_count = fields.Integer(string='Appraisals')
     benefit = fields.Char('Benefit')
     benefit_count = fields.Integer(compute='_compute_benefit_ids', string="Benefit Count")
@@ -106,39 +103,43 @@ class JobLine(models.Model):
     @api.depends('company_id', 'branch_id', 'department_id', 'job_id')
     def _get_current_employee(self):
         for line in self:
-            emp_count = 0
-            # Get all the employees who are under the same company, branch, department and job position
-            employees = self.env['hr.employee'].search([('company_id', '=', line.company_id.id),
-                                                        ('branch_id', '=', line.branch_id.id),
-                                                        ('department_id', '=', line.department_id.id),
-                                                        ('job_id', '=', line.job_id.id),
-                                                        ('active', '=', True)])
+            # Get all the total no. of employees who are under the same company, branch, department and job position
+            emp_count = self.env['hr.employee'].search_count([('company_id', '=', line.company_id.id),
+                                                              ('branch_id', '=', line.branch_id.id),
+                                                              ('department_id', '=', line.department_id.id),
+                                                              ('job_id', '=', line.job_id.id),
+                                                              ('active', '=', True)])
 
             line.current_employee = emp_count
 
-    @api.depends('total_employee', 'current_employee')
-    def _get_new_employee(self):
+    @api.depends('non_urgent_employee', 'urgent_employee')
+    def _get_expected_new_employee(self):
         for line in self:
-            line.new_employee = line.total_employee - line.current_employee
-            line.expected_new_employee = line.new_employee
+            line.new_employee = line.non_urgent_employee + line.urgent_employee
 
-    @api.depends('normal_employee', 'urgent_employee', 'current_employee')
+    @api.depends('non_urgent_employee', 'urgent_employee', 'current_employee')
     def _get_total_employee(self):
         for line in self:
-            line.total_employee = line.normal_employee + line.urgent_employee + line.current_employee
+            line.total_employee = line.non_urgent_employee + line.urgent_employee + line.current_employee
 
     job_id = fields.Many2one('hr.job', string='Job', index=True, required=True, ondelete='cascade')
     company_id = fields.Many2one('res.company', string='Company')
     branch_id = fields.Many2one('res.branch', string='Branch', domain="[('company_id', '=', company_id)]")
     department_id = fields.Many2one('hr.department', string='Department',
                                     domain="[('company_id', '=', company_id), ('branch_id', '=', branch_id)]")
-    total_employee = fields.Integer(compute='_get_total_employee', string='Expected Total Employee', readonly=True)
-    current_employee = fields.Integer(compute='_get_current_employee', string='Current Employee', readonly=True)
-    new_employee = fields.Integer(compute='_get_new_employee', string='Expected New Employee')
-    expected_new_employee = fields.Integer(string='New Employee')
-    upper_position = fields.Many2one('hr.job', string='Upper Position', stored=True)
-    normal_employee = fields.Integer(string='Normal Employee', stored=True)
+    total_employee = fields.Integer(compute='_get_total_employee', string='Expected Total Employee',
+                                    help="Number of expected total employees (=> Current Employee + Vacancy)",
+                                    readonly=True)
+    current_employee = fields.Integer(compute='_get_current_employee', string='Current Employee',
+                                      help="Number of employees currently active in this job position.",
+                                      readonly=True)
+    new_employee = fields.Integer(compute='_get_expected_new_employee',
+                                  help="Number of new employees expect to recruit (=> "
+                                       "Urgent Employee + Not Urgent Employee)",
+                                  string='Expected New Employee')
+    non_urgent_employee = fields.Integer(string='Not Urgent Employee')
     urgent_employee = fields.Integer(string='Urgent Employee')
+    upper_position = fields.Many2one('hr.job', string='Upper Position', store=True)
     job_description = fields.Html(string='Job Description')
     job_requirement = fields.Html(string='Job Requirement')
 
@@ -152,7 +153,7 @@ class JobLine(models.Model):
         return text
 
     @api.constrains('job_requirement')
-    def _check_emp_no(self):
+    def _check_requirement_len(self):
         if self.job_requirement:
             rec = self.job_requirement
             reg = re.compile(r'<[^>]+>')
@@ -171,7 +172,7 @@ class JobLine(models.Model):
         return text
 
     @api.constrains('job_description')
-    def _check_emp_no(self):
+    def _check_description_len(self):
         if self.job_description:
             rec = self.job_description
             reg = re.compile(r'<[^>]+>')
@@ -179,6 +180,17 @@ class JobLine(models.Model):
 
             if len(text) < 1 or len(text) > 8000:
                 raise ValidationError('Minimum must be 1 characters and Maximum 8000')
+
+    @api.constrains('company_id', 'branch_id', 'department_id', 'upper_position')
+    def _check_duplicate_line(self):
+        # Check if the same Job Line existed
+        line_id = self.env['job.line'].search(
+            [('company_id', '=', self.company_id.id), ('branch_id', '=', self.branch_id.id),
+             ('department_id', '=', self.department_id.id),
+             ('id', '!=', self.id)])
+        if line_id:
+            raise ValidationError(_('Job Line can’t create because Company, Branch, Department are '
+                                    'same!'))
 
     def write(self, vals):
         old_job_id = old_manager_id = False
@@ -208,31 +220,7 @@ class JobLine(models.Model):
                             if emp_direct_mng:
                                 employee.write(
                                     {'manager_job_id': res.upper_position.id, 'parent_id': emp_direct_mng.id})
-
-        # Check if the same Job Line existed
-        if vals.get('company_id') or vals.get('branch_id') or vals.get('department_id') or vals.get('upper_position'):
-            line_id = self.env['job.line'].search(
-                [('company_id', '=', vals.get('company_id') or self.company_id.id),
-                 ('branch_id', '=', vals.get('branch_id') or self.branch_id.id),
-                 ('department_id', '=', vals.get('department_id') or self.department_id.id),
-                 ('upper_position', '=', vals.get('upper_position') or self.upper_position.id)])
-            if line_id:
-                raise ValidationError(
-                    _('Job Line can’t create because Company, Branch, Department, Upper Position are same!'))
-
         return super(JobLine, self).write(vals)
-
-    @api.model
-    def create(self, vals):
-        # Check if the same Job Line existed
-        line_id = self.env['job.line'].search(
-            [('company_id', '=', vals['company_id']), ('branch_id', '=', vals['branch_id']),
-             ('department_id', '=', vals['department_id']), ('upper_position', '=', vals['upper_position'])])
-        if line_id:
-            raise ValidationError(_('Job Line can’t create because Company, Branch, Department, Upper Position  are '
-                                    'same!'))
-
-        return super(JobLine, self).create(vals)
 
 
 class HrEmploymentStatus(models.Model):

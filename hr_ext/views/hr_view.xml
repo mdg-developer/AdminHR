@@ -76,7 +76,7 @@
                                     <field name="total_employee"/>
                                     <field name="current_employee"/>
                                     <field name="new_employee" string="Vacancy"/>
-                                    <field name="normal_employee"/>
+                                    <field name="non_urgent_employee"/>
                                     <field name="urgent_employee"/>
                                 </tree>
                                 <form>
@@ -124,7 +124,6 @@
                     <field name="current_employee" string="Current Number of Employees"/>
                 </xpath>
                 <xpath expr="//field[@name='no_of_recruitment']" position="replace">
-                    <field name="new_employee" string="Vacancy"/>
                 </xpath>
                 <xpath expr="//field[@name='expected_employees']" position="replace">
                 </xpath>
