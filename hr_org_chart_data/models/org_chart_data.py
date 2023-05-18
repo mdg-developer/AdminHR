@@ -187,9 +187,9 @@ class HROrgChartData(models.Model):
                                                             FROM hr_employee
                                                             WHERE hr_employee.active = true AND hr_employee.id = hd.manager_id
                                                             LIMIT 1) is null THEN ''::character varying
-                            WHEN hd.manager_id IS NOT NULL and hd.job_id is not null THEN concat('<p style="color:red;">vacant</p>','(',line.expected_new_employee,')')::character varying
+                            WHEN hd.manager_id IS NOT NULL and hd.job_id is not null THEN concat('<p style="color:red;">vacant</p>','(',line.new_employee,')')::character varying
                             WHEN hd.job_id is not null and hd.manager_id IS null  THEN ''::character varying
-                            WHEN hd.job_id is null THEN concat('<p style="color:red;">vacant</p>','(',line.expected_new_employee,')')::character varying                            
+                            WHEN hd.job_id is null THEN concat('<p style="color:red;">vacant</p>','(',line.new_employee,')')::character varying                            
                         END AS employee_name,
                     hj.name AS job_title,
                     line.department_id as parent_id,
@@ -198,7 +198,7 @@ class HROrgChartData(models.Model):
                     on line.job_id=hj.id
                     left join hr_department hd on line.job_id=hd.job_id and line.department_id=hd.id
                     where hj.state='recruit'
-                    --and line.expected_new_employee > 0
+                    --and line.new_employee > 0
                     and line.total_employee > (select count(id) from hr_employee where job_id=line.job_id and company_id=line.company_id 
                     and branch_id=line.branch_id and department_id=line.department_id and active='t' and resign_date is null)
                     and line.company_id is not null 
