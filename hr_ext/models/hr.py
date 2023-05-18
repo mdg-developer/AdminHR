@@ -129,14 +129,14 @@ class JobLine(models.Model):
                                     domain="[('company_id', '=', company_id), ('branch_id', '=', branch_id)]")
     total_employee = fields.Integer(compute='_get_total_employee', string='Expected Total Employee',
                                     help="Number of expected total employees (=> Current Employee + Vacancy)",
-                                    readonly=True)
+                                    readonly=True, store=True)
     current_employee = fields.Integer(compute='_get_current_employee', string='Current Employee',
                                       help="Number of employees currently active in this job position.",
-                                      readonly=True)
+                                      readonly=True, store=True)
     new_employee = fields.Integer(compute='_get_expected_new_employee',
                                   help="Number of new employees expect to recruit (=> "
                                        "Urgent Employee + Not Urgent Employee)",
-                                  string='Expected New Employee')
+                                  string='Expected New Employee', store=True)
     non_urgent_employee = fields.Integer(string='Not Urgent Employee')
     urgent_employee = fields.Integer(string='Urgent Employee')
     upper_position = fields.Many2one('hr.job', string='Upper Position', store=True)
