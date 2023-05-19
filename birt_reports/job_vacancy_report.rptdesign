@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
-    <property name="createdBy">Eclipse BIRT Designer Version 4.10.0.v202204260816</property>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.24" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.13.0.v202301192028</property>
     <property name="units">in</property>
     <property name="theme">report_library.defaultTheme</property>
     <property name="iconFile">/templates/blank_report.gif</property>
@@ -13,7 +13,7 @@
         </structure>
     </list-property>
     <data-sources>
-        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="5516"
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="5517"
  extends="report_library.Data Source"/>
     </data-sources>
     <data-sets>
@@ -201,7 +201,6 @@
                     </structure>
                 </list-property>
             </structure>
-            <property name="dataSource">Data Source</property>
             <list-property name="resultSet">
                 <structure>
                     <property name="position">1</property>
@@ -325,10 +324,10 @@ hdp.name as x_section,
 hj.name as x_position,
 jg.name as x_job_grade,
 jl.urgent_employee as x_urgent,
-jl.normal_employee as x_not_urgent,
+jl.non_urgent_employee as x_not_urgent,
 jl.total_employee as x_total,
 jl.current_employee as x_current,
-jl.expected_new_employee as x_vacancy,
+jl.new_employee as x_vacancy,
 hj.name as x_replacement,
 (select STRING_AGG(DISTINCT to_char(hrap.job_announcement_date, 'YYYY-MM-DD'), ', ') from hr_applicant hrap
 left join hr_job job ON job.id = hrap.job_id
