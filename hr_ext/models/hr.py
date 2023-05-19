@@ -187,7 +187,7 @@ class JobLine(models.Model):
         line_id = self.env['job.line'].search(
             [('company_id', '=', self.company_id.id), ('branch_id', '=', self.branch_id.id),
              ('department_id', '=', self.department_id.id),
-             ('id', '!=', self.id)])
+             ('job_id', '=', self.job_id.id), ('id', '!=', self.id)])
         if line_id:
             raise ValidationError(_('Job Line can’t create because Company, Branch, Department are '
                                     'same!'))
