@@ -250,6 +250,8 @@ class Applicant(models.Model):
 
     job_line_id = fields.Many2one('job.line', string='Applied Job',
                                   domain="[('company_id', '=', company_id),('branch_id', '=', branch_id),('department_id','=',department_id)]")
+    section_id = fields.Many2one('hr.employee.section', string="Section", domain="[('department_id','=',department_id)]")
+    team_id = fields.Many2one('hr.employee.team', string="Team", domain="[('section_id','=',section_id)]")
     date_of_birth = fields.Date('Date Of Birth')
     nrc = fields.Char('NRC')
     qualification = fields.Char('Qualification')

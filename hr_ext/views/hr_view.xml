@@ -163,6 +163,8 @@
                 </xpath>
                 <xpath expr="//field[@name='company_id']" position="after">
                     <field name="branch_id" domain="[('company_id', '=', company_id)]"/>
+                    <field name="section_id" domain="[('department_id', '=', department_id)]"/>
+                    <field name="team_id" domain="[('section_id','=', section_id)]"/>
                 </xpath>
                 <xpath expr="//field[@name='source_id']" position="after">
                     <field name="replace_for"/>
@@ -198,7 +200,7 @@
                     <field name="qualification"/>
                     <field name="noticed_period"/>
                 </xpath>
-                <xpath expr="//field[@name='branch_id']" position="after">
+                <xpath expr="//field[@name='team_id']" position="after">
                     <field name="send_offer"/>
                     <field name="offer_date"/>
                     <field name="applied_date"/>
