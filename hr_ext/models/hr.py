@@ -183,14 +183,15 @@ class JobLine(models.Model):
 
     @api.constrains('company_id', 'branch_id', 'department_id', 'upper_position')
     def _check_duplicate_line(self):
-        # Check if the same Job Line existed
-        line_id = self.env['job.line'].search(
-            [('company_id', '=', self.company_id.id), ('branch_id', '=', self.branch_id.id),
-             ('department_id', '=', self.department_id.id),
-             ('job_id', '=', self.job_id.id), ('id', '!=', self.id)])
-        if line_id:
-            raise ValidationError(_('Job Line can’t create because Company, Branch, Department are '
-                                    'same!'))
+        for line in self:
+            # Check if the same Job Line existed
+            line_id = self.env['job.line'].search(
+                [('company_id', '=', line.company_id.id), ('branch_id', '=', line.branch_id.id),
+                 ('department_id', '=', line.department_id.id),
+                 ('job_id', '=', line.job_id.id), ('id', '!=', line.id)])
+            if line_id:
+                raise ValidationError(_('Job Line can’t create because Company, Branch, Department are '
+                                        'same!'))
 
     def write(self, vals):
         old_job_id = old_manager_id = False
