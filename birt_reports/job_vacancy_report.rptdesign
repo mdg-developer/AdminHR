@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.24" id="1">
-    <property name="createdBy">Eclipse BIRT Designer Version 4.13.0.v202301192028</property>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.10.0.v202204260816</property>
     <property name="units">in</property>
     <property name="theme">report_library.defaultTheme</property>
     <property name="iconFile">/templates/blank_report.gif</property>
@@ -13,7 +13,7 @@
         </structure>
     </list-property>
     <data-sources>
-        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="5517"
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="5519"
  extends="report_library.Data Source"/>
     </data-sources>
     <data-sets>
@@ -201,6 +201,7 @@
                     </structure>
                 </list-property>
             </structure>
+            <property name="dataSource">Data Source</property>
             <list-property name="resultSet">
                 <structure>
                     <property name="position">1</property>
@@ -320,7 +321,7 @@ rc.name as x_company,
 rb.name as x_branch,
 he.work_location as x_location,
 hd.name as x_department,
-hdp.name as x_section,
+sec.name as x_section,
 hj.name as x_position,
 jg.name as x_job_grade,
 jl.urgent_employee as x_urgent,
@@ -343,7 +344,7 @@ from job_line jl
 left join res_company rc on rc.id = jl.company_id
 left join res_branch rb ON rb.id = jl.branch_id
 left join hr_department hd ON hd.id = jl.department_id
-left join hr_department hdp ON hdp.id = hd.parent_id
+left join hr_employee_section sec ON sec.department_id = hd.id
 left join hr_job hj ON hj.id = jl.job_id
 left join job_grade jg ON jg.id = hj.job_grade_id
 left join hr_applicant hap ON hap.job_id = hj.id

@@ -8,11 +8,11 @@ class EmployeeNrc(models.Model):
 
     @api.model
     def _default_nrc_type(self):
-        return self.env['res.nrc.type'].search([('name', '=', 'N')]).id
+        return self.env['res.nrc.type'].search([('name', '=', 'N')], limit=1).id
 
     @api.model
     def _default_nrc_region_code(self):
-        return self.env['res.nrc.region'].search([('name', '=', '12')]).id
+        return self.env['res.nrc.region'].search([('name', '=', '12')], limit=1).id
     
     nrc_region_code = fields.Many2one("res.nrc.region", string='Region')
     nrc_prefix = fields.Many2one("res.nrc.prefix", string='Prefix')

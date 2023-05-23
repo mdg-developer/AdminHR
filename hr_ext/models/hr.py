@@ -100,17 +100,13 @@ class JobLine(models.Model):
     _name = 'job.line'
     _rec_name = 'job_id'
 
-    @api.depends('company_id', 'branch_id', 'department_id', 'job_id')
+    @api.depends('company_id', 'branch_id', 'department_id', 'job_id', 'job_id.employee_ids')
     def _get_current_employee(self):
         for line in self:
-            # Get all the total no. of employees who are under the same company, branch, department and job position
-            emp_count = self.env['hr.employee'].search_count([('company_id', '=', line.company_id.id),
-                                                              ('branch_id', '=', line.branch_id.id),
-                                                              ('department_id', '=', line.department_id.id),
-                                                              ('job_id', '=', line.job_id.id),
-                                                              ('active', '=', True)])
+            # Get all the total active employees who are under the same company, branch, department and job position
+            emp_ids = line.job_id.employee_ids.filtered(lambda emp: emp.company_id == line.company_id and emp.branch_id == line.branch_id and emp.department_id == line.department_id and emp.active is True)
 
-            line.current_employee = emp_count
+            line.current_employee = len(emp_ids.ids)
 
     @api.depends('non_urgent_employee', 'urgent_employee')
     def _get_expected_new_employee(self):
@@ -183,14 +179,15 @@ class JobLine(models.Model):
 
     @api.constrains('company_id', 'branch_id', 'department_id', 'upper_position')
     def _check_duplicate_line(self):
-        # Check if the same Job Line existed
-        line_id = self.env['job.line'].search(
-            [('company_id', '=', self.company_id.id), ('branch_id', '=', self.branch_id.id),
-             ('department_id', '=', self.department_id.id),
-             ('job_id', '=', self.job_id.id), ('id', '!=', self.id)])
-        if line_id:
-            raise ValidationError(_('Job Line can’t create because Company, Branch, Department are '
-                                    'same!'))
+        for line in self:
+            # Check if the same Job Line existed
+            line_id = self.env['job.line'].search(
+                [('company_id', '=', line.company_id.id), ('branch_id', '=', line.branch_id.id),
+                 ('department_id', '=', line.department_id.id),
+                 ('job_id', '=', line.job_id.id), ('id', '!=', line.id)])
+            if line_id:
+                raise ValidationError(_('Job Line can’t create because Company, Branch, Department are '
+                                        'same!'))
 
     def write(self, vals):
         old_job_id = old_manager_id = False
@@ -250,6 +247,9 @@ class Applicant(models.Model):
 
     job_line_id = fields.Many2one('job.line', string='Applied Job',
                                   domain="[('company_id', '=', company_id),('branch_id', '=', branch_id),('department_id','=',department_id)]")
+    section_id = fields.Many2one('hr.employee.section', string="Section",
+                                 domain="[('department_id','=',department_id)]")
+    team_id = fields.Many2one('hr.employee.team', string="Team", domain="[('section_id','=',section_id)]")
     date_of_birth = fields.Date('Date Of Birth')
     nrc = fields.Char('NRC')
     qualification = fields.Char('Qualification')

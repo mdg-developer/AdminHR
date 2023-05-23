@@ -75,7 +75,7 @@
         </scalar-parameter>
     </parameters>
     <data-sources>
-        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="5453"
+        <oda-data-source extensionID="org.eclipse.birt.report.data.oda.jdbc" name="Data Source" id="5456"
  extends="report_library.Data Source"/>
     </data-sources>
     <data-sets>
@@ -86,6 +86,18 @@
                     <property name="analysis">dimension</property>
                     <text-property name="displayName">job_position</text-property>
                     <text-property name="heading">job_position</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">department</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">department</text-property>
+                    <text-property name="heading">department</text-property>
+                </structure>
+                <structure>
+                    <property name="columnName">section</property>
+                    <property name="analysis">dimension</property>
+                    <text-property name="displayName">section</text-property>
+                    <text-property name="heading">section</text-property>
                 </structure>
                 <structure>
                     <property name="columnName">seq</property>
@@ -143,21 +155,31 @@
                     </structure>
                     <structure>
                         <property name="position">2</property>
-                        <property name="name">seq</property>
-                        <property name="dataType">decimal</property>
+                        <property name="name">department</property>
+                        <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">3</property>
-                        <property name="name">month</property>
+                        <property name="name">section</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">4</property>
-                        <property name="name">total</property>
+                        <property name="name">seq</property>
                         <property name="dataType">decimal</property>
                     </structure>
                     <structure>
                         <property name="position">5</property>
+                        <property name="name">month</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">total</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
                         <property name="name">count</property>
                         <property name="dataType">decimal</property>
                     </structure>
@@ -174,34 +196,49 @@
                 </structure>
                 <structure>
                     <property name="position">2</property>
+                    <property name="name">department</property>
+                    <property name="nativeName">department</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">section</property>
+                    <property name="nativeName">section</property>
+                    <property name="dataType">string</property>
+                    <property name="nativeDataType">12</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
                     <property name="name">seq</property>
                     <property name="nativeName">seq</property>
                     <property name="dataType">decimal</property>
                     <property name="nativeDataType">-5</property>
                 </structure>
                 <structure>
-                    <property name="position">3</property>
+                    <property name="position">5</property>
                     <property name="name">month</property>
                     <property name="nativeName">month</property>
                     <property name="dataType">string</property>
                     <property name="nativeDataType">12</property>
                 </structure>
                 <structure>
-                    <property name="position">4</property>
+                    <property name="position">6</property>
                     <property name="name">total</property>
                     <property name="nativeName">total</property>
                     <property name="dataType">decimal</property>
                     <property name="nativeDataType">-5</property>
                 </structure>
                 <structure>
-                    <property name="position">5</property>
+                    <property name="position">7</property>
                     <property name="name">count</property>
                     <property name="nativeName">count</property>
                     <property name="dataType">decimal</property>
                     <property name="nativeDataType">-5</property>
                 </structure>
             </list-property>
-            <xml-property name="queryText"><![CDATA[SELECT hd.main_dp_name as job_position,
+            <xml-property name="queryText"><![CDATA[SELECT hrj.name as job_position,
+hd.name as department, sec.name as section,
 	ROW_NUMBER() OVER(
     ORDER BY CONCAT(TO_CHAR(hr.joining_date, 'Month'), TO_CHAR(hr.joining_date, 'YYYY')) ASC
 	) seq,
@@ -213,12 +250,12 @@ COUNT(*) total,
 ) count
 FROM hr_employee hr
 LEFT JOIN hr_job hrj ON hrj.id=hr.job_id
-LEFT JOIN hr_department hdp ON hdp.id = hr.department_id
-LEFT JOIN hr_department hd on hd.parent_id = hdp.id
+LEFT JOIN hr_department hd on hd.id = hr.department_id
+LEFT JOIN hr_employee_section sec ON sec.department_id = hd.id
 WHERE hd.name IS NOT NULL AND hr.active=true
 AND hr.joining_date BETWEEN ? and ?
 AND hr.active=true
-GROUP BY hd.main_dp_name,
+GROUP BY hrj.name, hd.name, sec.name,
 CONCAT(TO_CHAR(hr.joining_date, 'Month'), TO_CHAR(hr.joining_date, 'YYYY'))]]></xml-property>
             <xml-property name="designerValues"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
 <model:DesignValues xmlns:design="http://www.eclipse.org/datatools/connectivity/oda/design" xmlns:model="http://www.eclipse.org/birt/report/model/adapter/odaModel">

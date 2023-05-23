@@ -1,0 +1,26 @@
+<odoo>
+<record model="ir.ui.view" id="hr_applicaation_view_form_inherit">
+            <field name="name">Jobs - Recruitment Form</field>
+            <field name="model">hr.applicant</field>
+            <field name="inherit_id" ref="hr_ext.hr_applicant_view_form_inherit"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//field[@name='job_id']" position="replace">
+                    <field name="job_id" invisible="1"/>
+                 
+                </xpath>
+                 <xpath expr="//field[@name='job_line_id']" position="before">
+                    <field name="company_id"/>
+                 
+                </xpath>
+
+                 <xpath expr="//field[@name='company_id']" position="after">
+                      <field name="branch_id" domain="[('company_id', '=', company_id)]"/>
+                      <field name="department_id"
+                           domain="[('company_id', '=', company_id),('branch_id', '=', branch_id)]"/>
+                    <field name="section_id" domain="[('department_id', '=', department_id)]"/>
+                     <field name="team_id" domain="[('section_id','=', section_id)]"/>
+                 
+                </xpath>
+            </field>
+</record>
+</odoo>

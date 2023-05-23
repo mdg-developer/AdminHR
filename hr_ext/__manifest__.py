@@ -55,6 +55,7 @@ Job Position Customization
             'views/res_partner_view.xml',
             'views/hr_reasons_view.xml',
             'views/hr_comment_view.xml',
+            'views/hr_application.xml',
     ],
     'installable': True,
     'auto_install': False,
