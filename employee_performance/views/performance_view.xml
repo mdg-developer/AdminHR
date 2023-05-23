@@ -113,11 +113,11 @@
             <field name="name">hr.job.tree</field>
             <field name="model">hr.job</field>
             <field name="arch" type="xml">
-                <tree string="Job Position">
+                <tree string="Job Positions">
                     <field name="name" string="Job Position"/>
                     <field name="department_id"/>
-                    <field name="no_of_employee"/>
-                    <field name="no_of_recruitment"/>
+                    <field name="total_employee" string="Total Expected Employees"/>
+                    <field name="current_employee" string="Current Number of Employees"/>
                     <field name="template_id"/>
                     <field name="comp_template_id"/>
                 </tree>
