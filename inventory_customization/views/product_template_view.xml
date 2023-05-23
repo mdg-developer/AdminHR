@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id='product_template_only_form_view_inherit' model='ir.ui.view'>
+            <field name='name'>product.template.only.form.view.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='uom_id']" position="after">
+                    <field name="report_uom_id" string="Report UOM"/>
+                </xpath>
+                <xpath expr="//field[@name='uom_id']" position="replace">
+                    <field name="uom_id" string="Base UOM"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
